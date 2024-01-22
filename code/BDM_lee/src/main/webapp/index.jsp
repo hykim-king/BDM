@@ -21,6 +21,9 @@
 <script src="${CP}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${CP}/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
+<script type="text/javascript">
+
+</script>
 
 <title>Insert title here</title>
 </head>
@@ -31,7 +34,7 @@
 	    <a class="nav-link active" aria-current="page" href="<c:url value='/login/loginView.do' />">로그인</a>
 	  </li>
 	  <li class="nav-item">
-        <a class="nav-link" href="<c:url value='/user/doRegister.do' />">회원가입</a>
+        <a class="nav-link" href="<c:url value='/user/moveToReg.do' />">회원가입</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<c:url value='/template/viewBlank.do' />">blank</a>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.bdm.user">
+
+
+    <select id="idDuplicateCheck" parameterType="UserVO" resultType="int">
+         SELECT                   
+            COUNT(*) cnt         
+         FROM                     
+            users                
+         WHERE id = #{id}   
+   </select>
+
+    <insert id="doSave" parameterType="UserVO">
+        INSERT INTO users (  
+            id,
+            no,
+		    pw,
+		    email,
+		    name,
+		    birth,
+		    gender,
+		    height,
+		    weight,
+		    reg_dt
+                      
+        ) VALUES (           
+            #{id},
+            users_seq.NEXTVAL,
+            #{pw},
+            #{email},
+            #{name},
+            #{birth},
+            #{gender},
+            #{height},
+            #{weight},
+            SYSDATE
+        )                        
+    </insert>
+
+</mapper>
