@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<c:set var="CP" value="${pageContext.request.contextPath}" />    
 <!DOCTYPE html>
 <html>
 <head>
-
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 </head>
 <body>
+user:${user}
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
@@ -27,7 +28,7 @@
     <a class="nav-link" href="#">새로운 네비게이션 탭</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    <a class="nav-link" href="/bdm/login/loginView.do">로그인</a>
   </li>
 </ul>
 </body>
