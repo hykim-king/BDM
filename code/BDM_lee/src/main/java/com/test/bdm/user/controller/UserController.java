@@ -25,8 +25,7 @@ public class UserController implements PcwkLogger {
 	
 	
 	//http://localhost:8080/ehr/user/idDuplicateCheck.do?userId='p8-03'
-	@RequestMapping(value="/idDuplicateCheck.do",method = RequestMethod.GET
-			,produces = "application/json;charset=UTF-8")
+	@RequestMapping(value="/idDuplicateCheck.do",method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public String idDuplicateCheck(UserVO inVO) throws SQLException {
 		String jsonString = "";  
@@ -48,8 +47,7 @@ public class UserController implements PcwkLogger {
 	}
 	
 	//등록
-	@RequestMapping(value="/doSave.do",method = RequestMethod.POST
-			,produces = "application/json;charset=UTF-8")
+	@RequestMapping(value="/doSave.do",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public String doSave(UserVO inVO) throws SQLException{
 		String jsonString = "";

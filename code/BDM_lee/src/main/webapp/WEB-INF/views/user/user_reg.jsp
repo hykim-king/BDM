@@ -14,10 +14,18 @@
 	<script>
 	
 	
-	    $( document ).ready(function() {
+	    /* $( document ).ready(function() {
 	        console.log( "ready!" );
 	        
-	    });/* document */
+	        const idDuBtn = document.querySelector("#");
+	        
+	        idDuBtn.adde=("click", function(e){
+	        	
+	        });
+	        
+	        
+	        
+	    }); */
 	    
 	    function moveToList(){
 	        console.log("--------------");
@@ -205,8 +213,10 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <!-- 나머지 body 내용 -->
-                <form action="#" method="get">
+                <form action="#" method="userRegFrm">
                     <!-- 회원가입에 필요한 필드들을 추가하세요 -->
+                    <%-- id중복체크 수행 여부 확인:0(미수행),1(수행) --%>
+                    <input type="hidden" name="idCheck" id="idCheck" value="0">
                     <div class="mb-3">
                         <label for="id" class="form-label">아이디</label>
                         <input type="text" class="form-control ppl_input" name="id" id="id" placeholder="아이디를 입력하시오" size="20" maxlength="30">
