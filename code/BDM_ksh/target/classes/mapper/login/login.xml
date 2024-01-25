@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.bdm.login">
+    <!-- idCheck -->
+    
+    <select id="idCheck" parameterType="com.test.bdm.user.UserVO" resultType="int">
+         SELECT                   
+            COUNT(*) cnt         
+         FROM                     
+            userss                
+         WHERE id = #{userId}      
+    </select>
+    
+    <!-- idPassCheck -->
+    <select id="idPassCheck" parameterType="com.test.bdm.user.UserVO" resultType="int">
+         SELECT                   
+            COUNT(*) cnt         
+         FROM                     
+            userss                
+         WHERE id = #{userId} 
+         AND   pw = #{password}        
+    </select>
+        
+    <!-- login -->
+    <select id="doSelectOne" parameterType="com.test.bdm.user.UserVO" resultType="UserVO">
+			 SELECT
+			    id,
+			    no,
+			    pw,
+			    email,
+			    name,
+			    birth,
+			    gender,
+			    height,
+			    weight,
+			    reg_dt,
+			    user_filter
+			FROM
+			    userss    
+         	WHERE id = #{userId}     
+    </select>    
+
+
+</mapper>
