@@ -51,7 +51,7 @@
 	        user_filter
         ) VALUES (          
             #{id},
-            userss_seq.NEXTVAL,
+            users_seq.NEXTVAL,
             #{pw},
             #{email},
             #{name},

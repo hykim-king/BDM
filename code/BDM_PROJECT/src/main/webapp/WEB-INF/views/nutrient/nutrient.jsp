@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
-<%@ page import="java.util.HashMap" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,9 +18,11 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	const doRetrieveBtn = document.querySelector("#doRetrieve");
-	<%
-	HashMap<String, String> map = new HashMap<String, String>();
-	%>
+	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
+	
+	moveToMyPageBtn.addEventListener("click", function(e){
+		window.location.href = "/bdm/food/doCancle.do";
+	});
 	
     //목록버튼 이벤트 감지
     doRetrieveBtn.addEventListener("click",function(e){
@@ -53,11 +54,11 @@ document.addEventListener("DOMContentLoaded", function(){
 			
 			if(confirm(name + '을/를 선택하시겠습니까?')==false) return;
 			
-			window.location.href = "${CP}/food/selectFood.do?code="+code + "&name=" + name;
+			window.location.href = "${CP}/food/doSelectFood.do?code="+code + "&name=" + name;
 			
-			/* $.ajax({
+			$.ajax({
 	            type: "GET",
-	            url:"/bdm/food/selectFood.do",
+	            url:"${CP}/food/showSelectedFoods.do",
 	            asyn:"true",
 	            dataType:"json",
 	            data:{
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	            complete:function(data){
 	                console.log("complete:"+data);
 	            }
-	        }); */
+	        });
         });
     });
 });
@@ -79,7 +80,8 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-    map: ${map }
+    ${user } <br/>
+    selectedFoodList: ${selectedFoodList }
     <div class = "container">
         <div class = "row">
             <div class = "col-lg-12">
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function(){
             <input type = "hidden" name = "pageNo" id = "pageNo"/>
             <div class = "col-auto">
                 <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." value = "${paramVO.searchWord }">
-                <input type = "button" value = "취소">
+                <input type = "button" value = "취소" id = "moveToMyPage">
                 <input type = "button" value = "검색" id = "doRetrieve">
             </div>
         </form>
@@ -126,6 +128,30 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <td class = "text-center"><c:out value="${vo.fat }" escapeXml = "true"/></td>
                                 <td class = "text-center"><c:out value="${vo.sugars }" escapeXml = "true"/></td>
                                 <td class = "text-center"><c:out value="${vo.weight }" escapeXml = "true"/></td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan = "99" class = "text-center">조회된 음식이 없습니다.</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+            </tbody>
+        </table>
+        
+        <table class = "table table-bordered border-primary table-hover table-striped" id = "selectedTable">
+            <thead>
+                <tr>
+                    <th scope = "col" class = "text-center">선택한 음식</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:choose>
+                    <c:when test="${not empty selectedFoods }">
+                        <c:forEach var = "vo" items = "${selectedFoodList }" varStatus = "status">
+                            <tr>
+                                <td class = "text-center"><c:out value="${selectedFoodList.get(status.index) }" escapeXml = "true"/></td>
                             </tr>
                         </c:forEach>
                     </c:when>

@@ -14,7 +14,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     console.log("DOMContentLoaded");
     
-    const moveToHomeBtn = document.querySelector("#moveToHome");
+    const moveToMainBtn = document.querySelector("#moveToMain");
     // const moveToListBtn = document.getElementById("moveToList");
     const doSaveBtn = window.document.querySelector("#doSave");
     const regForm = document.querySelector("#userRegFrm");
@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
     
-    moveToHomeBtn.addEventListener("click", function(e){
-        console.log("moveToHomeBtn");
+    moveToMainBtn.addEventListener("click", function(e){
+        console.log("moveToMainBtn");
         
-        window.location.href = "/bdm/user/moveToHome.do";
+        window.location.href = "/bdm/beforeMain/moveToMain.do";
     });
     
     doCheckEmailBtn.addEventListener("click", function(e){
@@ -216,14 +216,14 @@ document.addEventListener("DOMContentLoaded", function(){
                 weight: document.querySelector("#weight").value
             },
             success:function(data){//통신 성공     
-                console.log("success data:"+data);
+               console.log("success data:"+data);
                let parsedJSON = JSON.parse(data);
                if("1" === parsedJSON.msgId){
                    alert(parsedJSON.msgContents);
                }else{
                    alert(parsedJSON.msgContents);
                }
-            
+               window.location.href = "/bdm/beforeMain/moveToMain.do";
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function(){
        <div class = "row justify-content-end">
            <div class = "col-auto">
                <input type="button" class="btn btn-primary" value="가입하기" id="doSave">
-               <input type="button" class="btn btn-primary" value="돌아가기" id="moveToHome" >
+               <input type="button" class="btn btn-primary" value="돌아가기" id="moveToMain" >
            </div>
        </div>
          <!--// Button영역 ------------------------------------------------------>
