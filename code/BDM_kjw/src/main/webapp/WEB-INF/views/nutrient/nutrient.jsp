@@ -54,8 +54,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			if(confirm(name)==false) return;
 			
 			console.log('등록 성공');
-			console.log(code);
-			<% map.put(code, name);%>
+			console.log(code);\
         });
     });
 });
