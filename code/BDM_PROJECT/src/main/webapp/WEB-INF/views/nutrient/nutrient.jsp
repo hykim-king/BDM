@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	            },
 	            success:function(data){   
 	               console.log('선택 완료');
+	               window.location.href = "${CP}/food/doSelectFood.do";
 	            },
 	            error:function(data){
 	                console.log("error:"+data);
@@ -81,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function(){
 </head>
 <body>
     ${user } <br/>
-    selectedFoodList: ${selectedFoodList }
+    selectedFoodList: ${selectedFoodList } <br/>
+    selectedCodeList: ${selectedCodeList }
     <div class = "container">
         <div class = "row">
             <div class = "col-lg-12">
@@ -148,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function(){
             </thead>
             <tbody>
                 <c:choose>
-                    <c:when test="${not empty selectedFoods }">
+                    <c:when test="${not empty selectedFoodList }">
                         <c:forEach var = "vo" items = "${selectedFoodList }" varStatus = "status">
                             <tr>
                                 <td class = "text-center"><c:out value="${selectedFoodList.get(status.index) }" escapeXml = "true"/></td>

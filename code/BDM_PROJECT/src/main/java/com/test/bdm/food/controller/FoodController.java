@@ -3,37 +3,56 @@ package com.test.bdm.food.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.bdm.food.service.FoodService;
 import com.test.bdm.nutrient.domain.NutrientVO;
 
 @Controller
 @RequestMapping("food")
-@SessionAttributes("selectedFoodList")
+@SessionAttributes({"selectedFoodList", "selectedCodeList"})
 public class FoodController {
+	
+	@Autowired
+	FoodService foodService;
 
     @ModelAttribute("selectedFoodList")
     public List<String> initializeselectedFoodList() {
         return new ArrayList<>();
     }
+    
+    @ModelAttribute("selectedCodeList")
+    public List<String> initializeselectedCodeList() {
+        return new ArrayList<>();
+    }
+    
+    @PostMapping(value = "/doSaveFood.do", produces = "application/json;charset=UTF-8")
+    public String doSaveFood(@ModelAttribute("selectedFoodCode") List<String> selectedFoodCode,
+    		NutrientVO inVO) {
+    	String jsonString = "";
+    	
+    	int flag = foodService.doSaveFood(selectedFoodCode);
+    	
+    	return jsonString;
+    }
 	
 	@GetMapping("/doSelectFood.do")
     public String doSelectFood(@ModelAttribute("selectedFoodList") List<String> selectedFoodList,
+    		@ModelAttribute("selectedCodeList") List<String> selectedCodeList,
     		NutrientVO inVO) {
-        // DB에서 foodId에 해당하는 음식 정보를 가져와서 selectedFoods에 추가
-//    	NutrientVO selectedFood = foodService.getFoodById(foodId);
 		String code = inVO.getCode();
 		String name = inVO.getName();
 		
-        selectedFoodList.add(code);
+		selectedCodeList.add(code);
         selectedFoodList.add(name);
-        
         
         return "nutrient/nutrient";
     }
@@ -56,8 +75,10 @@ public class FoodController {
     
     @GetMapping("/showSelectedFoods")
     public ModelAndView showSelectedFoods(@ModelAttribute("selectedFoodList") List<String> selectedFoodList,
+    		@ModelAttribute("selectedCodeList") List<String> selectedCodeList,
     		ModelAndView modelAndView) {
         // 선택한 음식 목록과 해당 음식들의 영양분 합을 계산하여 모델에 추가
+    	modelAndView.addObject("selectedCodeList", selectedCodeList);
     	modelAndView.addObject("selectedFoodList", selectedFoodList);
 //        model.addAttribute("totalNutrients", calculateTotalNutrients(selectedFoods));
         return modelAndView;
