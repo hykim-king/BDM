@@ -52,7 +52,7 @@
                         document.querySelector("#pw").focus();                 
                     }else if("30" == data.msgId){
                         alert(data.msgContents);
-                        //window.location.href = "/bdm/main/mainView.do";
+                        window.location.href = "/bdm/main/mainView.do";
                     }
                 },
                 error:function(data){//실패시 처리
