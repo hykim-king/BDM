@@ -25,9 +25,9 @@
 	                WHERE name LIKE '%' || #{searchWord} || '%'
 	                ORDER BY name ASC
 	            )T1
-	          <![CDATA[   WHERE ROWNUM <=10 ]]>
+	          <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
 	        )TT1
-	        <![CDATA[ WHERE rnum >= 1 ]]>
+	        <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo}-1) + 1 ]]>
 	    )A
 	    CROSS JOIN (
 	        SELECT COUNT(*) totalCnt

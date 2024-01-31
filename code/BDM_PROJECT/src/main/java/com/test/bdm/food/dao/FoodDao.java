@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface FoodDao {
 
-	int doSaveFood(List<String> selectedFoodCode);
+	int doSaveFood(String userId, List<String> selectedFoodCode);
 }

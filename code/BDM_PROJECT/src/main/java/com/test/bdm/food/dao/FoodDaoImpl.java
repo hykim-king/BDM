@@ -1,5 +1,6 @@
 package com.test.bdm.food.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,11 +21,23 @@ public class FoodDaoImpl implements FoodDao, PcwkLogger {
 	public FoodDaoImpl() {}
 
 	@Override
-	public int doSaveFood(List<String> selectedFoodCode) {
+	public int doSaveFood(String userId, List<String> selectedFoodCode) {
 		int count = 0;
 		
+		HashMap<String, String> map = new HashMap<>();
+		
+		LOG.debug("==========================================");
+		LOG.debug("====" + userId + "======");
+		LOG.debug("====" + selectedFoodCode + "======");
+		LOG.debug("==========================================");
+		
 		for(int i=0; i<selectedFoodCode.size(); i++) {
-			count += sqlSessionTemplate.insert(NAMESPACE + DOT + "doSaveFood", selectedFoodCode.get(i));
+			String foodCode = selectedFoodCode.get(i);
+			map.put("userId", userId);
+			map.put("foodCode", foodCode);
+			LOG.debug("map: " + map);
+			count += sqlSessionTemplate.insert(NAMESPACE + DOT + "doSaveFood", map);
+			map.clear();
 		}
 		
 		if(count == selectedFoodCode.size()) {

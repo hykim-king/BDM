@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 public interface FoodService {
 	
-	int doSaveFood(List<String> selectedFoodCode);
+	int doSaveFood(String userId, List<String> selectedFoodCode);
 
 }

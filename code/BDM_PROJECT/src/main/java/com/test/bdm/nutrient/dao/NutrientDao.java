@@ -9,5 +9,5 @@ public interface NutrientDao {
 	
 	List<NutrientVO> doRetrieve(NutrientVO inVO) throws SQLException;
 	
-	
+	List<NutrientVO> doRetrieveOneDay() throws SQLException;
 }
