@@ -13,28 +13,7 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
    
-   <!-- LocaleChangeInterceptor등록, id생략 -->
-   <mvc:interceptors>
-    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="lang"></property> <!-- lang parameter로 locale이 전송되면 해당 locale로 변경 -->
-    </bean>
-   </mvc:interceptors>
-   
-   <!-- LocaleResolver : 지역(en,ko,....) id="localeResolver" 고정 -->
-   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
-   
-   <!-- 다국어 처리: id="messageSource" 고정 -->
-   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-      <property name="basenames">
-        <list>
-            <value>message.messageSource</value><!-- locale생략 -->
-        </list>
-      </property>
-      <property name="cacheSeconds">
-        <value>60</value> <!-- 60초 동안 캐시 -->
-      </property>
-      
-   </bean>
+
    
    <!-- 파일업로드:  
    multipartResolver" : 이름 변경하면 않됨!
