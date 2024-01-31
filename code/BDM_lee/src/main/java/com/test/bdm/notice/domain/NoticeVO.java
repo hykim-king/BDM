@@ -13,16 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor//모든인자 생성자
 public class NoticeVO extends DTO {
 	
-	private String post_no;
+	private int    postNo;
     private String title;
     private String contents;
-    private String reg_dt;
-    private String read_cnt;
+    private String regDt;
+    private int    readCnt;
     private String id;
     
 	@Override
 	public String toString() {
-		return "NoticeVO [post_no=" + post_no + ", title=" + title + ", contents=" + contents + ", reg_dt=" + reg_dt
-				+ ", read_cnt=" + read_cnt + ", id=" + id + ", toString()=" + super.toString() + "]";
+		return "NoticeVO [postNo=" + postNo + ", title=" + title + ", contents=" + contents + ", regDt=" + regDt
+				+ ", readCnt=" + readCnt + ", id=" + id + ", toString()=" + super.toString() + "]";
 	}
 }

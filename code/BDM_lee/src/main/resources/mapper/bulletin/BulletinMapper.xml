@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.bdm.bulletin">
+
   <update id="updateReadCnt" parameterType="BulletinVO">
     <![CDATA[
     UPDATE bulletin
@@ -55,8 +56,8 @@
 	            FROM bulletin
 	            --WHERE 검색
 	            WHERE 1=1
-<!-- 	            <include refid="divCondition"/>
- -->	            <include refid="searchCondition"/>
+<!--  	            <include refid="divCondition"/>
+ 	            <include refid="searchCondition"/> -->
 	            ORDER BY mod_dt DESC
 	        )T1   --10,20,30,...
 	      <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
@@ -69,8 +70,8 @@
 	    FROM bulletin
 	    --WHERE 검색
         WHERE 1=1
-<!--         <include refid="divCondition"/>	    
- -->	    <include refid="searchCondition"/>
+<!--          <include refid="divCondition"/>	    
+	     <include refid="searchCondition"/> -->
 	)B  
   </select>
 
@@ -112,7 +113,7 @@
 
   <delete id="doDelete" parameterType="BulletinVO">
 	DELETE FROM bulletin
-	WHERE   post_no = #{postNo}  
+	WHERE   post_no = #{postNo}
   </delete>
   
   

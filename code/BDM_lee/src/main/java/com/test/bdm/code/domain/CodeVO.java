@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor //default 생성자
 @AllArgsConstructor//모든인자 생성자
 public class CodeVO extends DTO {
+	
 	private String category;
 	private int div;
 	private String divName;
