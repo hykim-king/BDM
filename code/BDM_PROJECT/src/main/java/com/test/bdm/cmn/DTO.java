@@ -2,41 +2,34 @@ package com.test.bdm.cmn;
 
 public class DTO {
 
-	private long no;      //글번호
-	private long totalCnt;//총글수
-	private long pageSize;//페이지 사이즈:10,20,30,50,100
-	private long pageNo;  //페이지 번호:1,2,3...
-	
-	private String searchDiv;//검색구분
-	private String searchWord;//검색어
-	
-	public DTO() {}
+	private long no; // 글번호
+	private long totalCnt;// 총글수
+	private long pageSize;// 페이지 사이즈:10,20,30,50,100
+	private long pageNo; // 페이지 번호:1,2,3...
 
-	
-	
+	private String searchDiv;// 검색구분
+	private String searchWord;// 검색어
+
+	private String regDt; // 등록 날짜
+
+	public DTO() {
+	}
+
 	public String getSearchDiv() {
 		return searchDiv;
 	}
-
-
 
 	public void setSearchDiv(String searchDiv) {
 		this.searchDiv = searchDiv;
 	}
 
-
-
 	public String getSearchWord() {
 		return searchWord;
 	}
 
-
-
 	public void setSearchWord(String searchWord) {
 		this.searchWord = searchWord;
 	}
-
-
 
 	public long getNo() {
 		return no;
@@ -70,12 +63,19 @@ public class DTO {
 		this.totalCnt = totalCnt;
 	}
 
+	public String getRegDt() {
+		return regDt;
+	}
 
+	public void setRegDt(String regDt) {
+		this.regDt = regDt;
+	}
 
 	@Override
 	public String toString() {
 		return "DTO [no=" + no + ", totalCnt=" + totalCnt + ", pageSize=" + pageSize + ", pageNo=" + pageNo
-				+ ", searchDiv=" + searchDiv + ", searchWord=" + searchWord + "]";
+				+ ", searchDiv=" + searchDiv + ", searchWord=" + searchWord + ", regDt=" + regDt + ", toString()="
+				+ super.toString() + "]";
 	}
 
 }

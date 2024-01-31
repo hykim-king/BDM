@@ -1,10 +1,12 @@
 package com.test.bdm.cmn;
 
 public class MessageVO extends DTO {
-	private String msgId;//메시지ID
-	private String msgContents;//메지시 내용
-	
-	public MessageVO() {}
+
+	private String msgId; // 메세지 id
+	private String msgContents; // 메세지 내용
+
+	public MessageVO() {
+	}
 
 	public MessageVO(String msgId, String msgContents) {
 		super();
@@ -32,6 +34,5 @@ public class MessageVO extends DTO {
 	public String toString() {
 		return "MessageVO [msgId=" + msgId + ", msgContents=" + msgContents + "]";
 	}
-	
-	
+
 }

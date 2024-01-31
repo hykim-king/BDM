@@ -210,3 +210,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,windows,macos,java
 /target/
 /.idea/
+/BDM_PROJECT/

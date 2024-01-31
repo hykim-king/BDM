@@ -20,4 +20,10 @@ public class NutrientServiceImpl implements NutrientService {
 		return dao.doRetrieve(inVO);
 	}
 
+	@Override
+	public List<NutrientVO> doRetrieveOneDay() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

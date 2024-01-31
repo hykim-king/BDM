@@ -7,4 +7,6 @@ import com.test.bdm.nutrient.domain.NutrientVO;
 
 public interface NutrientService {
 	List<NutrientVO> doRetrieve(NutrientVO inVO) throws SQLException;
+	
+	List<NutrientVO> doRetrieveOneDay() throws SQLException;
 }

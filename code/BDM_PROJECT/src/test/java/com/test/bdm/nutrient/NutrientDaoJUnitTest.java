@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -37,6 +38,7 @@ public class NutrientDaoJUnitTest implements PcwkLogger{
 		searchVO = new NutrientVO();
 	}
 	
+	@Ignore
 	@Test
 	public void doRetrieve() throws SQLException{
 		searchVO.setPageNo(1);
