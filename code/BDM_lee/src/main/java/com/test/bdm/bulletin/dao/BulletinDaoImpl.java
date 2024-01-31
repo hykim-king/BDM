@@ -11,10 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.PcwkLogger;
 @Repository
-public class BulletinDaoImpl implements BulletinDao,PcwkLogger {
+public class BulletinDaoImpl implements BulletinDao, PcwkLogger {
 	final String NAMESPACE = "com.test.bdm.bulletin";
 	final String DOT       = ".";
-	
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;

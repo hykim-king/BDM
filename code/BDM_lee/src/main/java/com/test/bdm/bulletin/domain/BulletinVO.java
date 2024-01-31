@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter  //getter
 @NoArgsConstructor //default 생성자
 @AllArgsConstructor//모든인자 생성자
-public class BulletinVO extends DTO{
+public class BulletinVO extends DTO {
 
 	private int postNo;
 	private String title;
@@ -22,14 +22,10 @@ public class BulletinVO extends DTO{
 	private String id;
 	private String modId;
 	
-	
 	@Override
 	public String toString() {
 		return "BulletinVO [postNo=" + postNo + ", title=" + title + ", contents=" + contents + ", regDt=" + regDt
 				+ ", modDt=" + modDt + ", readCnt=" + readCnt + ", id=" + id + ", modId=" + modId + ", toString()="
 				+ super.toString() + "]";
 	}
-
-	
-	
 }

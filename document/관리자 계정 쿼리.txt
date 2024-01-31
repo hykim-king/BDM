@@ -1,0 +1,2 @@
+INSERT INTO USERS VALUES('MN_KIM', users_seq.NEXTVAL, '1234', 'kjew03@gmail.com', '김지우', 980120, 1, 184, 75, SYSDATE, 1);
+COMMIT;
