@@ -1,186 +1,67 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.test.bdm.user">
-
-
-
-
-   <select id="idDuplicateCheck" parameterType="com.test.bdm.user.UserVO" resultType="int">
-         SELECT                   
-            COUNT(*) cnt         
-         FROM                     
-            userss                
-         WHERE ID = #{userId}   
-   </select>
-
-    <sql id="searchCondition">
-	    <where>
-	        <choose>
-	            <when test="searchDiv !=null and searchDiv == '10'">
-	                id = #{searchWord}
-	            </when>
-                <when test="searchDiv !=null and searchDiv == '20'">
-                    name LIKE #{searchWord} ||'%'
-                </when>
-                <when test="searchDiv !=null and searchDiv == '30'">
-                    email LIKE #{searchWord} ||'%'
-                </when>                  	            
-	        </choose>
-	           
-	    </where>            
-    </sql>
-
-    <select id="doRetrieve" parameterType="com.test.bdm.user.UserVO" resultType="com.test.bdm.user.UserVO">
-        
-		SELECT A.*,B.*
-		FROM(
-		    SELECT TT1.rnum AS no,
-		           TT1.id,
-		           TT1.name,
-		           TT1.u_level as levelIntValue ,
-		           TT1.login,
-		           TT1.recommend,
-		           TT1.email,
-		           DECODE( TO_CHAR(TT1.reg_dt,'YYYY-MM-DD'),TO_CHAR(SYSDATE,'YYYY-MM-DD')
-		                   ,TO_CHAR(TT1.reg_dt,'HH24:MI')
-		                   ,TO_CHAR(TT1.reg_dt,'YYYY-MM-DD')) AS reg_dt
-		    FROM (
-		        SELECT ROWNUM AS rnum, T1.*
-		        FROM (SELECT *
-		              FROM userss
-		              --WHERE조건 id(10),name(20),email(30),
-                      <include refid="searchCondition"></include>
-		              ORDER BY reg_dt desc
-		        )T1      
-           
-		     <![CDATA[   WHERE ROWNUM <= ( #{pageSize} * (#{pageNo} - 1)+ #{pageSize} ) 
-		    )TT1
-		    WHERE rnum >= ( #{pageSize} * (#{pageNo} - 1)+ 1 ) ]]>
-		)A
-		CROSS JOIN
-		(
-		    SELECT COUNT(*) total_cnt
-		    FROM userss
-		    --WHERE조건
-            <include refid="searchCondition"></include>		    
-		)B
-        
+  
+  <mapper namespace="com.test.bdm.user">
+    <!-- <resultMap type="UserVO"  id="userMap">
+        <result column = "id" property = "id"/>
+        <result column = "nm" property = "nm"/>
+        <result column = "pw" property = "pw"/>
+        <result column = "email" property = "email"/>
+        <result column = "name" property = "name"/>
+        <result column = "birth" property = "birth"/>
+        <result column = "gender" property = "gender"/>
+        <result column = "height" property = "height"/>
+        <result column = "weight" property = "weight"/>
+        <result column = "reg_dt" property = "regDt"/>
+        <result column = "user_filter" property = "userFilter"/>
+    </resultMap> -->
+    
+    <select id="doCheckEmail" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE email IN(#{email})
     </select>
     
-    
-    <resultMap type="com.test.bdm.user.UserVO" id="userMap">
-        <result column="ID"         property="userId"/>
-        <result column="NO"         property="No"/> 
-        <result column="PW"         property="password"/>
-        <result column="EMAIL"      property="email"/>
-        <result column="NAME"       property="name"/>
-        <result column="BIRTH"      property="birth"/>
-        <result column="GENDER"     property="gender"/>
-        <result column="HEIGHT"     property="height"/>
-        <result column="WEIGHT"     property="weight"/>
-        <result column="USERFILTER" property="master"/>  
-        <result column="REGDT"      property="regDt"/>  
-                     
-    </resultMap>
-    
-    <select id="getAll" parameterType="com.test.bdm.user.UserVO" resultMap="userMap">
-		 SELECT  t1.id,                                      
-		         t1.name,                                         
-		         t1.password ,                                     
-		         t1.u_level,                                      
-		         t1.login,                                        
-		         t1.recommend,                                    
-		         t1.email,                                        
-		         TO_CHAR(t1.reg_dt,'YYYY-MM-DD HH24:MI:SS') reg_dt
-		 FROM                                                     
-		    userss t1                                             
-		 WHERE id LIKE #{userId}||'%'                                
-		 ORDER BY id                                      
-    </select>
-
-    <select id="getCount" resultType="int" parameterType="com.test.bdm.user.UserVO">
-	     SELECT                   
-	        COUNT(*) cnt         
-		 FROM                     
-		    userss               
-		 WHERE id LIKE #{userId} ||'%'
-    </select>
-
-
-    <update id="doUpdate" parameterType="com.test.bdm.user.UserVO">
-	     UPDATE userss             
-		 SET name       = #{name}       
-		     ,password  = #{password}       
-		     ,u_level   = #{levelIntValue}       
-		     ,login     = #{login}       
-		     ,recommend = #{recommend}       
-		     ,email     = #{email}       
-		     ,reg_dt    = SYSDATE 
-		 WHERE                    
-		     user_id = #{userId}          
-    </update>
-
-
-
-
-    <select id="doSelectOne" parameterType="com.test.bdm.user.UserVO" 
-    resultType="com.test.bdm.user.UserVO">
-		SELECT             
-		    id,
-		    no,
-		    pw,
-		    email,
-		    name,
-		    birth,
-		    gender,
-		    height,
-		    weight,
-		    user_filter,		    
-		    reg_dt    
-		 FROM               
-		     userss          
-		 WHERE id = #{userId}      
+    <select id="doCheckPassword" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE pw IN(#{pw})
     </select>
     
-
-
-    <insert id="doSave" parameterType="com.test.bdm.user.UserVO">
+    <select id="doCheckId" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE id IN(#{id})
+    </select>
     
-        INSERT INTO userss (
-		    id,
-		    no,
-		    pw,
-		    email,
-		    name,
-		    birth,
-		    gender,
-		    height,
-		    weight,
-		    user_filter,		    
-		    reg_dt
-		) VALUES (
-		     #{userId},
-		     userss_seq.NEXTVAL,
-		     #{password},
-		     #{email},
-		     #{name},
-		     #{birth},
-		     #{gender},
-		     #{height},
-		     #{weight},
-		     2,
-		     SYSDATE
-		)
-
+    <insert id="doSave" parameterType = "com.test.bdm.user.domain.UserVO">
+        INSERT INTO users(
+	        id,
+	        no,
+	        pw,
+	        email,
+	        name,
+	        birth,
+	        gender,
+	        height,
+	        weight,
+	        reg_dt,
+	        user_filter
+        ) VALUES (          
+            #{id},
+            users_seq.NEXTVAL,
+            #{pw},
+            #{email},
+            #{name},
+            #{birth},
+            #{gender},
+            #{height},
+            #{weight},
+            SYSDATE,
+            2
+        )                   
     </insert>
-
-
-    <delete id="doDelete" parameterType="com.test.bdm.user.UserVO">
-	    DELETE FROM userss 
-	    WHERE  id = #{userId}
-    </delete>
-
-</mapper>  
+    
+  </mapper>
