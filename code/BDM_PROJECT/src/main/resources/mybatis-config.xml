@@ -13,5 +13,6 @@
         <typeAlias type="com.test.bdm.user.domain.UserVO" alias="UserVO"/>
         <typeAlias type="com.test.bdm.nutrient.domain.NutrientVO" alias="NutrientVO"/>
         <typeAlias type="com.test.bdm.bulletin.domain.BulletinVO" alias="BulletinVO"/>
+        <typeAlias type="com.test.bdm.code.domain.CodeVO" alias="CodeVO"/>
     </typeAliases>
 </configuration>

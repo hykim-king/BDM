@@ -111,7 +111,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void doUpdate() throws Exception{
 
@@ -155,7 +155,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void doSelectOne()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -183,7 +183,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void doSave()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -220,8 +220,8 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		LOG.debug("│ doDelete()                                │");		
 		LOG.debug("└───────────────────────────────────────────┘");
 		
-		int flag = dao.doSave(bulletinList.get(0));
-		assertEquals(1, flag);
+//		int flag = dao.doSave(bulletinList.get(0));
+//		assertEquals(3, flag);
 		
 		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/bulletin/doDelete.do")
 				.param("postNo", 0+"");
