@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.test</groupId>
 	<artifactId>bdm</artifactId>
-	<name>BDM_hsm</name> 
+	<name>BDM_kjw</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -34,27 +33,15 @@
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 		<commons-fileupload.version>1.5</commons-fileupload.version>
 		<lombok.version>1.18.30</lombok.version>
-		<jackson.version>2.16.0</jackson.version>
-		<poi.version>5.2.2</poi.version>
+		<jackson-databind.version>2.16.0</jackson-databind.version>
 	</properties>
-	<dependencies>               
 	
-		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi</artifactId>
-		    <version>${poi.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi-ooxml</artifactId>
-		    <version>${poi.version}</version> <!-- 현재 버전인지 확인 필요 -->
-		</dependency>
+	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
-		    <version>${jackson.version}</version>
+		    <version>${jackson-databind.version}</version>
 		</dependency>
 	
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -64,14 +51,12 @@
 		    <version>${lombok.version}</version>
 		    <scope>provided</scope>
 		</dependency>
-		
-			
-		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+	
+	    <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>${commons-fileupload.version}</version>
-		    
 		</dependency>
 	
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
@@ -323,4 +308,4 @@
 			</plugin>
 		</plugins>
 	</build>
-</project>                                                          
+</project>
