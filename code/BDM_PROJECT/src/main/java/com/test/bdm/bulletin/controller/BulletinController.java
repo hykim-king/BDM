@@ -33,7 +33,7 @@ import com.test.bdm.code.service.CodeService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("bulletin")
 public class BulletinController implements PcwkLogger {
 
 	@Autowired

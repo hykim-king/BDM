@@ -1,4 +1,4 @@
-package com.test.bdm.nutrient;
+package com.test.bdm.nutrient.dao;
 
 import static org.junit.Assert.assertNotNull;
 

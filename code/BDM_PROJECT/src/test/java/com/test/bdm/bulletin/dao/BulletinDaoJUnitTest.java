@@ -58,6 +58,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		searchVO.setPostNo(205);
 	}
 	
+	@Ignore
 	@Test
 	public void delete() throws SQLException {
 		int flag = dao.doDelete(searchVO);
@@ -135,7 +136,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 	
 	
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void addAndGet() throws SQLException {
 

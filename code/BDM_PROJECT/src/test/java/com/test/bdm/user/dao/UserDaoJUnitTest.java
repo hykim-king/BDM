@@ -1,4 +1,4 @@
-package com.test.bdm.user;
+package com.test.bdm.user.dao;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
