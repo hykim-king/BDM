@@ -9,5 +9,7 @@ public interface NutrientDao {
 	
 	List<NutrientVO> doRetrieve(NutrientVO inVO) throws SQLException;
 	
-	List<NutrientVO> doRetrieveOneDay() throws SQLException;
+	NutrientVO doRetrieveOneDay(String userId, String formatedNow) throws SQLException;
+	
+	NutrientVO doRetrieveWeek(String userId, String startDate, String finishDate) throws SQLException;
 }

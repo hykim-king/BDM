@@ -51,16 +51,16 @@ public class BulletinController implements PcwkLogger {
 	public String moveToReg(Model model, BulletinVO inVO) throws SQLException {
 		String viewName = "";
 
-		// DIV코드 조회
-		//// Map<String, Object> codes=new HashMap<String, Object>();
-		// String[] codeStr = {"BULLETIN_DIV"};
-		// codes.put("code", codeStr);
-
-		// List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-		// model.addAttribute("divCode", codeList);
-		// model.addAttribute("paramVO", inVO);
-
-		// model.addAttribute("title", title);
+//		// DIV코드 조회
+//		// Map<String, Object> codes=new HashMap<String, Object>();
+//		 String[] codeStr = {"BULLETIN_DIV"};
+//		 codes.put("code", codeStr);
+//
+//		 List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+//		 model.addAttribute("divCode", codeList);
+//		 model.addAttribute("paramVO", inVO);
+//
+//		 model.addAttribute("title", title);
 
 		viewName = "board/bulletin";
 		return viewName;
@@ -125,7 +125,7 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 
 		// 뷰
-		modelAndView.setViewName("bulletin/bulletin_list");// /WEB-INF/views/board/board_list.jsp
+		modelAndView.setViewName("board/bulletin_list");// /WEB-INF/views/board/board_list.jsp
 		// Model
 		modelAndView.addObject("list", list);
 		// 검색데이터

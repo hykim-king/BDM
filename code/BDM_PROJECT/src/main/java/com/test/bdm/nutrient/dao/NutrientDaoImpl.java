@@ -1,6 +1,7 @@
 package com.test.bdm.nutrient.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -31,11 +32,28 @@ public class NutrientDaoImpl implements NutrientDao, PcwkLogger {
 	}
 
 	@Override
-	public List<NutrientVO> doRetrieveOneDay() throws SQLException {
+	public NutrientVO doRetrieveOneDay(String userId, String formatedNow) throws SQLException {
 		
-		List<NutrientVO> list = sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveOneDay");
-		LOG.debug("list:"+list);
-		return  list;
+		HashMap<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("formatedNow", formatedNow);
+		
+		NutrientVO outVO = sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doRetrieveOneDay", map);
+		LOG.debug("outVO:"+outVO);
+		return  outVO;
+	}
+
+	@Override
+	public NutrientVO doRetrieveWeek(String userId, String startDate, String finishDate) throws SQLException {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("startDate", startDate);
+		map.put("finishDate", finishDate);
+		
+		NutrientVO outVO = sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doRetrieveWeek", map);
+		LOG.debug("outVO:"+outVO);
+		return  outVO;
 	}
 
 }

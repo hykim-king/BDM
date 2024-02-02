@@ -123,9 +123,4 @@ public class FoodController implements PcwkLogger {
         
         return "user/mypage";
     }
-
-//    private NutrientInfo calculateTotalNutrients(List<NutrientVO> selectedFoods) {
-//        // 선택한 음식들의 영양분 합을 계산하는 로직
-//        // ...
-//    }
 }

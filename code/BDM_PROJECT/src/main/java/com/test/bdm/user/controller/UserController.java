@@ -1,22 +1,7 @@
 package com.test.bdm.user.controller;
 
 import java.sql.SQLException;
-
-import javax.mail.Transport;
-import javax.mail.Message;
-import javax.mail.Address;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.mail.Session;
-import javax.mail.Authenticator;
- import java.util.Properties;
- import com.test.bdm.cmn.DTO;
  import com.test.bdm.user.domain.UserVO;
- import com.test.bdm.user.confirm.SHA256;
- import com.test.bdm.user.confirm.Gmail;
- import java.io.PrintWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
-import com.test.bdm.user.domain.UserVO;
 import com.test.bdm.user.service.UserService;
 
 @Controller

@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded",function(){
 	console.log("DOMContentLoaded");
 	
 	//javasript 선택자 
-	const moveToRegBTN  = document.querySelector("#moveToReg");
-	const doRetrieveBTN = document.querySelector("#doRetrieve");//목록 버튼
- 	
+	//const moveToRegBTN  = document.querySelector("#moveToReg");
+	//onst doRetrieveBTN = document.querySelector("#doRetrieve");//목록 버튼
+
 	//form submit방지
 	const bulletinForm = document.querySelector("#bulletinForm");
 	const searchWordTxt = document.querySelector("#searchWord");
@@ -27,27 +27,27 @@ document.addEventListener("DOMContentLoaded",function(){
 	         //클릭된 행의 모든 셀(td)을 가져 오기		
 			 let cells = row.getElementsByTagName("td");
 			 const postNo   = cells[5].innerText;
-			 console.log('postNo:'+postNo);
+			 console.log('seq:'+seq);
 
        //javascript
        if(confirm('상세 조회 하시겠어요?')==false) return;
-    	    let div = document.querySelector("#div").value;
+    	    let divs = document.querySelector("#divs").value;
     	    console.log('divs:'+divs);
-            window.location.href = "${CP}/bulletin/doSelectOne.do?seq="+seq+"&divs="+divs;   
+            window.location.href = "${CP}/board/doSelectOne.do?seq="+seq+"&divs="+divs;   
 
 		});
 	});
 
 	
 	
-	moveToRegBTN.addEventListener("click",function(e){
-		console.log("moveToRegBTN click");
-		boardForm.pageNo.value = "1";/*null 처리 필수*/
-		boardForm.div.value = document.querySelector("#divs").value;
-		boardForm.action = "/bdm/bulletin/moveToReg.do";
-		boardForm.submit();
+// 	moveToRegBTN.addEventListener("click",function(e){
+// 		console.log("moveToRegBTN click");
+// 		boardForm.pageNo.value = "1";/*null 처리 필수*/
+// 		boardForm.divs.value = document.querySelector("#divs").value;
+// 		boardForm.action = "/bdm/bulletin/moveToReg.do";
+// 		boardForm.submit();
 		
-	});
+// 	});
 	
 	
 	
@@ -66,11 +66,11 @@ document.addEventListener("DOMContentLoaded",function(){
 		
 	});
 	
-	//목록버튼 이벤트 감지
-	doRetrieveBTN.addEventListener("click",function(e){
-		console.log("doRetrieve click");
-		doRetrieve(1);
-	});
+// 	//목록버튼 이벤트 감지
+// 	doRetrieveBTN.addEventListener("click",function(e){
+// 		console.log("doRetrieve click");
+// 		doRetrieve(1);
+// 	});
 	
 	function doRetrieve(pageNo){
 		console.log("doRetrieve pageNO:"+pageNo);
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded",function(){
 	
 	
 	//검색조건 변경!:change Event처리 
-	searchDivsSelect.addEventListener("change",function(e){
+	searchDivSelect.addEventListener("change",function(e){
 		console.log("change:"+e.target.value);
 		
 		let chValue = e.target.value;
@@ -152,7 +152,7 @@ function pageDoRerive(url,pageNo){
                      <option value="title">제목</option>
                      <option value="contents">내용</option>                    
 	                 <c:forEach var="vo" items="${bulletinSearch }">
-	                    <option value="<c:out value='${vo.divs}'/>"  <c:if test="${vo.divs == paramVO.searchDivs }">selected</c:if>  ><c:out value="${vo.div_name}"/></option>
+	                    <option value="<c:out value='${vo.divs}'/>"  <c:if test="${vo.divs == paramVO.searchDiv }">selected</c:if>  ><c:out value="${vo.div_name}"/></option>
 	                 </c:forEach>
               </select>
           </div>    
@@ -200,8 +200,17 @@ function pageDoRerive(url,pageNo){
             <tbody>
                 <c:choose>
                     <c:when test="${ not empty list }">
-                        <!-- 반복문 -->
-                        
+	                        <!-- 반복문 -->
+	                    <c:forEach var="vo" items="${list}" varStatus="status">
+			                <tr>
+			                  <td class="text-center col-lg-1  col-sm-1"><c:out value="${vo.postNo}" escapeXml="true"/> </th>
+			                  <td class="text-left   col-lg-7  col-sm-8" ><c:out value="${vo.title}" escapeXml="true"/></td>
+			                  <td class="text-center col-lg-2  col-sm-1"><c:out value="${vo.modDt}" escapeXml="true"/></td>
+			                  <td class="            col-lg-1 "><c:out value="${vo.id}" /></td>
+			                  <td class="text-end    col-lg-1 "><c:out value="${vo.readCnt}" /></td>
+			                  <td  style="display: none;"><c:out value="${vo.seq}" /></td>
+			                </tr>              
+	             	 </c:forEach>     
                         <!--// 반복문 -->
                     </c:when>
                     <c:otherwise>

@@ -12,6 +12,7 @@ public class NutrientVO extends DTO {
 	private double fat;
 	private double sugars;
 	private int weight;
+
 	public NutrientVO() {
 		super();
 	}

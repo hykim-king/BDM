@@ -9,13 +9,28 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.user.dao.UserDao;
 import com.test.bdm.user.domain.UserVO;
 
-@Service
-public class UserServiceImpl implements PcwkLogger, UserService {
-	
+@Service("userServiceImpl")
+public class UserServiceImpl implements UserService, PcwkLogger {
+
 	@Autowired
 	private UserDao userDao;
 	
 	public UserServiceImpl() {}
+	
+	@Override
+	public int doCheckPassword(UserVO inVO) throws SQLException {
+		return userDao.doCheckPassword(inVO);
+	}
+
+	@Override
+	public int doCheckEmail(UserVO inVO) throws SQLException {
+		return userDao.doCheckEmail(inVO);
+	}
+
+	@Override
+	public int doCheckId(UserVO inVO) throws SQLException {
+		return userDao.doCheckId(inVO);
+	}
 
 	@Override
 	public int doSave(UserVO inVO) throws SQLException {
