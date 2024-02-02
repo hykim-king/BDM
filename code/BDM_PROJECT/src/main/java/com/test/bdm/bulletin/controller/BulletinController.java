@@ -45,8 +45,7 @@ public class BulletinController implements PcwkLogger {
 	@Autowired
 	MessageSource messageSource;// ResourceBundleMessageSource가 주입됨
 
-	public BulletinController() {
-	}
+	public BulletinController() {}
 
 	@GetMapping(value = "/moveToReg.do")
 	public String moveToReg(Model model, BulletinVO inVO) throws SQLException {

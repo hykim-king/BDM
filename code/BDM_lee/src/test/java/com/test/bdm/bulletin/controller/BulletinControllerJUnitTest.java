@@ -190,10 +190,14 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		BulletinVO vo = bulletinList.get(0);
 		// url, 호출방식(get), seq
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/bulletin/doSave.do")
-				.param("postNo", vo.getPostNo() + "").param("title", vo.getTitle()).param("contents", vo.getContents())
+				.param("postNo", vo.getPostNo() + "")
+				.param("title", vo.getTitle())
+				.param("contents", vo.getContents())
 				// .param("regDt",vo.getRegDt())
 				// .param("modDt", vo.getModDt())
-				.param("readCnt", vo.getReadCnt() + "").param("id", vo.getId()).param("modId", vo.getModId());
+				.param("readCnt", vo.getReadCnt() + "")
+				.param("id", vo.getId())
+				.param("modId", vo.getModId());
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
 		// 호출결과

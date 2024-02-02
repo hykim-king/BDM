@@ -1,4 +1,4 @@
-package com.test.bdm.bulletin;
+package com.test.bdm.bulletin.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
