@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/beforeMain/moveToNews.do";
      });
      moveToMyPageBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToMyPage.do";
+    	 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
      });
      
      $("#doLogin").on("click",function(e){

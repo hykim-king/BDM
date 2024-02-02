@@ -136,7 +136,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 }else{
                     alert(parsedJSON.msgContents);
                 }
-                window.location.href = "${CP }/beforeMain/moveToMyPage.do";
+                // window.location.href = "${CP }/beforeMain/moveToMyPage.do";
+                window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
             },
             error:function(data){
                 console.log("error:"+data);

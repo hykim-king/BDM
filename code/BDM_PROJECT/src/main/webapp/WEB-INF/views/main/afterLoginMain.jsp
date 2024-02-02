@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
 	
 	moveToMyPageBtn.addEventListener("click", function(e){
-        location.href = "/bdm/beforeMain/moveToMyPage.do";
+		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
     });
 });
 </script>

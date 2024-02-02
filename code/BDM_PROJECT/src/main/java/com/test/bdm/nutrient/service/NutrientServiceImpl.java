@@ -21,9 +21,13 @@ public class NutrientServiceImpl implements NutrientService {
 	}
 
 	@Override
-	public List<NutrientVO> doRetrieveOneDay() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public NutrientVO doRetrieveOneDay(String userId, String formatedNow) throws SQLException {
+		return dao.doRetrieveOneDay(userId, formatedNow);
+	}
+
+	@Override
+	public NutrientVO doRetrieveWeek(String userId, String startDate, String finishDate) throws SQLException {
+		return dao.doRetrieveWeek(userId, startDate, finishDate);
 	}
 
 }

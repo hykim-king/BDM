@@ -4,6 +4,38 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.test.bdm.nutrient">
+  
+      <select id = "doRetrieveWeek" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(kcal) AS kcal,
+               SUM(carbohydrate) AS carbohydrate,
+               SUM(protein) AS protein,
+               SUM(fat) AS fat,
+               SUM(sugars) AS sugars,
+               COUNT(*)
+        FROM nutrient
+        WHERE code IN (
+		    SELECT code
+		    FROM eat
+		    WHERE REG_DT  BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS"') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
+		    AND id = #{userId}
+        )
+      </select>
+    
+      <select id="doRetrieveOneDay" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(kcal) AS kcal,
+               SUM(carbohydrate) AS carbohydrate,
+               SUM(protein) AS protein,
+               SUM(fat) AS fat,
+               SUM(sugars) AS sugars
+        FROM nutrient
+        WHERE code IN (
+		    SELECT code
+		    FROM eat
+		    WHERE TO_CHAR(reg_dt, 'YY/MM/DD') = #{formatedNow}
+		    AND id = #{userId}
+        )
+      </select>
+  
       <select id="doRetrieve" parameterType="NutrientVO" 
       resultType="NutrientVO">
 	    SELECT A.*,B.totalCnt
