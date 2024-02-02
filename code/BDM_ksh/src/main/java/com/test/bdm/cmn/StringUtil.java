@@ -1,10 +1,8 @@
 package com.test.bdm.cmn;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-
 
 /**
  * 
@@ -16,7 +14,6 @@ public class StringUtil {
 	public final static long BOTTOM_COUNT =10;//PC화면용
 	public final static String FILE_PATH = "C:\\upload";//일반파일 업로드 경로
 	
-
 	/**
 	 * 
 	 * @param maxNum : 총글수

@@ -30,4 +30,12 @@ public class NutrientDaoImpl implements NutrientDao, PcwkLogger {
 		return  list;
 	}
 
+	@Override
+	public List<NutrientVO> doRetrieveOneDay() throws SQLException {
+		
+		List<NutrientVO> list = sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveOneDay");
+		LOG.debug("list:"+list);
+		return  list;
+	}
+
 }

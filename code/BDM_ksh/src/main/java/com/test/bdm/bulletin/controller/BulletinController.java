@@ -33,7 +33,7 @@ import com.test.bdm.code.service.CodeService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
-@RequestMapping("bulletin")
+@RequestMapping("board")
 public class BulletinController implements PcwkLogger {
 
 	@Autowired
@@ -53,17 +53,17 @@ public class BulletinController implements PcwkLogger {
 		String viewName = "";
 
 		// DIV코드 조회
-		//// Map<String, Object> codes=new HashMap<String, Object>();
-		// String[] codeStr = {"BULLETIN_DIV"};
-		// codes.put("code", codeStr);
+//		 Map<String, Object> codes=new HashMap<String, Object>();
+//		 String[] codeStr = {"BULLETIN_DIV"};
+//		 codes.put("code", codeStr);
+//
+//		 List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+//		 model.addAttribute("divCode", codeList);
+//		 model.addAttribute("paramVO", inVO);
+//
+//		 model.addAttribute("title", title);
 
-		// List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-		// model.addAttribute("divCode", codeList);
-		// model.addAttribute("paramVO", inVO);
-
-		// model.addAttribute("title", title);
-
-		viewName = "bulletin/bulletin_reg";
+		viewName = "board/bulletin";
 		return viewName;
 	}
 
@@ -95,7 +95,7 @@ public class BulletinController implements PcwkLogger {
 		LOG.debug("│ BulletinVO Default처리                          │" + inVO);
 		// 코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes = new HashMap<String, Object>();
-		String[] codeStr = { "PAGE_SIZE", "BULLETIN_SEARCH" };
+		String[] codeStr = { "PAGE_SIZE", "SEARCH" };
 
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
@@ -104,7 +104,7 @@ public class BulletinController implements PcwkLogger {
 		List<CodeVO> pageSizeList = new ArrayList<CodeVO>();
 
 		for (CodeVO vo : codeList) {
-			if (vo.getCategory().equals("BULLETIN_SEARCH")) {
+			if (vo.getCategory().equals("SEARCH")) {
 				bulletinSearchList.add(vo);
 			}
 
@@ -126,7 +126,7 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 
 		// 뷰
-		modelAndView.setViewName("bulletin/bulletin_list");// /WEB-INF/views/board/board_list.jsp
+		modelAndView.setViewName("board/bulletin");// /WEB-INF/views/board/board_list.jsp
 		// Model
 		modelAndView.addObject("list", list);
 		// 검색데이터
