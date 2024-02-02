@@ -5,10 +5,6 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import com.test.bdm.user.domain.UserVO;
-
-
-
 /**
  * 모든 DAO 인터페이스는 WorkDiv를 상속받으세요. 
  * @author user

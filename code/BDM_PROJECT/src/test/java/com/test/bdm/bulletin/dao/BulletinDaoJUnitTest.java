@@ -55,6 +55,14 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 
 		searchVO = new BulletinVO();
 		searchVO.setTitle(title);
+		searchVO.setPostNo(205);
+	}
+	
+	@Ignore
+	@Test
+	public void delete() throws SQLException {
+		int flag = dao.doDelete(searchVO);
+		assertEquals(1, flag);
 	}
 
 	@Ignore
@@ -97,7 +105,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		}
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void update() throws SQLException {
 
@@ -125,6 +133,8 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		BulletinVO vs01 = dao.doSelectOne(vo01);
 		isSameBoard(vs01, vo01);
 	}
+	
+	
 
 	//@Ignore
 	@Test
@@ -139,6 +149,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 
 	}
 
+	@Ignore
 	private void isSameBoard(BulletinVO vo, BulletinVO bulletin) {
 		assertEquals(vo.getPostNo(), bulletin.getPostNo());
 		assertEquals(vo.getTitle(), bulletin.getTitle());

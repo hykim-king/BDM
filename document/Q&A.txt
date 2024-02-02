@@ -1,0 +1,14 @@
+@Repository 어노테이션은 해당 객체는 DB에서 CRUD와 같은 명렁을 하게 되며,
+ 간단하게 DB 접근이 가능한 객체라고 생각하면 됩니다. 메소드명이 DB에서 어떠한 명령을 하는지 나타나져있고,
+ 해당 명령을 실행하기 위한 데이터를 매개변수로 받는걸 확인 할 수 있습니다.
+ DAOIMPL위에 @Repository 어노테이션 선언해줌으로서 DB 접근 해서
+ 정보를 받는 통이라고 생각하시면 될꺼 같습니다
+ Service는
+ Controller와 Repository를 잇는 역할을 한다.
+ 만약 Service가 없다면 Controller에서 직접 데이터를 받아 가공하고 처리하여 View에 넘겨주어야 하므로
+ Controller에는 코드가 길어지고, 중복되는 코드가 많아질 것이다.
+ 그 중복되는 비지니스 로직(데이터 가공, 처리)을 모듈화한 것이Service이다.
+ 이 위에말은 DAO에서 정보를 받아 CRUD 기능을 좀 더 구체화하고 CRUD를 제외한 기능
+ USER로 말하면 MailSender,canUpgradeLevel 기능이 되겠습니다
+ Controller는 Service에서 받은 정보를 화면에 보내기 위해 가공하는 단계입니다
+ 그래서 각 IMPL에 이 기능을 사용하기 위해 @-어노테이션을 사용하고 있습니다

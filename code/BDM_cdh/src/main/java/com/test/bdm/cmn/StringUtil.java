@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -18,6 +19,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 public class StringUtil {
 	
 	public final static long BOTTOM_COUNT =10;//PC화면용
+	public final static String FILE_PATH = "C:\\upload";//일반파일 업로드 경로
 	
 	/**
 	 * 엑셀 정렬 처리 
@@ -29,6 +31,7 @@ public class StringUtil {
 		CellStyle dataStyle=workbook.createCellStyle();
 		dataStyle.setBorderBottom(BorderStyle.THIN);
 		dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+		Font font = workbook.createFont();
 		
 		if(align.equalsIgnoreCase("CENTER")) {
 			dataStyle.setAlignment(HorizontalAlignment.CENTER);
@@ -37,7 +40,7 @@ public class StringUtil {
 		}else if(align.equalsIgnoreCase("RIGHT")) {
 			dataStyle.setAlignment(HorizontalAlignment.RIGHT);
 		}
-		
+		dataStyle.setFont(font);
 		return dataStyle;
 	}
 	
