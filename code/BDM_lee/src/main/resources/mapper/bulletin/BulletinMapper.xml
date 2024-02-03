@@ -43,11 +43,11 @@
 	    SELECT 
 	           tt1.rnum as postNo, 
 	           tt1.title,
-	           tt1.read_cnt as readCnt,
 	           --당일 등록: 시:분, 그렇지 않으면 년-월-일
-	           DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-	                 ,TO_CHAR(tt1.mod_dt,'HH24:MI')
-	                 ,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
+	           DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+	                 ,TO_CHAR(tt1.reg_dt,'HH24:MI')
+	                 ,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
+	           tt1.read_cnt as readCnt,
 	           tt1.mod_id as modId
 	    FROM (
 	        SELECT ROWNUM rnum, T1.*
@@ -58,7 +58,7 @@
 	            WHERE 1=1
 <!--  	            <include refid="divCondition"/>
  	            <include refid="searchCondition"/> -->
-	            ORDER BY mod_dt DESC
+	            ORDER BY reg_dt DESC
 	        )T1   --10,20,30,...
 	      <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
 	    )TT1

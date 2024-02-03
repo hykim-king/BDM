@@ -3,7 +3,78 @@
 <mapper namespace="com.test.bdm.notice">
 
 
+	<update id="updateReadCnt" parameterType="NoticeVO">
+	    <![CDATA[
+	    UPDATE notice
+	    SET read_cnt = NVL(read_cnt,0)+1
+	    WHERE post_no  = #{postNo}
+	    AND id <> #{id} ]]>
+	</update>
+	
+	<!-- div -->
+	<sql id="divCondition">
+	    <choose>
+	        <when test=" ''!=div and '20' == div "><!-- 20 -->
+	            AND div = '20'
+	        </when>
+	        <otherwise> <!-- 10 -->
+	            AND div = '10'
+	        </otherwise>
+	    </choose>
+	</sql>
+	
+	<sql id="searchCondition">
+	    <choose>
+	        <when test=" ''!= searchDiv and '10' == searchDiv ">
+	            AND title LIKE #{searchWord} || '%'
+	        </when>
+	        <when test=" ''!= searchDiv and '20' == searchDiv ">
+	            AND contents LIKE #{searchWord} || '%'
+	        </when>
+	        <when test=" ''!= searchDiv and '30' == searchDiv ">
+	            AND id LIKE #{searchWord} || '%'
+	        </when> 
+	    </choose>
+	</sql>
 
+	<select id="doRetrieve" parameterType="NoticeVO" resultType="NoticeVO">
+	    SELECT A.*,B.totalCnt
+	    FROM (
+	        SELECT tt1.post_no,
+		        tt1.title, 
+		        tt1.contents,
+		        tt1.reg_dt,
+		        tt1.read_cnt as readCnt,
+		        --당일 등록: 시:분, 그렇치 않으면 년-월-일
+		        <!-- DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+		        ,TO_CHAR(tt1.mod_dt,'HH24:MI')
+		        ,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt, -->
+		        tt1.id
+	        FROM (
+	            SELECT ROWNUM rnum, T1.*
+	            FROM (
+	                SELECT *
+	                FROM notice
+	                --WHERE 검색
+	                WHERE 1=1
+	            <!-- <include refid="divCondition"/> -->
+	            <include refid="searchCondition"/>
+	                ORDER BY reg_dt DESC
+	                    )T1   --10,20,30,...
+	                    <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
+	                    )TT1
+	                    --1,11,21,31,..
+	                    <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo}-1) + 1 ]]>
+	                    )A
+	                    CROSS JOIN (
+	                        SELECT COUNT(*) totalCnt
+	                        FROM notice
+	                        --WHERE 검색
+	                        WHERE 1=1
+	            <!-- <include refid="divCondition"/> -->
+	            <include refid="searchCondition"/>
+	            )B
+	</select>
 
 	<delete id="doDeleteAll" parameterType="NoticeVO">
 	DELETE FROM notice

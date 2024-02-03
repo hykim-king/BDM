@@ -111,7 +111,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doUpdate() throws Exception{
 
@@ -155,7 +155,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doSelectOne()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -183,7 +183,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doSave()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -213,7 +213,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		assertEquals("1", messageVO.getMsgId());
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void doDelete()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
