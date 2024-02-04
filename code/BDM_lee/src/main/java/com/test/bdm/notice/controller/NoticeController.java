@@ -182,12 +182,12 @@ public class NoticeController implements PcwkLogger {
 		
 		int flag = service.doUpdate(inVO);
 		////현재 스레드에서 설정된 Locale이 반환
-		Locale  locale= LocaleContextHolder.getLocale();
+//		Locale  locale= LocaleContextHolder.getLocale();
 		
 		String message = "";
 		if(1==flag) {
 			//message = "수정 되었습니다.";
-			message = messageSource.getMessage("common.message.update", null, locale);
+//			message = messageSource.getMessage("common.message.update", null, locale);
 			LOG.debug("│ message                           │"+message);
 			//파라메터 치환
 			String update = "수정";

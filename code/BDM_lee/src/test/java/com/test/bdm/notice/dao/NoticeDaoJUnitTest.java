@@ -67,6 +67,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 		searchVO.setTitle(title);
 	}
 	
+//	@Ignore
 	@Test
 	public void updateReadCnt() throws SQLException {
 		//1.
@@ -86,6 +87,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 		assertEquals(vs01.getReadCnt(), notice01.getReadCnt()+1);
 	}
 	
+//	@Ignore
 	@Test
 	public void doRetrieve() throws SQLException {
 		//searchVO.setSearchDiv("10");//제목으로 검색
@@ -106,6 +108,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 		}
 	}
 	
+//	@Ignore
 	@Test
 	public void update() throws SQLException {
 		//1. 데이터 삭제
@@ -146,6 +149,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 		isSameNotice(vs01, vo01);
 	}
 	
+//	@Ignore
 	@Test
 	public void addAndGet()throws SQLException{
 		//1. 삭제
