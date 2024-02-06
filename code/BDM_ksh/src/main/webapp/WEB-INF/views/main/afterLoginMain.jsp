@@ -19,11 +19,21 @@ document.addEventListener("DOMContentLoaded", function(){
         location.href = "/bdm/beforeMain/moveToMyPage.do";
     });
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
+	
+	moveToBulletinBtn.addEventListener("click", function(e){
+        location.href = "/bdm/bulletin/doRetrieve.do";
+    });
+});
+
 </script>
 </head>
 <body>
 THIS IS AFTERLOGINMAIN <br/>
 ${user} <br/>
 <input type="button" value="마이페이지"  id="moveToMyPage">
+<input type="button" value="자유게시판"  id="moveToBulletin">
 </body>
 </html>
