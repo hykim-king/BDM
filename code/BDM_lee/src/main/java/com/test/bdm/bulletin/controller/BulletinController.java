@@ -45,8 +45,7 @@ public class BulletinController implements PcwkLogger {
 	
 	
 
-	public BulletinController() {
-	}
+	public BulletinController() {}
 
 	@GetMapping(value="/moveToReg.do")
 	public String moveToReg(Model model, BulletinVO inVO) throws SQLException {
@@ -67,6 +66,7 @@ public class BulletinController implements PcwkLogger {
 		viewName = "bulletin/bulletin_reg";
 		return viewName;
 }
+	
 	@GetMapping(value = "/doRetrieve.do")
 	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");
@@ -158,6 +158,23 @@ public class BulletinController implements PcwkLogger {
 			
 		return modelAndView;   
 	}
+	
+	@GetMapping(value = "/doSelectOne.do")
+	public String doSelectOne(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException{
+		String view = "bulletin/bulletin_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
+		LOG.debug("┌───────────────────────────────────┐");
+		LOG.debug("│ doSelectOne                       │");
+		LOG.debug("│ BoardVO                           │"+inVO);
+		LOG.debug("└───────────────────────────────────┘");			
+		if(0 == inVO.getPostNo() ) {
+			LOG.debug("============================");
+			LOG.debug("==nullPointerException===");
+			LOG.debug("============================");
+			}
+			throw new NullPointerException("순번을 입력 하세요");
+			
+		}
+	
 	@PostMapping(value = "/doUpdate.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public MessageVO doUpdate(BulletinVO inVO) throws SQLException{
@@ -188,49 +205,7 @@ public class BulletinController implements PcwkLogger {
 		return messageVO;
 		
 	}
-	//@RequestMapping(value = "/doSave.do",method = RequestMethod.POST)
-		@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
-		@ResponseBody
-		public MessageVO doSave(BulletinVO inVO) throws SQLException{
-			LOG.debug("┌───────────────────────────────────┐");
-			LOG.debug("│ doSave                            │");
-			LOG.debug("│ BulletinVO                           │"+inVO);
-			LOG.debug("└───────────────────────────────────┘");				
-			//seq조회
-			int seq = service.getBulletinSeq();
-			inVO.setPostNo(seq);
-			LOG.debug("│ BulletinVO seq                       │"+inVO);
-			int flag = service.doSave(inVO);
-			
-			String message = "";
-			if(1 == flag) {
-				message = "등록 되었습니다.";
-			}else {
-				message = "등록 실패.";
-			}
-			
-			MessageVO  messageVO=new MessageVO(String.valueOf(flag), message);
-			LOG.debug("│ messageVO                           │"+messageVO);
-			return messageVO;
-		}
-		
 
-
-	@GetMapping(value = "/doSelectOne.do")
-	public String doSelectOne(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException{
-		String view = "bulletin/bulletin_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ doSelectOne                       │");
-		LOG.debug("│ BoardVO                           │"+inVO);
-		LOG.debug("└───────────────────────────────────┘");			
-		if(0 == inVO.getPostNo() ) {
-			LOG.debug("============================");
-			LOG.debug("==nullPointerException===");
-			LOG.debug("============================");
-			}
-			throw new NullPointerException("순번을 입력 하세요");
-			
-		}
 	@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
 	@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public MessageVO doDelete(BulletinVO inVO) throws SQLException{
@@ -258,6 +233,32 @@ public class BulletinController implements PcwkLogger {
 		
 		MessageVO messageVO=new MessageVO(String.valueOf(flag), message);
 		
+		LOG.debug("│ messageVO                           │"+messageVO);
+		return messageVO;
+	}
+	
+	//@RequestMapping(value = "/doSave.do",method = RequestMethod.POST)
+	@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public MessageVO doSave(BulletinVO inVO) throws SQLException{
+		LOG.debug("┌───────────────────────────────────┐");
+		LOG.debug("│ doSave                            │");
+		LOG.debug("│ BulletinVO                           │"+inVO);
+		LOG.debug("└───────────────────────────────────┘");				
+		//seq조회
+		int seq = service.getBulletinSeq();
+		inVO.setPostNo(seq);
+		LOG.debug("│ BulletinVO seq                       │"+inVO);
+		int flag = service.doSave(inVO);
+		
+		String message = "";
+		if(1 == flag) {
+			message = "등록 되었습니다.";
+		}else {
+			message = "등록 실패.";
+		}
+		
+		MessageVO  messageVO=new MessageVO(String.valueOf(flag), message);
 		LOG.debug("│ messageVO                           │"+messageVO);
 		return messageVO;
 	}

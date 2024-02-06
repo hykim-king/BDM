@@ -1,4 +1,4 @@
-package com.test.bdm.login.controller;
+package com.test.bdm.login;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -1,4 +1,4 @@
-package com.test.bdm.user.controller;
+package com.test.bdm.user;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;

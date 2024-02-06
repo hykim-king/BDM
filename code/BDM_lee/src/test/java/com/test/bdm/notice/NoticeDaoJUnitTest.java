@@ -1,4 +1,4 @@
-package com.test.bdm.notice.dao;
+package com.test.bdm.notice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.notice.dao.NoticeDao;
 import com.test.bdm.notice.domain.NoticeVO;
 
 @RunWith(SpringJUnit4ClassRunner.class) // 스프링 테스트 컨텍스트 프레임웤그의 JUnit의 확장기능 지정

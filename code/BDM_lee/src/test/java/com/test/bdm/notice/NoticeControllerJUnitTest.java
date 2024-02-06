@@ -1,4 +1,4 @@
-package com.test.bdm.notice.controller;
+package com.test.bdm.notice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
