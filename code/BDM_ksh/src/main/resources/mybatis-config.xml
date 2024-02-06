@@ -10,6 +10,7 @@
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
     <typeAliases>
+        <typeAlias type="com.test.bdm.comments.domain.CommentsVO" alias="CommentsVO"/>    	
         <typeAlias type="com.test.bdm.user.domain.UserVO" alias="UserVO"/>
         <typeAlias type="com.test.bdm.nutrient.domain.NutrientVO" alias="NutrientVO"/>
         <typeAlias type="com.test.bdm.bulletin.domain.BulletinVO" alias="BulletinVO"/>
