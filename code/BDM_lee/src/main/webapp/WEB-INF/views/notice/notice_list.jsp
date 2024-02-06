@@ -22,19 +22,24 @@
     <form action="#" method="get" id="noticeFrm" name="noticeFrm">
         <input type="hidden" name="pageNo" id="pageNo"/>
         <input type="hidden" name="div"    id="div"   value="${pramVO.getDiv()}"/>
-        <div class="row g-1 justify-content-end">
-            <label for="searchDiv" class="col-auto col-form-label">검색조건</label>
-            <div class="col-auto">
-                <select class="form-select" id="searchDiv" name="searchDiv">
-                    <option value="">전체</option>
-                    <c:forEach var="vo" items="${noticeSearch}">
-                        <option value="<c:out value='${vo.detCode}'/>"></option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-
-    </form>
+        <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">검색조건</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">전체</a></li>
+                <c:forEach var="vo" items="${noticeSearch}">
+                    <li><a class="dropdown-item" href="#"><c:out value="${vo.detName}"></c:out></a></li>
+                </c:forEach>
+            </ul>
+            <input type="text" class="form-control" id="searchWord" name="searchWord" maxlength="100" placeholder="검색어 입력" value="${paramVO.searchWord}">
+            <select class="form-select" id="pageSize" name="pageSize">
+                <c:forEach var="vo" items="${pageSize}">
+                    <option value="<c:out value='${vo.detCode }' />" <c:if test="${vo.detCode == paramVO.pageSize }">selected</c:if>><c:out value='${vo.detName}' /></option>
+            </c:forEach>
+        </select>
+        <button type="submit" class="btn btn-primary">검색</button>
+        <input type="button" value="등록" class="btn btn-primary"  id="moveToReg">
+    </div>
+</form>
     <!-- //검색 -->
 
 </div>
