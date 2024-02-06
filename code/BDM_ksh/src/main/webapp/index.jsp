@@ -27,7 +27,7 @@
     <a class="nav-link" href="<c:url value='/user/doRetrieve.do'/>">회원목록</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="<c:url value='/board/doRetrieve.do'/>">게시목록</a>
+    <a class="nav-link" href="<c:url value='/bulletin/moveToBulletin.do'/>">게시목록</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="<c:url value='/board/moveToReg.do'/>">게시등록</a>

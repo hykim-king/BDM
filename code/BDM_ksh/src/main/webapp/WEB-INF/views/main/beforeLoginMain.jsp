@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/beforeMain/moveToNotice.do";
      });
      moveToBulletinBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToBulletin.do";
+         location.href = "/bdm/bulletin/doRetrieve.do";
      });
      moveToNewsBtn.addEventListener("click", function(e){
          location.href = "/bdm/beforeMain/moveToNews.do";
