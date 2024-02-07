@@ -146,7 +146,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/comments/doUpdate.do")
 				.param("regNo", vo.getRegNo() + "")
-				.param("comments", vo.getContents());
+				.param("contents", vo.getContents());
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());

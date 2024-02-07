@@ -79,21 +79,15 @@ public class CommentsController implements PcwkLogger {
 		
 		int flag = service.doUpdate(inVO);
 		
-		Locale locale = LocaleContextHolder.getLocale();
+//		Locale locale = LocaleContextHolder.getLocale();
 		
 		String message = "";
 		if(1 == flag) {
 			//{0}이 되었습니다
-			message = this.messageSource.getMessage("common.message.update", null, locale);
-			LOG.debug("│ message │"+message);
-			String tranMessage = "수정";
-			message = MessageFormat.format(message, tranMessage);
-			
-			LOG.debug("│ message │"+message);
-			
-		}else {
-			message = "수정 실패";
-		}
+			message = "수정 성공";
+	    } else {
+	        message = "수정 실패";
+	    }
 		
 		//객체 생성?
 		messageVO = new MessageVO(flag+"", message);
@@ -130,7 +124,7 @@ public class CommentsController implements PcwkLogger {
 			//{0}이 되었습니다
 			message = this.messageSource.getMessage("common.message.update", null, locale);
 			LOG.debug("│ message │"+message);
-			String tranMessage = "삭제";
+			String tranMessage = "삭제 성공";
 			message = MessageFormat.format(message, tranMessage);
 			
 			LOG.debug("│ message │"+message);
@@ -165,7 +159,7 @@ public class CommentsController implements PcwkLogger {
 		
 		String message = "";
 		if(1 == flag) {
-			message = "등록 되었습니다.";
+			message = "등록 성공.";
 		}else {
 			message = "등록 실패.";
 		}
