@@ -7,25 +7,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class BulletinVO extends DTO {
 	
 	private int postNo;
 	private String title;
 	private String contents;
 	private String regDt;
+	private String modDt;
 	private int readCnt;
 	private String id;
 	private String modId;
 	
-	@Override
-	public String toString() {
-		return "BulletinVO [postNo=" + postNo + ", title=" + title + ", contents=" + contents + ", regDt=" + regDt
-				+ ", readCnt=" + readCnt + ", id=" + id + ", modId=" + modId + ", toString()=" + super.toString() + "]";
-	}
+
 
 }

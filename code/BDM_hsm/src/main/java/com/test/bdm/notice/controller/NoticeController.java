@@ -32,7 +32,7 @@ import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("notice")
 public class NoticeController implements PcwkLogger {
 	
 	@Autowired
@@ -81,10 +81,10 @@ public class NoticeController implements PcwkLogger {
 	
 	@GetMapping(value = "/doRetrieve.do")
 	public ModelAndView doRetrieve(NoticeVO inVO, ModelAndView modelAndView) throws SQLException{
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ BoardVO                           │"+inVO);
-		LOG.debug("└───────────────────────────────────┘");
+		LOG.debug("─────────────────────────────────────");
+		LOG.debug(" doRetrieve"                          );
+		LOG.debug(" BoardVO: " + inVO                    );
+		LOG.debug("─────────────────────────────────────");
 		//Default처리
 		//페이지 사이즈:10
 		if(null != inVO && inVO.getPageSize() == 0) {
@@ -107,21 +107,20 @@ public class NoticeController implements PcwkLogger {
 		LOG.debug("│ NoticeVO Default처리                          │"+inVO);
 		//코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes =new HashMap<String, Object>();
-		String[] codeStr = {"PAGE_SIZE","SEARCH"};
+		String[] codeStr = {"page_size","search"};
 		
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-		
 		List<CodeVO> noticeSearchList=new ArrayList<CodeVO>();
 		List<CodeVO> pageSizeList=new ArrayList<CodeVO>();
 		
 		
 		for(CodeVO vo :codeList) {
-			if(vo.getCategory().equals("SEARCH")) {
+			if(vo.getCategory().equals("search")) {
 				noticeSearchList.add(vo);
 			}
 			
-			if(vo.getCategory().equals("PAGE_SIZE")) {
+			if(vo.getCategory().equals("page_size")) {
 				pageSizeList.add(vo);
 			}	
 			//LOG.debug(vo);

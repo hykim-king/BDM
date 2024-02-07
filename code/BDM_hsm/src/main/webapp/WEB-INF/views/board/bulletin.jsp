@@ -9,7 +9,7 @@
 			<title>Balance Diet Management</title>
 			<script>
 				document.addEventListener("DOMContentLoaded", function () {
-					console.log("DOMContentLoaded");
+					console.log("DOMContentLoaded ON");
 
 
 					const moveToRegBTN = document.querySelector("#moveToReg");
@@ -20,22 +20,18 @@
 					const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
 
 					rows.forEach(function (row) {
-						row.addEventListener('click', function (e) {
+						row.addEventListener('dblclick', function (e) {
 
 							const cells = row.cells;
 							if (cells.length > 5) {
 							    const postNo = cells[5].innerText;
 							    console.log('postNo:' + postNo);
-							} else {
-								console.error("테이블 열이 충분하지 않습니다.");
+							    
+							    if(confirm('상세 조회 하시겠습니까?') == false)
+							    	return;
+							    
+							    window.location.href = "/bdm/bulletin/doSelectOne.do?postNo=" + postNo;
 							}
-
-
-							if (confirm('상세 조회 하시겠습니까?') == false)
-								return;
-
-							window.location.href = "${CP}/bulletin/doSelectOne.do?postNo=" + postNo;
-
 						});
 					});
 
@@ -74,7 +70,7 @@
 
 						let bulletinForm = document.bulletinFrm;
 						bulletinForm.pageNo.value = pageNo;
-						bulletinForm.action = "/bdm/beforeMain/moveToBulletin.do";
+						bulletinForm.action = "/bdm/bulletin/doRetrieve.do";
 						console.log("doRetrieve pageNO:" + bulletinForm.pageNo.value);
 						bulletinForm.submit();
 					}
@@ -110,7 +106,6 @@
 		</head>
 
 		<body>
-		list: ${list }
 			<ul class="nav nav-tabs">
 				<li class="nav-item"><a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet
 						Management</a>
@@ -127,9 +122,13 @@
 						<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					</ul>
 				</li>
-				<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
+				<li>
+					<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#" tabindex="-1" aria-disabled="true">로그인</a></li>
+				<li class="nav-item">
+    				<a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a>
+  				</li>
+				<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
 			</ul>
 			<div class="container">
 				<div class="row">

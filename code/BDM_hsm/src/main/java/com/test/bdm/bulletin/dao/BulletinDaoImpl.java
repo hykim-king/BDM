@@ -31,17 +31,7 @@ public class BulletinDaoImpl implements BulletinDao, PcwkLogger {
 		
 		return sqlSessionTemplate.insert(NAMESPACE + DOT + "doSave", inVO);
 	}
-
-	@Override
-	public int getBulletinPostNo() throws SQLException {
-		LOG.debug("─────────────────────────────────────────────────────");
-		LOG.debug(" getBulletinPostNo"                                   );
-		LOG.debug(" statement: " + NAMESPACE + DOT + "getBulletinPostNo" );
-		LOG.debug("─────────────────────────────────────────────────────");
-		
-		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getBulletinPostNo");
-	}
-
+	
 	@Override
 	public int doDeleteAll(BulletinVO inVO) throws SQLException {
 		LOG.debug("─────────────────────────────────────────────────────");

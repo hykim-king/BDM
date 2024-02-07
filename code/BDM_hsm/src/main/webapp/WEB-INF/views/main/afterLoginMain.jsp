@@ -8,9 +8,8 @@
 <meta charset="UTF-8">
 <style>
 </style>
+<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <title>BDM</title>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
-<script src="${CP }/resources/js/eUtil.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
@@ -28,9 +27,29 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-<br/>
-<br/>
-<input type="button" value="마이페이지"  id="moveToMyPage">
-<input type = "button" value = "자유 게시판" id = "bulletin">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
+      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="/bdm/beforeMain/moveToMyPage.do">마이페이지</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/index.jsp">로그아웃</a>
+  </li>
+</ul>
 </body>
 </html>

@@ -9,13 +9,115 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <div class = "container">
-        <div class = 'row'>
-            <div class = "col-lg-12">
-                <h1 class = "page-header">공지사항</h1>
-            </div>
-        </div>
-        <!-- // 제목 ---------------------------------------------- -->
-    </div>
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
+		</li>
+		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
+			<ul class="dropdown-menu">
+				<li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
+				<li><a class="dropdown-item" href="#"></a></li>
+				<li><a class="dropdown-item" href="#"></a></li>
+				<li><hr class="dropdown-divider"></li>
+				<li><a class="dropdown-item" href="#">마이페이지</a></li>
+			</ul>
+		</li>
+		<li>
+			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
+		</li>
+		<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
+	</ul>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">자유 게시판</h1>
+				<hr />
+			</div>
+		</div>
+	</div>
+	<!-- 		<div class="mb-3">
+		<div class="input-group">
+			<input type="text" class="form-control ppl_input" id="search" name="search" placeholder="검색어를 입력하세요.">
+			<button type="button" class="btn btn-primary">검색</button>
+			<button type="button" class="btn btn-primary">등록</button>
+		</div>
+		<label for="exampleFormControlTextarea1" class="form-label"></label>
+		<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+	</div> -->
+	<!-- table -->
+	<form action="#" method="get" id="bulletinFrm" name="bulletinFrm">
+		<input type="hidden" name="pageNo" id="pageNo" />
+		<div class="row g-1 justify-content-end ">
+			<label for="searchDiv" class="col-auto col-form-label">검색조건</label>
+			<div class="col-auto">
+				<select class="form-select test_select" id="searchDiv" name="searchDiv">
+					<option value="">전체</option>
+					<c:forEach var="vo" items="${boardSearch }">
+						<option value="<c:out value='${vo.divs}'/>" <c:if test="${vo.divs == paramVO.searchDiv }">selected</c:if>>
+							<c:out value="${vo.divName}" />
+						</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-auto">
+				<input type="text" class="form-control" id="searchWord" name="searchWord" maxlength="100" placeholder="검색어를 입력 하세요" value="${paramVO.searchWord}">
+			</div>
+			<div class="col-auto">
+				<select class="form-select" id="pageSize" name="pageSize">
+					<c:forEach var="vo" items="${pageSize }">
+						<option value="<c:out value='${vo.divs }' />" <c:if test="${vo.divs == paramVO.pageSize }">selected</c:if>>
+							<c:out value='${vo.divName}' />
+						</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-auto ">
+				<!-- 열의 너비를 내용에 따라 자동으로 설정 -->
+				<input type="button" value="목록" class="btn btn-primary" id="doRetrieve">
+				<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
+			</div>
+		</div>
+	</form>
+	<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+		<thead>
+		</thead>
+		<tbody>
+			<c:choose>
+				<c:when test="${ not empty list }">
+					<!-- 반복문 -->
+					<c:forEach var="vo" items="${list}" varStatus="status">
+						<tr>
+							<td class="text-center col-lg-1  col-sm-1">
+								<c:out value="${vo.postNo}" escapeXml="true" />
+							</td>
+							<td class="text-left   col-lg-7  col-sm-8">
+								<c:out value="${vo.title}" escapeXml="true" />
+							</td>
+							<td class="text-center col-lg-2  col-sm-1">
+								<c:out value="${vo.regDt}" escapeXml="true" />
+							</td>
+							<td class="col-lg-1 ">
+								<c:out value="${vo.id}" />
+							</td>
+							<td class="text-end col-lg-1 ">
+								<c:out value="${vo.readCnt}" />
+							</td>
+							<td  style="display: none;"><c:out value="${vo.postNo}" /></td>
+						</tr>
+					</c:forEach>
+					<!--// 반복문 -->
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="99" class="text-center">조회된 데이터가 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
+	</table>
+	<!--// table -------------------------------------------------------------->
+	<div class="d-flex justify-content-center">
+		<nav>${pageHtml }</nav>
+	</div>
 </body>
 </html>

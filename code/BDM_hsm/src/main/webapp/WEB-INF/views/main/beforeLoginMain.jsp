@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", function(){
  });//--document ready
 </script>
 </head>
-<body><ul class="nav nav-tabs">
+<body>
+<ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
   </li>
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/bdm/login/loginView.do">로그인</a>
+    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
   </li>
 </ul>
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">

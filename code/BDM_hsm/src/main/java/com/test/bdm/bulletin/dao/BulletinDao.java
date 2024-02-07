@@ -11,12 +11,6 @@ import com.test.bdm.cmn.WorkDiv;
 
 public interface BulletinDao extends WorkDiv<BulletinVO> {
 	
-	/**
-	 * 게시 순서
-	 * @return int
-	 * @throws SQLException
-	 */
-	int getBulletinPostNo() throws SQLException;
 	
 	/**
 	 * 글 제목으로 삭제: test only

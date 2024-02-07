@@ -25,11 +25,6 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	}
 
 	@Override
-	public int getBulletinPostNo() throws SQLException {
-		return dao.getBulletinPostNo();
-	}
-
-	@Override
 	public int doDeleteAll(BulletinVO inVO) throws SQLException {
 		return dao.doDeleteAll(inVO);
 	}

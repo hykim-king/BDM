@@ -11,8 +11,6 @@ public interface BulletinService {
 	
 	int doSave(BulletinVO inVO) throws SQLException;
 	
-	int getBulletinPostNo() throws SQLException;
-	
 	int doDeleteAll(BulletinVO inVO) throws SQLException;
 	
 	/**
