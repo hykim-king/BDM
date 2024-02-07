@@ -27,5 +27,7 @@ public interface BulletinService {
 	int doDelete(BulletinVO inVO) throws SQLException;
 	
 	List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException;
+	
+	BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException;
 
 }

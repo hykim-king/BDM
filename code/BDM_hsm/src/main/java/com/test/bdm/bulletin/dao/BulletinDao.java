@@ -28,4 +28,6 @@ public interface BulletinDao extends WorkDiv<BulletinVO> {
 	 * @throws SQLException
 	 */
 	int updateReadCnt(BulletinVO inVO) throws SQLException;
+	
+	BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException;
 }

@@ -96,4 +96,14 @@ public class BulletinDaoImpl implements BulletinDao, PcwkLogger {
 		return sqlSessionTemplate.update(NAMESPACE + DOT + "updateReadCnt", inVO);
 	}
 
+	public BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
+		LOG.debug("─────────────────────────────────────────────");
+		LOG.debug(" bulletinView                                ");
+		LOG.debug(" BulletinVO: " + inVO                         );
+		LOG.debug(" statement" + NAMESPACE + DOT + "bulletinView");
+		LOG.debug("─────────────────────────────────────────────");
+		
+		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "bulletinView", inVO);
+	}
+
 }

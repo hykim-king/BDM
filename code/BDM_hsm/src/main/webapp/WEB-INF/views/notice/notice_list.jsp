@@ -8,6 +8,92 @@
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <title>Insert title here</title>
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	console.log("DOMContentLoaded ON");
+	
+	const moveToRegBTN = document.querySelector("#moveToReg");
+	const doRetrieveBTN = document.querySelector("#doRetrieve");
+	const searchDivSelect = document.querySelector("#searchDiv");
+	const noticeForm = document.querySelector("#noticeFrm");
+	const searchWordTxt = document.querySelector("#searchWord");
+	const rows = document.querySelectorAll("#noticeTable>tbody>tr");
+
+	rows.forEach(function (row) {
+		row.addEventListener('dblclick', function (e) {
+
+			const cells = row.cells;
+			if (cells.length > 5) {
+			    const postNo = cells[5].innerText;
+			    console.log('postNo:' + postNo);
+			    
+			    if(confirm('상세 조회 하시겠습니까?') == false)
+			    	return;
+			    
+			    window.location.href = "/bdm/notice/doSelectOne.do?postNo=" + postNo;
+			}
+		});
+	});
+
+	moveToRegBTN.addEventListener("click", function (e) {
+		console.log("moveToRegBTN click");
+		alert("로그인 후 이용 가능합니다.");
+
+		noticeForm.action = "/bdm/beforeMain/moveToMain.do";
+		noticeForm.submit();
+
+	});
+
+	searchWordTxt.addEventListener("keyup", function (e) {
+		console.log("keyup:" + e.keyCode);
+		if (13 == e.keyCode) {//
+			doRetrieve();
+		}
+
+	});
+
+
+	noticeForm.addEventListener("submit", function (e) {
+		console.log(e.target)
+		e.preventDefault();
+
+	});
+
+
+	doRetrieveBTN.addEventListener("click", function (e) {
+		console.log("doRetrieve click");
+		doRetrieve();
+	});
+
+	function doRetrieve(pageNo) {
+		console.log("doRetrieve pageNO: " + pageNo);
+
+		let noticeForm = document.noticeFrm;
+		noticeForm.pageNo.value = pageNo;
+		noticeForm.action = "/bdm/notice/doRetrieve.do";
+		console.log("doRetrieve pageNO:" + noticeForm.pageNo.value);
+		noticeForm.submit();
+	}
+
+
+	searchDivSelect.addEventListener("change", function (e) {
+		console.log("change:" + e.target.value);
+
+		let chValue = e.target.value;
+		if ("" == chValue) {
+
+			let searchWordTxt = document.querySelector("#searchWord");
+			searchWordTxt.value = "";
+
+
+			let pageSizeSelect = document.querySelector("#pageSize");
+			pageSizeSelect.value = "10";
+		}
+	});
+	
+	
+});//---------------------DOM END
+</script>
 <body>
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
@@ -30,7 +116,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">자유 게시판</h1>
+				<h1 class="page-header">공지사항</h1>
 				<hr />
 			</div>
 		</div>
@@ -45,14 +131,14 @@
 		<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 	</div> -->
 	<!-- table -->
-	<form action="#" method="get" id="bulletinFrm" name="bulletinFrm">
+	<form action="#" method="get" id="noticeFrm" name="noticeFrm">
 		<input type="hidden" name="pageNo" id="pageNo" />
 		<div class="row g-1 justify-content-end ">
 			<label for="searchDiv" class="col-auto col-form-label">검색조건</label>
 			<div class="col-auto">
 				<select class="form-select test_select" id="searchDiv" name="searchDiv">
 					<option value="">전체</option>
-					<c:forEach var="vo" items="${boardSearch }">
+					<c:forEach var="vo" items="${noticeSearch }">
 						<option value="<c:out value='${vo.divs}'/>" <c:if test="${vo.divs == paramVO.searchDiv }">selected</c:if>>
 							<c:out value="${vo.divName}" />
 						</option>
@@ -78,7 +164,7 @@
 			</div>
 		</div>
 	</form>
-	<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+	<table class="table table-bordered border-primary table-hover table-striped" id="noticeTable">
 		<thead>
 		</thead>
 		<tbody>

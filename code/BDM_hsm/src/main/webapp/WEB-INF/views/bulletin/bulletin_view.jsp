@@ -6,7 +6,7 @@
 <html>
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<title>게시물 수정</title>
+<title>Balance Diet Management</title>
 <style>
    .readonly-input {
     background-color: #e9ecef ;
@@ -14,79 +14,16 @@
 
 </style>
 <script>
-document.addEventListener("DOMContentLoaded",function(){ 
+document.addEventListener("DOMContentLoaded",function() { 
     
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
+    
+    const doSelectOneBTN = document.querySelector("#doSelectOne");
+    
     //삭제버튼
     const doDeleteBTN   = document.querySelector("#doDelete");
-    //수정버튼
-    const doUpdateBTN   = document.querySelector("#doUpdate");
 
-    //수정 이벤트 감지 및 처리
-    doUpdateBTN.addEventListener("click", function(e){
-  
-        const div = document.querySelector("#div").value;
-        const seq = document.querySelector("#seq").value;
-
-        if(eUtil.isEmpty(seq) == true){
-            alert('순번을 확인 하세요.');
-            return;
-        }
-  
-        const title = document.querySelector("#title");
-        if(eUtil.isEmpty(title.value) == true){
-            alert('제목을 입력 하세요.');
-            title.focus();
-            return;  
-        }        
-  
-        const contents = document.querySelector("#contents");
-        if(eUtil.isEmpty(contents.value) == true){
-            alert('내용을 입력 하세요.');
-            contents.focus();
-            return;
-        }               
-
-        if(confirm('수정 하시겠습니까?')==false){
-            return;
-        }
-     
-        const modId = '${sessionScope.user.id}';
-        
-      	$.ajax({
-    		type: "POST",
-    		url:"/bdm/bulletin/doUpdate.do",
-    		asyn:"true", 
-    		dataType:"json",
-    		data:{
-                "modId": modId,  
-    			"contents": contents
-    		},
-    		success:function(data){//통신 성공
-                console.log("success data.msgId:"+data.msgId);
-                console.log("success data.msgContents:"+data.msgContents);
-                
-                if(1==data.msgId){
-                	alert(data.msgContents);
-                	moveToList();
-                }else{
-                	alert(data.msgContents);
-                }
-                
-        	},
-        	error:function(data){//실패시 처리
-        		console.log("error:"+data);
-        	},
-        	complete:function(data){//성공/실패와 관계없이 수행!
-        		console.log("complete:"+data);
-        	}
-    	});
-
-
-
-
-    });
 
     //삭제 이벤트 감지 및 처리
     doDeleteBTN.addEventListener("click",function(e){
@@ -107,7 +44,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
        	$.ajax({
     		type: "GET",
-    		url:"/ehr/board/doDelete.do",
+    		url:"/ehr/bulletin/doDelete.do",
     		asyn:"true",
     		dataType:"json",
     		data:{
@@ -128,10 +65,25 @@ document.addEventListener("DOMContentLoaded",function(){
         	}
     	});
 
-   
+    });
 
-    });      
-
+  //수정 이벤트 감지 및 처리
+    doSelectOneBTN.addEventListener("click",function(e){
+        console.log('doSelectOneBTN click');
+        if(confirm('수정페이지로 이동합니다') == false){
+            return;
+        }
+        var postNo = document.querySelector("#seq").value;
+        doSelectOne(postNo);
+    
+        
+    });
+    
+    function doSelectOne(postNo){
+    	window.location.href = "${CP}/bulletin/doSelectOne.do?postNo=" + postNo;
+    }
+    
+    
     //목록 이벤트 감지 및 처리
     moveToListBTN.addEventListener("click",function(e){
         console.log('moveToListBTN click');
@@ -141,7 +93,7 @@ document.addEventListener("DOMContentLoaded",function(){
         moveToList();
     
         
-    })
+    });
     
     function moveToList(){
     	window.location.href = "${CP}/bulletin/doRetrieve.do";
@@ -152,8 +104,7 @@ document.addEventListener("DOMContentLoaded",function(){
 </script>
 </head>
 <body>
-<div class="container">
-<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs">
 		<li class="nav-item"><a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance DietManagement</a></li>
 		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
 			<ul class="dropdown-menu">
@@ -172,10 +123,11 @@ document.addEventListener("DOMContentLoaded",function(){
   		</li>
 		<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
 	</ul>
+<div class="container">
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">게시물 수정</h1>
+            <h1 class="page-header">상세조회</h1>
         </div>
     </div>    
     <!--// 제목 ----------------------------------------------------------------->
@@ -184,7 +136,7 @@ document.addEventListener("DOMContentLoaded",function(){
     <div class="row justify-content-end">
         <div class="col-auto">
             <input type="button" value="목록" class="btn btn-primary" id="moveToList">
-            <input type="button" value="수정" class="btn btn-primary" id="doUpdate" >
+            <input type="button" value="수정" class="btn btn-primary" id="doSelectOne" >
             <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
         </div>
     </div>
@@ -199,21 +151,7 @@ document.addEventListener("DOMContentLoaded",function(){
       
 
     <!-- form -->
-    <form action="#" name="regFrm" id="regFrm">
-        <%-- <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
-	        <label for="seq" class="col-sm-2 col-form-label">구분</label>
-	        <div class="col-sm-10">
-		        <select class="form-select" aria-label="Default select example" id="div" name="div" disabled="disabled">
-		          <c:forEach var="codeVO" items="${divCode}">
-		             <option   value="<c:out value='${codeVO.detCode}'/>"  
-		                <c:if test="${codeVO.detCode == vo.getDiv() }">selected</c:if>  
-		             ><c:out value="${codeVO.detName}"/></option>
-		          </c:forEach>
-		          
-				</select>
-			</div>  
-        </div> --%>
-        
+    <form action="#" name="regFrm" id="regFrm">        
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">

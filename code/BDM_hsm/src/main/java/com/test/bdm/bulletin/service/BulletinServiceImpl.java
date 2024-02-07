@@ -57,4 +57,18 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	public List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
+
+	@Override
+	public BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
+		BulletinVO outVO = dao.bulletinView(inVO);
+		
+		if(null != outVO) {
+			int updateReadCnt = dao.updateReadCnt(inVO);
+			LOG.debug("──────────────────────────────────────────");
+			LOG.debug(" updateReadCnt: " + updateReadCnt          );
+			LOG.debug("──────────────────────────────────────────");
+		}
+		
+		return outVO;
+	}
 }

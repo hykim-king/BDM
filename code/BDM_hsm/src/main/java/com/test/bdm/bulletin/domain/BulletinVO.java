@@ -25,6 +25,4 @@ public class BulletinVO extends DTO {
 	private String id;
 	private String modId;
 	
-
-
 }

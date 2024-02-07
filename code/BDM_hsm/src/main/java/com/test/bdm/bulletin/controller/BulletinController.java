@@ -50,7 +50,7 @@ public class BulletinController implements PcwkLogger {
 	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doRetrieve"                          );
-		LOG.debug(" bulletinVO: " + inVO                    );
+		LOG.debug(" bulletinVO: " + inVO                 );
 		LOG.debug("─────────────────────────────────────");
 		//Default처리
 		//페이지 사이즈:10
@@ -97,7 +97,7 @@ public class BulletinController implements PcwkLogger {
 		}
 		modelAndView.addObject("totalCnt", totalCnt);
 		
-		modelAndView.setViewName("bulletin/bulletin");
+		modelAndView.setViewName("bulletin/bulletin_list");
 		modelAndView.addObject("list", list);
 		modelAndView.addObject("paramVO", inVO);
 		modelAndView.addObject("bulletinSearch", bulletinSearchList);
@@ -176,6 +176,41 @@ public class BulletinController implements PcwkLogger {
 		model.addAttribute("divCode", codeList);
 		
 		return view;
+		
+		
+	}
+	
+	@GetMapping(value="/bulletinView.do")
+	public String bulletinView(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
+		String view = "bulletin/bulletin_view";
+		LOG.debug("─────────────────────────────────────");
+		LOG.debug(" bulletinView"                        );
+		LOG.debug(" bulletinVO: " + inVO                 );
+		LOG.debug("─────────────────────────────────────");
+		
+		if(0 == inVO.getPostNo()) {
+			LOG.debug("─────────────────────────────────────");
+			LOG.debug(" nullPointerException                ");
+			LOG.debug("─────────────────────────────────────");
+			
+			throw new NullPointerException("순번을 입력 하세요");
+			
+		}
+		
+		if(null == inVO.getId()) {
+			inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
+		}
+		
+		if(null == httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
+			inVO.setId(user.getId());
+		}
+		
+		BulletinVO outVO = service.bulletinView(inVO);
+		model.addAttribute("vo", outVO);
+		
+		return view;
+	
 	}
 	
 }
