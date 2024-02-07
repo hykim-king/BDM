@@ -50,7 +50,7 @@ public class BulletinController implements PcwkLogger {
 	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doRetrieve"                          );
-		LOG.debug(" BoardVO: " + inVO                    );
+		LOG.debug(" bulletinVO: " + inVO                    );
 		LOG.debug("─────────────────────────────────────");
 		//Default처리
 		//페이지 사이즈:10
@@ -97,7 +97,7 @@ public class BulletinController implements PcwkLogger {
 		}
 		modelAndView.addObject("totalCnt", totalCnt);
 		
-		modelAndView.setViewName("board/bulletin");
+		modelAndView.setViewName("bulletin/bulletin");
 		modelAndView.addObject("list", list);
 		modelAndView.addObject("paramVO", inVO);
 		modelAndView.addObject("bulletinSearch", bulletinSearchList);
@@ -141,7 +141,7 @@ public class BulletinController implements PcwkLogger {
 	
 	@GetMapping(value = "/doSelectOne.do")
 	public String doSelectOne(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
-		String view = "board/bulletin_mng";
+		String view = "bulletin/bulletin_mng";
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doSelectOne"                         );
 		LOG.debug(" BulletinVO: " + inVO                 );

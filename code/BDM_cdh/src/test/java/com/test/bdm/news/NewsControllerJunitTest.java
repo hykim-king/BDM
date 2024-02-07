@@ -83,8 +83,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		LOG.debug("│ doRetrieve()                              │");		
 		LOG.debug("└───────────────────────────────────────────┘");
 		
-		MockHttpServletRequestBuilder  requestBuilder  =
-				MockMvcRequestBuilders.get("/news/doRetrieve.do")
+		MockHttpServletRequestBuilder  requestBuilder  = MockMvcRequestBuilders.get("/news/doRetrieve.do")
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
@@ -96,7 +95,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		//호출결과
 		ModelAndView modelAndView = mvcResult.getModelAndView();
 		List<NewsVO>  list  = (List<NewsVO>) modelAndView.getModel().get("list");
-		NewsVO  paramVO  = (NewsVO) modelAndView.getModel().get("vo");
+		NewsVO  paramVO  = (NewsVO) modelAndView.getModel().get("paramVO");
 		
 		
 		List<CodeVO> newsSearchList=(List<CodeVO>) modelAndView.getModel().get("newsSearch");

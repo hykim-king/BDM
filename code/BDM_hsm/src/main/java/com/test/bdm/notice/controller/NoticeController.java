@@ -65,17 +65,17 @@ public class NoticeController implements PcwkLogger {
 		model.addAttribute("paramVO", inVO);
 		
 		//공지사항:10, 자유게시판:20
-		String title = "";
-		if(inVO.getSearchDiv().equals("10")) {
-			title = "공지사항-등록";
-		}else {
-			title = "자유게시판-등록";
-		}
-		model.addAttribute("title", title);	
+//		String title = "";
+//		if(inVO.getSearchDiv().equals("10")) {
+//			title = "공지사항-등록";
+//		}else {
+//			title = "자유게시판-등록";
+//		}
+//		model.addAttribute("title", title);
 		
 		
 		
-		viewName = "board/notice_reg";///WEB-INF/views/ viewName .jsp
+		viewName = "notice/notice_reg";///WEB-INF/views/ viewName .jsp
 		return viewName;
 	}
 	
@@ -85,6 +85,11 @@ public class NoticeController implements PcwkLogger {
 		LOG.debug(" doRetrieve"                          );
 		LOG.debug(" BoardVO: " + inVO                    );
 		LOG.debug("─────────────────────────────────────");
+		
+		LOG.debug("┌───────────────────────────────────┐");
+		LOG.debug("│ doRetrieve                        │");
+		LOG.debug("│ NoticeVO                          │"+inVO);
+		LOG.debug("└───────────────────────────────────┘");
 		//Default처리
 		//페이지 사이즈:10
 		if(null != inVO && inVO.getPageSize() == 0) {
@@ -147,7 +152,7 @@ public class NoticeController implements PcwkLogger {
 		modelAndView.addObject("paramVO", inVO);  
 		
 		//검색조건
-		modelAndView.addObject("boardSearch", noticeSearchList);
+		modelAndView.addObject("noticeSearch", noticeSearchList);
 		
 		//페이지 사이즈
 		modelAndView.addObject("pageSize",pageSizeList);
@@ -159,14 +164,14 @@ public class NoticeController implements PcwkLogger {
 		modelAndView.addObject("pageHtml", html);
 		
 		
-		//공지사항:10, 자유게시판:20
-		String title = "";
-		if(inVO.getSearchDiv().equals("10")) {
-			title = "공지사항-목록";
-		}else {
-			title = "자유게시판-목록";
-		}
-		modelAndView.addObject("title", title);	
+//		//공지사항:10, 자유게시판:20
+//		String title = "";
+//		if(inVO.getSearchDiv().equals("10")) {
+//			title = "공지사항-목록";
+//		}else {
+//			title = "자유게시판-목록";
+//		}
+//		modelAndView.addObject("title", title);	
 			
 		return modelAndView;   
 	}
@@ -181,12 +186,12 @@ public class NoticeController implements PcwkLogger {
 		
 		int flag = service.doUpdate(inVO);
 		////현재 스레드에서 설정된 Locale이 반환
-		Locale  locale= LocaleContextHolder.getLocale();
+//		Locale  locale= LocaleContextHolder.getLocale();
 		
 		String message = "";
 		if(1==flag) {
 			//message = "수정 되었습니다.";
-			message = messageSource.getMessage("common.message.update", null, locale);
+//			message = messageSource.getMessage("common.message.update", null, locale);
 			LOG.debug("│ message                           │"+message);
 			//파라메터 치환
 			String update = "수정";
@@ -204,7 +209,7 @@ public class NoticeController implements PcwkLogger {
 	
 	@GetMapping(value = "/doSelectOne.do")
 	public String doSelectOne(NoticeVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException{
-		String view = "notice/board_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
+		String view = "notice/notice_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doSelectOne                       │");
 		LOG.debug("│ NoticeVO                          │"+inVO);
@@ -231,12 +236,12 @@ public class NoticeController implements PcwkLogger {
 		model.addAttribute("vo", outVO);
 		
 		//DIV코드 조회
-		Map<String, Object> codes=new HashMap<String, Object>();
-		String[] codeStr = {"BOARD_DIV"};
-		codes.put("code", codeStr);
-		
-		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-		model.addAttribute("divCode", codeList);
+//		Map<String, Object> codes=new HashMap<String, Object>();
+//		String[] codeStr = {"BOARD_DIV"};
+//		codes.put("code", codeStr);
+//		
+//		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+//		model.addAttribute("divCode", codeList);
 		
 		//공지사항:10, 자유게시판:20
 //		String title = "";
@@ -277,8 +282,8 @@ public class NoticeController implements PcwkLogger {
 		return messageVO;
 	}
 	
-
-	@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
+	//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
+	@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )
 	@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public MessageVO doDelete(NoticeVO inVO) throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");

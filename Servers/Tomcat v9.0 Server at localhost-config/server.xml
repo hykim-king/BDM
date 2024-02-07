@@ -160,7 +160,11 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
+<<<<<<< HEAD
       <Context docBase="BDM_hsm" path="/bdm" reloadable="true" source="org.eclipse.jst.jee.server:BDM_hsm"/></Host>
+=======
+      <Context docBase="BDM_ksh" path="/bdm" reloadable="true" source="org.eclipse.jst.jee.server:BDM_ksh"/></Host>
+>>>>>>> 0fa31e83f0145c7ee910eaa7ad7fa7a76cc3aa77
     </Engine>
   </Service>
 </Server>
