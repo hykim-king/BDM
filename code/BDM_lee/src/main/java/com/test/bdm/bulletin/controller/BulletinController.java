@@ -172,10 +172,11 @@ public class BulletinController implements PcwkLogger {
 			LOG.debug("============================");
 			LOG.debug("==nullPointerException===");
 			LOG.debug("============================");
-			}
 			throw new NullPointerException("순번을 입력 하세요");
-			
 		}
+		
+		return view;
+	}
 	
 	@PostMapping(value = "/doUpdate.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
