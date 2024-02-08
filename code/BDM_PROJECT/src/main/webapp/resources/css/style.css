@@ -21150,3 +21150,15 @@ div.tagsinput {
   background-clip: border-box;
   border-radius: 0.25rem;
 }
+
+#calendar {
+  display: none;
+  position: absolute;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 10px;
+}
+.pieChart{
+  max-width:200px;
+  max-height: 200px;
+}
