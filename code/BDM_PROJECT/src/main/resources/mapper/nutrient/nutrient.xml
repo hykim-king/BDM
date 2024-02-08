@@ -6,7 +6,16 @@
   <mapper namespace="com.test.bdm.nutrient">
   
       <select id = "doRetrieveWeek" parameterType = "map" resultType = "NutrientVO">
-        SELECT SUM(kcal) AS kcal,
+        SELECT SUM(N.KCAL * E.AMOUNT) AS KCAL,
+		       SUM(N.CARBOHYDRATE * E.AMOUNT) AS CARBOHYDRATE,
+		       SUM(N.PROTEIN * E.AMOUNT) AS PROTEIN,
+		       SUM(N.FAT * E.AMOUNT) AS FAT,
+		       SUM(N.SUGARS * E.AMOUNT) AS SUGARS
+		FROM EAT E, NUTRIENT N
+		WHERE E.CODE = N.CODE
+		AND E.REG_DT  BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS"') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
+		AND E.ID = #{userId}
+        <!-- SELECT SUM(kcal) AS kcal,
                SUM(carbohydrate) AS carbohydrate,
                SUM(protein) AS protein,
                SUM(fat) AS fat,
@@ -18,11 +27,11 @@
 		    FROM eat
 		    WHERE REG_DT  BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS"') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
 		    AND id = #{userId}
-        )
+        ) -->
       </select>
     
       <select id="doRetrieveOneDay" parameterType = "map" resultType = "NutrientVO">
-        SELECT SUM(kcal) AS kcal,
+        <!-- SELECT SUM(kcal) AS kcal,
                SUM(carbohydrate) AS carbohydrate,
                SUM(protein) AS protein,
                SUM(fat) AS fat,
@@ -33,7 +42,16 @@
 		    FROM eat
 		    WHERE TO_CHAR(reg_dt, 'YY/MM/DD') = #{formatedNow}
 		    AND id = #{userId}
-        )
+        ) -->
+        SELECT SUM(N.KCAL * E.AMOUNT) AS KCAL,
+		       SUM(N.CARBOHYDRATE * E.AMOUNT) AS CARBOHYDRATE,
+		       SUM(N.PROTEIN * E.AMOUNT) AS PROTEIN,
+		       SUM(N.FAT * E.AMOUNT) AS FAT,
+		       SUM(N.SUGARS * E.AMOUNT) AS SUGARS
+		FROM EAT E, NUTRIENT N
+		WHERE E.CODE = N.CODE
+		AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{formatedNow}
+		AND E.ID = #{userId}
       </select>
   
       <select id="doRetrieve" parameterType="NutrientVO" 
@@ -42,13 +60,11 @@
 	    FROM (
 	        SELECT tt1.code,
 	               tt1.name,
-	               tt1.norm,
 	               tt1.kcal,
 	               tt1.carbohydrate,
 	               tt1.protein,
 	               tt1.fat,
-	               tt1.sugars,
-	               tt1.weight
+	               tt1.sugars
 	        FROM (
 	            SELECT ROWNUM rnum, T1.*
 	            FROM (

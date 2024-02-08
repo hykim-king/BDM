@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
@@ -34,6 +36,32 @@ public class NutrientController implements PcwkLogger{
 		return "nutrient/nutrient";
 	}
 	
+	public static Date convertStringToDate(String dateString, String dateFormat) {
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+
+        try {
+            return formatter.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // 예외 처리: 날짜 형식이 올바르지 않을 경우
+            return null;
+        }
+    }
+	
+	public static String convertDateFormat(String inputDate, String inputFormat, String outputFormat) {
+        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
+        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
+
+        try {
+            Date date = inputFormatter.parse(inputDate);
+            return outputFormatter.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // 예외 처리: 날짜 포맷이 올바르지 않을 경우
+            return "날짜 형식 오류";
+        }
+    }
+	
 	@GetMapping(value = "/doRetrieveOneDay.do")
 	public ModelAndView doRetrieveOneDay(NutrientVO inVO, ModelAndView modelAndView, HttpSession session) throws SQLException, ParseException {
 		if(inVO != null && inVO.getPageSize() == 0) {
@@ -48,16 +76,20 @@ public class NutrientController implements PcwkLogger{
 		
 		LocalDate now = LocalDate.now();
 		
-		 // 포맷 정의        
+		 // 포맷 정의
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd");
-		// 포맷 적용        
+		// 포맷 적용
 		String formatedNow = now.format(formatter);
+		
+		if(inVO != null && inVO.getRegDt() != null) {
+			formatedNow = inVO.getRegDt();
+		}
 		
 		NutrientVO oneDay = service.doRetrieveOneDay(userId, formatedNow);
 		
-		Date today = new Date();
-		
 		// =============================================================================
+		
+		Date today = convertStringToDate(formatedNow, "yy/MM/dd");
 		
 		String pattern = "yy/MM/dd HH:mm:ss";
 		// 출력용으로 사용할 데이트 포맷
@@ -65,7 +97,7 @@ public class NutrientController implements PcwkLogger{
 		// 포맷 적용        
 		String formatedToday = simpleDateFormat.format(today);
 		
-		System.out.println(formatedToday);
+		System.out.println("formatedToday: " + formatedToday);
 		
 		Date date1=new SimpleDateFormat(pattern).parse(formatedToday);
 		
@@ -80,7 +112,7 @@ public class NutrientController implements PcwkLogger{
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 		String startDate = simpleDateFormat.format(calendar.getTime());
-		System.out.println(startDate);
+		System.out.println("startDate: " + startDate);
 		
 		calendar.set(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
 		// 출력 형식 지정, 한 주 끝 날짜(토요일)
@@ -89,14 +121,19 @@ public class NutrientController implements PcwkLogger{
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
 		String finishDate = simpleDateFormat.format(calendar.getTime());
-		System.out.println(finishDate);
+		System.out.println("finishDate: " + finishDate);
 		
 		NutrientVO thisWeek = service.doRetrieveWeek("test1", startDate, finishDate);
+		
+		// "yy/MM/dd" 형식을 "yyyy년 MM월 dd일"로 변환
+        String convertedDate = convertDateFormat(formatedNow, "yy/MM/dd", "yyyy년 MM월 dd일");
 		
 		modelAndView.setViewName("user/mypage");
 		modelAndView.addObject("oneDay", oneDay);
 		modelAndView.addObject("thisWeek", thisWeek);
-		
+		modelAndView.addObject("convertedDate", convertedDate);
+		modelAndView.addObject("startDate", startDate);
+		modelAndView.addObject("finishDate", finishDate);
 		
 		return modelAndView;
 	}

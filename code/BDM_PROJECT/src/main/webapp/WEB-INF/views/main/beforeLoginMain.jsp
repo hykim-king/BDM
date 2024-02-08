@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/beforeMain/moveToNews.do";
      });
      moveToMyPageBtn.addEventListener("click", function(e){
+    	 <c:if test="${empty user}">
+    	   alert('로그인이 필요한 서비스입니다.');
+    	   return;
+    	 </c:if>
     	 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
      });
      
