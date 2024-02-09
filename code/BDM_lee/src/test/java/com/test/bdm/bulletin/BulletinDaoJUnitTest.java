@@ -58,7 +58,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		searchVO.setTitle(title);
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void updateReadCnt() throws SQLException {
 		// 1.
@@ -78,7 +78,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		assertEquals(vs01.getReadCnt(), bulletin01.getReadCnt() + 1);
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void doRetrieve() throws SQLException {
 		searchVO.setSearchWord(searchVO.getTitle());
@@ -98,7 +98,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		}
 	}
 
-	//@Ignore
+//	@Ignore
 	@Test
 	public void update() throws SQLException {
 
@@ -127,7 +127,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		isSameBoard(vs01, vo01);
 	}
 
-	//@Ignore
+//	@Ignore
 	@Test
 	public void addAndGet() throws SQLException {
 

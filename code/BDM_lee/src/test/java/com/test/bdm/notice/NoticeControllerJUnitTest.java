@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -32,6 +31,7 @@ import com.google.gson.Gson;
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.notice.dao.NoticeDao;
 import com.test.bdm.notice.domain.NoticeVO;
 
@@ -74,6 +74,43 @@ public class NoticeControllerJUnitTest implements PcwkLogger {
 
 		searchVO = new NoticeVO();
 		searchVO.setTitle(title);
+	}
+	
+	@Test
+	public void doRetrieve() throws Exception{
+		//검색
+		LOG.debug("┌───────────────────────────────────────────┐");
+		LOG.debug("│ doRetrieve()                              │");		
+		LOG.debug("└───────────────────────────────────────────┘");
+		
+		MockHttpServletRequestBuilder  requestBuilder  =
+				MockMvcRequestBuilders.get("/bulletin/doRetrieve.do")
+				.param("pageSize",   "0")
+				.param("pageNo",     "0")
+				.param("searchDiv",  "")
+				.param("searchWord", "")
+				;		
+		
+		//호출 : ModelAndView      
+		MvcResult mvcResult=  mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn() ;
+		//호출결과
+		ModelAndView modelAndView = mvcResult.getModelAndView();
+		
+		List<BulletinVO>  list  = (List<BulletinVO>) modelAndView.getModel().get("list");
+		BulletinVO  paramVO  = (BulletinVO) modelAndView.getModel().get("paramVO");
+		
+		List<CodeVO> bulletinSearchList=(List<CodeVO>) modelAndView.getModel().get("bulletinSearch");
+		List<CodeVO> pageSizeList=(List<CodeVO>) modelAndView.getModel().get("pageSize");
+		
+		for(BulletinVO vo  :list) {
+			LOG.debug(vo);
+		}
+		
+		assertNotNull(bulletinSearchList);
+		assertNotNull(pageSizeList);
+		assertNotNull(list);
+		assertNotNull(paramVO);
+		
 	}
 	
 	

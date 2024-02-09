@@ -29,6 +29,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.code.service.CodeService;
+import com.test.bdm.user.domain.UserVO;
 
 @Controller
 @RequestMapping("bulletin")
@@ -166,14 +167,44 @@ public class BulletinController implements PcwkLogger {
 		String view = "bulletin/bulletin_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doSelectOne                       │");
-		LOG.debug("│ BoardVO                           │"+inVO);
+		LOG.debug("│ BulletinVO                           │"+inVO);
 		LOG.debug("└───────────────────────────────────┘");			
 		if(0 == inVO.getPostNo() ) {
 			LOG.debug("============================");
 			LOG.debug("==nullPointerException===");
 			LOG.debug("============================");
-			throw new NullPointerException("순번을 입력 하세요");
+			throw new NullPointerException("순번을 입력 하시오");
 		}
+		
+		if( null==inVO.getId()) {
+			inVO.setId(StringUtil.nvl(inVO.getId(),"Guest"));
+		}
+		
+		//session이 있는 경우
+		if(null != httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
+			inVO.setId(user.getId());
+		}
+		
+		BulletinVO  outVO = service.doSelectOne(inVO);
+		model.addAttribute("vo", outVO);
+		
+		//DIV코드 조회
+//		Map<String, Object> codes=new HashMap<String, Object>();
+//		String[] codeStr = {"BOARD_DIV"};
+//		codes.put("code", codeStr);
+//		
+//		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+//		model.addAttribute("divCode", codeList);
+//		
+//		//공지사항:10, 자유게시판:20
+//		String title = "";
+//		if(inVO.getSearchDiv().equals("10")) {
+//			title = "공지사항-수정";
+//		}else {
+//			title = "자유게시판-수정";
+//		}
+//		model.addAttribute("title", title);	
 		
 		return view;
 	}
@@ -188,19 +219,13 @@ public class BulletinController implements PcwkLogger {
 		
 		int flag = service.doUpdate(inVO);
 		////현재 스레드에서 설정된 Locale이 반환
-		Locale  locale= LocaleContextHolder.getLocale();
+//		Locale  locale= LocaleContextHolder.getLocale();
 		
 		String message = "";
-		if(1==flag) {
-			//message = "수정 되었습니다.";
-			message = messageSource.getMessage("common.message.update", null, locale);
-			LOG.debug("│ message                           │"+message);
-			//파라메터 치환
-			String update = "수정";
-			message = MessageFormat.format(message, update);
-			LOG.debug("│ message                           │"+message);
+		if(1 == flag) {
+			message = "수정 성공";
 		}else {
-			message = "수정 실패.";
+			message = "수정 실패";
 		}
 		
 		MessageVO messageVO=new MessageVO(flag+"",message);
@@ -220,7 +245,7 @@ public class BulletinController implements PcwkLogger {
 			LOG.debug("============================");
 			LOG.debug("==nullPointerException===");
 			LOG.debug("============================");
-			MessageVO messageVO=new MessageVO(String.valueOf("3"), "순번을 선택 하세요.");
+			MessageVO messageVO=new MessageVO(String.valueOf("3"), "순번을 선택 하시오");
 			return messageVO;
 		} 
 		
@@ -229,9 +254,9 @@ public class BulletinController implements PcwkLogger {
 		
 		String   message = "";
 		if(1==flag) {//삭제 성공
-			message = inVO.getPostNo()+"삭제 되었습니다.";	
+			message = inVO.getPostNo()+"삭제 성공";	
 		}else {
-			message = inVO.getPostNo()+"삭제 실패!";
+			message = inVO.getPostNo()+"삭제 실패";
 		}
 		
 		MessageVO messageVO=new MessageVO(String.valueOf(flag), message);
@@ -256,9 +281,9 @@ public class BulletinController implements PcwkLogger {
 		
 		String message = "";
 		if(1 == flag) {
-			message = "등록 되었습니다.";
+			message = "등록 성공";
 		}else {
-			message = "등록 실패.";
+			message = "등록 실패";
 		}
 		
 		MessageVO  messageVO=new MessageVO(String.valueOf(flag), message);
