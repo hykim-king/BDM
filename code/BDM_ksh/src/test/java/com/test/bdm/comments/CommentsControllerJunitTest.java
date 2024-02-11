@@ -73,12 +73,18 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		// board01 = new BoardVO(boardDao.getBoardSeq(), "10", "제목55", "내용55", 0, "사용X",
 		// "pcwk99", "사용X", "pcwk99");
 
-		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "제목", "댓글", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
+		//bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "제목제목1_U", "내용", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
+		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "title", "contents", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
 
+		
 		// 게시순번
 		int postNo = bulletin01.getPostNo();
 
-		comments01 = new CommentsVO(dao.getRegNo(), "댓글내용-01", "사용하지않음", postNo, "ksh", "ksh");
+		comments01 = new CommentsVO(dao.getRegNo(),"댓글내용-01","사용하지않음", postNo,"ksh","ksh");
+		
+		//comments02 = new CommentsVO(regNo, contents, regDt, postNo, id, modId)
+		
+		
 
 	}
 	@Ignore
@@ -205,37 +211,38 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		LOG.debug("│ doSave()                                  │");
 		LOG.debug("└───────────────────────────────────────────┘");
 
-		// Board 1.기존 데이터 삭제
-		// 2.신규등록
+		
+	
+		//this.bulletinDao.doDelete(bulletin01);
 
-		// 1
-		this.bulletinDao.doDelete(bulletin01);
-
-		// 2
+		
 		int flag = bulletinDao.doSave(bulletin01);
 		assertEquals(1, flag);
 
 		CommentsVO vo = comments01;
 
-		// Reply 등록
-		// post/get
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/comments/doSave.do")
-				.param("regNo", vo.getRegNo() + "").param("postNo", vo.getPostNo() + "")
-				.param("contents", vo.getContents()).param("id", vo.getId());
+		
+		MockHttpServletRequestBuilder requestBuilder = 
+				MockMvcRequestBuilders.post("/comments/doSave.do")
+				.param("regNo", 	vo.getRegNo() + "")
+				.param("postNo", 	vo.getPostNo() + "")
+				.param("contents", 	vo.getContents())
+				.param("id", 		vo.getId())
+				.param("modId", vo.getModId());
+				
 
-		// session
-		// 가상의 HTTPServletRequest 및 HTTPSession 생성
+		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		HttpSession session = new MockHttpSession();
 
 		
-       // UserVO user=new UserVO("p99-01", "이상무99-01", "4321_1",Level.BASIC,  MIN_LOGIN_COUNT_FOR_SILVER-1,0,  "jamesol@paran.com","사용하지 않음");
 
 		
-		//UserVO user = new UserVO("ksh", 0, "1234", "kcc2021@gmail.com", name, birth, gender, height, weight, regDt, userFilter);
+		UserVO user = new UserVO("ksh01", 85, "1234", "사용x", "강소희", 950325, 2, 179, 49, "사용x", 1);
+		//new UserVO(id, no, pw, email, name, birth, gender, height, weight, regDt, userFilter)
 			
 		// 세션에 데이터 추가
-		//session.setAttribute("user", user);
+		session.setAttribute("user", user);
 
 		// 요청에 세션 설정
 		request.setSession(session);
