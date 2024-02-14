@@ -32,14 +32,16 @@
 	  <select id="doRetrieve" parameterType="NewsVO" resultType="NewsVO">
     SELECT A.*,B.totalCnt
     FROM (
-        SELECT tt1.rnum as post_no, 
+        SELECT 
+        	   tt1.post_no as postNo,
+        	   tt1.rnum as no, 
                tt1.title,
                tt1.contents,
                DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-	            ,TO_CHAR(tt1.reg_dt,'HH24:MI')
-	            ,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
-	             tt1.read_cnt as readCnt,
-	             tt1.id as id
+				,TO_CHAR(tt1.reg_dt,'HH24:MI')
+				,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
+               tt1.read_cnt as readCnt,
+               tt1.id as id
         FROM (
             SELECT ROWNUM rnum, T1.*
             FROM (
@@ -66,23 +68,27 @@
   </select>
 	  
 	  
+	  
 	  <insert id="doSave">
 		  INSERT INTO news (
-		    post_no,
-		    title,
-		    contents,
-		    reg_dt,
-		    read_cnt,
-		    id
-		) VALUES (
-		    #{postNo},
-		    #{title},
-		    #{contents},
-		    SYSDATE,
-		    #{readCnt},
-		    #{id}
-		)
-  </insert>
+			    post_no,
+			    title,
+			    contents,
+			    reg_dt,
+			    read_cnt,
+			    id,
+			    uuid
+			) VALUES (
+			    news_seq.NEXTVAL,
+			    #{title},
+			    #{contents},
+			    SYSDATE,
+			    0,
+			    #{id},
+			    #{uuid, jdbcType=VARCHAR}
+				)
+	  </insert>
+  
   
    <select id="doSelectOne" parameterType="NewsVO" resultType="NewsVO">
     SELECT

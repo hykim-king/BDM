@@ -20,32 +20,38 @@ import com.test.bdm.user.domain.UserVO;
 @Controller
 @RequestMapping("beforeMain")
 public class BeforeMainController implements PcwkLogger {
-	
+
 	@Autowired
 	BeforeMainService beforeMainService;
-	
+
 	@GetMapping(value = "/moveToAfterMain.do")
 	public String moveToAfterMain() throws SQLException {
 		return "main/afterLoginMain";
 	}
-	
+
 	@GetMapping(value = "/moveToMyPage.do")
 	public String moveToMyPage() throws SQLException {
 		return "user/mypage";
 	}
-	
+
 	@GetMapping(value = "/moveToNews.do")
 	public String moveToNews() throws SQLException {
-		return "board/news";
+		return "news/news_main"; 
 	}
-	
+
 	@GetMapping(value = "/moveToBulletin.do")
 	public String moveToBulletin() throws SQLException {
+
+	
 		return "board/bulletin";
 	}
+
+	
 	
 	@GetMapping(value = "/moveToNotice.do")
+
 	public String moveToNotice() throws SQLException {
+
 		return "board/notice";
 	}
 

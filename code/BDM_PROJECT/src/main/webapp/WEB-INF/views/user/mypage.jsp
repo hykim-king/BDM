@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="${CP}/resources/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.theme.default.min.css">
-    <link rel="stylesheet" href="${CP}/resources/css/style.css">
+    <link rel="stylesheet" href="${CP}/resources/css/style.css?after"> 
     <link rel="shortcut icon" href="${CP}/resources/images/favicon.png" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
