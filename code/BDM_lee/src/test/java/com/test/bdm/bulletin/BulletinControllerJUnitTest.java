@@ -106,7 +106,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void doUpdate() throws Exception {
 		// 1.데이터 입력
@@ -159,7 +159,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		assertEquals(vo.getModId(), bulletin.getModId());
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void doSelectOne() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -185,7 +185,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void doSave() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -213,7 +213,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		assertEquals("1", messageVO.getMsgId());
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void doDelete() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -225,7 +225,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 		// url, 호출방식(get), seq
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/bulletin/doDelete.do")
-				.param("postNo", 0 + "");
+				.param("postNo", bulletinList.get(0).getPostNo() +"");
 
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
 		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
