@@ -1,28 +1,48 @@
 package com.test.bdm.news.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.code.service.CodeService;
+import com.test.bdm.file.domain.FileVO;
+import com.test.bdm.file.service.AttachFileService;
 import com.test.bdm.news.domain.NewsVO;
 import com.test.bdm.news.service.NewsService;
+import com.test.bdm.user.domain.UserVO;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Controller
 @RequestMapping("news")
@@ -35,31 +55,47 @@ public class NewsController implements PcwkLogger {
 	CodeService codeService;
 	
 	@Autowired
+	AttachFileService  attachFileService;
+	
+	@Autowired
 	MessageSource messageSource;//ResourceBundleMessageSource가 주입됨
+	
+	
+	
+	
 	
 	public NewsController() {}
 	
 	
-	  
+	
+	private static String UPLOAD_DIR = "/path/to/your/upload/directory/";
+
+	// 이미지 업로드 처리 메소드
+	@PostMapping("/uploadImage")
+	public String uploadImage(@RequestParam("file") MultipartFile file) {
+	    try {
+	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	        // 파일을 저장할 경로 지정
+	        String uploadPath = UPLOAD_DIR;
+	        // 파일 저장
+	        FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(uploadPath + fileName));
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    // 이미지가 저장된 경로 반환
+	    return UPLOAD_DIR + file.getOriginalFilename();
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	@GetMapping(value="/moveToRegNews.do")
-	public String moveToReg(Model model, NewsVO inVO) throws SQLException {
+	@GetMapping(value="/moveToReg.do")
+	public String moveToReg() {
 		String viewName = "";
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ moveToReg                         │");
-		LOG.debug("│ inVO                              │"+inVO);
 		LOG.debug("└───────────────────────────────────┘");		
-		
-		
-		
-		viewName = "news/news";///WEB-INF/views/ viewName .jsp
+		viewName = "news/news_reg";///WEB-INF/views/ viewName .jsp
 		return viewName;
 	}
 	
@@ -67,7 +103,7 @@ public class NewsController implements PcwkLogger {
 	public ModelAndView doRetrieve(NewsVO inVO, ModelAndView modelAndView) throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ NewsVO                            │"+inVO);
+		LOG.debug("│ BoardVO                           │"+inVO);
 		LOG.debug("└───────────────────────────────────┘");
 		//Default처리
 		//페이지 사이즈:10
@@ -88,8 +124,8 @@ public class NewsController implements PcwkLogger {
 		if(null != inVO && null == inVO.getSearchWord()) {
 			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
 		}
-		LOG.debug("│ newsVO Default처리                          │"+inVO);
-		//코드목록 조회 : 'PAGE_SIZE','News_SEARCH'
+		LOG.debug("│ NewsVO Default처리                          │"+inVO);
+		//코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes =new HashMap<String, Object>();
 		String[] codeStr = {"PAGE_SIZE","SEARCH"};
 		
@@ -125,7 +161,7 @@ public class NewsController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 		
 		//뷰
-		modelAndView.setViewName("news/News_list");//  /WEB-INF/views/board/News_list.jsp
+		modelAndView.setViewName("news/news_list");//  /WEB-INF/views/board/board_list.jsp
 		//Model
 		modelAndView.addObject("list", list);
 		//검색데이터
@@ -143,8 +179,7 @@ public class NewsController implements PcwkLogger {
 				"/bdm/news/doRetrieve.do", "pageDoRerive");
 		modelAndView.addObject("pageHtml", html);
 		
-		
-		
+
 		
 			
 		return modelAndView;   
@@ -154,15 +189,24 @@ public class NewsController implements PcwkLogger {
 	//@RequestMapping(value = "/doSave.do",method = RequestMethod.POST)
 		@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
 		@ResponseBody
-		public MessageVO doSave(NewsVO inVO) throws SQLException{
+		public MessageVO doSave(NewsVO inVO,MultipartFile file, Principal principal) throws SQLException{
 			LOG.debug("┌───────────────────────────────────┐");
 			LOG.debug("│ doSave                            │");
 			LOG.debug("│ NewsVO                            │"+inVO);
-			LOG.debug("└───────────────────────────────────┘");				
+			LOG.debug("└───────────────────────────────────┘");		
+			LOG.debug("file="+file);
 //			//seq조회
 //			int seq = service.getBoardSeq();
 //			inVO.setSeq(seq);
 //			LOG.debug("│ BoardVO seq                       │"+inVO);
+			
+			
+			//List<FileVO>  list=new ArrayList<FileVO>();
+			
+			//attachFileService.upFileSave(list);
+			
+			
+			
 			int flag = service.doSave(inVO);
 			
 			String message = "";
@@ -177,19 +221,54 @@ public class NewsController implements PcwkLogger {
 			return messageVO;
 		}
 		
+
+		@GetMapping(value = "/doSelectOne.do")
+		public String doSelectOne( NewsVO inVO, Model model, HttpSession httpSession)
+				throws SQLException, EmptyResultDataAccessException {
+			String view = "news/news_mng";
+			LOG.debug("┌───────────────────────────────────┐");
+			LOG.debug("│ doSelectOne                       │");
+			LOG.debug("│ BulletinVO                           │" + inVO);
+			LOG.debug("└───────────────────────────────────┘");
+			if (0 == inVO.getPostNo()) {
+				LOG.debug("============================");
+				LOG.debug("==nullPointerException===");
+				LOG.debug("============================");
+
+				throw new NullPointerException("순번을 입력 하세요");
+			}
+			if (null == inVO.getId()) {
+				inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
+			}
+
+			// session이 있는 경우
+			if (null != httpSession.getAttribute("user")) {
+				UserVO user = (UserVO) httpSession.getAttribute("user");
+				inVO.setId(user.getId());
+			}
+
+			NewsVO outVO = service.doSelectOne(inVO);
+			model.addAttribute("vo", outVO);
+			
+			String title = "뉴스 게시글";
+			model.addAttribute("title", title);	
+
+
+			return view;
+		}
 		
 		@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
 		@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 		public MessageVO doDelete(NewsVO inVO) throws SQLException{
 			LOG.debug("┌───────────────────────────────────┐");
 			LOG.debug("│ doDelete                          │");
-			LOG.debug("│ NewsVO                            │"+inVO);
+			LOG.debug("│ BoardVO                           │"+inVO);
 			LOG.debug("└───────────────────────────────────┘");		
 			if(0 == inVO.getPostNo() ) {
 				LOG.debug("============================");
 				LOG.debug("==nullPointerException===");
 				LOG.debug("============================");
-				MessageVO messageVO=new MessageVO(String.valueOf("3"), "순번을 선택 하세요.");
+				MessageVO messageVO=new MessageVO(String.valueOf("1"), "순번을 선택 하세요.");
 				return messageVO;
 			} 
 			
