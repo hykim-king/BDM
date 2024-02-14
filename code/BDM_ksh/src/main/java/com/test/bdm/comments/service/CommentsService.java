@@ -13,7 +13,6 @@ public interface CommentsService {
 	
 	public int getRegNo() throws SQLException;
 	
-
 	
 	int doUpdate(CommentsVO inVO) throws SQLException;
 	
