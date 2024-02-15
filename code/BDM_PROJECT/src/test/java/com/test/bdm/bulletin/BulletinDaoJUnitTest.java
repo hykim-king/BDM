@@ -55,7 +55,6 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 
 		searchVO = new BulletinVO();
 		searchVO.setTitle(title);
-		searchVO.setPostNo(205);
 	}
 	
 //	@Ignore

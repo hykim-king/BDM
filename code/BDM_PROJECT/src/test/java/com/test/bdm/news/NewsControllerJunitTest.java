@@ -89,8 +89,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
-				.param("searchWord", "")
-				;		
+				.param("searchWord", "");		
 		
 		//호출 : ModelAndView      
 		MvcResult mvcResult=  mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn() ;
