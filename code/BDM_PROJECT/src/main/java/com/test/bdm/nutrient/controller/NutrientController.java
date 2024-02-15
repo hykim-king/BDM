@@ -3,26 +3,24 @@ package com.test.bdm.nutrient.controller;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.food.domain.FoodVO;
 import com.test.bdm.nutrient.domain.NutrientVO;
 import com.test.bdm.nutrient.service.NutrientService;
 import com.test.bdm.user.domain.UserVO;
@@ -66,7 +64,7 @@ public class NutrientController implements PcwkLogger{
     }
 	
 	@GetMapping(value = "/doRetrieveOneDay.do")
-	public ModelAndView doRetrieveOneDay(NutrientVO inVO, ModelAndView modelAndView, HttpSession session) throws SQLException, ParseException {
+	public ModelAndView doRetrieveOneDay(NutrientVO inVO, ModelAndView modelAndView, HttpSession session, FoodVO foodVO) throws SQLException, ParseException {
 		if(inVO != null && inVO.getPageSize() == 0) {
 			inVO.setPageSize(10L);
 		}
@@ -84,8 +82,8 @@ public class NutrientController implements PcwkLogger{
 		// 포맷 적용
 		String formatedNow = now.format(formatter);
 		
-		if(inVO != null && inVO.getRegDt() != null) {
-			formatedNow = inVO.getRegDt();
+		if(foodVO != null && foodVO.getRegDt() != null) {
+			formatedNow = foodVO.getRegDt();
 		}
 		
 		NutrientVO oneDay = service.doRetrieveOneDay(userId, formatedNow);
@@ -94,7 +92,7 @@ public class NutrientController implements PcwkLogger{
 		
 		Date today = convertStringToDate(formatedNow, "yy/MM/dd");
 		
-		String pattern = "yy/MM/dd HH:mm:ss";
+		String pattern = "yy/MM/dd";
 		// 출력용으로 사용할 데이트 포맷
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		// 포맷 적용        
@@ -108,6 +106,8 @@ public class NutrientController implements PcwkLogger{
 		// calendar 구조체에 오늘 날짜 지정
 		calendar.setTime(date1);
 		
+		ArrayList<String> weekly = new ArrayList<String>();
+		
 		calendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
 		// 출력 형식 지정, 한 주 시작 날짜(일요일)
 		// 시간을 '00:00:00'으로 설정
@@ -116,6 +116,27 @@ public class NutrientController implements PcwkLogger{
         calendar.set(Calendar.SECOND, 0);
 		String startDate = simpleDateFormat.format(calendar.getTime());
 		System.out.println("startDate: " + startDate);
+		weekly.add(startDate);
+		
+		calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+		String monday = simpleDateFormat.format(calendar.getTime());
+		weekly.add(monday);
+		
+		calendar.set(Calendar.DAY_OF_WEEK,Calendar.TUESDAY);
+		String tuesday = simpleDateFormat.format(calendar.getTime());
+		weekly.add(tuesday);
+		
+		calendar.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+		String wednesday = simpleDateFormat.format(calendar.getTime());
+		weekly.add(wednesday);
+		
+		calendar.set(Calendar.DAY_OF_WEEK,Calendar.THURSDAY);
+		String thursday = simpleDateFormat.format(calendar.getTime());
+		weekly.add(thursday);
+		
+		calendar.set(Calendar.DAY_OF_WEEK,Calendar.FRIDAY);
+		String friday = simpleDateFormat.format(calendar.getTime());
+		weekly.add(friday);
 		
 		calendar.set(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
 		// 출력 형식 지정, 한 주 끝 날짜(토요일)
@@ -125,8 +146,10 @@ public class NutrientController implements PcwkLogger{
         calendar.set(Calendar.SECOND, 59);
 		String finishDate = simpleDateFormat.format(calendar.getTime());
 		System.out.println("finishDate: " + finishDate);
+		weekly.add(finishDate);
 		
-		NutrientVO thisWeek = service.doRetrieveWeek("firstUser", startDate, finishDate);
+		NutrientVO thisWeek = service.doRetrieveWeek(userId, startDate, finishDate);
+		ArrayList<Double> weekKcal = service.doRetrieveWeekKcal(userId, weekly);
 		
 		// "yy/MM/dd" 형식을 "yyyy년 MM월 dd일"로 변환
         String convertedDate = convertDateFormat(formatedNow, "yy/MM/dd", "yyyy년 MM월 dd일");
@@ -134,6 +157,7 @@ public class NutrientController implements PcwkLogger{
 		modelAndView.setViewName("user/mypage");
 		modelAndView.addObject("oneDay", oneDay);
 		modelAndView.addObject("thisWeek", thisWeek);
+		modelAndView.addObject("weekKcal", weekKcal);
 		modelAndView.addObject("convertedDate", convertedDate);
 		modelAndView.addObject("startDate", startDate);
 		modelAndView.addObject("finishDate", finishDate);
@@ -177,47 +201,5 @@ public class NutrientController implements PcwkLogger{
 		modelAndView.addObject("pageHtml", html);
 		
 		return modelAndView;
-	}
-	@GetMapping(value = "/doRetrieveSelectedWeek.do")
-	public ModelAndView doRetrieveSelectedWeek(String selectedDate, ModelAndView modelAndView, HttpSession session) throws SQLException, ParseException {
-	    UserVO sessionData = (UserVO) session.getAttribute("user");
-	    String userId = sessionData.getId();
-
-	    // 선택한 날짜를 기준으로 LocalDate 객체 생성
-	    LocalDate selectedLocalDate = LocalDate.parse(selectedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-	    // 선택한 날짜가 속한 주의 시작일과 종료일 계산
-	    LocalDate startOfWeek = selectedLocalDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-	    LocalDate endOfWeek = startOfWeek.plusDays(6);
-
-	    // 포맷 적용하여 문자열로 변환
-	    String formattedStartOfWeek = startOfWeek.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-	    String formattedEndOfWeek = endOfWeek.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-
-	    // 해당 주의 데이터 조회
-	    NutrientVO selectedWeek = service.doRetrieveWeek(userId, startOfWeek.toString(), endOfWeek.toString());
-
-	    // 선택한 주의 각 요일별 데이터를 구하기 위한 날짜 포맷
-	    DateTimeFormatter dayOfWeekFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
-
-	    // 선택한 주의 각 요일별 데이터를 저장할 맵
-	    Map<String, NutrientVO> selectedWeekDataMap = new LinkedHashMap<>();
-
-	    // 선택한 주의 각 요일에 대한 데이터 조회
-	    for (int i = 0; i < 7; i++) {
-	        LocalDate currentDate = startOfWeek.plusDays(i);
-	        String currentDateString = currentDate.format(dayOfWeekFormatter);
-
-	        NutrientVO dayData = service.doRetrieveOneDay(userId, currentDateString);
-	        selectedWeekDataMap.put(currentDateString, dayData);
-	    }
-
-	    modelAndView.setViewName("nutrient/selected_week");
-	    modelAndView.addObject("selectedWeek", selectedWeek);
-	    modelAndView.addObject("formattedStartOfWeek", formattedStartOfWeek);
-	    modelAndView.addObject("formattedEndOfWeek", formattedEndOfWeek);
-	    modelAndView.addObject("selectedWeekDataMap", selectedWeekDataMap);
-
-	    return modelAndView;
 	}
 }

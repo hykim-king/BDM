@@ -1,6 +1,7 @@
 package com.test.bdm.nutrient.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class NutrientServiceImpl implements NutrientService {
 	@Override
 	public NutrientVO doRetrieveWeek(String userId, String startDate, String finishDate) throws SQLException {
 		return dao.doRetrieveWeek(userId, startDate, finishDate);
+	}
+	
+	@Override
+	public ArrayList<Double> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException {
+		return dao.doRetrieveWeekKcal(userId, weekly);
 	}
 
 }

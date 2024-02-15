@@ -1,6 +1,7 @@
 package com.test.bdm.nutrient.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,6 +55,22 @@ public class NutrientDaoImpl implements NutrientDao, PcwkLogger {
 		NutrientVO outVO = sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doRetrieveWeek", map);
 		LOG.debug("outVO:"+outVO);
 		return  outVO;
+	}
+
+	@Override
+	public ArrayList<Double> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException {
+		
+		ArrayList<Double> weekKcal = new ArrayList<Double>();
+		
+		HashMap<String, String> map = new HashMap<>();
+		for(int i=0; i<weekly.size(); i++) {
+			map.put("userId", userId);
+			map.put("day", weekly.get(i));
+			weekKcal.add(sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doRetrieveWeekKcal", map));
+		}
+		
+		LOG.debug("weekKcal:"+weekKcal);
+		return  weekKcal;
 	}
 
 }
