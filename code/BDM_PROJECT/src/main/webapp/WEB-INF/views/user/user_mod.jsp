@@ -13,11 +13,52 @@
 <script src="${CP }/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP }/resources/js/eUtil.js"></script>  
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+	const modForm = document.querySelector("#userModFrm");
 	const doChangeBtn = document.querySelector("#doChange");
+	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
 	
 	doChangeBtn.addEventListener("click", function(e){
+		console.log('doChangeBtn clicked');
 		
+		id = '${user.id}';
+		
+		$.ajax({
+            type: "POST",
+            url:"${CP }/user/doUpdate.do",
+            asyn:"true",
+            dataType:"html",
+            data:{
+                height: modForm.height.value,
+                weight: modForm.weight.value,
+                activity: modForm.activity.value,
+                id: id
+            },
+            success:function(data){//통신 성공     
+               console.log("data:" + data);
+               let parsedJSON = JSON.parse(data);
+               if("1" === parsedJSON.msgId){
+                   alert(parsedJSON.msgContents);
+                   window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+               }else{
+                   alert(parsedJSON.msgContents);
+               }
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });
 	});
+	
+	moveToMyPageBtn.addEventListener("click", function(e){
+		console.log('moveToMyPageBtn clicked');
+		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+	});
+});
+	
 </script>
 </head>
 <body>

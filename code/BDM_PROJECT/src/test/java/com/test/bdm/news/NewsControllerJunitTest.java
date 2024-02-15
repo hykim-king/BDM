@@ -1,3 +1,4 @@
+
 package com.test.bdm.news;
 
 import static org.junit.Assert.*;
@@ -125,22 +126,5 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(mockMvc);
 		assertNotNull(dao);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="com.test.bdm.nutrient.domain.NutrientVO" %>
 <%
     LocalDate today = LocalDate.now();
     LocalDate firstDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
@@ -26,7 +27,7 @@
     <link rel="stylesheet" href="${CP}/resources/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.theme.default.min.css">
-    <link rel="stylesheet" href="${CP}/resources/css/style.css?after"> 
+    <link rel="stylesheet" href="${CP}/resources/css/style.css">
     <link rel="shortcut icon" href="${CP}/resources/images/favicon.png" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
@@ -81,7 +82,7 @@ function formatDate(date) {
 }
 </script>
 <script>
-	function generateCalendar() { 
+	/* function generateCalendar() { 
 	    var calendarBody = $("#calendarBody");
 	    calendarBody.empty(); // 기존 내용 제거
 	
@@ -115,9 +116,44 @@ function formatDate(date) {
 	        }
 	        calendarBody.append(row);
 	    }
+	} */
+	function generateCalendar() { 
+	    var calendarBody = $("#calendarBody");
+	    calendarBody.empty(); // 기존 내용 제거
+
+	    var currentDate = new Date();
+	    var currentYear = String(currentDate.getFullYear()).slice(-2); // 연도의 뒤 두 자리만 가져옴
+	    var currentMonth = currentDate.getMonth();
+	    var daysInMonth = new Date(currentDate.getFullYear(), currentMonth + 1, 0).getDate();
+
+	    var dayCounter = 1;
+	    for (var i = 0; i < 6; i++) {
+	        var row = $("<tr></tr>");
+	        for (var j = 0; j < 7; j++) {
+	            var cell = $("<td></td>");
+	            if (i === 0 && j < new Date(currentDate.getFullYear(), currentMonth, 1).getDay()) {
+	                // 앞의 빈 칸 처리
+	                cell.text("");
+	            } else if (dayCounter <= daysInMonth) {
+	                cell.text(dayCounter);
+	                dayCounter++;
+	                cell.click(function () {
+	                     // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
+	                    var clickedDate = new Date(currentDate.getFullYear(), currentMonth, $(this).text());
+	                    var formattedDate = formatDate(clickedDate);
+	                    // alert("날짜를 클릭했습니다: " + formattedDate);
+	                    console.log('formattedDate: ' + formattedDate);
+	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
+	                
+	                });
+	            }
+	            row.append(cell);
+	        }
+	        calendarBody.append(row);
+	    }
 	}
 	function formatDate(date) {
-	    var year = date.getFullYear();
+	    var year = date.getFullYear() % 100;
 	    var month = date.getMonth() + 1;
 	    var day = date.getDate();
 
@@ -209,10 +245,10 @@ function calculateAge(birth) {
 	    return colors;
 	}
 	
-	var totalDailyKcal = 2000;
-	var totalDailyCarb = 300;
-	var totalDailyProtein = 50;
-	var totalDailyFat = 70;
+	var totalDailyKcal = (${user.height} - 100) * 0.9 * ${user.activity};
+	var totalDailyCarb = (totalDailyKcal * 0.4) / 4;
+	var totalDailyProtein = (totalDailyKcal * 0.4) / 4;
+	var totalDailyFat = (totalDailyKcal * 0.2) / 9;
 	var totalDailySugars = 30;
 
 </script>
@@ -275,9 +311,7 @@ function calculateAge(birth) {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // 페이지 로드 후 실행되는 코드
-        // 이전에 작성한 데이터를 토대로 날짜와 각 영양소의 데이터를 가져옴
+    /* document.addEventListener("DOMContentLoaded", function () {
         var labels = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
         var selectedWeekDataMap = ${selectedWeekDataMap}// 해당 부분 수정
         var kcalData = Object.values(selectedWeekDataMap).map(function (item) { return item.kcal; });
@@ -286,18 +320,22 @@ function calculateAge(birth) {
         var fatData = Object.values(selectedWeekDataMap).map(function (item) { return item.fat; });
         var sugarsData = Object.values(selectedWeekDataMap).map(function (item) { return item.sugars; });
 
-        // Combined Line 차트 생성
         generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, 'combined-line-chart');
-    });
+    }); */
 </script>
 <script>
-
         document.addEventListener("DOMContentLoaded", function () {
             const addBtn = document.querySelector("#add");
+            const moveToModBtn = document.querySelector("#moveToMod");
+            
             addBtn.addEventListener("click", function (e) {
                 console.log("moveToNutBTN")
                 window.location.href = "/bdm/nutrient/moveToNut.do";
                 
+            });
+            
+            moveToModBtn.addEventListener("click", function(e){
+            	window.location.href = "/bdm/user/moveToMod.do";
             });
 
             $(document).ready(function () {
@@ -306,22 +344,17 @@ function calculateAge(birth) {
                     generateCalendar();
                 });
             });
-
+            
+	        <c:if test="${not empty oneDay}">
             // Generate pie charts for each nutrient
             var colors = getPastelColors(5);
-            generateNutrientPieChart(${oneDay.kcal}, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
+            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
             generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
             generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
             generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
             generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
-
- 
+            </c:if>
         });
-
-        
-
-
-        
 
 </script>
 </head>
@@ -397,7 +430,7 @@ function calculateAge(birth) {
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Settings</p>
+                                    <p class="preview-subject mb-1" id = "moveToMod">Settings</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -462,8 +495,15 @@ function calculateAge(birth) {
                               thisWeek: ${thisWeek}
                               formattedStartOfWeek: ${formattedStartOfWeek}
                               selectedWeekDataMap: ${selectedWeekDataMap}
+                              startDate: ${startDate }
+                              finishDate: ${finishDate }
+                              weekKcal: ${weekKcal }
+                              weekCarbo: ${weekCarbo }
+                              weekProtein: ${weekProtein }
+                              weekFat: ${weekFat }
+                              weekSugars: ${weekSugars }
                                 <div>
-                                    <h4 class="card-title">${today}</h4>
+                                    <h4 class="card-title">${convertedDate}</h4>
                                     <button id="calendarButton">달력 열기</button>
                                     <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
                                     <!-- 달력 -->
@@ -496,7 +536,7 @@ function calculateAge(birth) {
                                     <div class="chart-flex col-md-12">
 	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
                         			</div> 
-                              </div>
+                                </div>
                             </div>
                           </div>
                     </div>  
