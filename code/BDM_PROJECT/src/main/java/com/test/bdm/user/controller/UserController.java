@@ -23,12 +23,43 @@ public class UserController implements PcwkLogger {
 	@Autowired
 	UserService userService;
 	
-//	public UserController() {}
+	@GetMapping(value="/moveToMod.do")
+	public String moveToMod() throws SQLException {
+		return "user/user_mod";
+	}
 	
 	@GetMapping(value="/moveToReg.do")
 	public String moveToReg() throws SQLException {
 		return "user/user_reg";
 	}
+	
+	// ==========================개인정보 수정, 회원 탈퇴================================
+
+	@PostMapping(value = "/doUpdate.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody // HTTP 요청 부분의 body 부분이 그대로 브라우저에 전달
+	public String doUpdate(UserVO inVO) throws SQLException {
+		String jsonString = "";
+
+		LOG.debug("┌───────────────────┐");
+		LOG.debug("┃  doUpdate()     │ inVO: " + inVO);
+		LOG.debug("└───────────────────┘");
+
+		int flag = userService.doUpdate(inVO);
+		String message = "";
+
+		if (flag == 1)
+			message = "정상적으로 반영 되었습니다";
+		else
+			message = "업데이트 실패";
+
+		MessageVO messageVO = new MessageVO(flag + "", message);
+		jsonString = new Gson().toJson(messageVO);
+		LOG.debug("jsonString: " + jsonString);
+
+		return jsonString;
+	}
+	
+	// =========================================================================
 	
 	// ============================= 회원 가입 =====================================
 	// id 검사

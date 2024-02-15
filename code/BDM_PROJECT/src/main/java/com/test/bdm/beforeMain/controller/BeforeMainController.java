@@ -23,6 +23,11 @@ public class BeforeMainController implements PcwkLogger {
 
 	@Autowired
 	BeforeMainService beforeMainService;
+	
+	@GetMapping(value = "/moveToBeforeMain.do")
+	public String moveToBeforeMain() throws SQLException {
+		return "main/beforeLoginMain";
+	}
 
 	@GetMapping(value = "/moveToAfterMain.do")
 	public String moveToAfterMain() throws SQLException {
@@ -41,23 +46,29 @@ public class BeforeMainController implements PcwkLogger {
 
 	@GetMapping(value = "/moveToBulletin.do")
 	public String moveToBulletin() throws SQLException {
-
-	
 		return "board/bulletin";
 	}
-
-	
 	
 	@GetMapping(value = "/moveToNotice.do")
-
 	public String moveToNotice() throws SQLException {
-
 		return "board/notice";
 	}
 
 	@GetMapping(value = "/moveToMain.do")
 	public String moveToMain() throws SQLException {
 		return "main/beforeLoginMain";
+	}
+	
+	@RequestMapping(value="/doLogout.do", method = RequestMethod.GET)
+	public String doLogout(HttpSession httpSession) {
+		String view = "main/beforeLoginMain";
+		
+		if(httpSession.getAttribute("user") != null) {
+			httpSession.removeAttribute("user");
+			httpSession.invalidate();
+		}
+		
+	     return view;
 	}
 
 	@RequestMapping(value = "/doLogin.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
