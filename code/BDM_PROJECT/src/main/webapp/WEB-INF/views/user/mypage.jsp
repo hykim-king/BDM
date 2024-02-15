@@ -498,6 +498,10 @@ function calculateAge(birth) {
                               startDate: ${startDate }
                               finishDate: ${finishDate }
                               weekKcal: ${weekKcal }
+                              weekCarbo: ${weekCarbo }
+                              weekProtein: ${weekProtein }
+                              weekFat: ${weekFat }
+                              weekSugars: ${weekSugars }
                                 <div>
                                     <h4 class="card-title">${convertedDate}</h4>
                                     <button id="calendarButton">달력 열기</button>

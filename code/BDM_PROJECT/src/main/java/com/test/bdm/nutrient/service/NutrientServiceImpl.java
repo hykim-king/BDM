@@ -32,8 +32,28 @@ public class NutrientServiceImpl implements NutrientService {
 	}
 	
 	@Override
-	public ArrayList<Double> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException {
+	public ArrayList<Integer> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException {
 		return dao.doRetrieveWeekKcal(userId, weekly);
+	}
+
+	@Override
+	public ArrayList<Double> doRetrieveWeekCarbo(String userId, ArrayList<String> weekly) throws SQLException {
+		return dao.doRetrieveWeekCarbo(userId, weekly);
+	}
+
+	@Override
+	public ArrayList<Double> doRetrieveWeekProtein(String userId, ArrayList<String> weekly) throws SQLException {
+		return dao.doRetrieveWeekProtein(userId, weekly);
+	}
+
+	@Override
+	public ArrayList<Double> doRetrieveWeekFats(String userId, ArrayList<String> weekly) throws SQLException {
+		return dao.doRetrieveWeekFats(userId, weekly);
+	}
+
+	@Override
+	public ArrayList<Double> doRetrieveWeekSugars(String userId, ArrayList<String> weekly) throws SQLException {
+		return dao.doRetrieveWeekSugars(userId, weekly);
 	}
 
 }

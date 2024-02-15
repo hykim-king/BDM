@@ -148,16 +148,24 @@ public class NutrientController implements PcwkLogger{
 		System.out.println("finishDate: " + finishDate);
 		weekly.add(finishDate);
 		
-		NutrientVO thisWeek = service.doRetrieveWeek(userId, startDate, finishDate);
-		ArrayList<Double> weekKcal = service.doRetrieveWeekKcal(userId, weekly);
+//		NutrientVO thisWeek = service.doRetrieveWeek(userId, startDate, finishDate);
+		ArrayList<Integer> weekKcal = service.doRetrieveWeekKcal(userId, weekly);
+		ArrayList<Double> weekCarbo = service.doRetrieveWeekCarbo(userId, weekly);
+		ArrayList<Double> weekProtein = service.doRetrieveWeekProtein(userId, weekly);
+		ArrayList<Double> weekFat = service.doRetrieveWeekFats(userId, weekly);
+		ArrayList<Double> weekSugars = service.doRetrieveWeekSugars(userId, weekly);
 		
 		// "yy/MM/dd" 형식을 "yyyy년 MM월 dd일"로 변환
         String convertedDate = convertDateFormat(formatedNow, "yy/MM/dd", "yyyy년 MM월 dd일");
 		
 		modelAndView.setViewName("user/mypage");
 		modelAndView.addObject("oneDay", oneDay);
-		modelAndView.addObject("thisWeek", thisWeek);
+//		modelAndView.addObject("thisWeek", thisWeek);
 		modelAndView.addObject("weekKcal", weekKcal);
+		modelAndView.addObject("weekCarbo", weekCarbo);
+		modelAndView.addObject("weekProtein", weekProtein);
+		modelAndView.addObject("weekFat", weekFat);
+		modelAndView.addObject("weekSugars", weekSugars);
 		modelAndView.addObject("convertedDate", convertedDate);
 		modelAndView.addObject("startDate", startDate);
 		modelAndView.addObject("finishDate", finishDate);

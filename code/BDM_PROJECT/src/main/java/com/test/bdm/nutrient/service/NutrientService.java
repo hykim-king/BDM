@@ -13,5 +13,13 @@ public interface NutrientService {
 	
 	NutrientVO doRetrieveWeek(String userId, String startDate, String finishDate) throws SQLException;
 	
-	ArrayList<Double> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException;
+	ArrayList<Integer> doRetrieveWeekKcal(String userId, ArrayList<String> weekly) throws SQLException;
+	
+	ArrayList<Double> doRetrieveWeekCarbo(String userId, ArrayList<String> weekly) throws SQLException;
+	
+	ArrayList<Double> doRetrieveWeekProtein(String userId, ArrayList<String> weekly) throws SQLException;
+	
+	ArrayList<Double> doRetrieveWeekFats(String userId, ArrayList<String> weekly) throws SQLException;
+	
+	ArrayList<Double> doRetrieveWeekSugars(String userId, ArrayList<String> weekly) throws SQLException;
 }
