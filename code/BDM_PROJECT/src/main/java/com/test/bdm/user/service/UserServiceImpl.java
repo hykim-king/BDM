@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 		return userDao.doSave(inVO);
 	}
 
+	@Override
+	public int doUpdate(UserVO inVO) throws SQLException {
+		return userDao.doUpdate(inVO);
+	}
+
 }

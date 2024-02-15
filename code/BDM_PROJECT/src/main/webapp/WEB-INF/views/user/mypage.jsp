@@ -117,21 +117,20 @@ function formatDate(date) {
 	        calendarBody.append(row);
 	    }
 	} */
-	function generateCalendar() { 
+	
+	function generateCalendar(year, month) { 
 	    var calendarBody = $("#calendarBody");
 	    calendarBody.empty(); // 기존 내용 제거
 
-	    var currentDate = new Date();
-	    var currentYear = String(currentDate.getFullYear()).slice(-2); // 연도의 뒤 두 자리만 가져옴
-	    var currentMonth = currentDate.getMonth();
-	    var daysInMonth = new Date(currentDate.getFullYear(), currentMonth + 1, 0).getDate();
+	    var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
+	    var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
 
 	    var dayCounter = 1;
 	    for (var i = 0; i < 6; i++) {
 	        var row = $("<tr></tr>");
 	        for (var j = 0; j < 7; j++) {
 	            var cell = $("<td></td>");
-	            if (i === 0 && j < new Date(currentDate.getFullYear(), currentMonth, 1).getDay()) {
+	            if (i === 0 && j < currentDate.getDay()) {
 	                // 앞의 빈 칸 처리
 	                cell.text("");
 	            } else if (dayCounter <= daysInMonth) {
@@ -139,7 +138,7 @@ function formatDate(date) {
 	                dayCounter++;
 	                cell.click(function () {
 	                     // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-	                    var clickedDate = new Date(currentDate.getFullYear(), currentMonth, $(this).text());
+	                    var clickedDate = new Date(year, month - 1, $(this).text());
 	                    var formattedDate = formatDate(clickedDate);
 	                    // alert("날짜를 클릭했습니다: " + formattedDate);
 	                    console.log('formattedDate: ' + formattedDate);
@@ -152,6 +151,19 @@ function formatDate(date) {
 	        calendarBody.append(row);
 	    }
 	}
+	
+	// 연도와 달을 변경하는 함수
+	function changeYearMonth(offset) {
+	    var currentYear = parseInt($("#yearSelect").val());
+	    var currentMonth = parseInt($("#monthSelect").val());
+	    var newDate = new Date(currentYear, currentMonth - 1 + offset, 1);
+	    var newYear = newDate.getFullYear();
+	    var newMonth = newDate.getMonth() + 1;
+	    $("#yearSelect").val(newYear);
+	    $("#monthSelect").val(newMonth);
+	    generateCalendar(newYear, newMonth);
+	}
+	
 	function formatDate(date) {
 	    var year = date.getFullYear() % 100;
 	    var month = date.getMonth() + 1;
@@ -327,32 +339,55 @@ function calculateAge(birth) {
         document.addEventListener("DOMContentLoaded", function () {
             const addBtn = document.querySelector("#add");
             const moveToModBtn = document.querySelector("#moveToMod");
+            const logoutBtn = document.querySelector("#logout");
             
             addBtn.addEventListener("click", function (e) {
                 console.log("moveToNutBTN")
                 window.location.href = "/bdm/nutrient/moveToNut.do";
-                
             });
             
             moveToModBtn.addEventListener("click", function(e){
             	window.location.href = "/bdm/user/moveToMod.do";
             });
+            
+            logoutBtn.addEventListener("click", function(e){
+            	$.ajax({
+                    type: "GET",
+                    url:"/bdm/beforeMain/doLogout.do",
+                    asyn:"true",
+                    dataType:"html",
+                    data:{
+                    },
+                    success:function(data){//통신 성공     
+                       alert('로그아웃 되었습니다.');
+                       window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+                    },
+                    error:function(data){//실패시 처리
+                        console.log("error:"+data);
+                    },
+                    complete:function(data){//성공/실패와 관계없이 수행!
+                        console.log("complete:"+data);
+                    }
+                });
+            });
 
             $(document).ready(function () {
                 $("#calendarButton").click(function () {
                     $("#calendar").toggle();
-                    generateCalendar();
+                    var currentYear = new Date().getFullYear();
+                    var currentMonth = new Date().getMonth() + 1;
+                    generateCalendar(currentYear, currentMonth);
                 });
             });
             
 	        <c:if test="${not empty oneDay}">
-            // Generate pie charts for each nutrient
-            var colors = getPastelColors(5);
-            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
-            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
-            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
-            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
-            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
+	            // Generate pie charts for each nutrient
+	            var colors = getPastelColors(5);
+	            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
+	            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
+	            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
+	            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
+	            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
             </c:if>
         });
 
@@ -370,7 +405,7 @@ function calculateAge(birth) {
                     <span class="nav-link">Navigation</span>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToAfterMain.do">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
@@ -387,13 +422,13 @@ function calculateAge(birth) {
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="">자유게시판</a></li>
-                          <li class="nav-item"> <a class="nav-link" href="">공지사항</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToNotice.do">공지사항</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">
                       <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                       </span>
@@ -441,7 +476,7 @@ function calculateAge(birth) {
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                        <p class="preview-subject mb-1">Log out</p>
+                                        <p class="preview-subject mb-1" id = "logout">Log out</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -505,11 +540,18 @@ function calculateAge(birth) {
                                 <div>
                                     <h4 class="card-title">${convertedDate}</h4>
                                     <button id="calendarButton">달력 열기</button>
+                                    <button onclick="changeYearMonth(-1)">이전 달</button>
+                                    <button onclick="changeYearMonth(1)">다음 달</button>
                                     <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
                                     <!-- 달력 -->
 									<div id="calendar">
 									    <table>
 									        <thead>
+									        <tr>
+									           <th><button>이전 달</button></th>
+									           <th>5월</th>
+									           <th><button>다음 달</button></th>
+									        </tr>
 									        <tr>
 									            <th>일</th>
 									            <th>월</th>
