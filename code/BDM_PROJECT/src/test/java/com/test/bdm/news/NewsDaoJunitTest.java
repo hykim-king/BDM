@@ -1,3 +1,4 @@
+package com.test.bdm.news;
 //package com.test.bdm.news.dao;
 //
 //import static org.junit.Assert.*;

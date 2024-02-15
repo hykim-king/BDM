@@ -1,4 +1,4 @@
-package com.test.bdm.news.controller;
+package com.test.bdm.news;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

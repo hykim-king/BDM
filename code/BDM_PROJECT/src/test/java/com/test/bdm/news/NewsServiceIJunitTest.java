@@ -1,4 +1,4 @@
-package com.test.bdm.news.service;
+package com.test.bdm.news;
 
 import static org.junit.Assert.*;
 
