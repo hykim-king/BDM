@@ -52,42 +52,36 @@ public class BulletinController implements PcwkLogger {
 		LOG.debug(" doRetrieve"                          );
 		LOG.debug(" bulletinVO: " + inVO                 );
 		LOG.debug("─────────────────────────────────────");
-		// Default처리
-		// 페이지 사이즈:10
-		if (null != inVO && inVO.getPageSize() == 0) {
+		//Default처리
+		//페이지 사이즈:10
+		if(null != inVO && inVO.getPageSize() == 0) {
 			inVO.setPageSize(10L);
 		}
-
-		// 페이지 번호:1
-		if (null != inVO && inVO.getPageNo() == 0) {
+		
+		//페이지 번호: 1
+		if(null != inVO && inVO.getPageNo() == 0) {
 			inVO.setPageNo(1L);
 		}
-
-		// 검색구분:""
-		if (null != inVO && null == inVO.getSearchDiv()) {
+		
+		//검색구분: ""
+		if(null != inVO && null == inVO.getSearchDiv()) {
 			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchDiv()));
-		}
-		// 검색어:""
-		if (null != inVO && null == inVO.getSearchWord()) {
-			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
 		}
 		LOG.debug("Bulletin Default처리: " + inVO);
 		
 		Map<String, Object> codes = new HashMap<String, Object>();
-		String[] codeStr = { "PAGE_SIZE", "SEARCH" };
-
+		String[] codeStr = {"page_size", "search"};
+		
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-
 		List<CodeVO> bulletinSearchList = new ArrayList<CodeVO>();
 		List<CodeVO> pageSizeList = new ArrayList<CodeVO>();
-		
-		for (CodeVO vo : codeList) {
-			if (vo.getCategory().equals("SEARCH")) {
+		for(CodeVO vo: codeList) {
+			if(vo.getCategory().equals("search")) {
 				bulletinSearchList.add(vo);
 			}
-
-			if (vo.getCategory().equals("PAGE_SIZE")) {
+			
+			if(vo.getCategory().equals("page_size")) {
 				pageSizeList.add(vo);
 			}
 		}
@@ -109,14 +103,11 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("bulletinSearch", bulletinSearchList);
 		modelAndView.addObject("pageSize", pageSizeList);
 		
-		long bottomCount = StringUtil.BOTTOM_COUNT;// 바닥글
-		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
-				"/bdm/bulletin/doRetrieve.do", "pageDoRerive");
-		modelAndView.addObject("pageHtml", html);
-
-		String title = "게시판-목록";
-		modelAndView.addObject("title", title);
-
+//		long bottomCount = StringUtil.BOTTOM_COUNT;
+//		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), 
+//				"/bdm/bulletin/doRetrieve.do", "pageDoRetrieve");
+//		modelAndView.addObject("pageHtml", html);
+		
 		return modelAndView;
 		}
 	
@@ -165,11 +156,13 @@ public class BulletinController implements PcwkLogger {
 			
 		}
 		
-		UserVO user = (UserVO) httpSession.getAttribute("user");
-		if (user != null) {
-		    inVO.setId(user.getId());
-		} else {
-		    inVO.setId("");
+		if(null == inVO.getId()) {
+			inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
+		}
+		
+		if(null == httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
+			inVO.setId(user.getId());
 		}
 		
 		BulletinVO outVO = service.doSelectOne(inVO);
@@ -193,7 +186,6 @@ public class BulletinController implements PcwkLogger {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" bulletinView"                        );
 		LOG.debug(" bulletinVO: " + inVO                 );
-		LOG.debug(" BulletinView User ID: " + inVO.getId());
 		LOG.debug("─────────────────────────────────────");
 		
 		if(0 == inVO.getPostNo()) {
@@ -205,20 +197,13 @@ public class BulletinController implements PcwkLogger {
 			
 		}
 		
-//		if(null == inVO.getId()) {
-//			inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
-//		}
-//		
-//		if(null == httpSession.getAttribute("user")) {
-//			UserVO user = (UserVO) httpSession.getAttribute("user");
-//			inVO.setId(user.getId());
-//		}
+		if(null == inVO.getId()) {
+			inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
+		}
 		
-		UserVO user = (UserVO) httpSession.getAttribute("user");
-		if(user != null) {
+		if(null == httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
 			inVO.setId(user.getId());
-		} else {
-			inVO.setId("");
 		}
 		
 		BulletinVO outVO = service.bulletinView(inVO);

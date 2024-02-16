@@ -57,21 +57,20 @@
 		resultType="BulletinVO">
 		SELECT A.*,B.totalCnt
 		FROM (
-			SELECT	
-				tt1.post_no as postNo,	
-				tt1.rnum as no,
-				tt1.title,
-				tt1.contents,
-				DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-				,TO_CHAR(tt1.reg_dt,'HH24:MI')
-				,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,			
-				--당일 등록: 시:분, 그렇지 않으면 년-월-일
-				DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-				,TO_CHAR(tt1.mod_dt,'HH24:MI')
-				,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
-				tt1.read_cnt as readCnt,
-				tt1.id,
-				tt1.mod_id as modId
+			SELECT		
+			tt1.rnum as postNo,
+			tt1.title,
+			tt1.contents,
+			DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+			,TO_CHAR(tt1.reg_dt,'HH24:MI')
+			,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,			
+			--당일 등록: 시:분, 그렇지 않으면 년-월-일
+			DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+			,TO_CHAR(tt1.mod_dt,'HH24:MI')
+			,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
+			tt1.read_cnt as readCnt,
+			tt1.id,
+			tt1.mod_id as modId
 		FROM (
 			SELECT ROWNUM rnum, T1.*
 			FROM (

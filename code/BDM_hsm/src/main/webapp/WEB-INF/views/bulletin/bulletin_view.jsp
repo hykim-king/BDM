@@ -19,12 +19,10 @@ document.addEventListener("DOMContentLoaded",function() {
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
     
-    
     const doSelectOneBTN = document.querySelector("#doSelectOne");
     
     //삭제버튼
     const doDeleteBTN   = document.querySelector("#doDelete");
-    
 
 
     //삭제 이벤트 감지 및 처리
@@ -107,30 +105,23 @@ document.addEventListener("DOMContentLoaded",function() {
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="nav-item">
-			<a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
-		</li>
-		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
+		<li class="nav-item"><a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance DietManagement</a></li>
+		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
 			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="/bdm/user/moveToReg.do" id="moveToReg">회원 가입</a></li>
-				<li><a class="dropdown-item" href="#" id="doFindAccount">ID/PW 찾기</a></li>
+				<li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
+				<li><a class="dropdown-item" href="#"></a></li>
+				<li><a class="dropdown-item" href="#"></a></li>
 				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
+				<li><a class="dropdown-item" href="#">마이페이지</a></li>
 			</ul>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a>
+		<li>
+			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToNotice">공지사항</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그아웃</a>
-		</li>
+    		<a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a>
+  		</li>
+		<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
 	</ul>
 <div class="container">
     <!-- 제목 -->
@@ -138,7 +129,7 @@ document.addEventListener("DOMContentLoaded",function() {
         <div class="col-lg-12">
             <h1 class="page-header">상세조회</h1>
         </div>
-    </div>
+    </div>    
     <!--// 제목 ----------------------------------------------------------------->
     
     <!-- 버튼 -->
@@ -149,11 +140,23 @@ document.addEventListener("DOMContentLoaded",function() {
             <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
         </div>
     </div>
+    <!--// 버튼 ----------------------------------------------------------------->
+    <!-- 
+    seq : sequence별도 조회
+    div : 10(공지사항)고정
+    read_cnt : 0 
+    title,contents : 화면에서 전달
+    reg_id,mod_id  : session에서 처리
+     -->
+      
+
+    <!-- form -->
+    <form action="#" name="regFrm" id="regFrm">        
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="seq" name="seq" maxlength="100"
-                 value="${vo.postNo}"
+                 value="${vo.postNo }"
                  readonly>
             </div>
         </div>
@@ -162,7 +165,7 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="readCnt" name="readCnt" maxlength="100"
-                 value="${vo.readCnt}" 
+                 value="${vo.readCnt }" 
                 placeholder="조회수를 입력 하세요">
             </div>
         </div>
@@ -171,7 +174,7 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regId" name="regId"  readonly="readonly"
-                 value="${vo.id}"
+                 value=${vo.id }
                  >
             </div>        
         </div>
@@ -179,26 +182,27 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="regId" class="col-sm-2 col-form-label">등록일</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt}"  readonly="readonly" >
+                value="${vo.regDt }"  readonly="readonly" >
             </div>        
         </div>        
         <div class="mb-3 row">
             <label for="regId" class="col-sm-2 col-form-label">수정자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="modId" name="modId" 
-                value="${vo.modId}"  readonly="readonly"  >
+                value="${vo.modId }"  readonly="readonly"  >
             </div>        
         </div>
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control" id="title" name="title" maxlength="100" 
-             value="${vo.title}"
+             value=${vo.title }
             placeholder="제목을 입력 하세요">
         </div>      
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
             <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
         </div>
+    </form> 
     <!--// form --------------------------------------------------------------->
     
     

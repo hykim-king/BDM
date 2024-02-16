@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 package com.test.bdm.news.controller;
 
@@ -212,6 +213,8 @@ public class NewsController implements PcwkLogger {
 		
 	
 }=======
+=======
+>>>>>>> 3989d57b9dd99ceb938459ca384b8e42f3514bb3
 package com.test.bdm.news.controller;
 
 import java.io.FileOutputStream;
