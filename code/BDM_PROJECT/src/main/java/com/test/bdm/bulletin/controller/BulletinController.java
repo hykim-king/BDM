@@ -56,9 +56,6 @@ public class BulletinController implements PcwkLogger {
 		//String[] codeStr = { "BULLETIN_DIV" };
 		//codes.put("code", codeStr);
 
-<<<<<<< HEAD
-		viewName = "bulletin/bulletin";
-=======
 		//List<CodeVO> codeList = this.codeService.doRetrieve(codes);
 		//model.addAttribute("divCode", codeList);
 		model.addAttribute("paramVO", inVO);
@@ -68,7 +65,6 @@ public class BulletinController implements PcwkLogger {
 		model.addAttribute("title", title);
 
 		viewName = "bulletin/bulletin_reg";
->>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
 		return viewName;
 	}
 
@@ -131,11 +127,7 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 
 		// 뷰
-<<<<<<< HEAD
-		modelAndView.setViewName("bulletin/bulletin");// /WEB-INF/views/board/board_list.jsp
-=======
 		modelAndView.setViewName("bulletin/bulletin");
->>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
 		// Model
 		modelAndView.addObject("list", list);
 		// 검색데이터

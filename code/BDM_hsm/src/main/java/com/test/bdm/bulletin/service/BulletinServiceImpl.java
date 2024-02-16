@@ -33,6 +33,13 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	public BulletinVO doSelectOne(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
 		BulletinVO outVO = dao.doSelectOne(inVO);
 		
+		if(null != outVO) {
+			int updateReadCnt = dao.updateReadCnt(inVO);
+			LOG.debug("──────────────────────────────────────────");
+			LOG.debug(" updateReadCnt: " + updateReadCnt          );
+			LOG.debug("──────────────────────────────────────────");
+		}
+		
 		return outVO;
 	}
 

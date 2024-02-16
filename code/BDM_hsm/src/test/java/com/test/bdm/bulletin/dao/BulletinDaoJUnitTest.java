@@ -48,10 +48,10 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		String regDt = "사용 하지 않음";
 		String modDt = "사용 하지 않음";
 		int readCnt = 0;
-		String id = "hsm";
-		String modId = "hsm";
+		String id = "p10";
+		String modId = "p10";
 
-		bulletin01 = new BulletinVO(dao.getBulletinSeq(), title + "제목1", contents + "제목1", regDt, modDt, readCnt, id,
+		bulletin01 = new BulletinVO(dao.getBulletinPostNo(), title + "제목1", contents + "제목1", regDt, readCnt, id,
 				modId);
 
 		searchVO = new BulletinVO();
