@@ -593,8 +593,12 @@ function calculateAge(birth) {
 							                <c:choose>
 											    <c:when test="${not empty ateList}">
 											        <c:set var="morning" value="false"/>
+											        <c:set var="morlun" value="false"/>
 											        <c:set var="lunch" value="false"/>
+											        <c:set var="lundin" value="false"/>
 											        <c:set var="dinner" value="false"/>
+											        <c:set var="night" value="false"/>
+											        <c:set var="etc" value="false"/>
 											        <c:forEach var="vo" items="${ateList}" varStatus="status">
 											            <c:choose>
 											                <c:when test="${vo.code eq 1}">
@@ -606,6 +610,14 @@ function calculateAge(birth) {
 											                    </c:if>
 											                </c:when>
 											                <c:when test="${vo.code eq 2}">
+                                                                <c:if test="${!morlun}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">아점</td>
+                                                                    </tr>
+                                                                    <c:set var="morlun" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 3}">
 											                    <c:if test="${!lunch}">
 											                        <tr>
 											                            <td colspan="4" class="text-center">점심</td>
@@ -613,7 +625,15 @@ function calculateAge(birth) {
 											                        <c:set var="lunch" value="true"/>
 											                    </c:if>
 											                </c:when>
-											                <c:when test="${vo.code eq 3}">
+											                <c:when test="${vo.code eq 4}">
+                                                                <c:if test="${!lundin}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">점저</td>
+                                                                    </tr>
+                                                                    <c:set var="lundin" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 5}">
 											                    <c:if test="${!dinner}">
 											                        <tr>
 											                            <td colspan="4" class="text-center">저녁</td>
@@ -621,6 +641,22 @@ function calculateAge(birth) {
 											                        <c:set var="dinner" value="true"/>
 											                    </c:if>
 											                </c:when>
+											                <c:when test="${vo.code eq 6}">
+                                                                <c:if test="${!night}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">야식</td>
+                                                                    </tr>
+                                                                    <c:set var="night" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+                                                            <c:when test="${vo.code eq 7}">
+                                                                <c:if test="${!etc}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">간식</td>
+                                                                    </tr>
+                                                                    <c:set var="etc" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
 											            </c:choose>
 											            <tr>
 											                <td class="text-center"><c:out value="${status.index + 1}" escapeXml="true"/></td>

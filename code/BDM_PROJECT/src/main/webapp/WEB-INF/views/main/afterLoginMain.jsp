@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 	moveToNewsBtn.addEventListener("click", function(e){
-		window.location.href = "${CP }/beforeMain/moveToNews.do"
+		window.location.href = "${CP }/news/doRetrieve.do"
 	});
 
 });
