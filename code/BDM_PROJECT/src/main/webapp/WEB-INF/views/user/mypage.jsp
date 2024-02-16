@@ -3,15 +3,6 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="com.test.bdm.nutrient.domain.NutrientVO" %>
-<%
-    LocalDate today = LocalDate.now();
-    LocalDate firstDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
-    LocalDate lastDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SATURDAY));
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일");
-    request.setAttribute("today", today.format(formatter));
-    request.setAttribute("firstDayOfWeek", firstDayOfWeek.format(formatter));
-    request.setAttribute("lastDayOfWeek", lastDayOfWeek.format(formatter));
-%>
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />  
 <!DOCTYPE html>
@@ -275,35 +266,35 @@ function calculateAge(birth) {
                     {
                         label: '칼로리',
                         data: kcalData,
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '탄수화물',
                         data: carbData,
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1))',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '단백질',
                         data: proteinData,
-                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(255, 206, 86, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '지방',
                         data: fatData,
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '당류',
                         data: sugarsData,
-                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderWidth: 1
                     }
@@ -323,17 +314,56 @@ function calculateAge(birth) {
         });
     }
 
-    /* document.addEventListener("DOMContentLoaded", function () {
-        var labels = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-        var selectedWeekDataMap = ${selectedWeekDataMap}// 해당 부분 수정
-        var kcalData = Object.values(selectedWeekDataMap).map(function (item) { return item.kcal; });
-        var carbData = Object.values(selectedWeekDataMap).map(function (item) { return item.carbohydrate; });
-        var proteinData = Object.values(selectedWeekDataMap).map(function (item) { return item.protein; });
-        var fatData = Object.values(selectedWeekDataMap).map(function (item) { return item.fat; });
-        var sugarsData = Object.values(selectedWeekDataMap).map(function (item) { return item.sugars; });
+    
+</script>
+<script>
+    const weekData = {
+      labels: ['월', '화', '수', '목', '금', '토', '일'],
+      datasets: [{
+        label: '칼로리',
+        data: [weekKcal[0], weekKcal[1], weekKcal[2], weekKcal[3], weekKcal[4], weekKcal[5], weekKcal[6]],
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 2,
+        fill: false
+      }, {
+        label: '탄수화물',
+        data: [weekCarbo[0], weekCarbo[1], weekCarbo[2], weekCarbo[3], weekCarbo[4], weekCarbo[5], weekCarbo[6]],
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 2,
+        fill: false
+      }, {
+        label: '단백질',
+        data: [weekProtein[0], weekProtein[1], weekProtein[2], weekProtein[3], weekProtein[4], weekProtein[5], weekProtein[6]],
+        borderColor: 'rgb(255, 205, 86)',
+        borderWidth: 2,
+        fill: false
+      }, {
+        label: '지방',
+        data: [weekFat[0], weekFat[1], weekFat[2], weekFat[3], weekFat[4], weekFat[5], weekFat[6]],
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 2,
+        fill: false
+      }, {
+        label: '당류',
+        data: [weekSugars[0], weekSugars[1], weekSugars[2], weekSugars[3], weekSugars[4], weekSugars[5], weekSugars[6]],
+        borderColor: 'rgb(153, 102, 255)',
+        borderWidth: 2,
+        fill: false
+      }]
+    };
 
-        generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, 'combined-line-chart');
-    }); */
+    const ctx = document.getElementById('weeklyChart').getContext('2d');
+    const weeklyChart = new Chart(ctx, {
+      type: 'line',
+      data: weekData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
 </script>
 <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -393,6 +423,11 @@ function calculateAge(birth) {
 
 </script>
 </head>
+<style>
+    .card-body{
+        background-color:#fdce64;
+    }
+</style>
 <body>
     <div class ="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -673,8 +708,12 @@ function calculateAge(birth) {
 											</c:choose>
 							            </tbody>
 							        </table>
+                                    <div class="chart-flex col-md-12"> 
+                                        <canvas id="weeklyChart" class="weeklyChart col-md-12"></canvas>
+                                    </div>
                                 </div>
                             </div>
+                            
                           </div>
                     </div>  
                 </div>

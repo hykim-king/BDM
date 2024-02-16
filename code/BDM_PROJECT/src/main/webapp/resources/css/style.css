@@ -5,7 +5,7 @@
   * Template variables
   * SCSS Compass Functions
   * Boostrap Main SCSS
-  * Template mixins 
+  * Template mixins  
     + Animation Mixins
     + Background Mixins
     + Badge Mixins
@@ -7496,9 +7496,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #ffffff;
+  color: #f7e9e8;
   text-align: left;
-  background-color: #fff; }
+  background-color: #f7e9e8; }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
@@ -7823,7 +7823,7 @@ mark,
 .blockquote-footer {
   display: block;
   font-size: 80%;
-  color: #6c757d; }
+  color: #f7e9e8; }
   .blockquote-footer::before {
     content: "\2014\00A0"; }
 
@@ -7848,7 +7848,7 @@ mark,
 
 .figure-caption {
   font-size: 90%;
-  color: #6c757d; }
+  color: #f7e9e8; }
 
 code {
   font-size: 87.5%;
@@ -7871,7 +7871,7 @@ kbd {
 pre {
   display: block;
   font-size: 87.5%;
-  color: #212529; }
+  color: #f7e9e8; }
   pre code {
     font-size: inherit;
     color: inherit;
@@ -9473,25 +9473,25 @@ fieldset:disabled .wizard > .actions a,
       box-shadow: 0 0 0 0.2rem rgba(252, 94, 101, 0.5); }
 
 .btn-light {
-  color: #212529;
+  color: #f7e9e8;
   background-color: #ffffff;
   border-color: #ffffff; }
   .btn-light:hover {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ececec;
     border-color: #e6e6e6; }
   .btn-light:focus, .btn-light.focus {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ececec;
     border-color: #e6e6e6;
     box-shadow: 0 0 0 0.2rem rgba(222, 222, 223, 0.5); }
   .btn-light.disabled, .btn-light:disabled {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ffffff;
     border-color: #ffffff; }
   .btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active,
   .show > .btn-light.dropdown-toggle {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #e6e6e6;
     border-color: #dfdfdf; }
     .btn-light:not(:disabled):not(.disabled):active:focus, .btn-light:not(:disabled):not(.disabled).active:focus,
@@ -9551,7 +9551,7 @@ fieldset:disabled .wizard > .actions a,
   color: #e4eaec;
   border-color: #e4eaec; }
   .btn-outline-secondary:hover, .editable-container.editable-inline .editableform .control-group .editable-buttons .editable-cancel:hover {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #e4eaec;
     border-color: #e4eaec; }
   .btn-outline-secondary:focus, .editable-container.editable-inline .editableform .control-group .editable-buttons .editable-cancel:focus, .btn-outline-secondary.focus, .editable-container.editable-inline .editableform .control-group .editable-buttons .focus.editable-cancel {
@@ -9618,7 +9618,7 @@ fieldset:disabled .wizard > .actions a,
   color: #ffab00;
   border-color: #ffab00; }
   .btn-outline-warning:hover {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ffab00;
     border-color: #ffab00; }
   .btn-outline-warning:focus, .btn-outline-warning.focus {
@@ -9660,7 +9660,7 @@ fieldset:disabled .wizard > .actions a,
   color: #ffffff;
   border-color: #ffffff; }
   .btn-outline-light:hover {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ffffff;
     border-color: #ffffff; }
   .btn-outline-light:focus, .btn-outline-light.focus {
@@ -9670,7 +9670,7 @@ fieldset:disabled .wizard > .actions a,
     background-color: transparent; }
   .btn-outline-light:not(:disabled):not(.disabled):active, .btn-outline-light:not(:disabled):not(.disabled).active,
   .show > .btn-outline-light.dropdown-toggle {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #ffffff;
     border-color: #ffffff; }
     .btn-outline-light:not(:disabled):not(.disabled):active:focus, .btn-outline-light:not(:disabled):not(.disabled).active:focus,
@@ -11400,10 +11400,11 @@ input[type="button"].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #191c24;
+  background-color: #fdce64; 
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem; }
+  border: 1px solid rgba(247, 151, 28, 1);
+  border-radius: 0.25rem;
+  color: #f7e9e8; }
   .card > hr {
     margin-right: 0;
     margin-left: 0; }
@@ -11425,7 +11426,8 @@ input[type="button"].btn-block {
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem; }
+  padding: 1.25rem; 
+  color: #f7e9e8;}
 
 .card-title {
   margin-bottom: 0.75rem; }
@@ -11447,7 +11449,7 @@ input[type="button"].btn-block {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
+  border-bottom: 1px solid rgba(247, 151, 28, 1); }
   .card-header:first-child {
     border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0; }
 
@@ -11728,10 +11730,10 @@ input[type="button"].btn-block {
     box-shadow: 0 0 0 0.2rem rgba(0, 144, 231, 0.5); }
 
 .badge-secondary {
-  color: #212529;
+  color: #f7e9e8;
   background-color: #e4eaec; }
   a.badge-secondary:hover, a.badge-secondary:focus {
-    color: #212529;
+    color: #f7e9e8;
     background-color: #c6d3d7; }
   a.badge-secondary:focus, a.badge-secondary.focus {
     outline: 0;
@@ -21161,4 +21163,9 @@ div.tagsinput {
 .pieChart{
   max-width:200px;
   max-height: 200px;
+}
+.weeklyChart{
+  width:800px;
+  height: 400px;
+  background-color: black; 
 }
