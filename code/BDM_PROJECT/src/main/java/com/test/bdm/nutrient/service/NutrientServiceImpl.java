@@ -56,4 +56,9 @@ public class NutrientServiceImpl implements NutrientService {
 		return dao.doRetrieveWeekSugars(userId, weekly);
 	}
 
+	@Override
+	public List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
+		return dao.doRetrieveAte(userId, formatedNow);
+	}
+
 }

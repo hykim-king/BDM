@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded",function() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
+                        <a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
