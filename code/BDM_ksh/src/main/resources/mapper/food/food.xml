@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.test.bdm.food">
+  
+	  <insert id="doSaveFood" parameterType = "map">
+	        INSERT INTO EAT(
+	            id,
+	            reg_dt,
+	            code
+	        ) VALUES (
+	           #{userId},
+	           SYSDATE,
+	           #{foodCode}
+	        )                   
+	    </insert>
+  
+  </mapper>
