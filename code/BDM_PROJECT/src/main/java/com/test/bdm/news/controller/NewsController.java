@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.test.bdm.news.controller;
 
 import java.sql.SQLException;
@@ -211,8 +211,7 @@ public class NewsController implements PcwkLogger {
 		}
 		
 	
-}
-=======
+}=======
 package com.test.bdm.news.controller;
 
 import java.io.FileOutputStream;
@@ -485,4 +484,3 @@ public class NewsController implements PcwkLogger {
 	}
 
 }
->>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
