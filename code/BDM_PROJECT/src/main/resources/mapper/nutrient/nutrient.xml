@@ -5,6 +5,56 @@
   
   <mapper namespace="com.test.bdm.nutrient">
   
+      <select id="doRetrieveAte" parameterType = "map" resultType = "NutrientVO">
+        SELECT N.NAME AS name,
+               E.DIVS AS code,
+               E.AMOUNT AS protein
+        FROM NUTRIENT N, EAT E
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.REG_DT, 'YY/MM/DD') = #{formatedNow}
+        AND E.ID = #{userId}
+      </select>  
+      
+      <select id="doRetrieveWeekSugars" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(N.SUGARS * E.AMOUNT) AS SUGARS
+        FROM EAT E, NUTRIENT N
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{day}
+        AND E.ID = #{userId}
+      </select>
+      
+      <select id="doRetrieveWeekFats" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(N.FAT * E.AMOUNT) AS FAT
+        FROM EAT E, NUTRIENT N
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{day}
+        AND E.ID = #{userId}
+      </select>
+      
+      <select id="doRetrieveWeekProtein" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(N.PROTEIN * E.AMOUNT) AS PROTEIN
+        FROM EAT E, NUTRIENT N
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{day}
+        AND E.ID = #{userId}
+      </select>
+      
+      <select id="doRetrieveWeekCarbo" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(N.CARBOHYDRATE * E.AMOUNT) AS CARBOHYDRATE
+        FROM EAT E, NUTRIENT N
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{day}
+        AND E.ID = #{userId}
+      </select>
+  
+      <select id="doRetrieveWeekKcal" parameterType = "map" resultType = "NutrientVO">
+        SELECT SUM(N.KCAL * E.AMOUNT) AS KCAL
+		FROM EAT E, NUTRIENT N
+		WHERE E.CODE = N.CODE
+		AND TO_CHAR(E.reg_dt, 'YY/MM/DD') = #{day}
+		AND E.ID = #{userId}
+      </select>
+  
       <select id = "doRetrieveWeek" parameterType = "map" resultType = "NutrientVO">
         SELECT SUM(N.KCAL * E.AMOUNT) AS KCAL,
 		       SUM(N.CARBOHYDRATE * E.AMOUNT) AS CARBOHYDRATE,
@@ -13,7 +63,7 @@
 		       SUM(N.SUGARS * E.AMOUNT) AS SUGARS
 		FROM EAT E, NUTRIENT N
 		WHERE E.CODE = N.CODE
-		AND E.REG_DT  BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS"') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
+		AND E.REG_DT  BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
 		AND E.ID = #{userId}
         <!-- SELECT SUM(kcal) AS kcal,
                SUM(carbohydrate) AS carbohydrate,

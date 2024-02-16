@@ -1,4 +1,4 @@
-package com.test.bdm.notice.dao;
+package com.test.bdm.notice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.notice.dao.NoticeDao;
 import com.test.bdm.notice.domain.NoticeVO;
 @RunWith(SpringJUnit4ClassRunner.class) // 스프링 테스트 컨텍스트 프레임웤그의 JUnit의 확장기능 지정
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -54,7 +55,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 	}
 	
 	
-	//@Ignore
+//	@Ignore
 	@Test
 	public void update() throws SQLException {
 
@@ -82,7 +83,7 @@ public class NoticeDaoJUnitTest implements PcwkLogger {
 	}
 	
 	
-	//@Ignore
+//	@Ignore
 	@Test
 	public void addAndGet() throws SQLException {
 

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.bulletin.service.BulletinService;
 import com.test.bdm.cmn.MessageVO;
@@ -45,24 +44,31 @@ public class BulletinController implements PcwkLogger {
 	@Autowired
 	MessageSource messageSource;// ResourceBundleMessageSource가 주입됨
 
-	public BulletinController() {}
+	public BulletinController() {
+	}
 
 	@GetMapping(value = "/moveToReg.do")
 	public String moveToReg(Model model, BulletinVO inVO) throws SQLException {
 		String viewName = "";
 
-//		// DIV코드 조회
-//		// Map<String, Object> codes=new HashMap<String, Object>();
-//		 String[] codeStr = {"BULLETIN_DIV"};
-//		 codes.put("code", codeStr);
-//
-//		 List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-//		 model.addAttribute("divCode", codeList);
-//		 model.addAttribute("paramVO", inVO);
-//
-//		 model.addAttribute("title", title);
+		// DIV코드 조회
+		//Map<String, Object> codes = new HashMap<String, Object>();
+		//String[] codeStr = { "BULLETIN_DIV" };
+		//codes.put("code", codeStr);
 
+<<<<<<< HEAD
 		viewName = "bulletin/bulletin";
+=======
+		//List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+		//model.addAttribute("divCode", codeList);
+		model.addAttribute("paramVO", inVO);
+
+		String title = "자유게시판 등록";
+
+		model.addAttribute("title", title);
+
+		viewName = "bulletin/bulletin_reg";
+>>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
 		return viewName;
 	}
 
@@ -92,7 +98,7 @@ public class BulletinController implements PcwkLogger {
 			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
 		}
 		LOG.debug("│ BulletinVO Default처리                          │" + inVO);
-		// 코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
+	
 		Map<String, Object> codes = new HashMap<String, Object>();
 		String[] codeStr = { "PAGE_SIZE", "SEARCH" };
 
@@ -125,7 +131,11 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 
 		// 뷰
+<<<<<<< HEAD
 		modelAndView.setViewName("bulletin/bulletin");// /WEB-INF/views/board/board_list.jsp
+=======
+		modelAndView.setViewName("bulletin/bulletin");
+>>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
 		// Model
 		modelAndView.addObject("list", list);
 		// 검색데이터
@@ -143,14 +153,8 @@ public class BulletinController implements PcwkLogger {
 				"/bdm/bulletin/doRetrieve.do", "pageDoRerive");
 		modelAndView.addObject("pageHtml", html);
 
-		// 공지사항:10, 자유게시판:20
-		// String title = "";
-		// if(inVO.getDiv().equals("10")) {
-		// title = "공지사항-목록";
-		// }else {
-		// title = "자유게시판-목록";
-		// }
-		// modelAndView.addObject("title", title);
+		String title = "게시판-목록";
+		modelAndView.addObject("title", title);
 
 		return modelAndView;
 	}
@@ -165,8 +169,9 @@ public class BulletinController implements PcwkLogger {
 
 		int flag = service.doUpdate(inVO);
 
-		String message = "";
+		String message = "수정되었습니다.";
 		if (1 == flag) {
+			
 			LOG.debug("│ message                           │" + message);
 			String update = "수정";
 			message = MessageFormat.format(message, update);
@@ -208,7 +213,7 @@ public class BulletinController implements PcwkLogger {
 	}
 
 	@GetMapping(value = "/doSelectOne.do")
-	public String doSelectOne(BulletinVO inVO, Model model, HttpSession httpSession)
+	public String doSelectOne( BulletinVO inVO, Model model, HttpSession httpSession)
 			throws SQLException, EmptyResultDataAccessException {
 		String view = "bulletin/bulletin_mng";
 		LOG.debug("┌───────────────────────────────────┐");
@@ -219,28 +224,30 @@ public class BulletinController implements PcwkLogger {
 			LOG.debug("============================");
 			LOG.debug("==nullPointerException===");
 			LOG.debug("============================");
+
+			throw new NullPointerException("순번을 입력 하세요");
+		}
+		if (null == inVO.getId()) {
+			inVO.setId(StringUtil.nvl(inVO.getId(), "Guest"));
+		}
+
+		// session이 있는 경우
+		if (null != httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
+			inVO.setId(user.getId());
+		}
+
+		BulletinVO outVO = service.doSelectOne(inVO);
+		model.addAttribute("vo", outVO);
 		
-		throw new NullPointerException("순번을 입력 하세요");
-	}
-	if( null==inVO.getId()) {
-		inVO.setId(StringUtil.nvl(inVO.getId(),"Guest"));
-	}
-	
-	//session이 있는 경우
-	if(null != httpSession.getAttribute("user")) {
-		UserVO user = (UserVO) httpSession.getAttribute("user");
-		inVO.setId(user.getId());
-	}
-	
-	BulletinVO  outVO = service.doSelectOne(inVO);
-	model.addAttribute("vo", outVO);
-	
-	return view;
-}
+		String title = "자유게시판 수정";
+		model.addAttribute("title", title);	
 
 
+		return view;
+	}
 
-	@GetMapping(value = "/doDelete.do", produces = "application/json;charset=UTF-8")																						// RequestMethod.GET)
+	@GetMapping(value = "/doDelete.do", produces = "application/json;charset=UTF-8") // RequestMethod.GET)
 	@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public MessageVO doDelete(BulletinVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");

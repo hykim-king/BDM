@@ -1,4 +1,4 @@
-package com.test.bdm.notice.controller;
+package com.test.bdm.notice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -66,7 +66,7 @@ public class NoticeControllerJUnitTest implements PcwkLogger {
 		searchVO.setTitle(title);
 	}
 	
-	//@Ignore
+//	@Ignore
 	@Test
 	public void doSave() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");

@@ -39,6 +39,11 @@ public class UserDaoImpl implements UserDao, PcwkLogger {
 	public int doSave(UserVO inVO) throws SQLException {
 		return this.sqlSessionTemplate.insert(NAMESPACE + DOT + "doSave", inVO);
 	}
+
+	@Override
+	public int doUpdate(UserVO inVO) throws SQLException {
+		return this.sqlSessionTemplate.update(NAMESPACE + DOT + "doUpdate", inVO);
+	}
 	
 	
 }

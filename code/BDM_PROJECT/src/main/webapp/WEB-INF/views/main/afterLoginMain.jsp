@@ -14,10 +14,21 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
-	
+	const moveToNewsBtn = document.querySelector("#moveToNews");
+	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
+
+	moveToBulletinBtn.addEventListener("click", function(e){
+        location.href = "/bdm/bulletin/doRetrieve.do";
+    });
+
 	moveToMyPageBtn.addEventListener("click", function(e){
 		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
     });
+
+	moveToNewsBtn.addEventListener("click", function(e){
+		window.location.href = "${CP }/news/doRetrieve.do"
+	});
+
 });
 </script>
 </head>
@@ -25,5 +36,8 @@ document.addEventListener("DOMContentLoaded", function(){
 THIS IS AFTERLOGINMAIN <br/>
 ${user} <br/>
 <input type="button" value="마이페이지"  id="moveToMyPage">
+<input type="button" value="뉴스"  id="moveToNews">
+<input type="button" value="자유게시판"  id="moveToBulletin">
+<input type="button" value="공지사항"  id="moveToNotice">
 </body>
 </html>

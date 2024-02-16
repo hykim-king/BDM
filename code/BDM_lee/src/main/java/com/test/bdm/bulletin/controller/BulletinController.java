@@ -43,8 +43,6 @@ public class BulletinController implements PcwkLogger {
 	
 	@Autowired
 	MessageSource messageSource;//ResourceBundleMessageSource가 주입됨
-	
-	
 
 	public BulletinController() {}
 

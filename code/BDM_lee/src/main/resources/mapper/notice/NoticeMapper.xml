@@ -40,15 +40,16 @@
 	<select id="doRetrieve" parameterType="NoticeVO" resultType="NoticeVO">
 	    SELECT A.*,B.totalCnt
 	    FROM (
-	        SELECT tt1.post_no,
+	        SELECT 
+	        	tt1.post_no,
 		        tt1.title, 
 		        tt1.contents,
-		        tt1.reg_dt,
-		        tt1.read_cnt as readCnt,
+		        
 		        --당일 등록: 시:분, 그렇치 않으면 년-월-일
-		        DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-		        ,TO_CHAR(tt1.mod_dt,'HH24:MI')
-		        ,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
+		        DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+		        ,TO_CHAR(tt1.reg_dt,'HH24:MI')
+		        ,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
+		        tt1.read_cnt as readCnt,
 		        tt1.id
 	        FROM (
 	            SELECT ROWNUM rnum, T1.*

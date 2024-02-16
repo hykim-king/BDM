@@ -28,7 +28,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.code.domain.CodeVO;
@@ -84,7 +83,7 @@ public class NoticeControllerJUnitTest implements PcwkLogger {
 		LOG.debug("└───────────────────────────────────────────┘");
 		
 		MockHttpServletRequestBuilder  requestBuilder  =
-				MockMvcRequestBuilders.get("/bulletin/doRetrieve.do")
+				MockMvcRequestBuilders.get("/notice/doRetrieve.do")
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
@@ -96,17 +95,17 @@ public class NoticeControllerJUnitTest implements PcwkLogger {
 		//호출결과
 		ModelAndView modelAndView = mvcResult.getModelAndView();
 		
-		List<BulletinVO>  list  = (List<BulletinVO>) modelAndView.getModel().get("list");
-		BulletinVO  paramVO  = (BulletinVO) modelAndView.getModel().get("paramVO");
+		List<NoticeVO>  list  = (List<NoticeVO>) modelAndView.getModel().get("list");
+		NoticeVO  paramVO  = (NoticeVO) modelAndView.getModel().get("paramVO");
 		
-		List<CodeVO> bulletinSearchList=(List<CodeVO>) modelAndView.getModel().get("bulletinSearch");
+		List<CodeVO> noticeSearchList=(List<CodeVO>) modelAndView.getModel().get("noticeSearch");
 		List<CodeVO> pageSizeList=(List<CodeVO>) modelAndView.getModel().get("pageSize");
 		
-		for(BulletinVO vo  :list) {
+		for(NoticeVO vo  :list) {
 			LOG.debug(vo);
 		}
 		
-		assertNotNull(bulletinSearchList);
+		assertNotNull(noticeSearchList);
 		assertNotNull(pageSizeList);
 		assertNotNull(list);
 		assertNotNull(paramVO);

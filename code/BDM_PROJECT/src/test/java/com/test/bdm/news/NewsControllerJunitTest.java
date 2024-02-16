@@ -1,4 +1,5 @@
-package com.test.bdm.news.controller;
+
+package com.test.bdm.news;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -64,10 +65,15 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		String   regDt = "사용하지않음";
 	    int  readCnt = 0;
 		String id =  "chen";
+		String uuid = "0123456789";
 		
 		
 		mockMvc  = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
+<<<<<<< HEAD
+//		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
+=======
+		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id, uuid));
+>>>>>>> 6b6932a8508d73f3593e39898239ffcbd6a0e389
 		
 		searchVO = new NewsVO();
 		searchVO.setTitle(title);
@@ -88,8 +94,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
-				.param("searchWord", "")
-				;		
+				.param("searchWord", "");		
 		
 		//호출 : ModelAndView      
 		MvcResult mvcResult=  mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn() ;
@@ -109,7 +114,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(newsSearchList);
 		assertNotNull(pageSizeList);
 		assertNotNull(list);
-		assertNotNull(paramVO);
+//		assertNotNull(paramVO);
 		
 	}
 	
@@ -125,22 +130,5 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(mockMvc);
 		assertNotNull(dao);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

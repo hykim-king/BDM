@@ -1,4 +1,4 @@
-package com.test.bdm.bulletin.controller;
+package com.test.bdm.bulletin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -73,7 +73,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		searchVO = new BulletinVO();
 		searchVO.setTitle(title);
 	}
-	//@Ignore
+//	@Ignore
 	@Test
 	public void doRetrieve() throws Exception{
 		//검색
@@ -81,7 +81,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		LOG.debug("│ doRetrieve()                              │");		
 		LOG.debug("└───────────────────────────────────────────┘");
 		
-		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/board/doRetrieve.do")
+		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/bulletin/doRetrieve.do")
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
@@ -111,7 +111,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void doUpdate() throws Exception{
 
@@ -128,7 +128,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		vo.setModId(vo.getModId()+upStr);
 		
 		
-		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.post("/board/doUpdate.do")
+		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.post("/bulletin/doUpdate.do")
 				.param("postNo",     vo.getPostNo()+"")
 				.param("title",   vo.getTitle())
 				.param("contents",vo.getContents())
@@ -155,7 +155,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 	}
 	
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void doSelectOne()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -167,7 +167,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		BulletinVO vo = bulletinList.get(0);
 		
 		MockHttpServletRequestBuilder  requestBuilder  =
-				MockMvcRequestBuilders.get("/board/doSelectOne.do")
+				MockMvcRequestBuilders.get("/bulletin/doSelectOne.do")
 				.param("postNo",     vo.getPostNo()+"")
 				.param("id",   vo.getId())
 				;		
@@ -183,7 +183,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void doSave()throws Exception{
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -193,7 +193,7 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		BulletinVO vo = bulletinList.get(0);
 		//url, 호출방식(get), seq
 		MockHttpServletRequestBuilder  requestBuilder  =
-				MockMvcRequestBuilders.post("/board/doSave.do")
+				MockMvcRequestBuilders.post("/bulletin/doSave.do")
 				.param("postNo",     vo.getPostNo()+"")
 				.param("title",     vo.getTitle())
 				.param("contents",   vo.getContents())
@@ -223,8 +223,8 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 //		int flag = dao.doSave(bulletinList.get(0));
 //		assertEquals(3, flag);
 		
-		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/board/doDelete.do")
-				.param("postNo", 0+"");
+		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/bulletin/doDelete.do")
+				.param("postNo", 495+"");
 		
 		ResultActions resultActions=  mockMvc.perform(requestBuilder).andExpect(status().isOk());
 		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
