@@ -68,7 +68,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		
 		
 		mockMvc  = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
+//		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
 		
 		searchVO = new NewsVO();
 		searchVO.setTitle(title);

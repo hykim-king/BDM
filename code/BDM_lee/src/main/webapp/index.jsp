@@ -17,7 +17,7 @@
 <link href="${CP}/resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${CP}/resources/css/user.css">
 
-<title>게시 등록</title>
+<title>index</title>
 <script src="${CP}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${CP}/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
@@ -25,7 +25,7 @@
 
 </script>
 
-<title>Insert title here</title>
+<title>index..</title>
 </head>
 <body>
     여기는 index.jsp
@@ -35,6 +35,12 @@
 	  </li>
 	  <li class="nav-item">
         <a class="nav-link" href="<c:url value='/user/moveToReg.do' />">회원가입</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/bulletin/doRetrieve.do' />">자유게시판</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<c:url value='/notice/doRetrieve.do' />">공지사항</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<c:url value='/template/viewBlank.do' />">blank</a>
