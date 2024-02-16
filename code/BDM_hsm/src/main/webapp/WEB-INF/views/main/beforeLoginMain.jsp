@@ -101,18 +101,20 @@ document.addEventListener("DOMContentLoaded", function(){
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do" id="moveToReg">회원 가입</a></li>
+      <li><a class="dropdown-item" href="#" id="doFindAccount">ID/PW 찾기</a></li>
       <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><a class="dropdown-item" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
+    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
+    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToNotice">공지사항</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a>
   </li>
 </ul>
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
@@ -137,20 +139,14 @@ document.addEventListener("DOMContentLoaded", function(){
 	                        <input type="password" id="pw" name="pw" size="20" maxlength="30">
 	                    </td>
 	                </tr>
+	                <tr>
+	                	<td><input type="button" value="로그인" id="doLogin" style="height: 100%;"></td>
+	                </tr>
 	            </table>
 	        </form>
 	        <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-	            <input type="button" value="로그인" id="doLogin" style="height: 100%;">
 	        </div>
         </div>
-        <div>
-            <input type="button" value="ID/PW 찾기"  id="doFindAccount">
-            <input type="button" value="회원가입"  id="moveToReg">
-        </div>
     </fieldset>
-    <input type="button" value="공지사항"  id="moveToNotice">
-    <input type="button" value="자유게시판"  id="moveToBulletin">
-    <input type="button" value="뉴스"  id="moveToNews">
-    <input type="button" value="마이페이지"  id="moveToMyPage">
 </body>
 </html>

@@ -106,4 +106,9 @@ public class BulletinDaoImpl implements BulletinDao, PcwkLogger {
 		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "bulletinView", inVO);
 	}
 
+	@Override
+	public int getBulletinSeq() throws SQLException {
+		return sqlSessionTemplate.selectOne(NAMESPACE+DOT+"getBulletinSeq");
+	}
+
 }

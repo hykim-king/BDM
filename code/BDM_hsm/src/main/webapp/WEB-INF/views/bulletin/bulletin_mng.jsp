@@ -199,21 +199,7 @@ document.addEventListener("DOMContentLoaded",function(){
       
 
     <!-- form -->
-    <form action="#" name="regFrm" id="regFrm">
-        <%-- <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
-	        <label for="seq" class="col-sm-2 col-form-label">구분</label>
-	        <div class="col-sm-10">
-		        <select class="form-select" aria-label="Default select example" id="div" name="div" disabled="disabled">
-		          <c:forEach var="codeVO" items="${divCode}">
-		             <option   value="<c:out value='${codeVO.detCode}'/>"  
-		                <c:if test="${codeVO.detCode == vo.getDiv() }">selected</c:if>  
-		             ><c:out value="${codeVO.detName}"/></option>
-		          </c:forEach>
-		          
-				</select>
-			</div>  
-        </div> --%>
-        
+    <form action="#" name="regFrm" id="regFrm">        
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">

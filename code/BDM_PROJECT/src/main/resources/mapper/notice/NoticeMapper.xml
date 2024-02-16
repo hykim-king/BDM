@@ -1,3 +1,69 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.bdm.notice">
+
+
+
+
+	<delete id="doDeleteAll" parameterType="NoticeVO">
+	DELETE FROM notice
+    WHERE title LIKE #{title}||'%'
+	</delete>
+
+	<update id="doUpdate" parameterType="NoticeVO">
+	UPDATE notice
+	SET
+	    title = #{title},
+	    contents = #{contents}
+	WHERE
+	        post_no = #{postNo}
+	</update>
+
+	<select id="getNoticeSeq" resultType="int">
+    SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+    </select>
+
+	<select id="doSelectOne" parameterType="NoticeVO" resultType="NoticeVO">
+	SELECT
+	    post_no,
+	    title,
+	    contents,
+	    TO_CHAR(reg_dt,'YYYY-MM-DD HH24:MI:SS') reg_dt,
+	    read_cnt,
+	    id
+	FROM
+	    notice
+	WHERE
+		post_no = #{postNo}
+	</select>
+
+	<delete id="doDelete" parameterType="NoticeVO">
+	DELETE FROM notice
+	WHERE post_no = #{postNo}
+	</delete>
+
+	<insert id="doSave" parameterType="NoticeVO">
+	INSERT INTO notice (
+	    post_no,
+	    title,
+	    contents,
+	    reg_dt,
+	    read_cnt,
+	    id
+	) VALUES (
+	    #{postNo},
+	    #{title},
+	    #{contents},
+	    SYSDATE,
+	    #{readCnt},
+	    #{id}
+	)
+	</insert>
+
+
+
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.bdm.notice">
@@ -62,4 +128,5 @@
 
 
 
+>>>>>>> cd20ea3c39e11caffd8cf53f1ee5cdc7707d3afe
 </mapper>
