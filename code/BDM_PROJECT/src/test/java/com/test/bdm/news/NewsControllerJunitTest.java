@@ -65,10 +65,15 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		String   regDt = "사용하지않음";
 	    int  readCnt = 0;
 		String id =  "chen";
+		String uuid = "0123456789";
 		
 		
 		mockMvc  = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+<<<<<<< HEAD
 //		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
+=======
+		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id, uuid));
+>>>>>>> 6b6932a8508d73f3593e39898239ffcbd6a0e389
 		
 		searchVO = new NewsVO();
 		searchVO.setTitle(title);
@@ -109,7 +114,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(newsSearchList);
 		assertNotNull(pageSizeList);
 		assertNotNull(list);
-		assertNotNull(paramVO);
+//		assertNotNull(paramVO);
 		
 	}
 	

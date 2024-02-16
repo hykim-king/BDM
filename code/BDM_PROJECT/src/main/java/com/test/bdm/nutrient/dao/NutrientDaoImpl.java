@@ -179,4 +179,15 @@ public class NutrientDaoImpl implements NutrientDao, PcwkLogger {
 		return  weekSugars;
 	}
 
+	@Override
+	public List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("formatedNow", formatedNow);
+		
+		List<NutrientVO> outVO = sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveAte", map);
+		LOG.debug("outVO:"+outVO);
+		return  outVO;
+	}
+
 }

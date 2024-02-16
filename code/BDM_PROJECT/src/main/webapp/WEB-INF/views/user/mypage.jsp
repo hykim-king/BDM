@@ -537,47 +537,142 @@ function calculateAge(birth) {
                               weekProtein: ${weekProtein }
                               weekFat: ${weekFat }
                               weekSugars: ${weekSugars }
-                                <div>
-                                    <h4 class="card-title">${convertedDate}</h4>
-                                    <button id="calendarButton">달력 열기</button>
-                                    <button onclick="changeYearMonth(-1)">이전 달</button>
-                                    <button onclick="changeYearMonth(1)">다음 달</button>
-                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
-                                    <!-- 달력 -->
-									<div id="calendar">
-									    <table>
-									        <thead>
-									        <tr>
-									           <th><button>이전 달</button></th>
-									           <th>5월</th>
-									           <th><button>다음 달</button></th>
-									        </tr>
-									        <tr>
-									            <th>일</th>
-									            <th>월</th>
-									            <th>화</th>
-									            <th>수</th>
-									            <th>목</th>
-									            <th>금</th>
-									            <th>토</th>
-									        </tr>
-									        </thead>
-									        <tbody id="calendarBody">
-									        </tbody>
-									    </table>
-									</div>
-                                 
-                                 </div>
-                                    <div class="chart-flex col-md-12">
-	                                    <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="proteinDayChart" class="pieChart col-md-4"></canvas> 
-	                                    <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
-                        			</div>
-                                    <div class="chart-flex col-md-12">
+                              ateList: ${ateList }
+	                                <div>
+	                                    <h4 class="card-title">${convertedDate}</h4>
+	                                    <button id="calendarButton">달력 열기</button>
+	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
+	                                    <button onclick="changeYearMonth(1)">다음 달</button>
+	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
+	                                    <!-- 달력 -->
+										<div id="calendar">
+										    <table>
+										        <thead>
+										        <tr>
+										           <th><button>이전 달</button></th>
+										           <th>5월</th>
+										           <th><button>다음 달</button></th>
+										        </tr>
+										        <tr>
+										            <th>일</th>
+										            <th>월</th>
+										            <th>화</th>
+										            <th>수</th>
+										            <th>목</th>
+										            <th>금</th>
+										            <th>토</th>
+										        </tr>
+										        </thead>
+										        <tbody id="calendarBody">
+										        </tbody>
+										    </table>
+										</div>
+	                                 
+	                                 </div>
+	                                 <div class="chart-flex col-md-12">
+		                                 <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="proteinDayChart" class="pieChart col-md-4"></canvas> 
+		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
+	                     			 </div>
+	                                 <div class="chart-flex col-md-12">
 	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
-                        			</div> 
+	                     			 </div>
+	                     			 
+	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
+							            <thead>
+							                <tr>
+							                    <th scope = "col" class = "text-center" style="display: none;">divs</th>
+							                    <th scope = "col" class = "text-center">NO</th>
+							                    <th scope = "col" class = "text-center">음식명</th>
+							                    <th scope = "col" class = "text-center">섭취량</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							                <c:choose>
+											    <c:when test="${not empty ateList}">
+											        <c:set var="morning" value="false"/>
+											        <c:set var="morlun" value="false"/>
+											        <c:set var="lunch" value="false"/>
+											        <c:set var="lundin" value="false"/>
+											        <c:set var="dinner" value="false"/>
+											        <c:set var="night" value="false"/>
+											        <c:set var="etc" value="false"/>
+											        <c:forEach var="vo" items="${ateList}" varStatus="status">
+											            <c:choose>
+											                <c:when test="${vo.code eq 1}">
+											                    <c:if test="${!morning}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">아침</td>
+											                        </tr>
+											                        <c:set var="morning" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 2}">
+                                                                <c:if test="${!morlun}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">아점</td>
+                                                                    </tr>
+                                                                    <c:set var="morlun" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 3}">
+											                    <c:if test="${!lunch}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">점심</td>
+											                        </tr>
+											                        <c:set var="lunch" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 4}">
+                                                                <c:if test="${!lundin}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">점저</td>
+                                                                    </tr>
+                                                                    <c:set var="lundin" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 5}">
+											                    <c:if test="${!dinner}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">저녁</td>
+											                        </tr>
+											                        <c:set var="dinner" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 6}">
+                                                                <c:if test="${!night}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">야식</td>
+                                                                    </tr>
+                                                                    <c:set var="night" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+                                                            <c:when test="${vo.code eq 7}">
+                                                                <c:if test="${!etc}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">간식</td>
+                                                                    </tr>
+                                                                    <c:set var="etc" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											            </c:choose>
+											            <tr>
+											                <td class="text-center"><c:out value="${status.index + 1}" escapeXml="true"/></td>
+											                <td class="text-center"><c:out value="${vo.name}" escapeXml="true"/></td>
+											                <td class="text-center"><c:out value="${vo.protein}인분" escapeXml="true"/></td>
+											            </tr>
+											        </c:forEach>
+											    </c:when>
+											    <c:otherwise>
+											        <tr>
+											            <td colspan="99" class="text-center">섭취한 음식이 없습니다.</td>
+											        </tr>
+											    </c:otherwise>
+											</c:choose>
+							            </tbody>
+							        </table>
                                 </div>
                             </div>
                           </div>

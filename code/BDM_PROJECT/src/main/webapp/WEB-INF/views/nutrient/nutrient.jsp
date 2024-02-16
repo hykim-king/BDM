@@ -23,9 +23,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	const selectedDeleteBtn = document.querySelector("#selectedDelete");
 	const deleteAllBtn = document.querySelector("#deleteAll");
 	const closeBtn = document.querySelector("#close");
-	const abcBtn = document.querySelector("#abc");
 	
-	abcBtn.addEventListener("click", function(e){
+	/* abcBtn.addEventListener("click", function(e){
 		var abc = document.getElementsByName('options');
         var radioValue = '';
         
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
         console.log('divs: ' + radioValue);
-	});
+	}); */
 	
 	closeBtn.addEventListener("click", function(e){
 		if(confirm('입력된 정보들이 모두 사라집니다. 마이페이지로 되돌아 가시겠습니까?')==false) return;
@@ -183,6 +182,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         var checkbox = document.getElementById("foodCheckbox" + i);
                         selectedFoods.push(checkbox.value-1);
                     }
+                    window.location.href = "${CP }/food/doSelectedDelete.do?index="+selectedFoods;
                 </c:if>
                 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
             },
@@ -229,23 +229,6 @@ function displaySelectedValue() {
     amountList: ${amountList }
     
     <div class = "container">
-	    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value = '1'>
-		<label class="btn btn-outline-success" for="option1">아침</label>
-		<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value = '2'>
-		<label class="btn btn-outline-success" for="option2">아점</label>
-		<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value = '3'>
-		<label class="btn btn-outline-success" for="option3">점심</label>
-		<input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value = '4'>
-		<label class="btn btn-outline-success" for="option4">점저</label>
-		<input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" value = '5'>
-        <label class="btn btn-outline-success" for="option5">저녁</label>
-        <input type="radio" class="btn-check" name="options" id="option6" autocomplete="off" value = '6'>
-        <label class="btn btn-outline-success" for="option6">야식</label>
-        <input type="radio" class="btn-check" name="options" id="option7" autocomplete="off" value = '7'>
-        <label class="btn btn-outline-success" for="option7">기타</label>
-        
-        <input type = "button" value = "divs확인" id = "abc" name = "abc"/>
-		
         <div class = "row">
             <div class="col-lg-12 d-flex justify-content-between">
 		        <h1 class="page-header">음식 검색</h1>
@@ -311,10 +294,28 @@ function displaySelectedValue() {
 	        </nav>    
 	    </div>
         <form action ="#" method = "post" id = "eventFrm" name = "eventFrm">
-	        <h3>선택한 음식</h3>
-	        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods"/>
-	        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete"/>
-	        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll"/>
+        <h3>선택한 음식</h3>
+        <div>
+	        <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" value = '1'>
+	        <label class="btn btn-outline-success" for="option1">아침</label>
+	        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" value = '2'>
+	        <label class="btn btn-outline-success" for="option2">아점</label>
+	        <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" value = '3'>
+	        <label class="btn btn-outline-success" for="option3">점심</label>
+	        <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" value = '4'>
+	        <label class="btn btn-outline-success" for="option4">점저</label>
+	        <input type="radio" class="btn-check" name="options" id="option5" autocomplete="off" value = '5'>
+	        <label class="btn btn-outline-success" for="option5">저녁</label>
+	        <input type="radio" class="btn-check" name="options" id="option6" autocomplete="off" value = '6'>
+	        <label class="btn btn-outline-success" for="option6">야식</label>
+	        <input type="radio" class="btn-check" name="options" id="option7" autocomplete="off" value = '7'>
+	        <label class="btn btn-outline-success" for="option7">기타</label>
+        </div>
+            <div>
+		        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods"/>
+		        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete"/>
+		        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll"/>
+	        </div>
         </form>
         
         <table class = "table table-bordered border-primary table-hover table-striped" id = "selectedTable">

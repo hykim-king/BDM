@@ -107,15 +107,10 @@ document.addEventListener("DOMContentLoaded",function(){
 		
 	});
 	
-	
-	function moveToListFun(){
-		window.location.href = "/bdm/beforeMain/moveToNews.do";
-	}
-	
 	//event감지 및 처리
 	moveToListBTN.addEventListener("click",function(e){
 		console.log("moveToListBTN click");
-		moveToListFun();
+		window.location.href = "/bdm/news/doRetrieve.do";
 		
 	});
 });//--DOMContentLoaded

@@ -23,4 +23,6 @@ public interface NutrientDao {
 	ArrayList<Double> doRetrieveWeekFats(String userId, ArrayList<String> weekly) throws SQLException;
 	
 	ArrayList<Double> doRetrieveWeekSugars(String userId, ArrayList<String> weekly) throws SQLException;
+	
+	List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException;
 }

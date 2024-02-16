@@ -154,6 +154,7 @@ public class NutrientController implements PcwkLogger{
 		ArrayList<Double> weekProtein = service.doRetrieveWeekProtein(userId, weekly);
 		ArrayList<Double> weekFat = service.doRetrieveWeekFats(userId, weekly);
 		ArrayList<Double> weekSugars = service.doRetrieveWeekSugars(userId, weekly);
+		List<NutrientVO> ateList = service.doRetrieveAte(userId, formatedNow);
 		
 		// "yy/MM/dd" 형식을 "yyyy년 MM월 dd일"로 변환
         String convertedDate = convertDateFormat(formatedNow, "yy/MM/dd", "yyyy년 MM월 dd일");
@@ -169,6 +170,7 @@ public class NutrientController implements PcwkLogger{
 		modelAndView.addObject("convertedDate", convertedDate);
 		modelAndView.addObject("startDate", startDate);
 		modelAndView.addObject("finishDate", finishDate);
+		modelAndView.addObject("ateList", ateList);
 		
 		return modelAndView;
 	}

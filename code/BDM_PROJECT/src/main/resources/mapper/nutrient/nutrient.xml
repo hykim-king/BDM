@@ -4,6 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.test.bdm.nutrient">
+  
+      <select id="doRetrieveAte" parameterType = "map" resultType = "NutrientVO">
+        SELECT N.NAME AS name,
+               E.DIVS AS code,
+               E.AMOUNT AS protein
+        FROM NUTRIENT N, EAT E
+        WHERE E.CODE = N.CODE
+        AND TO_CHAR(E.REG_DT, 'YY/MM/DD') = #{formatedNow}
+        AND E.ID = #{userId}
+      </select>  
       
       <select id="doRetrieveWeekSugars" parameterType = "map" resultType = "NutrientVO">
         SELECT SUM(N.SUGARS * E.AMOUNT) AS SUGARS

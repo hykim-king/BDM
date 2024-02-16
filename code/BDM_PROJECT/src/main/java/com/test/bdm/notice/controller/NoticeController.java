@@ -32,7 +32,7 @@ import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("notice")
 public class NoticeController implements PcwkLogger {
 	
 	@Autowired
@@ -273,7 +273,7 @@ public class NoticeController implements PcwkLogger {
 			message = "등록 실패.";
 		}
 		
-		MessageVO  messageVO=new MessageVO(String.valueOf(flag), message);
+		MessageVO  messageVO=new MessageVO(flag + "", message);
 		LOG.debug("│ messageVO                           │"+messageVO);
 		return messageVO;
 	}
