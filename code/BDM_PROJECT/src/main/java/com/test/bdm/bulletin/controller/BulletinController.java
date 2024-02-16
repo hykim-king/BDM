@@ -65,6 +65,7 @@ public class BulletinController implements PcwkLogger {
 		model.addAttribute("title", title);
 
 		viewName = "bulletin/bulletin_reg";
+		
 		return viewName;
 	}
 
@@ -127,7 +128,7 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("totalCnt", totalCnt);
 
 		// 뷰
-		modelAndView.setViewName("bulletin/bulletin");
+		modelAndView.setViewName("bulletin/bulletin_list");
 		// Model
 		modelAndView.addObject("list", list);
 		// 검색데이터
