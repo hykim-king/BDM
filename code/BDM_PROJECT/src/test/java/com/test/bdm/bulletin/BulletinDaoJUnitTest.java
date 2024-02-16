@@ -55,11 +55,13 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 
 		searchVO = new BulletinVO();
 		searchVO.setTitle(title);
+		
 	}
 	
 //	@Ignore
 	@Test
 	public void doDelete() throws SQLException {
+		searchVO.setPostNo(856);//하드코딩
 		int flag = dao.doDelete(searchVO);
 		assertEquals(1, flag);
 	}
