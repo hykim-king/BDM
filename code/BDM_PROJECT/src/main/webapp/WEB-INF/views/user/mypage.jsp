@@ -318,51 +318,53 @@ function calculateAge(birth) {
 </script>
 <script>
     const weekData = {
-      labels: ['월', '화', '수', '목', '금', '토', '일'],
+      labels: ['일', '월', '화', '수', '목', '금', '토'],
       datasets: [{
         label: '칼로리',
-        data: [weekKcal[0], weekKcal[1], weekKcal[2], weekKcal[3], weekKcal[4], weekKcal[5], weekKcal[6]],
+        data: [${weekKcal[0]}, ${weekKcal[1]}, ${weekKcal[2]}, ${weekKcal[3]}, ${weekKcal[4]}, ${weekKcal[5]}, ${weekKcal[6]}],
         borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 2,
+        borderWidth: 3, 
         fill: false
       }, {
         label: '탄수화물',
-        data: [weekCarbo[0], weekCarbo[1], weekCarbo[2], weekCarbo[3], weekCarbo[4], weekCarbo[5], weekCarbo[6]],
+        data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
         borderColor: 'rgb(54, 162, 235)',
-        borderWidth: 2,
+        borderWidth: 3,
         fill: false
       }, {
         label: '단백질',
-        data: [weekProtein[0], weekProtein[1], weekProtein[2], weekProtein[3], weekProtein[4], weekProtein[5], weekProtein[6]],
-        borderColor: 'rgb(255, 205, 86)',
-        borderWidth: 2,
+        data: [${weekProtein[0]}, ${weekProtein[1]}, ${weekProtein[2]}, ${weekProtein[3]}, ${weekProtein[4]}, ${weekProtein[5]}, ${weekProtein[6]}],
+        borderColor: 'rgb(255, 206, 86)',
+        borderWidth: 3,
         fill: false
       }, {
         label: '지방',
-        data: [weekFat[0], weekFat[1], weekFat[2], weekFat[3], weekFat[4], weekFat[5], weekFat[6]],
+        data: [${weekFat[0]}, ${weekFat[1]}, ${weekFat[2]}, ${weekFat[3]}, ${weekFat[4]}, ${weekFat[5]}, ${weekFat[6]}],
         borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 2,
-        fill: false
+        borderWidth: 3,
+        fill: false 
       }, {
         label: '당류',
-        data: [weekSugars[0], weekSugars[1], weekSugars[2], weekSugars[3], weekSugars[4], weekSugars[5], weekSugars[6]],
+        data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
         borderColor: 'rgb(153, 102, 255)',
-        borderWidth: 2,
+        borderWidth: 3,
         fill: false
       }]
     };
 
-    const ctx = document.getElementById('weeklyChart').getContext('2d');
-    const weeklyChart = new Chart(ctx, {
-      type: 'line',
-      data: weekData,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('weeklyChart').getContext('2d');
+        const weeklyChart = new Chart(ctx, {
+            type: 'line',
+            data: weekData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     });
 </script>
 <script>
@@ -561,32 +563,18 @@ function calculateAge(birth) {
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                               <div class="card-body">
-                              oneDay: ${oneDay}
-                              thisWeek: ${thisWeek}
-                              formattedStartOfWeek: ${formattedStartOfWeek}
-                              selectedWeekDataMap: ${selectedWeekDataMap}
-                              startDate: ${startDate }
-                              finishDate: ${finishDate }
-                              weekKcal: ${weekKcal }
-                              weekCarbo: ${weekCarbo }
-                              weekProtein: ${weekProtein }
-                              weekFat: ${weekFat }
-                              weekSugars: ${weekSugars }
-                              ateList: ${ateList }
 	                                <div>
 	                                    <h4 class="card-title">${convertedDate}</h4>
 	                                    <button id="calendarButton">달력 열기</button>
-	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
-	                                    <button onclick="changeYearMonth(1)">다음 달</button>
 	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
 	                                    <!-- 달력 -->
 										<div id="calendar">
 										    <table>
 										        <thead>
 										        <tr>
-										           <th><button>이전 달</button></th>
+										           <th><button><<</button></th>
 										           <th>5월</th>
-										           <th><button>다음 달</button></th>
+										           <th><button>>></button></th>
 										        </tr>
 										        <tr>
 										            <th>일</th>
@@ -611,10 +599,6 @@ function calculateAge(birth) {
 		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
 	                     			 </div>
-	                                 <div class="chart-flex col-md-12">
-	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
-	                     			 </div>
-	                     			 
 	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
 							            <thead>
 							                <tr>
