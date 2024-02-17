@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
     	 location.href = "/bdm/user/moveToReg.do";
      });
      moveToNoticeBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNotice.do";
+         location.href = "/bdm/notice/doRetrieve.do";
      });
      moveToBulletinBtn.addEventListener("click", function(e){
          location.href = "/bdm/bulletin/doRetrieve.do";
