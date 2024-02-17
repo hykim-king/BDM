@@ -6,7 +6,7 @@
 <html>
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<title>게시물 수정</title>
+<title>Balance Diet Management</title>
 <style>
    .readonly-input {
     background-color: #e9ecef ;
@@ -14,84 +14,89 @@
 
 </style>
 <script>
-document.addEventListener("DOMContentLoaded",function(){ 
+document.addEventListener("DOMContentLoaded",function() { 
     
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
-    //삭제버튼
-    const doCancleBTN   = document.querySelector("#doCancle");
-    //수정버튼
-    const doUpdateBTN   = document.querySelector("#doUpdate");
     
-    const postNo = document.querySelector("#postNo");
+    
+    const doSelectOneBTN = document.querySelector("#doSelectOne");
+    
+    //삭제버튼
+    const doDeleteBTN   = document.querySelector("#doDelete");
+    
+    const regId = document.querySelector("#regId").value;
+    
 
-  //수정 이벤트 감지 및 처리
-    doUpdateBTN.addEventListener("click", function(e){
-  
-    	const modId = document.querySelector("#modId").value;
-        //const div = document.querySelector("#div").value;
+
+  //삭제 이벤트 감지 및 처리
+    doDeleteBTN.addEventListener("click",function(e){
+        console.log('doDeleteBTN click');
+        
         const postNo = document.querySelector("#postNo").value;
-     
+        console.log('postNo :'+postNo);
+        
         if(eUtil.isEmpty(postNo) == true){
             alert('순번을 확인 하세요.');
             return;
         }
-     
-        const title = document.querySelector("#title").value;
-        if(eUtil.isEmpty(title) == true){
-            alert('제목을 입력 하세요.');
-            title.focus();
-            return;  
-        }        
-     
-        const contents = document.querySelector("#contents").value;
-        if(eUtil.isEmpty(contents) == true){
-            alert('내용을 입력 하세요.');
-            contents.focus();
-            return;
-       }               
 
-        if(confirm('수정 하시겠습니까?')==false){
+        if(window.confirm('삭제 하시겠습니까?')==false){
             return;
         }
-     
-        var id = '${sessionScope.user.id}';
+ 			var id = '${sessionScope.user.id}';
         
-        if(id != modId){
-        	alert('타인의 글은 수정 불가능합니다.');
+        if(id != regId){
+        	alert('타인의 글은 삭제 불가능합니다.');
         	return;
         }
-        
-        
-      	$.ajax({
-    		type: "POST",
-    		url:"/bdm/bulletin/doUpdate.do",
-    		asyn:"true", 
+
+
+       	$.ajax({
+    		type: "GET",
+    		url:"/bdm/bulletin/doDelete.do",
+    		asyn:"true",
     		dataType:"json",
     		data:{
-                "postNo"  : postNo,
-    			"title": title,
-                "modId": modId,  
-    			"contents": contents
+    			"postNo": postNo
     		},
     		success:function(data){//통신 성공
-    			alert(data.msgContents);
-    			window.location.href = "${CP}/bulletin/doRetrieve.do";
+        		console.log("success data.msgId:"+data.msgId);
+        		console.log("success data.msgContents:"+data.msgContents);
+                   alert(data.msgContents);
+                   window.location.href = "${CP}/bulletin/doRetrieve.do";
         	},
         	error:function(data){//실패시 처리
         		console.log("error:"+data);
-        	},
-        	complete:function(data){//성공/실패와 관계없이 수행!
-        		console.log("complete:"+data);
         	}
     	});
 
-
-
+   
 
     });
-  
 
+  //수정 이벤트 감지 및 처리
+    doSelectOneBTN.addEventListener("click",function(e){
+        console.log('doSelectOneBTN click');
+		var id = '${sessionScope.user.id}';
+        
+        if( id != regId ){
+        	alert('타인의 글은 수정이 불가능 합니다.');
+        	return;
+        } else if(confirm('수정페이지로 이동합니다') == false){
+            return;
+        } else {
+        var postNo = document.querySelector("#postNo").value;
+        doSelectOne(postNo);
+        }
+        
+    });
+    
+    function doSelectOne(postNo){
+    	window.location.href = "${CP}/bulletin/doSelectOne.do?postNo=" + postNo;
+    }
+    
+    
     //목록 이벤트 감지 및 처리
     moveToListBTN.addEventListener("click",function(e){
         console.log('moveToListBTN click');
@@ -99,22 +104,14 @@ document.addEventListener("DOMContentLoaded",function(){
             return;
         }           
         window.location.href = "${CP}/bulletin/doRetrieve.do";
-    })
     
-    doCancleBTN.addEventListener("click", function(e){
-    	console.log('doCancleBTN click');
-    	if(confirm('작성하신 데이터는 사라지게 됩니다.') == false) return;
-    	
-    	let postNo = document.querySelector("#postNo").value;
-    	window.location.href = "/bdm/bulletin/bulletinView.do?postNo=" + postNo;
-    })
-
+        
+    });
 });//--DOMContentLoaded
 </script>
 </head>
 <body>
-<div class="container">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -133,38 +130,36 @@ document.addEventListener("DOMContentLoaded",function(){
             </div>
         </div>
     </nav>
+<div class="container">
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">게시물 수정</h1>
+            <h1 class="page-header">상세조회</h1>
         </div>
-    </div>    
+    </div>
     <!--// 제목 ----------------------------------------------------------------->
     <!-- 버튼 -->
     <div class="row justify-content-end">
         <div class="col-auto">
             <input type="button" value="목록" class="btn btn-primary" id="moveToList">
-            <input type="button" value="완료" class="btn btn-primary" id="doUpdate" >
-            <input type="button" value="취소" class="btn btn-primary" id="doCancle" >
+            <input type="button" value="수정" class="btn btn-primary" id="doSelectOne" >
+            <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
         </div>
     </div>
-    
-    <div class="mb-3 row" style="display: none;">  
-		<label for="postNo" class="col-sm-2 col-form-label" >순번</label> 
-            <div class="col-sm-10"> 
-                <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100" 
-                 value="${vo.postNo }" 
-                 readonly> 
-            </div> 
-        </div> 
+        <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
+            <label for="seq" class="col-sm-2 col-form-label">순번</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100"
+                 value="${vo.postNo}"
+                 readonly>
+            </div>
+        </div>
 
-    <!-- form -->
-    <form action="#" name="regFrm" id="regFrm">
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="readCnt" name="readCnt" maxlength="100"
-                 value="${vo.readCnt }" 
+                 value="${vo.readCnt}" 
                 placeholder="조회수를 입력 하세요">
             </div>
         </div>
@@ -173,7 +168,7 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regId" name="regId"  readonly="readonly"
-                 value=${vo.id }
+                 value="${vo.id}"
                  >
             </div>        
         </div>
@@ -181,27 +176,26 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="regId" class="col-sm-2 col-form-label">등록일</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt }"  readonly="readonly" >
+                value="${vo.regDt}"  readonly="readonly" >
             </div>        
         </div>        
         <div class="mb-3 row">
             <label for="regId" class="col-sm-2 col-form-label">수정자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="modId" name="modId" 
-                value="${vo.modId }"  readonly="readonly"  >
+                value="${vo.modId}"  readonly="readonly"  >
             </div>        
         </div>
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" maxlength="100" 
-             value=${vo.title }
+            <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 
+             value="${vo.title}"
             placeholder="제목을 입력 하세요">
         </div>      
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
+            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
         </div>
-    </form> 
     <!--// form --------------------------------------------------------------->
     
     

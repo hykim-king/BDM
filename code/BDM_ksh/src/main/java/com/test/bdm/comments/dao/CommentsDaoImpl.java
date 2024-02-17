@@ -88,9 +88,5 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 
 
-
-
-
-
-
+	
 }

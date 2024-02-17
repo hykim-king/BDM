@@ -16,7 +16,9 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded",function(){ 
-    
+	
+	
+	commentsRetrieve();
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
     //삭제버튼
@@ -24,6 +26,73 @@ document.addEventListener("DOMContentLoaded",function(){
     //수정버튼
     const doUpdateBTN   = document.querySelector("#doUpdate");
 
+    const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
+
+    
+    commentsDoSaveBTN.addEventListener("click",function(e){
+    	console.log('commentsDoSaveBTN click');
+    	
+    	
+    	const postNo = document.querySelector('#postNo').value;
+    	if(eUtil.isEmpty(postNo) == true){
+    		alert('게시글 순번을 확인 하세요.');
+    		return;
+    	}
+    	console.log('postNo:'+postNo);
+    	
+    	
+    	const contents = document.querySelector('#replyContents').value;
+        if(eUtil.isEmpty(contents) == true){
+            alert('댓글을 확인 하세요.');
+            document.querySelector('#replyContents').focus();
+            return;
+        }
+        console.log('replyContents:'+contents);
+        
+      	const regId    = '${sessionScope.user.id}';
+        if(eUtil.isEmpty(regId) == true){
+            alert('로그인 하세요.');
+            return;
+        }    	  
+        console.log('regId:'+regId);  
+        
+        
+        $.ajax({
+            type: "POST",
+            url:"/bdm/comments/doSave.do",
+            asyn:"true",
+            dataType:"json",
+            data:{
+            	"contents": contents,
+                "postNo": postNo,
+                "id": regId,
+                "modId": regId
+            },
+            success:function(data){//통신 성공
+                console.log("success msgId:"+data.msgId);
+                console.log("success msgContents:"+data.msgContents);
+                
+                if("1"==data.msgId){
+                	alert(data.msgContents);
+                	commentsRetrieve();//댓글 조회
+                	//등록 댓글 초기화
+                	document.querySelector('#replyContents').value = '';
+                }else{
+                	alert(data.msgContents);
+                }
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });
+    	  	
+    });
+    
+    	
+    
     //수정 이벤트 감지 및 처리
     doUpdateBTN.addEventListener("click", function(e){
   
@@ -92,10 +161,6 @@ document.addEventListener("DOMContentLoaded",function(){
         		console.log("complete:"+data);
         	}
     	});
-
-
-
-
     });
 
     //삭제 이벤트 감지 및 처리
@@ -164,6 +229,207 @@ document.addEventListener("DOMContentLoaded",function(){
     	let postNo = document.querySelector("#postNo").value;
     	window.location.href = "${CP}/bulletin/doRetrieve.do?postNo="+postNo;
     }
+    //------Reply---------------------------------------------------------------
+
+    
+    function commentsRetrieve(){
+    	const postNo = document.querySelector("#postNo").value
+    	console.log('postNo:'+postNo)
+    	
+    	if(eUtil.isEmpty(postNo) == true){
+    		alert('게시글 번호를 확인 하세요.');
+    		return;
+    	}
+    	
+        $.ajax({
+            type: "GET",
+            url:"/bdm/comments/doRetrieve.do",
+            asyn:"true",
+            dataType:"json", //return type
+            data:{
+                "postNo": postNo  
+            },
+            success:function(data){//통신 성공
+                console.log("success data:"+data);
+                console.log("data.length:"+data.length);
+                
+                let commentsDiv = '';
+                
+                //기존 댓글 모두 삭제
+                //#요소의 내용을 모두 지웁니다.
+                document.getElementById("contentsDoSaveArea").innerHTML = "";
+                
+                
+                if(0==data.length){
+                	console.log("댓글이 없어요1");
+                	return;
+                }
+                	
+                
+                for(let i=0;i<data.length;i++){
+                	commentsDiv += '<div class="dynamicComments"> \n';
+                	commentsDiv += '<div class="row justify-content-end"> \n';
+                	commentsDiv += '<div class="col-auto"> \n';
+                	commentsDiv += '<span>등록일:'+data[i].regDt+'</span> \n';
+                	commentsDiv += '\t\t\t <input type="button" value="댓글수정" class="btn btn-primary contentsDoUpdate"  >   \n';
+                	commentsDiv += '\t\t\t <input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >   \n';
+                	commentsDiv += '</div> \n';
+                	commentsDiv += '</div> \n';
+                	
+                	commentsDiv += '<div class="mb-3">  \n';
+                	commentsDiv += '<input type="hidden" name="regNo" value="'+data[i].regNo +'"> \n';
+                	
+                	commentsDiv += '<textarea rows="3" class="form-control dyCommentsContents"   name="dyCommentsContents">'+data[i].contents+'</textarea> \n';
+                	commentsDiv += '</div> \n';
+                	
+                	commentsDiv += '</div> \n';
+                	
+                }
+                
+                
+                //조회 댓글 출력
+                document.getElementById("contentsDoSaveArea").innerHTML = commentsDiv;
+                
+                
+                //-댓글:삭제,수정-------------------------------------------------------------
+                //댓글 수정
+               // $(".contentsDoUpdate").on("click", function(e){
+                //	console.log('contentsDoUpdate click');
+               // }); 
+
+                //javascript
+                commentsDoUpdateBTNS = document.querySelectorAll(".contentsDoUpdate");
+                commentsDoUpdateBTNS.forEach(function(e){
+                	e.addEventListener("click",function(e){
+                		console.log('commentsDoUpdate click');
+                		
+                		//reply,reply_seq
+                		const regNo =this.closest('.dynamicComments').querySelector('input[name="regNo"]')
+                		console.log('regNo:'+regNo.value);
+                		if(eUtil.isEmpty(regNo.value)==true){
+                			alert('댓글 순번을 확인하세요.');
+                			return;
+                		}
+                		
+                		const contents =this.closest('.dynamicComments').querySelector('textarea[name="dyCommentsContents"]')
+                        if(eUtil.isEmpty(contents.value)==true){
+                            alert('댓글을 확인하세요.');
+                            contents.focus();
+                            return;
+                        }
+                		
+                		console.log('contents:'+contents.value);
+                		
+                		if(window.confirm('수정 하시겠습니까?')==false){
+                			return ;
+                		}
+                		 var id = '${sessionScope.user.id}';
+                	        
+                	        if(id != modId){
+                	        	alert('타인의 글은 수정 불가능합니다.');
+                	        	return;
+                	        }
+                		
+                        $.ajax({
+                            type: "POST",
+                            url:"/bdm/comments/doUpdate.do",
+                            asyn:"true",
+                            dataType:"json",
+                            data:{
+                                "regNo": regNo.value,
+                                "contents":contents.value
+                            },
+                            success:function(data){//통신 성공
+                                console.log("success data:"+data.msgId);
+                                console.log("success data:"+data.msgContents);
+                                
+                                if("1" == data.msgId){
+                                    alert(data.msgContents);
+                                    commentsRetrieve();
+                                }else{
+                                    alert(data.msgContents);
+                                }
+                            },
+                            error:function(data){//실패시 처리
+                                console.log("error:"+data);
+                            },
+                            complete:function(data){//성공/실패와 관계없이 수행!
+                                console.log("complete:"+data);
+                            }
+                        });
+                        
+                		
+                	});
+                	
+                });//-----replyDoUpdateBTNS-------------------------------------
+                
+                //댓글삭제
+                $(".contentsDoDelete").on("click", function(e){
+                	console.log('contentsDoDelete click');
+                	
+                	const regNo = $(this).closest('.dynamicComments').find('input[name="regNo"]').val();
+                	console.log('regNo:'+regNo);
+                	
+                	if(window.confirm("삭제 하시겠습니까?")==false){
+                		return;
+                	}
+                		var id = '${sessionScope.user.id}';
+                    
+                    if(id != modId){
+                    	alert('타인의 글은 삭제 불가능합니다.');
+                    	return;
+                    }
+                	
+                    $.ajax({
+                        type: "GET",
+                        url:"/bdm/comments/doDelete.do",
+                        asyn:"true",
+                        dataType:"json",
+                        data:{
+                            "regNo": regNo
+                        },
+                        success:function(data){//통신 성공
+                            console.log("success data:"+data.msgId);
+                            console.log("success data:"+data.msgContents);
+                            
+                            if("1" == data.msgId){
+                            	alert(data.msgContents);
+                            	commentsRetrieve();
+                            }else{
+                            	alert(data.msgContents);
+                            }
+                        },
+                        error:function(data){//실패시 처리
+                            console.log("error:"+data);
+                        },
+                        complete:function(data){//성공/실패와 관계없이 수행!
+                            console.log("complete:"+data);
+                        }
+                    });                	
+                });
+                
+                
+                //--------------------------------------------------------------
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });    	
+    	
+    }
+    
+    
+    
+    //------Reply---------------------------------------------------------------
+    
+    
+    
+    
+    
+    
     
 
 });//--DOMContentLoaded
@@ -195,7 +461,7 @@ document.addEventListener("DOMContentLoaded",function(){
     title,contents : 화면에서 전달
     reg_id,mod_id  : session에서 처리
      -->
-   
+   <form> 
         <div class="mb-3 row" style="display: none;">  
             <label for="postNo" class="col-sm-2 col-form-label" >순번</label> 
             <div class="col-sm-10"> 
@@ -249,26 +515,27 @@ document.addEventListener("DOMContentLoaded",function(){
     </form>    
     <!--// form --------------------------------------------------------------->
     <!-- reply -->  
-    <div id="replyDoSaveArea">
+     <div id="contentsDoSaveArea">
         <!-- 버튼 -->
-        <div class="row justify-content-end">
-            <div class="col-auto">
-                <input type="button" value="댓글수정" class="btn btn-primary replyDoUpdate"  >
-                <input type="button" value="댓글삭제" class="btn btn-primary replyDoDelete"  >
-            </div>
-        </div>
-        <!--// 버튼 ----------------------------------------------------------------->
-        <div class="mb-3">
-            <textarea rows="3" class="form-control dyReplyContents"   name="dyReplyContents"></textarea>
+         <div class="dynamicComments">
+	        <div class="row justify-content-end">
+	            <div class="col-auto">
+	                <input type="button" value="댓글수정" class="btn btn-primary commentsDoUpdate"  >
+	                <input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >
+	            </div>
+	        </div>
+	        <div class="mb-3">
+	            <input type="hidden" name="regNo" value="">
+	            <textarea rows="3" class="form-control dyCommentsContents"   name="dyCommentsContents"></textarea>
+	        </div>
         </div>        
     </div>
+         <div id="contentsDoSaveArea">
     
-    
-    <div id="replyDoSaveArea">
 	    <!-- 버튼 -->
 	    <div class="row justify-content-end">
 	        <div class="col-auto">
-	            <input type="button" value="댓글등록" class="btn btn-primary" id="replyDoSave" >
+	            <input type="button" value="댓글등록" class="btn btn-primary" id="commentsDoSave" >
 	        </div>
 	    </div>
 	    <!--// 버튼 ----------------------------------------------------------------->
@@ -277,7 +544,7 @@ document.addEventListener("DOMContentLoaded",function(){
 	    </div>        
     </div>
     <!--// reply --------------------------------------------------------------> 
-</div>
+
 
 </body>
 </html>
