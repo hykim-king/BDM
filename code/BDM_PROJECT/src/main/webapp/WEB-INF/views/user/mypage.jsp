@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="com.test.bdm.nutrient.domain.NutrientVO" %>
 <%
     LocalDate today = LocalDate.now();
     LocalDate firstDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
@@ -81,7 +82,7 @@ function formatDate(date) {
 }
 </script>
 <script>
-	function generateCalendar() { 
+	/* function generateCalendar() { 
 	    var calendarBody = $("#calendarBody");
 	    calendarBody.empty(); // 기존 내용 제거
 	
@@ -115,9 +116,56 @@ function formatDate(date) {
 	        }
 	        calendarBody.append(row);
 	    }
+	} */
+	
+	function generateCalendar(year, month) { 
+	    var calendarBody = $("#calendarBody");
+	    calendarBody.empty(); // 기존 내용 제거
+
+	    var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
+	    var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
+
+	    var dayCounter = 1;
+	    for (var i = 0; i < 6; i++) {
+	        var row = $("<tr></tr>");
+	        for (var j = 0; j < 7; j++) {
+	            var cell = $("<td></td>");
+	            if (i === 0 && j < currentDate.getDay()) {
+	                // 앞의 빈 칸 처리
+	                cell.text("");
+	            } else if (dayCounter <= daysInMonth) {
+	                cell.text(dayCounter);
+	                dayCounter++;
+	                cell.click(function () {
+	                     // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
+	                    var clickedDate = new Date(year, month - 1, $(this).text());
+	                    var formattedDate = formatDate(clickedDate);
+	                    // alert("날짜를 클릭했습니다: " + formattedDate);
+	                    console.log('formattedDate: ' + formattedDate);
+	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
+	                
+	                });
+	            }
+	            row.append(cell);
+	        }
+	        calendarBody.append(row);
+	    }
 	}
+	
+	// 연도와 달을 변경하는 함수
+	function changeYearMonth(offset) {
+	    var currentYear = parseInt($("#yearSelect").val());
+	    var currentMonth = parseInt($("#monthSelect").val());
+	    var newDate = new Date(currentYear, currentMonth - 1 + offset, 1);
+	    var newYear = newDate.getFullYear();
+	    var newMonth = newDate.getMonth() + 1;
+	    $("#yearSelect").val(newYear);
+	    $("#monthSelect").val(newMonth);
+	    generateCalendar(newYear, newMonth);
+	}
+	
 	function formatDate(date) {
-	    var year = date.getFullYear();
+	    var year = date.getFullYear() % 100;
 	    var month = date.getMonth() + 1;
 	    var day = date.getDate();
 
@@ -209,10 +257,10 @@ function calculateAge(birth) {
 	    return colors;
 	}
 	
-	var totalDailyKcal = 2000;
-	var totalDailyCarb = 300;
-	var totalDailyProtein = 50;
-	var totalDailyFat = 70;
+	var totalDailyKcal = (${user.height} - 100) * 0.9 * ${user.activity};
+	var totalDailyCarb = (totalDailyKcal * 0.4) / 4;
+	var totalDailyProtein = (totalDailyKcal * 0.4) / 4;
+	var totalDailyFat = (totalDailyKcal * 0.2) / 9;
 	var totalDailySugars = 30;
 
 </script>
@@ -275,9 +323,7 @@ function calculateAge(birth) {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // 페이지 로드 후 실행되는 코드
-        // 이전에 작성한 데이터를 토대로 날짜와 각 영양소의 데이터를 가져옴
+    /* document.addEventListener("DOMContentLoaded", function () {
         var labels = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
         var selectedWeekDataMap = ${selectedWeekDataMap}// 해당 부분 수정
         var kcalData = Object.values(selectedWeekDataMap).map(function (item) { return item.kcal; });
@@ -286,42 +332,64 @@ function calculateAge(birth) {
         var fatData = Object.values(selectedWeekDataMap).map(function (item) { return item.fat; });
         var sugarsData = Object.values(selectedWeekDataMap).map(function (item) { return item.sugars; });
 
-        // Combined Line 차트 생성
         generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, 'combined-line-chart');
-    });
+    }); */
 </script>
 <script>
-
         document.addEventListener("DOMContentLoaded", function () {
             const addBtn = document.querySelector("#add");
+            const moveToModBtn = document.querySelector("#moveToMod");
+            const logoutBtn = document.querySelector("#logout");
+            
             addBtn.addEventListener("click", function (e) {
                 console.log("moveToNutBTN")
                 window.location.href = "/bdm/nutrient/moveToNut.do";
-                
+            });
+            
+            moveToModBtn.addEventListener("click", function(e){
+            	window.location.href = "/bdm/user/moveToMod.do";
+            });
+            
+            logoutBtn.addEventListener("click", function(e){
+            	$.ajax({
+                    type: "GET",
+                    url:"/bdm/beforeMain/doLogout.do",
+                    asyn:"true",
+                    dataType:"html",
+                    data:{
+                    },
+                    success:function(data){//통신 성공     
+                       alert('로그아웃 되었습니다.');
+                       window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+                    },
+                    error:function(data){//실패시 처리
+                        console.log("error:"+data);
+                    },
+                    complete:function(data){//성공/실패와 관계없이 수행!
+                        console.log("complete:"+data);
+                    }
+                });
             });
 
             $(document).ready(function () {
                 $("#calendarButton").click(function () {
                     $("#calendar").toggle();
-                    generateCalendar();
+                    var currentYear = new Date().getFullYear();
+                    var currentMonth = new Date().getMonth() + 1;
+                    generateCalendar(currentYear, currentMonth);
                 });
             });
-
-            // Generate pie charts for each nutrient
-            var colors = getPastelColors(5);
-            generateNutrientPieChart(${oneDay.kcal}, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
-            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
-            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
-            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
-            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
-
- 
+            
+	        <c:if test="${not empty oneDay}">
+	            // Generate pie charts for each nutrient
+	            var colors = getPastelColors(5);
+	            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
+	            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
+	            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
+	            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
+	            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
+            </c:if>
         });
-
-        
-
-
-        
 
 </script>
 </head>
@@ -337,7 +405,7 @@ function calculateAge(birth) {
                     <span class="nav-link">Navigation</span>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToAfterMain.do">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
@@ -354,13 +422,13 @@ function calculateAge(birth) {
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="">자유게시판</a></li>
-                          <li class="nav-item"> <a class="nav-link" href="">공지사항</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToNotice.do">공지사항</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">
                       <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                       </span>
@@ -397,7 +465,7 @@ function calculateAge(birth) {
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                    <p class="preview-subject mb-1">Settings</p>
+                                    <p class="preview-subject mb-1" id = "moveToMod">Settings</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -408,7 +476,7 @@ function calculateAge(birth) {
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                        <p class="preview-subject mb-1">Log out</p>
+                                        <p class="preview-subject mb-1" id = "logout">Log out</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -462,41 +530,150 @@ function calculateAge(birth) {
                               thisWeek: ${thisWeek}
                               formattedStartOfWeek: ${formattedStartOfWeek}
                               selectedWeekDataMap: ${selectedWeekDataMap}
-                                <div>
-                                    <h4 class="card-title">${today}</h4>
-                                    <button id="calendarButton">달력 열기</button>
-                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
-                                    <!-- 달력 -->
-									<div id="calendar">
-									    <table>
-									        <thead>
-									        <tr>
-									            <th>일</th>
-									            <th>월</th>
-									            <th>화</th>
-									            <th>수</th>
-									            <th>목</th>
-									            <th>금</th>
-									            <th>토</th>
-									        </tr>
-									        </thead>
-									        <tbody id="calendarBody">
-									        </tbody>
-									    </table>
-									</div>
-                                 
-                                 </div>
-                                    <div class="chart-flex col-md-12">
-	                                    <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="proteinDayChart" class="pieChart col-md-4"></canvas> 
-	                                    <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
-	                                    <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
-                        			</div>
-                                    <div class="chart-flex col-md-12">
+                              startDate: ${startDate }
+                              finishDate: ${finishDate }
+                              weekKcal: ${weekKcal }
+                              weekCarbo: ${weekCarbo }
+                              weekProtein: ${weekProtein }
+                              weekFat: ${weekFat }
+                              weekSugars: ${weekSugars }
+                              ateList: ${ateList }
+	                                <div>
+	                                    <h4 class="card-title">${convertedDate}</h4>
+	                                    <button id="calendarButton">달력 열기</button>
+	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
+	                                    <button onclick="changeYearMonth(1)">다음 달</button>
+	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
+	                                    <!-- 달력 -->
+										<div id="calendar">
+										    <table>
+										        <thead>
+										        <tr>
+										           <th><button>이전 달</button></th>
+										           <th>5월</th>
+										           <th><button>다음 달</button></th>
+										        </tr>
+										        <tr>
+										            <th>일</th>
+										            <th>월</th>
+										            <th>화</th>
+										            <th>수</th>
+										            <th>목</th>
+										            <th>금</th>
+										            <th>토</th>
+										        </tr>
+										        </thead>
+										        <tbody id="calendarBody">
+										        </tbody>
+										    </table>
+										</div>
+	                                 
+	                                 </div>
+	                                 <div class="chart-flex col-md-12">
+		                                 <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="proteinDayChart" class="pieChart col-md-4"></canvas> 
+		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
+		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
+	                     			 </div>
+	                                 <div class="chart-flex col-md-12">
 	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
-                        			</div> 
-                              </div>
+	                     			 </div>
+	                     			 
+	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
+							            <thead>
+							                <tr>
+							                    <th scope = "col" class = "text-center" style="display: none;">divs</th>
+							                    <th scope = "col" class = "text-center">NO</th>
+							                    <th scope = "col" class = "text-center">음식명</th>
+							                    <th scope = "col" class = "text-center">섭취량</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							                <c:choose>
+											    <c:when test="${not empty ateList}">
+											        <c:set var="morning" value="false"/>
+											        <c:set var="morlun" value="false"/>
+											        <c:set var="lunch" value="false"/>
+											        <c:set var="lundin" value="false"/>
+											        <c:set var="dinner" value="false"/>
+											        <c:set var="night" value="false"/>
+											        <c:set var="etc" value="false"/>
+											        <c:forEach var="vo" items="${ateList}" varStatus="status">
+											            <c:choose>
+											                <c:when test="${vo.code eq 1}">
+											                    <c:if test="${!morning}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">아침</td>
+											                        </tr>
+											                        <c:set var="morning" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 2}">
+                                                                <c:if test="${!morlun}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">아점</td>
+                                                                    </tr>
+                                                                    <c:set var="morlun" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 3}">
+											                    <c:if test="${!lunch}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">점심</td>
+											                        </tr>
+											                        <c:set var="lunch" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 4}">
+                                                                <c:if test="${!lundin}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">점저</td>
+                                                                    </tr>
+                                                                    <c:set var="lundin" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											                <c:when test="${vo.code eq 5}">
+											                    <c:if test="${!dinner}">
+											                        <tr>
+											                            <td colspan="4" class="text-center">저녁</td>
+											                        </tr>
+											                        <c:set var="dinner" value="true"/>
+											                    </c:if>
+											                </c:when>
+											                <c:when test="${vo.code eq 6}">
+                                                                <c:if test="${!night}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">야식</td>
+                                                                    </tr>
+                                                                    <c:set var="night" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+                                                            <c:when test="${vo.code eq 7}">
+                                                                <c:if test="${!etc}">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">간식</td>
+                                                                    </tr>
+                                                                    <c:set var="etc" value="true"/>
+                                                                </c:if>
+                                                            </c:when>
+											            </c:choose>
+											            <tr>
+											                <td class="text-center"><c:out value="${status.index + 1}" escapeXml="true"/></td>
+											                <td class="text-center"><c:out value="${vo.name}" escapeXml="true"/></td>
+											                <td class="text-center"><c:out value="${vo.protein}인분" escapeXml="true"/></td>
+											            </tr>
+											        </c:forEach>
+											    </c:when>
+											    <c:otherwise>
+											        <tr>
+											            <td colspan="99" class="text-center">섭취한 음식이 없습니다.</td>
+											        </tr>
+											    </c:otherwise>
+											</c:choose>
+							            </tbody>
+							        </table>
+                                </div>
                             </div>
                           </div>
                     </div>  

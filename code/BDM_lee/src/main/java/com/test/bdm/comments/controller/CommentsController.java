@@ -117,20 +117,13 @@ public class CommentsController implements PcwkLogger {
 		
 		int flag = service.doDelete(inVO);
 		
-		Locale locale = LocaleContextHolder.getLocale();
+//		Locale locale = LocaleContextHolder.getLocale();
 		
 		String message = "";
 		if(1 == flag) {
-			//{0}이 되었습니다
-			message = this.messageSource.getMessage("common.message.update", null, locale);
-			LOG.debug("│ message │"+message);
-			String tranMessage = "삭제 성공";
-			message = MessageFormat.format(message, tranMessage);
-			
-			LOG.debug("│ message │"+message);
-			
+			message = "삭제 성공.";
 		}else {
-			message = "삭제 실패";
+			message = "삭제 실패.";
 		}
 		
 		//객체 생성?

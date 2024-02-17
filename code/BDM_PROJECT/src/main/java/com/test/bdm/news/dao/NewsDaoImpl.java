@@ -23,7 +23,7 @@ public class NewsDaoImpl implements NewsDao,PcwkLogger {
 	public int doUpdate(NewsVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doDelete                          │");
-		LOG.debug("│ BoardVO                           │"+inVO);
+		LOG.debug("│ NewsVO                            │"+inVO);
 		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"doUpdate");
 		LOG.debug("└───────────────────────────────────┘");		
 		return sqlSessionTemplate.update(NAMESPACE+DOT+"doUpdate", inVO);
@@ -33,7 +33,7 @@ public class NewsDaoImpl implements NewsDao,PcwkLogger {
 	public int doDelete(NewsVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doDelete                          │");
-		LOG.debug("│ BoardVO                           │"+inVO);
+		LOG.debug("│ NewsVO                            │"+inVO);
 		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"doDelete");
 		LOG.debug("└───────────────────────────────────┘");		
 		

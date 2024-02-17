@@ -81,10 +81,10 @@ public class NoticeController implements PcwkLogger {
 	
 	@GetMapping(value = "/doRetrieve.do")
 	public ModelAndView doRetrieve(NoticeVO inVO, ModelAndView modelAndView) throws SQLException{
-		LOG.debug("─────────────────────────────────────");
-		LOG.debug(" doRetrieve"                          );
-		LOG.debug(" BoardVO: " + inVO                    );
-		LOG.debug("─────────────────────────────────────");
+//		LOG.debug("─────────────────────────────────────");
+//		LOG.debug(" doRetrieve"                          );
+//		LOG.debug(" BoardVO: " + inVO                    );
+//		LOG.debug("─────────────────────────────────────");
 		
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");

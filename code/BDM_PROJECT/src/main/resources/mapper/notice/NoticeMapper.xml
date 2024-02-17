@@ -43,21 +43,21 @@
 	</delete>
 
 	<insert id="doSave" parameterType="NoticeVO">
-	INSERT INTO notice (
-	    post_no,
-	    title,
-	    contents,
-	    reg_dt,
-	    read_cnt,
-	    id
-	) VALUES (
-	    #{postNo},
-	    #{title},
-	    #{contents},
-	    SYSDATE,
-	    #{readCnt},
-	    #{id}
-	)
+		INSERT INTO notice (
+		    post_no,
+		    title,
+		    contents,
+		    reg_dt,
+		    read_cnt,
+		    id
+		) VALUES (
+		    #{postNo},
+		    #{title},
+		    #{contents},
+		    SYSDATE,
+		    #{readCnt},
+		    #{id}
+		)
 	</insert>
 
 

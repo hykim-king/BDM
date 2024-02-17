@@ -28,10 +28,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.news.dao.NewsDao;
 import com.test.bdm.news.domain.NewsVO;
+
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class) //스프링 테스트 컨텍스트 프레임웤그의 JUnit의 확장기능 지정
@@ -40,8 +42,9 @@ import com.test.bdm.news.domain.NewsVO;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NewsControllerJunitTest implements PcwkLogger {
 
+	
 	@Autowired
-	NewsDao dao;
+	NewsDao  dao;
 	
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -64,18 +67,17 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		String   regDt = "사용하지않음";
 	    int  readCnt = 0;
 		String id =  "chen";
+		String uuid = "안쓰는중";
+	
 		
 		
 		mockMvc  = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id));
+		newsList = Arrays.asList(new NewsVO(dao.getNewsSeq(),title, contents+"안녕", regDt, readCnt, id, id));
 		
 		searchVO = new NewsVO();
 		searchVO.setTitle(title);
 		
 	}
-	
-	
-	
 	@Test
 	public void doRetrieve() throws Exception{
 		//검색
@@ -83,7 +85,8 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		LOG.debug("│ doRetrieve()                              │");		
 		LOG.debug("└───────────────────────────────────────────┘");
 		
-		MockHttpServletRequestBuilder  requestBuilder  = MockMvcRequestBuilders.get("/news/doRetrieve.do")
+		MockHttpServletRequestBuilder  requestBuilder  =
+				MockMvcRequestBuilders.get("/news/doRetrieve.do")
 				.param("pageSize",   "0")
 				.param("pageNo",     "0")
 				.param("searchDiv",  "")
@@ -101,6 +104,7 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		List<CodeVO> newsSearchList=(List<CodeVO>) modelAndView.getModel().get("newsSearch");
 		List<CodeVO> pageSizeList=(List<CodeVO>) modelAndView.getModel().get("pageSize");
 		
+		
 		for(NewsVO vo  :list) {
 			LOG.debug(vo);
 		}
@@ -111,6 +115,94 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(paramVO);
 		
 	}
+	private void isSameNews(NewsVO vo, NewsVO news) {
+		assertEquals(vo.getPostNo(), news.getPostNo());
+		assertEquals(vo.getTitle(), news.getTitle());
+		assertEquals(vo.getContents(), news.getContents());
+		assertEquals(vo.getId(), news.getId());
+	}
+	
+	
+	@Test
+	public void doSave()throws Exception{
+		LOG.debug("┌───────────────────────────────────────────┐");
+		LOG.debug("│ doSave  ()                                │");		
+		LOG.debug("└───────────────────────────────────────────┘");		
+		
+		NewsVO vo = newsList.get(0);
+	
+		MockHttpServletRequestBuilder  requestBuilder  =
+				MockMvcRequestBuilders.post("/news/doSave.do")
+				.param("postNo",     vo.getPostNo()+"")
+				.param("title",     vo.getTitle())
+				.param("contents",   vo.getContents())
+				.param("regDt",vo.getRegDt())
+				//.param("modDt", vo.getModDt())
+				.param("readCnt",   vo.getReadCnt()+"")
+				.param("id",   vo.getId())
+				.param("uuid", vo.getUuid())
+				;
+		//호출        
+		ResultActions resultActions=  mockMvc.perform(requestBuilder).andExpect(status().isOk());
+		//호출결과
+		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
+		LOG.debug("│ result                                │"+result);		
+		MessageVO messageVO=new Gson().fromJson(result, MessageVO.class);
+		LOG.debug("│ messageVO                                │"+messageVO);
+		assertEquals("1", messageVO.getMsgId());
+	}
+	
+	//@Ignore
+	@Test
+	public void doSelectOne()throws Exception{
+		LOG.debug("┌───────────────────────────────────────────┐");
+		LOG.debug("│ doSelectOne()                             │");		
+		LOG.debug("└───────────────────────────────────────────┘");
+		
+		int flag = dao.doSave(newsList.get(0));
+		assertEquals(1, flag);
+		NewsVO vo = newsList.get(0);
+		
+		MockHttpServletRequestBuilder  requestBuilder  =
+				MockMvcRequestBuilders.get("/news/doSelectOne.do")
+				.param("postNo",     vo.getPostNo()+"")
+				.param("id",   vo.getId())
+				;		
+		
+		//호출 : ModelAndView      
+		MvcResult mvcResult=  mockMvc.perform(requestBuilder).andExpect(status().isOk()).andReturn() ;
+		//호출결과
+		ModelAndView modelAndView = mvcResult.getModelAndView();
+		NewsVO outVO = (NewsVO) modelAndView.getModel().get("vo");
+		LOG.debug("│ outVO                                │"+outVO);
+		assertNotNull(outVO);
+	}
+	
+	
+	@Test
+	public void doDelete()throws Exception{
+		LOG.debug("┌───────────────────────────────────────────┐");
+		LOG.debug("│ doDelete()                                │");		
+		LOG.debug("└───────────────────────────────────────────┘");
+		
+		//int flag = dao.doSave(newsList.get(0));
+		//assertEquals(3, flag);
+		
+		MockHttpServletRequestBuilder  requestBuilder = MockMvcRequestBuilders.get("/news/doDelete.do")
+				.param("postNo", 0+"");
+		
+		ResultActions resultActions=  mockMvc.perform(requestBuilder).andExpect(status().isOk());
+		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
+		LOG.debug("│ result                                │"+result);		
+		MessageVO messageVO=new Gson().fromJson(result, MessageVO.class);
+		LOG.debug("│ messageVO                                │"+messageVO);
+		assertEquals("1", messageVO.getMsgId());
+		
+	}
+	
+	
+	
+	
 	
 	
 	@Test
@@ -125,21 +217,5 @@ public class NewsControllerJunitTest implements PcwkLogger {
 		assertNotNull(dao);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

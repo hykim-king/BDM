@@ -19,6 +19,6 @@ public interface BulletinService {
 	
 	public int doSave(BulletinVO inVO) throws SQLException;
 	
-	public List<BulletinVO> doRetrieve(BulletinVO inVO)throws SQLException;
+	 List<BulletinVO> doRetrieve(BulletinVO inVO)throws SQLException;
 
 }
