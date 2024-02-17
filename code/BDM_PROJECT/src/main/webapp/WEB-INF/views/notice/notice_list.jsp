@@ -30,13 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 
-	moveToRegBTN.addEventListener("click", function(e) {
+	moveToRegBTN.addEventListener("click", function (e) {
 		console.log("moveToRegBTN click");
-		<c:if test="${empty user}">
- 	   		alert('로그인이 필요한 서비스입니다.');
- 	   		return;
- 	 	</c:if>
- 	 	window.location.href = "/bdm/bulletin/moveToReg.do";
+		
+
 	});
 
 	searchWordTxt.addEventListener("keyup", function (e) {
@@ -122,7 +119,7 @@ function pageDoRerive(url, pageNo) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">자유 게시판</h1>
+				<h1 class="page-header">공지사항</h1>
 				<hr />
 			</div>
 		</div>
@@ -155,7 +152,7 @@ function pageDoRerive(url, pageNo) {
 						</div>
 						<div class="col-auto ">
 							<!-- 열의 너비를 내용에 따라 자동으로 설정 -->
-							<input type="button" value="조회" class="btn btn-primary" id="doRetrieve">
+							<input type="button" value="목록" class="btn btn-primary" id="doRetrieve">
 							<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
 						</div>
 					</div>
