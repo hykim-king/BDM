@@ -218,7 +218,7 @@ function calculateAge(birth) {
 	        data: {
 	            labels: [nutrientLabel],
 	            datasets: [{
-	                data: [data, totalValue - data], // Remaining portion to complete the total
+	                data: [data, Math.max(0, totalValue - data)], // Remaining portion to complete the total
 	                backgroundColor: colors.concat('#E0E0E0'), // Add a neutral color for the remaining portion
 	                borderWidth: 1
 	            }]
@@ -255,67 +255,7 @@ function calculateAge(birth) {
 	var totalDailySugars = 30;
 
 </script>
-<script>
-    function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, canvasId) {
-        var ctx = document.getElementById(canvasId).getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: '칼로리',
-                        data: kcalData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '탄수화물',
-                        data: carbData,
-                        borderColor: 'rgba(247, 151, 28, 1))',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '단백질',
-                        data: proteinData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '지방',
-                        data: fatData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '당류',
-                        data: sugarsData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    }
 
-    
-</script>
 <script>
     const weekData = {
       labels: ['일', '월', '화', '수', '목', '금', '토'],
@@ -325,7 +265,7 @@ function calculateAge(birth) {
         borderColor: 'rgb(255, 99, 132)',
         borderWidth: 3, 
         fill: false
-      }, {
+      }, { 
         label: '탄수화물',
         data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
         borderColor: 'rgb(54, 162, 235)',
@@ -343,7 +283,7 @@ function calculateAge(birth) {
         borderColor: 'rgb(75, 192, 192)',
         borderWidth: 3,
         fill: false 
-      }, {
+      }, { 
         label: '당류',
         data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
         borderColor: 'rgb(153, 102, 255)',

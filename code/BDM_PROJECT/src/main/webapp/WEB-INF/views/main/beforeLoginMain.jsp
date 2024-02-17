@@ -159,7 +159,7 @@
     }
     .link_main img{
         width:50px;
-        height: auto;
+        height: auto; 
     }
     
 </style>
