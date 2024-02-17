@@ -40,7 +40,7 @@ public class AttachFileController {
 	AttachFileService attachFileService;
 	
 	final String FILE_PATH = StringUtil.FILE_PATH;
-	final String IMG_PATH  = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\BDM_cdh\\src\\main\\webapp\\resources\\upload";
+	final String IMG_PATH  = "C:\\JSPM_0907\\BDM\\BDM\\code\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
 	String yyyyMMPath = "";//년월을 포함하는 경로
 	String saveFilePath = "";
 	
@@ -69,28 +69,28 @@ public class AttachFileController {
 		
 		//년도 : YYYY
 		//월    : MM
-		String yyyyStr = StringUtil.getCurrentDate("yyyy");
-		String mmStr = StringUtil.getCurrentDate("MM");
-		LOG.debug("yyyyStr:"+yyyyStr);
-		LOG.debug("yyyyStr:"+mmStr);
+//		String yyyyStr = StringUtil.getCurrentDate("yyyy");
+//		String mmStr = StringUtil.getCurrentDate("MM");
+//		LOG.debug("yyyyStr:"+yyyyStr);
+//		LOG.debug("yyyyStr:"+mmStr);
 		
 		
-		yyyyMMPath = File.separator + yyyyStr + File.separator+mmStr;
-		LOG.debug("yyyyMMPath:"+yyyyMMPath);
+//		yyyyMMPath = File.separator + yyyyStr + File.separator+mmStr;
+//		LOG.debug("yyyyMMPath:"+yyyyMMPath);
 		
-		normalFileRoot = new File(FILE_PATH+yyyyMMPath);
+		normalFileRoot = new File(FILE_PATH);
 		if(normalFileRoot.isDirectory()==false) {
 			boolean isMakeDir =  normalFileRoot.mkdirs();
 			LOG.debug("FILE_PATH isMakeDir:"+isMakeDir);
 		}		
 		
-		imageFileRoot =new File(IMG_PATH+yyyyMMPath);
+		imageFileRoot =new File(IMG_PATH);
 		if(imageFileRoot.isDirectory() ==false) {
 			boolean isMakeDir = imageFileRoot.mkdirs();
 			LOG.debug("ImagePath isMakeDir:"+isMakeDir);
 		}		
 		
-		saveFilePath = FILE_PATH+yyyyMMPath;
+		saveFilePath = FILE_PATH;
 	}
 
 	
@@ -130,6 +130,7 @@ public class AttachFileController {
 		
 		//UUID
 		String UUID = StringUtil.getPK();
+		
 		//SEQ
 		int    seq  = 1;
 		

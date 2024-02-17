@@ -97,7 +97,8 @@
 		contents,
 		reg_dt,
 		read_cnt,
-		id
+		id,
+		uuid
    FROM
         news
     WHERE post_no = #{postNo}      

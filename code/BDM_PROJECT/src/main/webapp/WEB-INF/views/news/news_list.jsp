@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded",function() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a>
+                        <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded",function() {
                     <select class="form-select" id="searchDiv" name="searchDiv">
                         <c:forEach var="vo" items="${newsSearch}">
                             <option value="<c:out value='${vo.getDivs()}'/>"
-                                <c:if test="${vo.getDivs() == paramVO.searchDiv}">selected</c:if>>
+                                    <c:if test="${vo.getDivs() == paramVO.searchDiv}">selected</c:if>>
                                 <c:out value="${vo.divName}" />
                             </option>
                         </c:forEach>
@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded",function() {
 								<td class="text-center col-lg-2  col-sm-1"><c:out value="${vo.regDt}" escapeXml="true" /></td>
 								<td class="            col-lg-1 "><c:out value="${vo.id}" /></td>
 								<td class="text-end    col-lg-1 "><c:out value="${vo.readCnt}" /></td>
-								<td class="text-end    col-lg-1 "><c:out value="${vo.uuid}" /></td>
 								<td style="display: none;"><c:out value="${vo.postNo}" /></td>
 							</tr>
 						</c:forEach>
