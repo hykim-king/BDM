@@ -3,6 +3,15 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="com.test.bdm.nutrient.domain.NutrientVO" %>
+<%
+    LocalDate today = LocalDate.now();
+    LocalDate firstDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
+    LocalDate lastDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SATURDAY));
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월 d일");
+    request.setAttribute("today", today.format(formatter));
+    request.setAttribute("firstDayOfWeek", firstDayOfWeek.format(formatter));
+    request.setAttribute("lastDayOfWeek", lastDayOfWeek.format(formatter));
+%>
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />  
 <!DOCTYPE html>
@@ -218,7 +227,7 @@ function calculateAge(birth) {
 	        data: {
 	            labels: [nutrientLabel],
 	            datasets: [{
-	                data: [data, Math.max(0, totalValue - data)], // Remaining portion to complete the total
+	                data: [data, totalValue - data], // Remaining portion to complete the total
 	                backgroundColor: colors.concat('#E0E0E0'), // Add a neutral color for the remaining portion
 	                borderWidth: 1
 	            }]
@@ -255,57 +264,76 @@ function calculateAge(birth) {
 	var totalDailySugars = 30;
 
 </script>
-
 <script>
-    const weekData = {
-      labels: ['일', '월', '화', '수', '목', '금', '토'],
-      datasets: [{
-        label: '칼로리',
-        data: [${weekKcal[0]}, ${weekKcal[1]}, ${weekKcal[2]}, ${weekKcal[3]}, ${weekKcal[4]}, ${weekKcal[5]}, ${weekKcal[6]}],
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 3, 
-        fill: false
-      }, { 
-        label: '탄수화물',
-        data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
-        borderColor: 'rgb(54, 162, 235)',
-        borderWidth: 3,
-        fill: false
-      }, {
-        label: '단백질',
-        data: [${weekProtein[0]}, ${weekProtein[1]}, ${weekProtein[2]}, ${weekProtein[3]}, ${weekProtein[4]}, ${weekProtein[5]}, ${weekProtein[6]}],
-        borderColor: 'rgb(255, 206, 86)',
-        borderWidth: 3,
-        fill: false
-      }, {
-        label: '지방',
-        data: [${weekFat[0]}, ${weekFat[1]}, ${weekFat[2]}, ${weekFat[3]}, ${weekFat[4]}, ${weekFat[5]}, ${weekFat[6]}],
-        borderColor: 'rgb(75, 192, 192)',
-        borderWidth: 3,
-        fill: false 
-      }, { 
-        label: '당류',
-        data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
-        borderColor: 'rgb(153, 102, 255)',
-        borderWidth: 3,
-        fill: false
-      }]
-    };
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('weeklyChart').getContext('2d');
-        const weeklyChart = new Chart(ctx, {
+    function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, canvasId) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
             type: 'line',
-            data: weekData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '칼로리',
+                        data: kcalData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '탄수화물',
+                        data: carbData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '단백질',
+                        data: proteinData,
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '지방',
+                        data: fatData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '당류',
+                        data: sugarsData,
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderWidth: 1
                     }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
             }
         });
-    });
+    }
+
+    /* document.addEventListener("DOMContentLoaded", function () {
+        var labels = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        var selectedWeekDataMap = ${selectedWeekDataMap}// 해당 부분 수정
+        var kcalData = Object.values(selectedWeekDataMap).map(function (item) { return item.kcal; });
+        var carbData = Object.values(selectedWeekDataMap).map(function (item) { return item.carbohydrate; });
+        var proteinData = Object.values(selectedWeekDataMap).map(function (item) { return item.protein; });
+        var fatData = Object.values(selectedWeekDataMap).map(function (item) { return item.fat; });
+        var sugarsData = Object.values(selectedWeekDataMap).map(function (item) { return item.sugars; });
+
+        generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, 'combined-line-chart');
+    }); */
 </script>
 <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -365,11 +393,6 @@ function calculateAge(birth) {
 
 </script>
 </head>
-<style>
-    .card-body{
-        background-color:#fdce64;
-    }
-</style>
 <body>
     <div class ="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -503,18 +526,32 @@ function calculateAge(birth) {
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                               <div class="card-body">
+                              oneDay: ${oneDay}
+                              thisWeek: ${thisWeek}
+                              formattedStartOfWeek: ${formattedStartOfWeek}
+                              selectedWeekDataMap: ${selectedWeekDataMap}
+                              startDate: ${startDate }
+                              finishDate: ${finishDate }
+                              weekKcal: ${weekKcal }
+                              weekCarbo: ${weekCarbo }
+                              weekProtein: ${weekProtein }
+                              weekFat: ${weekFat }
+                              weekSugars: ${weekSugars }
+                              ateList: ${ateList }
 	                                <div>
 	                                    <h4 class="card-title">${convertedDate}</h4>
 	                                    <button id="calendarButton">달력 열기</button>
+	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
+	                                    <button onclick="changeYearMonth(1)">다음 달</button>
 	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
 	                                    <!-- 달력 -->
 										<div id="calendar">
 										    <table>
 										        <thead>
 										        <tr>
-										           <th><button><<</button></th>
+										           <th><button>이전 달</button></th>
 										           <th>5월</th>
-										           <th><button>>></button></th>
+										           <th><button>다음 달</button></th>
 										        </tr>
 										        <tr>
 										            <th>일</th>
@@ -539,6 +576,10 @@ function calculateAge(birth) {
 		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
 	                     			 </div>
+	                                 <div class="chart-flex col-md-12">
+	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
+	                     			 </div>
+	                     			 
 	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
 							            <thead>
 							                <tr>
@@ -632,12 +673,8 @@ function calculateAge(birth) {
 											</c:choose>
 							            </tbody>
 							        </table>
-                                    <div class="chart-flex col-md-12"> 
-                                        <canvas id="weeklyChart" class="weeklyChart col-md-12"></canvas>
-                                    </div>
                                 </div>
                             </div>
-                            
                           </div>
                     </div>  
                 </div>
