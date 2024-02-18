@@ -8,7 +8,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport"  content="width=device-width, initial-scale=1">
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
@@ -18,17 +17,17 @@
 <link rel="stylesheet" href="${CP}/resources/css/user.css">
 
 <title>index</title>
+
 <script src="${CP}/resources/js/bootstrap.bundle.min.js"></script>
 <script src="${CP}/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
-<script type="text/javascript">
+<script></script>
 
-</script>
-
-<title>index..</title>
 </head>
 <body>
-    여기는 index.jsp
+<c:redirect url="/beforeMain/moveToMain.do" />
+
+<%--     여기는 index.jsp
     <ul class="nav">
 	  <li class="nav-item">
 	    <a class="nav-link active" aria-current="page" href="<c:url value='/login/loginView.do' />">로그인</a>
@@ -49,8 +48,7 @@
 	  <li class="nav-item">
 	    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 	  </li>
-	  
-	</ul>
+	</ul> --%>
 	
     <!-- 호출 http://localhost:8080/ehr/index.jsp -->
     <!-- 호출 http://localhost:8080/ehr/user/doRetrieve.do -->
