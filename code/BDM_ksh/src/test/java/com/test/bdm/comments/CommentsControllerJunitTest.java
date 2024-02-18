@@ -37,7 +37,6 @@ import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.dao.CommentsDao;
 import com.test.bdm.comments.domain.CommentsVO;
-import com.test.bdm.user.domain.UserVO;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class) // 스프링 테스트 컨텍스트 프레임웤그의 JUnit의 확장기능 지정
@@ -59,6 +58,8 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 	BulletinDao bulletinDao;
 
 	BulletinVO bulletin01;
+	
+	BulletinVO searchVO;
 
 	CommentsVO comments01;
 
@@ -70,23 +71,13 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-		// board01 = new BoardVO(boardDao.getBoardSeq(), "10", "제목55", "내용55", 0, "사용X",
-		// "pcwk99", "사용X", "pcwk99");
+		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "20240214", "contents", "사용하지않음", "사용하지않음", 0, "MN_LEE", "MN_LEE");
 
-		//bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "제목제목1_U", "내용", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
-		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "title", "contents", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
-
-		
-		// 게시순번
 		int postNo = bulletin01.getPostNo();
 
-		comments01 = new CommentsVO(dao.getRegNo(),"댓글내용-01","사용하지않음", postNo,"ksh","ksh");
-		
-		//comments02 = new CommentsVO(regNo, contents, regDt, postNo, id, modId)
-		
-		
-
+		comments01 = new CommentsVO(dao.getRegNo(), "댓글내용-01", "사용하지않음", postNo, "MN_LEE", "MN_LEE");
 	}
+
 	@Ignore
 	@Test
 	public void doRetrieve() throws Exception {
@@ -94,27 +85,32 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		LOG.debug("│ doRetrieve                                │");
 		LOG.debug("└───────────────────────────────────────────┘");
 
-		// 댓글1. 등록
-		int flag = dao.doSave(comments01);
+		this.bulletinDao.doDelete(bulletin01);
+		int flag = bulletinDao.doSave(bulletin01);
 		assertEquals(1, flag);
 
-		LOG.debug("│ reply01.getRegNo()            │" + comments01.getRegNo());
+		// 댓글1. 등록
+		flag = dao.doSave(comments01);
+		assertEquals(1, flag);
+		
+		LOG.debug("│ c.getRegNo() │" + comments01.getRegNo());
+
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/comments/doRetrieve.do")
-				.param("postNo", comments01.getPostNo()+ "");
+				.param("postNo", comments01.getPostNo() + "");
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
 		// 호출결과
 		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
 		LOG.debug("│ result                                │" + result);
-		
+
 		Type listType = new TypeToken<List<CommentsVO>>() {
 		}.getType();
 
 		List<CommentsVO> list = new Gson().fromJson(result, listType);
 
-		assertEquals(3, list.size());
+		assertEquals(1, list.size());
 		assertNotNull(list);
 
 		for (CommentsVO vo : list) {
@@ -134,7 +130,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		// 2.신규등록
 
 		// 1
-		this.bulletinDao.doDelete(bulletin01);
+		// this.bulletinDao.doDelete(bulletin01);
 
 		// 2
 		int flag = bulletinDao.doSave(bulletin01);
@@ -151,7 +147,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		vo.setContents(vo.getContents() + "_U");
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/comments/doUpdate.do")
-				.param("regNo", vo.getRegNo() + "").param("comments", vo.getContents());
+				.param("regNo", vo.getRegNo() + "").param("contents", vo.getContents());
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
@@ -163,7 +159,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		assertEquals("1", messageVO.getMsgId());
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void doDelete() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -181,17 +177,16 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		assertEquals(1, flag);
 
 		// Reply삭제
-
+		CommentsVO vo = comments01;
 		// 1. 등록
 		flag = dao.doSave(comments01);
 		assertEquals(1, flag);
 
-		// 2. 삭제
-		CommentsVO vo = comments01;
+		
 
 		// post/get
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/comments/doDelete.do")
-				.param("regNo", vo.getRegNo() + "");
+				.param("regNo", vo.getRegNo()+"");
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
@@ -204,48 +199,37 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 
 	}
 
-	//@Ignore
+@Ignore
 	@Test
 	public void doSave() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
 		LOG.debug("│ doSave()                                  │");
 		LOG.debug("└───────────────────────────────────────────┘");
 
-		
-	
-		//this.bulletinDao.doDelete(bulletin01);
+		// this.bulletinDao.doDelete(bulletin01);
 
-		
 		int flag = bulletinDao.doSave(bulletin01);
 		assertEquals(1, flag);
 
 		CommentsVO vo = comments01;
 
-		
-		MockHttpServletRequestBuilder requestBuilder = 
-				MockMvcRequestBuilders.post("/comments/doSave.do")
-				.param("regNo", 	vo.getRegNo() + "")
-				.param("postNo", 	vo.getPostNo() + "")
-				.param("contents", 	vo.getContents())
-				.param("id", 		vo.getId())
-				.param("modId", vo.getModId());
-				
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/comments/doSave.do")
+				.param("regNo", vo.getRegNo() + "").param("contents", vo.getContents())
+				.param("postNo", vo.getPostNo() + "").param("id", vo.getId()).param("modId", vo.getModId());
 
-		
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		HttpSession session = new MockHttpSession();
+		// MockHttpServletRequest request = new MockHttpServletRequest();
+		// HttpSession session = new MockHttpSession();
 
-		
+		// UserVO user = new UserVO("ksh01", 85, "1234", "사용x", "강소희", 950325, 2, 179,
+		// 49, "사용x", 1);
+		// new UserVO(id, no, pw, email, name, birth, gender, height, weight, regDt,
+		// userFilter)
 
-		
-		UserVO user = new UserVO("ksh01", 85, "1234", "사용x", "강소희", 950325, 2, 179, 49, "사용x", 1);
-		//new UserVO(id, no, pw, email, name, birth, gender, height, weight, regDt, userFilter)
-			
 		// 세션에 데이터 추가
-		session.setAttribute("user", user);
+		// session.setAttribute("user", user);
 
 		// 요청에 세션 설정
-		request.setSession(session);
+		// request.setSession(session);
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
@@ -258,7 +242,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void beans() {
 		LOG.debug("│ dao                                   │" + dao);

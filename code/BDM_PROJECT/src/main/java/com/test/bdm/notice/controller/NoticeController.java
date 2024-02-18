@@ -75,7 +75,7 @@ public class NoticeController implements PcwkLogger {
 		
 		
 		
-		viewName = "board/notice_reg";///WEB-INF/views/ viewName .jsp
+		viewName = "notice/notice_reg";///WEB-INF/views/ viewName .jsp
 		return viewName;
 	}
 	
@@ -156,7 +156,7 @@ public class NoticeController implements PcwkLogger {
 		//페이징
 		long bottomCount = StringUtil.BOTTOM_COUNT;//바닥글
 		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
-				"/ehr/notice/doRetrieve.do", "pageDoRerive");
+				"/bdm/notice/doRetrieve.do", "pageDoRerive");
 		modelAndView.addObject("pageHtml", html);
 		
 		

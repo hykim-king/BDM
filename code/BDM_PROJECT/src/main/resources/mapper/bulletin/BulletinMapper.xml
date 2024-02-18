@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.bdm.bulletin">
+
 	<update id="updateReadCnt" parameterType="BulletinVO">
+	
     <![CDATA[
     UPDATE bulletin
        SET read_cnt = NVL(read_cnt,0)+1
@@ -10,14 +12,14 @@
        AND id <> #{id} ]]>
 	</update>
 
-	<!-- divs -->
-	<sql id="divsCondition">
+	<!-- div -->
+	<sql id="divCondition">
 		<choose>
 			<when test=" ''!=div and '20' == div ">20
-				AND divs = '20'
+				AND div = '20'
 			</when>
 			<otherwise> 10
-				AND divs = '10'
+				AND div = '10'
 			</otherwise>
 		</choose>
 	</sql>
@@ -35,48 +37,64 @@
 			</when>
 		</choose>
 	</sql>
+	
+	<select id="bulletinView" parameterType="BulletinVO" resultType="BulletinVO">
+		SELECT
+			post_no as postNo,
+			title,
+			contents,
+			TO_CHAR(reg_dt,'YYYY-MM-DD HH24:MI:SS') as regDt,
+			TO_CHAR(mod_dt,'YYYY-MM-DD HH24:MI:SS') as modDt,
+			read_cnt as readCnt,
+			id,
+			mod_id as modId
+		FROM
+			bulletin
+		WHERE post_no = #{postNo}
+	</select>
 
 	<select id="doRetrieve" parameterType="BulletinVO"
 		resultType="BulletinVO">
 		SELECT A.*,B.totalCnt
 		FROM (
-			SELECT		
-			tt1.rnum as postNo,
-			tt1.title,
-			tt1.contents,
-			DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-			,TO_CHAR(tt1.reg_dt,'HH24:MI')
-			,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,			
-			--당일 등록: 시:분, 그렇지 않으면 년-월-일
-			DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-			,TO_CHAR(tt1.mod_dt,'HH24:MI')
-			,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
-			tt1.read_cnt as readCnt,
-			tt1.id,
-			tt1.mod_id as modId
-		FROM (
-			SELECT ROWNUM rnum, T1.*
+			SELECT	
+				tt1.post_no as postNo,	
+				tt1.rnum as no,
+				tt1.title,
+				tt1.contents,
+				DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+				,TO_CHAR(tt1.reg_dt,'HH24:MI')
+				,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,			
+				--당일 등록: 시:분, 그렇지 않으면 년-월-일
+				DECODE(TO_CHAR(tt1.mod_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+				,TO_CHAR(tt1.mod_dt,'HH24:MI')
+				,TO_CHAR(tt1.mod_dt,'YYYY-MM-DD')) as modDt,
+				tt1.read_cnt as readCnt,
+				tt1.id,
+				tt1.mod_id as modId
 			FROM (
-				SELECT *
-				FROM bulletin
-				--WHERE 검색
-				WHERE 1=1
-			<!-- <include refid="divCondition"/> -->
-			<include refid="searchCondition" />
-			ORDER BY mod_dt DESC
-		)T1 --10,20,30,...
-	      <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
-		)TT1
-		--1,11,21,31,..
-	    <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo}-1) + 1 ]]>
+				SELECT ROWNUM rnum, T1.*
+				FROM (
+					SELECT *
+					FROM bulletin
+					--WHERE 검색
+					WHERE 1=1
+				<!-- <include refid="divCondition"/> -->
+				<include refid="searchCondition" />
+					ORDER BY mod_dt DESC
+				)T1 --10,20,30,...
+	      		<![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
+			)TT1
+			--1,11,21,31,..
+	    	<![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo}-1) + 1 ]]>
 		)A
 		CROSS JOIN (
-		SELECT COUNT(*) totalCnt
-		FROM bulletin
-		--WHERE 검색
-		WHERE 1=1
-		<!-- <include refid="divCondition"/> -->
-		<include refid="searchCondition" />
+			SELECT COUNT(*) totalCnt
+			FROM bulletin
+			--WHERE 검색
+			WHERE 1=1
+			<!-- <include refid="divCondition"/> -->
+			<include refid="searchCondition" />
 		)B
 	</select>
 
@@ -101,19 +119,18 @@
 		SELECT BULLETIN_SEQ.NEXTVAL FROM DUAL
 	</select>
 
-	<select id="doSelectOne" parameterType="BulletinVO"
-		resultType="BulletinVO">
+	<select id="doSelectOne" parameterType="BulletinVO" resultType="BulletinVO">
 		SELECT
-		post_no,
-		title,
-		contents,
-		read_cnt,
-		TO_CHAR(reg_dt,'YYYY-MM-DD HH24:MI:SS') reg_dt,
-		id,
-		TO_CHAR(mod_dt,'YYYY-MM-DD HH24:MI:SS') mod_dt,
-		mod_id
+			post_no as postNo,
+			title,
+			contents,
+			TO_CHAR(reg_dt,'YYYY-MM-DD HH24:MI:SS') as regDt,
+			TO_CHAR(mod_dt,'YYYY-MM-DD HH24:MI:SS') as modDt,
+			read_cnt as readCnt,
+			id,
+			mod_id as modId
 		FROM
-		bulletin
+			bulletin
 		WHERE post_no = #{postNo}
 	</select>
 
@@ -127,23 +144,23 @@
 	<insert id="doSave" parameterType="BulletinVO">
 
 		INSERT INTO bulletin (
-		post_no,
-		title,
-		contents,
-		read_cnt,
-		reg_dt,
-		id,
-		mod_dt,
-		mod_id
+			post_no,
+			title,
+			contents,
+			read_cnt,
+			reg_dt,
+			id,
+			mod_dt,
+			mod_id
 		) VALUES (
-		#{postNo},
-		#{title},
-		#{contents},
-		#{readCnt},
-		SYSDATE,
-		#{id},
-		SYSDATE,
-		#{modId}
+			#{postNo},
+			#{title},
+			#{contents},
+			#{readCnt},
+			SYSDATE,
+			#{id},
+			SYSDATE,
+			#{modId}
 		)
 	</insert>
 

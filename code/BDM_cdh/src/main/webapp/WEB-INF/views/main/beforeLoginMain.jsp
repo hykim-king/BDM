@@ -134,5 +134,43 @@ document.addEventListener("DOMContentLoaded", function(){
     <input type="button" value="자유게시판"  id="moveToBulletin">
     <input type="button" value="뉴스"  id="moveToNews">
     <input type="button" value="마이페이지"  id="moveToMyPage">
+    
+  <ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="<c:url value='/beforeMain/moveToMain.do'/>">메인페이지</a>
+  </li>
+  
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/nutrient/doRetrieve.do'/>">음식 등록</a>
+  </li>   
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/user/doRetrieve.do'/>">회원목록</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/board/doRetrieve.do'/>">게시목록</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/board/moveToReg.do'/>">게시등록</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/chart/viewPie.do'/>">파이차트</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/chart/viewLineChart.do'/>">라인차트</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/file/uploadView.do'/>">파일up/down</a>
+  </li> 
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/file/dragAndDropView.do'/>">파일_drag/drop</a>
+  </li> 
+        
+  <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/template/viewBlank.do'/>">blank</a>
+  </li>  
+      
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+  </li>
 </body>
 </html>

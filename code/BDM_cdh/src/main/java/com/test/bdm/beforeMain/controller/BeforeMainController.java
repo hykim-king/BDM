@@ -36,8 +36,10 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@GetMapping(value = "/moveToNews.do")
 	public String moveToNews() throws SQLException {
-		return "board/news";
+		return "news/news_main";
 	}
+
+	
 	
 	@GetMapping(value = "/moveToBulletin.do")
 	public String moveToBulletin() throws SQLException {

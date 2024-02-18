@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded",function() {
 	console.log("DOMContentLoaded");
 
 	const moveToRegBTN = document.querySelector("#moveToReg");
+	
+	
+     
+		
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
 	const searchDivSelect = document.querySelector("#searchDiv");
 	const bulletinForm = document.querySelector("#bulletinFrm");
@@ -40,6 +44,17 @@ document.addEventListener("DOMContentLoaded",function() {
 		//bulletinForm.postNo.value = document.querySelector("#postNo").value;
 		bulletinForm.action = "/bdm/bulletin/moveToReg.do";
 		bulletinForm.submit();
+		
+		if(confirm('작성하시겠습니까?')==false){
+	         return;
+	     }
+	  
+	     var id = '${sessionScope.user.id}';
+	     
+	     if(id != id){
+	     	alert('로그인해주세요.');
+	     	return;
+	     }
 
 	});
 

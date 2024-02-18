@@ -1,5 +1,7 @@
 package com.test.bdm.news.domain;
 
+import java.sql.Date;
+
 import com.test.bdm.cmn.DTO;
 
 import lombok.AllArgsConstructor;
@@ -20,11 +22,13 @@ public class NewsVO extends DTO {
 	private String regDt    ;
 	private int readCnt  ;
 	private String id       ;
+	private String uuid  ;
+	
 	
 	@Override
 	public String toString() {
 		return "NewsVO [postNo=" + postNo + ", title=" + title + ", contents=" + contents + ", regDt=" + regDt
-				+ ", readCnt=" + readCnt + ", id=" + id + ", toString()=" + super.toString() + "]";
+				+ ", readCnt=" + readCnt + ", id=" + id + ", uuid=" + uuid + ", toString()=" + super.toString() + "]";
 	}
 	
 	

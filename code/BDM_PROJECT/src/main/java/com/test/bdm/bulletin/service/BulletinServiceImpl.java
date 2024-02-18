@@ -12,8 +12,8 @@ import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.PcwkLogger;
 
 @Service
-public class BulletinServiceImpl implements BulletinService,PcwkLogger {
-
+public class BulletinServiceImpl implements PcwkLogger, BulletinService {
+	
 	@Autowired
 	BulletinDao dao;
 	
@@ -22,6 +22,23 @@ public class BulletinServiceImpl implements BulletinService,PcwkLogger {
 	@Override
 	public int getBulletinSeq() throws SQLException {
 		return dao.getBulletinSeq();
+	}
+
+	@Override
+	public int doSave(BulletinVO inVO) throws SQLException {
+		return dao.doSave(inVO);
+	}
+
+	@Override
+	public int doDeleteAll(BulletinVO inVO) throws SQLException {
+		return dao.doDeleteAll(inVO);
+	}
+
+	@Override
+	public BulletinVO doSelectOne(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
+		BulletinVO outVO = dao.doSelectOne(inVO);
+		
+		return outVO;
 	}
 
 	@Override
@@ -35,24 +52,21 @@ public class BulletinServiceImpl implements BulletinService,PcwkLogger {
 	}
 
 	@Override
-	public BulletinVO doSelectOne(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
-		BulletinVO outVO = dao.doSelectOne(inVO);
-		
-		if(null != outVO) {
-			int updateReadCnt = dao.updateReadCnt(inVO);
-		}
-	
-		return outVO;
-	}
-
-	@Override
-	public int doSave(BulletinVO inVO) throws SQLException {
-		return dao.doSave(inVO);
-	}
-
-	@Override
 	public List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 
+	@Override
+	public BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
+		BulletinVO outVO = dao.bulletinView(inVO);
+		
+		if(null != outVO) {
+			int updateReadCnt = dao.updateReadCnt(inVO);
+			LOG.debug("──────────────────────────────────────────");
+			LOG.debug(" updateReadCnt: " + updateReadCnt          );
+			LOG.debug("──────────────────────────────────────────");
+		}
+		
+		return outVO;
+	}
 }

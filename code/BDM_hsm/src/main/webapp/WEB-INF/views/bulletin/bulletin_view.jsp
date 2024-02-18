@@ -19,20 +19,24 @@ document.addEventListener("DOMContentLoaded",function() {
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
     
+    
     const doSelectOneBTN = document.querySelector("#doSelectOne");
     
     //삭제버튼
     const doDeleteBTN   = document.querySelector("#doDelete");
+    
+    const regId = document.querySelector("#regId").value;
+    
 
 
-    //삭제 이벤트 감지 및 처리
+  //삭제 이벤트 감지 및 처리
     doDeleteBTN.addEventListener("click",function(e){
         console.log('doDeleteBTN click');
         
-        const seq = document.querySelector("#seq").value;
-        console.log('seq :'+seq);
+        const postNo = document.querySelector("#postNo").value;
+        console.log('postNo :'+postNo);
         
-        if(eUtil.isEmpty(seq) == true){
+        if(eUtil.isEmpty(postNo) == true){
             alert('순번을 확인 하세요.');
             return;
         }
@@ -40,15 +44,21 @@ document.addEventListener("DOMContentLoaded",function() {
         if(window.confirm('삭제 하시겠습니까?')==false){
             return;
         }
+ 			var id = '${sessionScope.user.id}';
+        
+        if(id != regId){
+        	alert('타인의 글은 삭제 불가능합니다.');
+        	return;
+        }
 
 
        	$.ajax({
     		type: "GET",
-    		url:"/ehr/bulletin/doDelete.do",
+    		url:"/bdm/bulletin/doDelete.do",
     		asyn:"true",
     		dataType:"json",
     		data:{
-    			"seq": seq
+    			"postNo": postNo
     		},
     		success:function(data){//통신 성공
         		console.log("success data.msgId:"+data.msgId);
@@ -65,17 +75,24 @@ document.addEventListener("DOMContentLoaded",function() {
         	}
     	});
 
+   
+
     });
 
   //수정 이벤트 감지 및 처리
     doSelectOneBTN.addEventListener("click",function(e){
         console.log('doSelectOneBTN click');
-        if(confirm('수정페이지로 이동합니다') == false){
+		var id = '${sessionScope.user.id}';
+        
+        if( id != regId ){
+        	alert('타인의 글은 수정이 불가능 합니다.');
+        	return;
+        } else if(confirm('수정페이지로 이동합니다') == false){
             return;
-        }
-        var postNo = document.querySelector("#seq").value;
+        } else {
+        var postNo = document.querySelector("#postNo").value;
         doSelectOne(postNo);
-    
+        }
         
     });
     
@@ -104,34 +121,33 @@ document.addEventListener("DOMContentLoaded",function() {
 </script>
 </head>
 <body>
-	<ul class="nav nav-tabs">
-		<li class="nav-item"><a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance DietManagement</a></li>
-		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
-			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
-				<li><a class="dropdown-item" href="#"></a></li>
-				<li><a class="dropdown-item" href="#"></a></li>
-				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="#">마이페이지</a></li>
-			</ul>
-		</li>
-		<li>
-			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
-		</li>
-		<li class="nav-item">
-    		<a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a>
-  		</li>
-		<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
-	</ul>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <div class="container">
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">상세조회</h1>
         </div>
-    </div>    
+    </div>
     <!--// 제목 ----------------------------------------------------------------->
-    
     <!-- 버튼 -->
     <div class="row justify-content-end">
         <div class="col-auto">
@@ -140,23 +156,11 @@ document.addEventListener("DOMContentLoaded",function() {
             <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
         </div>
     </div>
-    <!--// 버튼 ----------------------------------------------------------------->
-    <!-- 
-    seq : sequence별도 조회
-    div : 10(공지사항)고정
-    read_cnt : 0 
-    title,contents : 화면에서 전달
-    reg_id,mod_id  : session에서 처리
-     -->
-      
-
-    <!-- form -->
-    <form action="#" name="regFrm" id="regFrm">        
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="seq" name="seq" maxlength="100"
-                 value="${vo.postNo }"
+                <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100"
+                 value="${vo.postNo}"
                  readonly>
             </div>
         </div>
@@ -165,7 +169,7 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="readCnt" name="readCnt" maxlength="100"
-                 value="${vo.readCnt }" 
+                 value="${vo.readCnt}" 
                 placeholder="조회수를 입력 하세요">
             </div>
         </div>
@@ -174,7 +178,7 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regId" name="regId"  readonly="readonly"
-                 value=${vo.id }
+                 value="${vo.id}"
                  >
             </div>        
         </div>
@@ -182,27 +186,26 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="regId" class="col-sm-2 col-form-label">등록일</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt }"  readonly="readonly" >
+                value="${vo.regDt}"  readonly="readonly" >
             </div>        
         </div>        
         <div class="mb-3 row">
             <label for="regId" class="col-sm-2 col-form-label">수정자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="modId" name="modId" 
-                value="${vo.modId }"  readonly="readonly"  >
+                value="${vo.modId}"  readonly="readonly"  >
             </div>        
         </div>
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" maxlength="100" 
-             value=${vo.title }
+            <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 
+             value="${vo.title}"
             placeholder="제목을 입력 하세요">
         </div>      
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
+            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
         </div>
-    </form> 
     <!--// form --------------------------------------------------------------->
     
     

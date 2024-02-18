@@ -52,6 +52,10 @@
   <li class="nav-item">
     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
   </li>
+  
+   <li class="nav-item">
+    <a class="nav-link" href="<c:url value='/notice/moveToNotice.do'/>">공지사항</a>
+  </li>  
 </ul> --%>
 </body>
 </html>

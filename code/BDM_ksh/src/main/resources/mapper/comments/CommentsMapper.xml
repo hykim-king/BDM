@@ -21,7 +21,7 @@
 	    mod_id
 	FROM
 	    comments
-	WHERE reg_no =  #{regNo}   
+	WHERE post_no =  #{postNo}   
 	ORDER BY reg_no
 </select>
 
@@ -60,7 +60,7 @@
 	    id,
 	    mod_id
 	) VALUES (
-	    #{regNo},
+	    comments_seq.NEXTVAL,
 	    #{contents},
 	   	SYSDATE,	    
         #{postNo},

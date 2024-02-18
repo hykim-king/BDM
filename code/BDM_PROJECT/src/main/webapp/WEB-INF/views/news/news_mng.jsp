@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />     
 <!DOCTYPE html>
@@ -16,6 +17,11 @@
     background-color: #e9ecef ;
    }
    
+    .thumbnail {
+        width: 500px; /* 원하는 가로 크기로 조정 */
+        height: 500px; /* 원하는 세로 크기로 조정 */
+    }
+
 
 </style>
 <script>
@@ -189,6 +195,9 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="contents" class="form-label">내용</label>
             <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
         </div>
+        <c:forEach var="file" items="${fileList}">
+	    <img src="<spring:url value='/resources/upload/${file.saveFileName}'/>" class="thumbnail">
+		</c:forEach>
     </form>    
     </div>
 
