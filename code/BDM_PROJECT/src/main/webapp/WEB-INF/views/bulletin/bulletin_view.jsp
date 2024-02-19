@@ -27,6 +27,61 @@ document.addEventListener("DOMContentLoaded",function() {
     
     const regId = document.querySelector("#regId").value;
     
+    const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
+    
+    const contents = document.querySelector('#replyContents').value;
+    if(eUtil.isEmpty(contents) == true){
+        alert('댓글을 확인 하세요.');
+        document.querySelector('#replyContents').focus();
+        return;
+    }
+    console.log('replyContents:'+contents);
+    
+  	const regId    = '${sessionScope.user.id}';
+    if(eUtil.isEmpty(regId) == true){
+        alert('로그인 하세요.');
+        return;
+    }    	  
+    console.log('regId:'+regId);  
+    
+    
+    $.ajax({
+        type: "POST",
+        url:"/bdm/comments/doSave.do",
+        asyn:"true",
+        dataType:"json",
+        data:{
+        	"contents": contents,
+            "postNo": postNo,
+            "id": regId,
+            "modId": regId
+        },
+        success:function(data){//통신 성공
+            console.log("success msgId:"+data.msgId);
+            console.log("success msgContents:"+data.msgContents);
+            
+            if("1"==data.msgId){
+            	alert(data.msgContents);
+            	commentsRetrieve();//댓글 조회
+            	//등록 댓글 초기화
+            	document.querySelector('#replyContents').value = '';
+            }else{
+            	alert(data.msgContents);
+            }
+        },
+        error:function(data){//실패시 처리
+            console.log("error:"+data);
+        },
+        complete:function(data){//성공/실패와 관계없이 수행!
+            console.log("complete:"+data);
+        }
+    });
+	  	
+});
+    
+    
+    commentsDoSaveBTN.addEventListener("click",function(e){
+    	console.log('commentsDoSaveBTN click');
 
 
   //삭제 이벤트 감지 및 처리
@@ -197,6 +252,36 @@ document.addEventListener("DOMContentLoaded",function() {
             <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
         </div>
     <!--// form --------------------------------------------------------------->
+        <!-- reply -->  
+     <div id="contentsDoSaveArea">
+        <!-- 버튼 -->
+         <div class="dynamicComments">
+	        <div class="row justify-content-end">
+	            <div class="col-auto">
+	                <input type="button" value="댓글수정" class="btn btn-primary commentsDoUpdate"  >
+	                <input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >
+	            </div>
+	        </div>
+	        <div class="mb-3">
+	            <input type="hidden" name="regNo" value="">
+	            <textarea rows="3" class="form-control dyCommentsContents"   name="dyCommentsContents"></textarea>
+	        </div>
+        </div>        
+    </div>
+         <div id="contentsDoSaveArea">
+    
+	    <!-- 버튼 -->
+	    <div class="row justify-content-end">
+	        <div class="col-auto">
+	            <input type="button" value="댓글등록" class="btn btn-primary" id="commentsDoSave" >
+	        </div>
+	    </div>
+	    <!--// 버튼 ----------------------------------------------------------------->
+	    <div class="mb-3">
+	        <textarea rows="3" class="form-control"  id="replyContents" name="replyContents"></textarea>
+	    </div>        
+    </div>
+    <!--// reply -------------------------------------------------------------->
     
     
       
