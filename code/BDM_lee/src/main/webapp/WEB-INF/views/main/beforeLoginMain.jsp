@@ -6,11 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-</style>
-<title>BDM</title>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
-<script src="${CP }/resources/js/eUtil.js"></script>  
+<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<title>BDM</title> 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
@@ -26,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function(){
     	 location.href = "/bdm/user/moveToReg.do";
      });
      moveToNoticeBtn.addEventListener("click", function(e){
-         location.href = "/bdm/notice/doRetrieve.do";
+         location.href = "/bdm/beforeMain/moveToNotice.do";
      });
      moveToBulletinBtn.addEventListener("click", function(e){
          location.href = "/bdm/bulletin/doRetrieve.do";
@@ -97,6 +94,27 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
+      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
+  </li>
+</ul>
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
         <legend>로그인</legend>
         <div>

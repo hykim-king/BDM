@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
 
+document.addEventListener("DOMContentLoaded", function(){
+	const moveToNoticeBtn = document.querySelector("#moveToNotice");
+	
+	moveToNoticeBtn.addEventListener("click", function(e){
+		 location.href = "/bdm/notice/doRetrieve.do";
+	});
+});
+
 </script>
 </head>
 <body>
@@ -35,5 +43,7 @@ THIS IS AFTERLOGINMAIN <br/>
 ${user} <br/>
 <input type="button" value="마이페이지"  id="moveToMyPage">
 <input type="button" value="자유게시판"  id="moveToBulletin">
+<input type="button" value="공지사항"  id="moveToNotice">
+
 </body>
 </html>
