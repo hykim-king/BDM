@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.notice.dao.NoticeDao;
 import com.test.bdm.notice.domain.NoticeVO;
@@ -57,7 +58,7 @@ public class NoticeServiceImpl implements NoticeService, PcwkLogger {
 	}
 
 	@Override
-	public List<NoticeVO> doRetrieve(NoticeVO inVO) throws SQLException {
+	public List<NoticeVO> doRetrieve(DTO inVO) throws SQLException {
 		// TODO Auto-generated method stub
 		return dao.doRetrieve(inVO);
 	}

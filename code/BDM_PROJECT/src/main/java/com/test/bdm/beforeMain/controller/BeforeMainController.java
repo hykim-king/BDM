@@ -1,6 +1,7 @@
 package com.test.bdm.beforeMain.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,11 +11,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.test.bdm.beforeMain.service.BeforeMainService;
+import com.test.bdm.bulletin.domain.BulletinVO;
+import com.test.bdm.bulletin.service.BulletinService;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.news.domain.NewsVO;
+import com.test.bdm.news.service.NewsService;
+import com.test.bdm.notice.domain.NoticeVO;
+import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
@@ -23,6 +33,15 @@ public class BeforeMainController implements PcwkLogger {
 
 	@Autowired
 	BeforeMainService beforeMainService;
+	
+	@Autowired
+	BulletinService bulletinService;
+	
+	@Autowired
+	NoticeService noticeService;
+	
+	@Autowired
+	NewsService newsService;
 	
 	@GetMapping(value = "/moveToBeforeMain.do")
 	public String moveToBeforeMain() throws SQLException {
@@ -127,4 +146,58 @@ public class BeforeMainController implements PcwkLogger {
 
 		return jsonString;
 	}
+	
+	@GetMapping(value = "/doGumsaek.do")
+	public ModelAndView doGumsaek(DTO inVO, ModelAndView modelAndView) throws SQLException {
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		inVO.setSearchDiv("10");
+		
+		List<BulletinVO> bulletinList = bulletinService.doRetrieve(inVO);
+		List<NoticeVO> noticeList = noticeService.doRetrieve(inVO);
+		List<NewsVO> newsList = newsService.doRetrieve(inVO);
+		
+		long totalBulletin = 0;
+		// 총 자유글
+		for(BulletinVO vo  :bulletinList) {
+			if(totalBulletin == 0) {
+				totalBulletin = vo.getTotalCnt();
+				break;
+			}
+		}
+		// 총 공지글
+		long totalNotice = 0;
+		for(NoticeVO vo  :noticeList) {
+			if(totalNotice == 0) {
+				totalNotice = vo.getTotalCnt();
+				break;
+			}
+		}
+		// 총 뉴스글
+		long totalNews = 0;
+		for(NewsVO vo  :newsList) {
+			if(totalNews == 0) {
+				totalNews = vo.getTotalCnt();
+				break;
+			}
+		}				
+		modelAndView.addObject("totalBulletin", totalBulletin);
+		modelAndView.addObject("totalNotice", totalNotice);
+		modelAndView.addObject("totalNews", totalNews);
+		modelAndView.setViewName("gumsaek/gumsaek_list");
+		modelAndView.addObject("bulletinList", bulletinList);
+		modelAndView.addObject("noticeList", noticeList);
+		modelAndView.addObject("newsList", newsList);
+		modelAndView.addObject("paramVO", inVO);
+		
+		return modelAndView;
+	}	
 }

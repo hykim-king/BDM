@@ -1,8 +1,9 @@
 package com.test.bdm.news.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
-
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.WorkDiv;
 import com.test.bdm.news.domain.NewsVO;
 
@@ -32,4 +33,5 @@ public interface NewsDao extends WorkDiv<NewsVO> {
 	
 	int updateReadCnt(NewsVO inVO)throws SQLException;  
 	
+	List<NewsVO> doRetrieve(DTO inVO)throws SQLException;
 }
