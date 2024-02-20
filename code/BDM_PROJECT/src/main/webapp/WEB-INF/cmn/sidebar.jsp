@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="/css/side-bar.css">
+<link rel="stylesheet" href="${CP}/resources/css/side-bar.css">
 </head>
 <body>
 
