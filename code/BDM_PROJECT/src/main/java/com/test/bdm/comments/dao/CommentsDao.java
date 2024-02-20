@@ -11,5 +11,5 @@ public interface CommentsDao extends WorkDiv<CommentsVO> {
 
 	public int getRegNo() throws SQLException;
 	
-	List<CommentsVO> doRetrieve(DTO inVO) throws SQLException;
+	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
 }

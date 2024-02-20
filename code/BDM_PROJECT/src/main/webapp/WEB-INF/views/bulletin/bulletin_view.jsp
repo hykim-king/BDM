@@ -15,6 +15,8 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded",function() { 
+	
+	commentsRetrieve();//댓글 조회
     
     //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");

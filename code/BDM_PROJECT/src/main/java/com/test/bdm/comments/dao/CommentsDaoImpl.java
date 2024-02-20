@@ -36,7 +36,7 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 	
 	@Override
-	public List<CommentsVO> doRetrieve(DTO inVO) throws SQLException {
+	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
 		LOG.debug("│ comments                           │"+inVO);

@@ -38,7 +38,7 @@ public class CommentsController implements PcwkLogger {
 
 	@GetMapping(value = "/doRetrieve.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public List<CommentsVO> doRetrieve(DTO inVO) throws SQLException {
+	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
 		List<CommentsVO> list = new ArrayList<CommentsVO>();
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
