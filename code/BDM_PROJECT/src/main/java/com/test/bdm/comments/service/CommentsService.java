@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.comments.domain.CommentsVO;
 
 
@@ -25,6 +26,6 @@ public interface CommentsService {
 	int doSave(CommentsVO inVO) throws SQLException;
 	
 	
-	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
+	List<CommentsVO> doRetrieve(DTO inVO) throws SQLException;
 		
 }

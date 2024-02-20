@@ -41,7 +41,8 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 		LOG.debug("│ doRetrieve                        │");
 		LOG.debug("│ comments                           │"+inVO);
 		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"doRetrieve");
-		LOG.debug("└───────────────────────────────────┘");			
+		LOG.debug("└───────────────────────────────────┘");		
+		
 		return sqlSessionTemplate.selectList(NAMESPACE+DOT+"doRetrieve", inVO);
 	}
 	
@@ -89,9 +90,5 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 
 
-
-
-
-
-
+	
 }
