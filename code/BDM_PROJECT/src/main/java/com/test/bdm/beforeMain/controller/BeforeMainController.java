@@ -74,8 +74,11 @@ public class BeforeMainController implements PcwkLogger {
 	}
 
 	@GetMapping(value = "/moveToMain.do")
-	public String moveToMain() throws SQLException {
-		return "main/beforeLoginMain";
+	public String moveToMain(HttpSession httpSession) throws SQLException {
+		if(httpSession.getAttribute("user") != null) {
+			return "main/afterLoginMain";
+		}
+		else return "main/beforeLoginMain";
 	}
 	
 	@RequestMapping(value="/doLogout.do", method = RequestMethod.GET)
