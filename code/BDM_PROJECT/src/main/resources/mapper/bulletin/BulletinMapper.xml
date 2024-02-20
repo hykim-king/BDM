@@ -81,7 +81,7 @@
 					WHERE 1=1
 				<!-- <include refid="divCondition"/> -->
 				<include refid="searchCondition" />
-					ORDER BY mod_dt DESC
+					ORDER BY reg_dt DESC
 				)T1 --10,20,30,...
 	      		<![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
 			)TT1

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
@@ -94,7 +95,7 @@ public class NewsController implements PcwkLogger {
    }
    
    @GetMapping(value = "/doRetrieve.do")
-   public ModelAndView doRetrieve(NewsVO inVO, ModelAndView modelAndView) throws SQLException{
+   public ModelAndView doRetrieve(DTO inVO, ModelAndView modelAndView) throws SQLException{
       LOG.debug("┌───────────────────────────────────┐");
       LOG.debug("│ doRetrieve                        │");
       LOG.debug("│ BoardVO                           │"+inVO);

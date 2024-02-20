@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.bulletin.service.BulletinService;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
@@ -68,7 +69,7 @@ public class BulletinController implements PcwkLogger {
 	}
 	
 	@GetMapping(value = "/doRetrieve.do")
-	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException {
+	public ModelAndView doRetrieve(DTO inVO, ModelAndView modelAndView) throws SQLException {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doRetrieve"                          );
 		LOG.debug(" bulletinVO: " + inVO                 );
@@ -139,7 +140,7 @@ public class BulletinController implements PcwkLogger {
 		modelAndView.addObject("title", title);
 
 		return modelAndView;
-		}
+	}
 	
 		@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
 		@ResponseBody
