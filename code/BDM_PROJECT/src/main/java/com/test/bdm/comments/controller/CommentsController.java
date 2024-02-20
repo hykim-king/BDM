@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.domain.CommentsVO;
@@ -44,13 +45,13 @@ public class CommentsController implements PcwkLogger {
 		LOG.debug("│ CommentsVO                           │" + inVO);
 		LOG.debug("└───────────────────────────────────┘");
 
-		if (0 == inVO.getPostNo()) {
-			LOG.debug("┌──────────┐");
-			LOG.debug("│   PostNo │" + inVO.getPostNo());
-			LOG.debug("└──────────┘");
-
-			throw new NullPointerException("게시판 순번을 입력 하세요.");
-		}
+//		if (0 == inVO.getPostNo()) {
+//			LOG.debug("┌──────────┐");
+//			LOG.debug("│   PostNo │" + inVO.getPostNo());
+//			LOG.debug("└──────────┘");
+//
+//			throw new NullPointerException("게시판 순번을 입력 하세요.");
+//		}
 
 		list = service.doRetrieve(inVO);
 
@@ -91,10 +92,8 @@ public class CommentsController implements PcwkLogger {
 		return messageVO;
 	}
 
-	@GetMapping(value = "doDelete.do", produces = "application/json;charset=UTF-8") // @RequestMapping(value = //
-																					// "/doDelete.do",method = //
-																					// RequestMethod.GET)
-	@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
+	@GetMapping(value = "/doDelete.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
 	public MessageVO doDelete(CommentsVO inVO) throws SQLException {
 		MessageVO messageVO = null;
 
@@ -105,27 +104,23 @@ public class CommentsController implements PcwkLogger {
 
 		int flag = service.doDelete(inVO);
 
-		Locale locale = LocaleContextHolder.getLocale();
+		//Locale locale = LocaleContextHolder.getLocale();
 
 		String message = "";
 		if (1 == flag) {
-			// {0} 되었습니다.
-			message = this.messageSource.getMessage("common.message.update", null, locale);
-			// LOG.debug("│ message │" + message);
-
-			String tranMessage = "삭제 성공";
-			message = MessageFormat.format(message, tranMessage);
-
-			// LOG.debug("│ message │" + message);
+			message = "삭제 성공";
 		} else {
 			message = "삭제 실패!";
 		}
 
 		messageVO = new MessageVO(flag + "", message);
-		LOG.debug("│ messageVO                           │" + messageVO);
+		LOG.debug("│ messageVO       │" + messageVO);
 
 		return messageVO;
 	}
+
+
+
 
 	@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
