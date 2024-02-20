@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(){
     <a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToNotice">공지사항</a>
+    <a class="nav-link" href="/bdm/notice/doRetrieve.do" id="moveToNotice">공지사항</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a>
