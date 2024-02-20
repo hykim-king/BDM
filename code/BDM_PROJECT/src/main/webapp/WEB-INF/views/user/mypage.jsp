@@ -422,8 +422,8 @@ function calculateAge(birth) {
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a></li>
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToNotice.do">공지사항</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a></li>
                         </ul>
                     </div>
                 </li>

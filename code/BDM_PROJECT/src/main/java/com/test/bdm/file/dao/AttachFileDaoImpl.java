@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.file.domain.FileVO;
 
 @Repository
@@ -99,7 +100,7 @@ public class AttachFileDaoImpl implements AttachFileDao {
 		SQL 매핑 파일에서 NAME SPACE+DOT+"do Retrieve"에 해당하는 SQL을 실행합니다.
 		 */
 		@Override
-		public List<FileVO> doRetrieve(FileVO inVO) throws SQLException {
+		public List<FileVO> doRetrieve(DTO inVO) throws SQLException {
 			LOG.debug("1.param \n" + inVO.toString());
 			
 			return sqlSessionTemplate.selectList(NAMESPACE+DOT+"doRetrieve", inVO);

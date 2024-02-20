@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.bdm.bulletin.dao.BulletinDao;
 import com.test.bdm.bulletin.domain.BulletinVO;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 
 @Service
@@ -52,7 +53,7 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	}
 
 	@Override
-	public List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException {
+	public List<BulletinVO> doRetrieve(DTO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 

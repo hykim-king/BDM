@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.domain.CommentsVO;
 
@@ -35,7 +36,7 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 	
 	@Override
-	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
+	public List<CommentsVO> doRetrieve(DTO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
 		LOG.debug("│ comments                           │"+inVO);
