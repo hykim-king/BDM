@@ -42,4 +42,18 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 		return userDao.doUpdate(inVO);
 	}
 
+	@Override
+	public UserVO doFindId(UserVO inVO) throws SQLException {
+		return userDao.doFindId(inVO);
+	}
+
+	@Override
+	public UserVO doFindPassword(UserVO inVO) throws SQLException {
+		return userDao.doFindPassword(inVO);
+	}
+
+	@Override
+	public int changePassword(UserVO inVO) throws SQLException {
+		return userDao.changePassword(inVO);
+	}
 }

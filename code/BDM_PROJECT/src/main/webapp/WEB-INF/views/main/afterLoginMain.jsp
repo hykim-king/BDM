@@ -21,7 +21,6 @@
       padding: 20px;
       text-align: center;
     }
-    
     .search-input {
       width: 70%;
       padding: 10px;
@@ -30,7 +29,6 @@
       font-size: 16px;
       outline: none;
     }
-    
     .search-button {
       width: 50px;
       padding: 10px;
@@ -40,7 +38,6 @@
       cursor: pointer;
       font-size: 16px;
     }
-    
     .search-input:focus {
       border-color: #007bff;
     }
@@ -53,6 +50,13 @@
         height: auto;
     }
     
+    #loginFieldset {
+        width: 300px;
+        position: absolute;
+        top:  50%; /* 화면 상단에서 세로 중앙 정렬 */
+        left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
+        <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
+    }
 </style>
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
@@ -118,11 +122,7 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/beforeMain/moveToNews.do";
      });
      moveToMyPageBtn.addEventListener("click", function(e){
-         <c:if test="${empty user}">
-           alert('로그인이 필요한 서비스입니다.');
-           return;
-         </c:if>
-         window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+    	 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
      });
  });//--document ready
 </script>

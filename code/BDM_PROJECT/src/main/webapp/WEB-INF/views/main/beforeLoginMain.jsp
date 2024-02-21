@@ -55,10 +55,6 @@
         left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
         <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
     }
-    
-    
-    
-    
 </style>
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
@@ -76,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	const moveToFindBtn = document.querySelector("#moveToFind");
 	
 	moveToFindBtn.addEventListener("click", function(e){
-		
+		location.href = "/bdm/beforeMain/moveToFind.do";
 	});
      
 	gumsaekBtn.addEventListener("click", function(e){
@@ -112,11 +108,8 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/news/doRetrieve.do";
      });
      moveToMyPageBtn.addEventListener("click", function(e){
-    	 <c:if test="${empty user}">
-    	   alert('로그인이 필요한 서비스입니다.');
-    	   return;
-    	 </c:if>
-    	 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+    	 alert('로그인이 필요한 서비스입니다.');
+         location.href = "/bdm/beforeMain/moveToMain.do";
      });
      
      $("#doLogin").on("click",function(e){
