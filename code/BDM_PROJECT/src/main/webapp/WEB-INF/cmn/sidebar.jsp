@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function(){
             data:{
             },
             success:function(data){//통신 성공     
-               alert('로그아웃 되었습니다.');
+               /* alert('로그아웃 되었습니다.'); */
                window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
             },
             error:function(data){//실패시 처리
