@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-
 THIS IS AFTERLOGINMAIN <br/>
 ${user} <br/>
 <input type="button" value="마이페이지"  id="moveToMyPage">

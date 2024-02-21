@@ -11,15 +11,31 @@
 
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<title>게시판 수정</title>
+<title>${vo.title}</title>
 <style>
-   .readonly-input {
-    background-color: #e9ecef ;
-   }
-   
+    /* 기존 스타일 유지 */
+    .readonly-input {
+        background-color: transparent;
+        border: none;
+        resize: none;
+        overflow: hidden;
+    }
+    
+    .image-container {
+        text-align: center;
+    }
+    
+    #title {
+        font-size: 1.5rem;
+    }
 
+    #contents {
+        font-size: 1rem; /* 글자 크기를 조절 */
+        overflow: hidden; /* 스크롤 제거 */
+        height: 700px; /* 자동으로 늘어나도록 설정 */
+    }
 </style>
-<script>
+<script> 
 document.addEventListener("DOMContentLoaded",function(){ 
     
     //목록버튼
@@ -104,7 +120,7 @@ document.addEventListener("DOMContentLoaded",function(){
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
+            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management News</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -125,7 +141,7 @@ document.addEventListener("DOMContentLoaded",function(){
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">${title}</h1>
+            <h1 class="page-header">${vo.title}</h1>
         </div>
     </div>    
     <!--// 제목 ----------------------------------------------------------------->
@@ -147,14 +163,8 @@ document.addEventListener("DOMContentLoaded",function(){
     reg_id,mod_id  : session에서 처리
      -->
    
-        <div class="mb-3 row" style="display: none;">  
-            <label for="postNo" class="col-sm-2 col-form-label" >순번</label> 
-            <div class="col-sm-10"> 
-                <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100" 
-                 value="${vo.postNo}" 
-                 readonly> 
-            </div> 
-        </div> 
+       
+       
 
         <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
             <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
@@ -168,33 +178,29 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="id" name="id"  readonly="readonly"
-                 value=${vo.id }
+                 value=관리자
                  >
             </div>         
-        </div>
-        <div class="mb-3 row">
-            <label for="regDt" class="col-sm-2 col-form-label">등록일</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt}"  readonly="readonly" >
-            </div>        
-        </div>        
+        
+        
          
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
-            <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" maxlength="100" 
-             value=${vo.title}
-            placeholder="제목을 입력 하세요">
+            <label for="regDt" class="col-form-label">등록일</label>
+            <input type="text" class="form-control" id="regDt" name="regDt" maxlength="100" 
+             value=${vo.regDt}" readonly="readonly">
+          
+          </div>
         </div>      
+        <c:forEach var="file" items="${fileList}">
+		    <img src="<spring:url value='/resources/upload/${file.saveFileName}'/>" style="max-width: 1000px; max-height: 500px;">
+		</c:forEach>
+    	</form>    
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
+            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents" readonly oninput="autoResize(this)">${vo.contents }</textarea>
         </div>
-        <c:forEach var="file" items="${fileList}">
-    		<img src="<spring:url value='/resources/upload/${file.saveFileName}'/>">
-		</c:forEach>
-    </form>    
-    </div>
 
+    </div>
+	
 </body>
 </html>
