@@ -17,5 +17,6 @@
         <typeAlias type="com.test.bdm.code.domain.CodeVO" alias="CodeVO"/>
         <typeAlias type="com.test.bdm.notice.domain.NoticeVO" alias="NoticeVO"/>
         
+        
     </typeAliases>
 </configuration>

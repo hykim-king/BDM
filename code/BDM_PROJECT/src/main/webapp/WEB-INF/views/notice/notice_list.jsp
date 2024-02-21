@@ -7,6 +7,10 @@
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<<<<<<< HEAD
+=======
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+>>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -98,6 +102,27 @@ function pageDoRerive(url, pageNo) {
 </head>
 
 <body>
+<<<<<<< HEAD
+=======
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do">메인으로</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bdm/notice/doRetrieve.do" id="moveToNotice">공지사항</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+    
+>>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">

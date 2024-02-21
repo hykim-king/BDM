@@ -143,6 +143,11 @@ public class NewsController implements PcwkLogger {
       List<NewsVO>  list = service.doRetrieve(inVO);
       
       
+      for (NewsVO vo : list) {
+    	    List<FileVO> fileList = attachFileService.getFileUuid(vo.getUuid());
+    	    vo.setFileList(fileList); // 해당 게시물의 파일 리스트를 설정합니다.
+    	}
+      
       long totalCnt = 0;
       //총글수 
       for(NewsVO vo  :list) {

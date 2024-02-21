@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 
 @Repository
@@ -76,7 +77,7 @@ public class BulletinDaoImpl implements BulletinDao, PcwkLogger {
 	}
 
 	@Override
-	public List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException {
+	public List<BulletinVO> doRetrieve(DTO inVO) throws SQLException {
 		LOG.debug("────────────────────────────────────────────");
 		LOG.debug(" doRetrieve                                 ");
 		LOG.debug(" BulletinVO: " + inVO                        );

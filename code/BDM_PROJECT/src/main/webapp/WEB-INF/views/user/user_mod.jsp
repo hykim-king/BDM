@@ -17,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	const modForm = document.querySelector("#userModFrm");
 	const doChangeBtn = document.querySelector("#doChange");
 	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
+	const changePasswordBtn = document.querySelector("#changePassword");
+	
+	changePasswordBtn.addEventListener("click", function(e){
+		openChangePassword();
+	});
 	
 	doChangeBtn.addEventListener("click", function(e){
 		console.log('doChangeBtn clicked');
@@ -58,7 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
 	});
 });
-	
+function openChangePassword() {
+    var width = 750;
+    var height = 1200;
+    var left = (window.innerWidth - width) / 2;
+    var top = (window.innerHeight - height) / 2;
+    myWindow = window.open('../user/changePassword.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+}
 </script>
 </head>
 <body>
@@ -100,6 +111,7 @@ ${user }
                <div class = "mb-3">
                    <label for="pw" class="form-label">비밀번호</label>
                    <input type="password"  class="form-control"  name="pw" id="pw" value="${user.pw }" readonly>
+                   <input type = "button" id = "changePassword" name = "changePassword" value = "비밀번호 변경">
                </div>
                <div class="p-div">
                    <label for="email" class="form-label">이메일</label>

@@ -58,12 +58,13 @@
     </sql>
     
     <select id="doSelectOne" parameterType="FileVO" resultType="FileVO">
-    <include refid="doSelectList"></include>
-		</select>
-
-	<select id="doRetrieve" parameterType="FileVO" resultType="FileVO">
-    <include refid="doSelectList"></include>
-		</select>
+        <include refid="doSelectList"></include>
+    </select>
+    
+    
+    <select id="doRetrieve" parameterType="FileVO" resultType="FileVO">
+        <include refid="doSelectList"></include>
+    </select>
     
     
     

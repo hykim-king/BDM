@@ -12,6 +12,7 @@ import java.util.UUID;
 public class StringUtil {
 	
 	public final static long BOTTOM_COUNT = 10;//상수 //PC화면용
+	public final static String FILE_PATH = "C:\\upload";//일반파일 업로드 경로
 	
 	//총글수, 페이지번호, 페이지사이즈, bottomCount, url, 자바스크립트 함수
 	/**
