@@ -6,6 +6,7 @@
 
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,9 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	const moveToRegBTN = document.querySelector("#moveToReg");
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
 	const searchDivSelect = document.querySelector("#searchDiv");
-	const bulletinForm = document.querySelector("#bulletinFrm");
+	const noticeForm = document.querySelector("#noticeFrm");
 	const searchWordTxt = document.querySelector("#searchWord");
-	const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
+	const rows = document.querySelectorAll("#noticeTable>tbody>tr");
 
 	rows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					    
 		if(confirm('상세 조회 하시겠습니까?') == false) return;
 
-		window.location.href = "/bdm/bulletin/bulletinView.do?postNo=" + postNo;
+		window.location.href = "/bdm/notice/noticeView.do?postNo=" + postNo;
 		});
 	});
 
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 
-	bulletinForm.addEventListener("submit", function (e) {
+	noticeForm.addEventListener("submit", function (e) {
 		console.log(e.target)
 		e.preventDefault();
 
@@ -59,11 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	function doRetrieve(pageNo) {
 		console.log("doRetrieve pageNO: " + pageNo);
 
-		let bulletinForm = document.bulletinFrm;
-		bulletinForm.pageNo.value = pageNo;
-		bulletinForm.action = "/bdm/bulletin/doRetrieve.do";
-		console.log("doRetrieve pageNO:" + bulletinForm.pageNo.value);
-		bulletinForm.submit();
+		let noticeForm = document.noticeFrm;
+		noticeForm.pageNo.value = pageNo;
+		noticeForm.action = "/bdm/notice/doRetrieve.do";
+		console.log("doRetrieve pageNO:" + noticeForm.pageNo.value);
+		noticeForm.submit();
 	}
 
 
@@ -88,34 +89,15 @@ function pageDoRerive(url, pageNo) {
 	console.log("url:" + url);
 	console.log("pageNo:" + pageNo);
 
-	let bulletinForm = document.bulletinFrm;
-	bulletinForm.pageNo.value = pageNo;
-	bulletinForm.action = url;
-	bulletinForm.submit();
+	let noticeForm = document.noticeFrm;
+	noticeForm.pageNo.value = pageNo;
+	noticeForm.action = url;
+	noticeForm.submit();
 }
 </script>
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
-      				<li class="nav-item"><a class="nav-link" href="#" id="doFindAccount">ID/PW 찾기</a></li>
-      				<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
-      				<li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a></li>
-					<li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToNotice">공지사항</a></li>
-					<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -123,14 +105,14 @@ function pageDoRerive(url, pageNo) {
 				<hr />
 			</div>
 		</div>
-			<form action="#" method="get" id="bulletinFrm" name="bulletinFrm">
+			<form action="#" method="get" id="noticeFrm" name="noticeFrm">
 				<input type="hidden" name="pageNo" id="pageNo" />
 				<div class="row g-1 justify-content-end ">
 					<label for="searchDiv" class="col-auto col-form-label">검색조건</label>
 						<div class="col-auto">
 							<select class="form-select test_select" id="searchDiv" name="searchDiv">
 								<option value="">전체</option>
-								<c:forEach var="vo" items="${bulletinSearch }">
+								<c:forEach var="vo" items="${noticeSearch }">
 									<option value="<c:out value='${vo.divs}'/>" <c:if test="${vo.divs == paramVO.searchDiv }">selected</c:if>>
 										<c:out value="${vo.divName}" />
 									</option>
@@ -157,7 +139,7 @@ function pageDoRerive(url, pageNo) {
 						</div>
 					</div>
 				</form>
-				<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+				<table class="table table-bordered border-primary table-hover table-striped" id="noticeTable">
 					<thead>
 						<tr>
 							<th class="text-center col-lg-1 col-sm-1">번호</th>
