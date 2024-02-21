@@ -47,16 +47,55 @@
         flex-wrap: wrap; /* 차트가 창 너비를 벗어날 경우 다음 줄로 넘어갑니다. */
         justify-content: space-between; /* 차트를 가로로 분배합니다. */
      }
-     #calendar {
+       .calendar-container {
         display: none;
         position: absolute;
-        /* 필요에 따라 스타일을 추가적으로 설정할 수 있습니다. */
         border: 1px solid #ccc;
         background-color: #fff;
         padding: 10px;
         z-index: 1;  
-        color:darkslategray;
-        }
+        color: darkslategray;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .calendar-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .calendar-table th {
+        background-color: #f2f2f2;
+    }
+
+    .calendar-table td:hover {
+        cursor: pointer;
+        background-color: #f2f2f2;
+    }
+
+    .current-month {
+        font-weight: bold;
+    }
+
+    #prevMonthButton,
+    #nextMonthButton {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
 </style>
 
 <script>
@@ -109,63 +148,89 @@ function formatDate(date) {
 	    }
 	} */
 	
-	function generateCalendar(year, month) { 
-	    var calendarBody = $("#calendarBody");
-	    calendarBody.empty(); // 기존 내용 제거
+	 function generateCalendar(year, month) {
+        var calendarBody = $("#calendarBody");
+        calendarBody.empty(); // 기존 내용 제거
 
-	    var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
-	    var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
+        var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
+        var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
 
-	    var dayCounter = 1;
-	    for (var i = 0; i < 6; i++) {
-	        var row = $("<tr></tr>");
-	        for (var j = 0; j < 7; j++) {
-	            var cell = $("<td></td>");
-	            if (i === 0 && j < currentDate.getDay()) {
-	                // 앞의 빈 칸 처리
-	                cell.text("");
-	            } else if (dayCounter <= daysInMonth) {
-	                cell.text(dayCounter);
-	                dayCounter++;
-	                cell.click(function () {
-	                     // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-	                    var clickedDate = new Date(year, month - 1, $(this).text());
-	                    var formattedDate = formatDate(clickedDate);
-	                    // alert("날짜를 클릭했습니다: " + formattedDate);
-	                    console.log('formattedDate: ' + formattedDate);
-	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
-	                
-	                });
-	            }
-	            row.append(cell);
-	        }
-	        calendarBody.append(row);
-	    }
-	}
-	
-	// 연도와 달을 변경하는 함수
-	function changeYearMonth(offset) {
-	    var currentYear = parseInt($("#yearSelect").val());
-	    var currentMonth = parseInt($("#monthSelect").val());
-	    var newDate = new Date(currentYear, currentMonth - 1 + offset, 1);
-	    var newYear = newDate.getFullYear();
-	    var newMonth = newDate.getMonth() + 1;
-	    $("#yearSelect").val(newYear);
-	    $("#monthSelect").val(newMonth);
-	    generateCalendar(newYear, newMonth);
-	}
-	
-	function formatDate(date) {
-	    var year = date.getFullYear() % 100;
-	    var month = date.getMonth() + 1;
-	    var day = date.getDate();
+        var dayCounter = 1;
+        for (var i = 0; i < 6; i++) {
+            var row = $("<tr></tr>");
+            for (var j = 0; j < 7; j++) {
+                var cell = $("<td></td>");
+                if (i === 0 && j < currentDate.getDay()) {
+                    // 앞의 빈 칸 처리
+                    cell.text("");
+                } else if (dayCounter <= daysInMonth) {
+                    cell.text(dayCounter);
+                    dayCounter++;
+                    cell.click(function () {
+                        // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
+                        var clickedDate = new Date(year, month - 1, $(this).text());
+                        var formattedDate = formatDate(clickedDate);
+                        // alert("날짜를 클릭했습니다: " + formattedDate);
+                        console.log('formattedDate: ' + formattedDate);
+                        window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
+                    });
+                }
+                row.append(cell);
+            }
+            calendarBody.append(row);
+        }
 
-	    // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
-	    month = month < 10 ? '0' + month : month;
-	    day = day < 10 ? '0' + day : day;
+        // 현재 년도와 월을 표시
+        var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+        $("#currentMonth").text(months[month - 1]);
+    }
 
-	    return year + '/' + month + '/' + day;
-	}
+    $(document).ready(function () {
+        // 현재 년도와 월을 가져오기
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = currentDate.getMonth() + 1;
+
+        generateCalendar(currentYear, currentMonth);
+    });
+
+    // 이전 달 버튼 클릭 시
+    $("#prevMonthButton").click(function () {
+        var currentYear = parseInt($("#yearSelect").val());
+        var currentMonth = parseInt($("#monthSelect").val());
+        if (currentMonth === 1) {
+            currentYear--;
+            currentMonth = 12;
+        } else {
+            currentMonth--;
+        }
+        generateCalendar(currentYear, currentMonth);
+    });
+
+    // 다음 달 버튼 클릭 시
+    $("#nextMonthButton").click(function () {
+        var currentYear = parseInt($("#yearSelect").val());
+        var currentMonth = parseInt($("#monthSelect").val());
+        if (currentMonth === 12) {
+            currentYear++;
+            currentMonth = 1;
+        } else {
+            currentMonth++;
+        }
+        generateCalendar(currentYear, currentMonth);
+    });
+
+    function formatDate(date) {
+        var year = date.getFullYear() % 100;
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+
+        return year + '/' + month + '/' + day;
+    }
 </script>
 <script>
             // 페이지 로드 후 실행되는 함수
@@ -564,34 +629,33 @@ function calculateAge(birth) {
                             <div class="card">
                               <div class="card-body">
 	                                <div>
-	                                    <h4 class="card-title">${convertedDate}</h4>
-	                                    <button id="calendarButton">달력 열기</button>
-	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
-	                                    <!-- 달력 -->
-										<div id="calendar">
-										    <table>
-										        <thead>
-										        <tr>
-										           <th><button><<</button></th>
-										           <th>5월</th>
-										           <th><button>>></button></th>
-										        </tr>
-										        <tr>
-										            <th>일</th>
-										            <th>월</th>
-										            <th>화</th>
-										            <th>수</th>
-										            <th>목</th>
-										            <th>금</th>
-										            <th>토</th>
-										        </tr>
-										        </thead>
-										        <tbody id="calendarBody">
-										        </tbody>
-										    </table>
-										</div>
-	                                 
-	                                 </div>
+									    <h4 class="card-title">${convertedDate}</h4>
+									    <button id="calendarButton">달력 열기</button>
+									    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
+									    <!-- 달력 -->
+									    <div id="calendar" class="calendar-container">
+									        <div class="calendar-header">
+									            <button id="prevMonthButton">이전 달</button>
+									            <span class="current-month">5월</span>
+									            <button id="nextMonthButton">다음 달</button>
+									        </div>
+									        <table class="calendar-table">
+									            <thead>
+									                <tr>
+									                    <th>일</th>
+									                    <th>월</th>
+									                    <th>화</th>
+									                    <th>수</th>
+									                    <th>목</th>
+									                    <th>금</th>
+									                    <th>토</th>
+									                </tr>
+									            </thead>
+									            <tbody id="calendarBody">
+									            </tbody>
+									        </table>
+									    </div>
+									</div>
 	                                 <div class="chart-flex col-md-12">
 		                                 <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>

@@ -1,0 +1,12 @@
+diff a/code/BDM_PROJECT/src/main/webapp/WEB-INF/views/user/mypage.jsp b/code/BDM_PROJECT/src/main/webapp/WEB-INF/views/user/mypage.jsp	(rejected hunks)
+@@ -599,10 +599,6 @@
+ 		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
+ 		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
+ 	                     			 </div>
+-	                                 <div class="chart-flex col-md-12">
+-	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
+-	                     			 </div>
+-	                     			 
+ 	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
+ 							            <thead>
+ 							                <tr>
