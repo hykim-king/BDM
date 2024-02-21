@@ -43,6 +43,21 @@ public class BeforeMainController implements PcwkLogger {
 	@Autowired
 	NewsService newsService;
 	
+	@GetMapping(value = "/moveToFindPassword.do")
+	public String moveToFindPassword() throws SQLException {
+		return "account/account_findPassword";
+	}
+	
+	@GetMapping(value = "/moveToFindId.do")
+	public String moveToFindId() throws SQLException {
+		return "account/account_findId";
+	}
+	
+	@GetMapping(value = "/moveToFind.do")
+	public String moveToFind() throws SQLException {
+		return "account/account_find";
+	}
+	
 	@GetMapping(value = "/moveToBeforeMain.do")
 	public String moveToBeforeMain() throws SQLException {
 		return "main/beforeLoginMain";
@@ -54,15 +69,13 @@ public class BeforeMainController implements PcwkLogger {
 	}
 
 	@GetMapping(value = "/moveToMyPage.do")
-	public String moveToMyPage() throws SQLException {
-		return "user/mypage";
+	public String moveToMyPage(HttpSession httpSession) throws SQLException {
+		if(httpSession.getAttribute("user") != null) {
+			return "user/mypage";
+		}
+		else return "main/beforeLoginMain";
 	}
-
-	@GetMapping(value = "/moveToNews.do")
-	public String moveToNews() throws SQLException {
-		return "news/news_list"; 
-	}
-
+	
 	@GetMapping(value = "/moveToBulletin.do")
 	public String moveToBulletin() throws SQLException {
 		return "board/bulletin";

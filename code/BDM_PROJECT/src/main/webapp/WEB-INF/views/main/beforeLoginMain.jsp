@@ -48,6 +48,13 @@
         height: auto;
     }
     
+    #loginFieldset {
+        width: 300px;
+        position: absolute;
+        top:  50%; /* 화면 상단에서 세로 중앙 정렬 */
+        left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
+        <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
+    }
 </style>
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
@@ -65,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	const moveToFindBtn = document.querySelector("#moveToFind");
 	
 	moveToFindBtn.addEventListener("click", function(e){
-		
+		location.href = "/bdm/beforeMain/moveToFind.do";
 	});
      
 	gumsaekBtn.addEventListener("click", function(e){
@@ -98,14 +105,11 @@ document.addEventListener("DOMContentLoaded", function(){
          location.href = "/bdm/bulletin/doRetrieve.do";
      });
      moveToNewsBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNews.do";
+         location.href = "/bdm/news/doRetrieve.do";
      });
      moveToMyPageBtn.addEventListener("click", function(e){
-    	 <c:if test="${empty user}">
-    	   alert('로그인이 필요한 서비스입니다.');
-    	   return;
-    	 </c:if>
-    	 window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+    	 alert('로그인이 필요한 서비스입니다.');
+         location.href = "/bdm/beforeMain/moveToMain.do";
      });
      
      $("#doLogin").on("click",function(e){
@@ -179,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
                     <li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a></li>
                     <li class="nav-item"><a class="nav-link" href="/bdm/notice/doRetrieve.do" id="moveToNotice">공지사항</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bdm/news/doRetrieve.do" id="moveToNews">뉴스</a></li>
                 </ul>
             </div>
         </div>

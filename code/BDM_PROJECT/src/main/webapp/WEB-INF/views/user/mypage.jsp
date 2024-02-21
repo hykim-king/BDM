@@ -56,16 +56,55 @@
         flex-wrap: wrap; /* 차트가 창 너비를 벗어날 경우 다음 줄로 넘어갑니다. */
         justify-content: space-between; /* 차트를 가로로 분배합니다. */
      }
-     #calendar {
+      .calendar-container {
         display: none;
         position: absolute;
-        /* 필요에 따라 스타일을 추가적으로 설정할 수 있습니다. */
         border: 1px solid #ccc;
         background-color: #fff;
         padding: 10px;
         z-index: 1;  
-        color:darkslategray;
-        }
+        color: darkslategray;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .calendar-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .calendar-table th {
+        background-color: #f2f2f2;
+    }
+
+    .calendar-table td:hover {
+        cursor: pointer;
+        background-color: #f2f2f2;
+    }
+
+    .current-month {
+        font-weight: bold;
+    }
+
+    #prevMonthButton,
+    #nextMonthButton {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
 </style>
 
 <script>
@@ -82,41 +121,7 @@ function formatDate(date) {
 }
 </script>
 <script>
-	/* function generateCalendar() { 
-	    var calendarBody = $("#calendarBody");
-	    calendarBody.empty(); // 기존 내용 제거
 	
-	    var currentDate = new Date();
-	    var currentMonth = currentDate.getMonth();
-	    var daysInMonth = new Date(currentDate.getFullYear(), currentMonth + 1, 0).getDate();
-	
-	    var dayCounter = 1;
-	    for (var i = 0; i < 6; i++) {
-	        var row = $("<tr></tr>");
-	        for (var j = 0; j < 7; j++) {
-	            var cell = $("<td></td>");
-	            if (i === 0 && j < new Date(currentDate.getFullYear(), currentMonth, 1).getDay()) {
-	                // 앞의 빈 칸 처리
-	                cell.text("");
-	            } else if (dayCounter <= daysInMonth) {
-	                cell.text(dayCounter);
-	                dayCounter++;
-	                cell.click(function () {
-	                	 // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-	                    var clickedDate = new Date(currentDate.getFullYear(), currentMonth, $(this).text());
-	                    var formattedDate = formatDate(clickedDate);
-	                    // alert("날짜를 클릭했습니다: " + formattedDate);
-	                    console.log('formattedDate: ' + formattedDate);
-	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
-	                
-	                      
-	                });
-	            }
-	            row.append(cell);
-	        }
-	        calendarBody.append(row);
-	    }
-	} */
 	
 	function generateCalendar(year, month) { 
 	    var calendarBody = $("#calendarBody");
@@ -539,6 +544,7 @@ function calculateAge(birth) {
                               weekSugars: ${weekSugars }
                               ateList: ${ateList }
 	                                <div>
+<<<<<<< HEAD
 	                                    <h4 class="card-title">${convertedDate}</h4>
 	                                    <button id="calendarButton">달력 열기</button>
 	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
@@ -569,6 +575,35 @@ function calculateAge(birth) {
 										</div>
 	                                 
 	                                 </div>
+=======
+									    <h4 class="card-title">${convertedDate}</h4>
+									    <button id="calendarButton">달력 열기</button>
+									    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
+									    <!-- 달력 -->
+									    <div id="calendar" class="calendar-container">
+									        <div class="calendar-header">
+									            <button id="prevMonthButton">이전 달</button>
+									            <span class="current-month">5월</span>
+									            <button id="nextMonthButton">다음 달</button>
+									        </div>
+									        <table class="calendar-table">
+									            <thead>
+									                <tr>
+									                    <th>일</th>
+									                    <th>월</th>
+									                    <th>화</th>
+									                    <th>수</th>
+									                    <th>목</th>
+									                    <th>금</th>
+									                    <th>토</th>
+									                </tr>
+									            </thead>
+									            <tbody id="calendarBody">
+									            </tbody>
+									        </table>
+									    </div>
+									</div>
+>>>>>>> 341b2fc (mypage)
 	                                 <div class="chart-flex col-md-12">
 		                                 <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
