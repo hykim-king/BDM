@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+
 <style>
     .card-body{
         color:#f7e9e8;
@@ -60,6 +59,9 @@
 </style>
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
     
@@ -128,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav> -->
     
     <div class ="container-scroller">
         <div class="search-container" id="search_area">

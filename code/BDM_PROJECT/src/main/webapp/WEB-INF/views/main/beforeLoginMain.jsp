@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+
 <style>
     .card-body{
         color:#f7e9e8;
@@ -58,6 +57,9 @@
 </style>
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
