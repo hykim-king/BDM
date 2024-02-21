@@ -148,7 +148,26 @@ function formatDate(date) {
 	    }
 	} */
 	
-	 function generateCalendar(year, month) {
+	$(document).ready(function () {
+        // 현재 년도와 월을 가져오기
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        var currentMonth = currentDate.getMonth() + 1;
+
+        generateCalendar(currentYear, currentMonth);
+
+        // 이전 달로 이동하는 버튼 클릭 이벤트 핸들러
+        $("#prevMonthButton").click(function () {
+            changeYearMonth(-1);
+        });
+
+        // 다음 달로 이동하는 버튼 클릭 이벤트 핸들러
+        $("#nextMonthButton").click(function () {
+            changeYearMonth(1);
+        });
+    });
+
+    function generateCalendar(year, month) {
         var calendarBody = $("#calendarBody");
         calendarBody.empty(); // 기존 내용 제거
 
@@ -182,43 +201,18 @@ function formatDate(date) {
 
         // 현재 년도와 월을 표시
         var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-        $("#currentMonth").text(months[month - 1]);
+        $(".current-month").text(months[month - 1]);
     }
 
-    $(document).ready(function () {
-        // 현재 년도와 월을 가져오기
-        var currentDate = new Date();
-        var currentYear = currentDate.getFullYear();
-        var currentMonth = currentDate.getMonth() + 1;
-
-        generateCalendar(currentYear, currentMonth);
-    });
-
-    // 이전 달 버튼 클릭 시
-    $("#prevMonthButton").click(function () {
+    // 연도와 달을 변경하는 함수
+    function changeYearMonth(offset) {
         var currentYear = parseInt($("#yearSelect").val());
         var currentMonth = parseInt($("#monthSelect").val());
-        if (currentMonth === 1) {
-            currentYear--;
-            currentMonth = 12;
-        } else {
-            currentMonth--;
-        }
-        generateCalendar(currentYear, currentMonth);
-    });
-
-    // 다음 달 버튼 클릭 시
-    $("#nextMonthButton").click(function () {
-        var currentYear = parseInt($("#yearSelect").val());
-        var currentMonth = parseInt($("#monthSelect").val());
-        if (currentMonth === 12) {
-            currentYear++;
-            currentMonth = 1;
-        } else {
-            currentMonth++;
-        }
-        generateCalendar(currentYear, currentMonth);
-    });
+        var newDate = new Date(currentYear, currentMonth - 1 + offset, 1);
+        var newYear = newDate.getFullYear();
+        var newMonth = newDate.getMonth() + 1;
+        generateCalendar(newYear, newMonth);
+    }
 
     function formatDate(date) {
         var year = date.getFullYear() % 100;
