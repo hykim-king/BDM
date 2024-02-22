@@ -10,7 +10,6 @@
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
     <typeAliases>
-<<<<<<< HEAD
         <typeAlias type="com.test.bdm.user.domain.UserVO"			alias="UserVO"/>
         <typeAlias type="com.test.bdm.nutrient.domain.NutrientVO"	alias="NutrientVO"/>
         <typeAlias type="com.test.bdm.bulletin.domain.BulletinVO"	alias="BulletinVO"/>
@@ -19,17 +18,5 @@
         <typeAlias type="com.test.bdm.code.domain.CodeVO"			alias="CodeVO"/>
         <typeAlias type="com.test.bdm.file.domain.FileVO"			alias="FileVO"/>
         <typeAlias type="com.test.bdm.qa.domain.QaVO"				alias="QaVO"/>
-=======
-        <typeAlias type="com.test.bdm.user.domain.UserVO"         alias="UserVO"/>
-        <typeAlias type="com.test.bdm.nutrient.domain.NutrientVO" alias="NutrientVO"/>
-        <typeAlias type="com.test.bdm.bulletin.domain.BulletinVO" alias="BulletinVO"/>
-        <typeAlias type="com.test.bdm.notice.domain.NoticeVO"     alias="NoticeVO"/>
-        <typeAlias type="com.test.bdm.news.domain.NewsVO"         alias="NewsVO"/>
-        <typeAlias type="com.test.bdm.code.domain.CodeVO"         alias="CodeVO"/>
-        <typeAlias type="com.test.bdm.file.domain.FileVO" alias="FileVO"/>
-        <typeAlias type="com.test.bdm.comments.domain.CommentsVO" alias="CommentsVO"/>
-        
-        
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
     </typeAliases>
 </configuration>

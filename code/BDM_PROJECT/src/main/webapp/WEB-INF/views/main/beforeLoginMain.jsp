@@ -58,11 +58,6 @@
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<<<<<<< HEAD
-=======
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
-
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
@@ -75,8 +70,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	const searchWordTxt = document.querySelector("#searchWord");
 	const moveToFindBtn = document.querySelector("#moveToFind");
 	
-<<<<<<< HEAD
-=======
 	moveToFindBtn.addEventListener("click", function(e){
 		location.href = "/bdm/beforeMain/moveToFind.do";
 	});
@@ -84,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	gumsaekBtn.addEventListener("click", function(e){
 		doRetrieve(1, searchWordTxt);
 	});
+	
 	searchWordTxt.addEventListener("keyup", function(e) {
         console.log("keyup:" + e.keyCode);
         if (13 == e.keyCode) {
@@ -104,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
      moveToRegBtn.addEventListener("click", function(e){
     	 location.href = "/bdm/user/moveToReg.do";
      });
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
+
      moveToNoticeBtn.addEventListener("click", function(e){
          location.href = "/bdm/notice/doRetrieve.do";
      });
@@ -178,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-<<<<<<< HEAD
 <div class ="container-scroller">
 	<div class="search-container" id="search_area">
 		<div class="search">
@@ -229,7 +222,6 @@ document.addEventListener("DOMContentLoaded", function(){
         height: auto;
     }
 </style>
-=======
     <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
@@ -264,7 +256,6 @@ document.addEventListener("DOMContentLoaded", function(){
         </div> 
     </div>
 
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
         <legend>로그인</legend>
         <div>

@@ -12,7 +12,7 @@ import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 
-@Service
+@Service("BulletinServiceImpl")
 public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	
 	@Autowired

@@ -11,7 +11,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.code.dao.CodeDao;
 import com.test.bdm.code.domain.CodeVO;
 
-@Service
+@Service("CodeServiceImpl")
 public class CodeServiceImpl implements CodeService,PcwkLogger {
 
 	@Autowired

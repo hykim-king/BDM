@@ -12,7 +12,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.dao.CommentsDao;
 import com.test.bdm.comments.domain.CommentsVO;
 
-@Service
+@Service("CommentsServiceImpl")
 public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 
 	@Autowired

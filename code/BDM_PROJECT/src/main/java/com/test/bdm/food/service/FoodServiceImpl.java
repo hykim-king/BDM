@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.bdm.food.dao.FoodDao;
 
-@Service
+@Service("FoodServiceImpl")
 public class FoodServiceImpl implements FoodService {
 	
 	@Autowired

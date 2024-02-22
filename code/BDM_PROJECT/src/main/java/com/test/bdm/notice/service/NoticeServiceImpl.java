@@ -12,7 +12,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.notice.dao.NoticeDao;
 import com.test.bdm.notice.domain.NoticeVO;
 
-@Service
+@Service("NoticeServiceImpl")
 public class NoticeServiceImpl implements NoticeService, PcwkLogger {
 	
 	@Autowired

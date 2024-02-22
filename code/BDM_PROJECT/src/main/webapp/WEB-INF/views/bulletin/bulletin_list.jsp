@@ -7,10 +7,6 @@
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<<<<<<< HEAD
-=======
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

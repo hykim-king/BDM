@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.test.bdm.file.dao.AttachFileDao;
 import com.test.bdm.file.domain.FileVO;
 
-@Service
+@Service("AttachFileServiceImpl")
 public class AttachFileServiceImpl implements AttachFileService {
 	final Logger LOG = LogManager.getLogger(getClass());
 

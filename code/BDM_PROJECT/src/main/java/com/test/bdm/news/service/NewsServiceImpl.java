@@ -12,7 +12,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.news.dao.NewsDao;
 import com.test.bdm.news.domain.NewsVO;
 
-@Service
+@Service("NewsServiceImpl")
 public class NewsServiceImpl implements NewsService,PcwkLogger {
 
 	@Autowired

@@ -12,8 +12,6 @@ import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.domain.CommentsVO;
 
-
-
 @Repository
 public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	final String NAMESPACE = "com.test.bdm.comments";

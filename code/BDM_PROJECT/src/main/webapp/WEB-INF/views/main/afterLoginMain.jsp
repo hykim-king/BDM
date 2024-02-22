@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style>
-<<<<<<< HEAD
 </style>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
@@ -57,11 +56,9 @@ document.addEventListener("DOMContentLoaded", function(){
 	</div>
 </div>
 <style>
-=======
     .card-body{
         color:#f7e9e8;
     }
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
     .search-container {
       max-width: 1920px;
       width:80%;
@@ -109,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function(){
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
