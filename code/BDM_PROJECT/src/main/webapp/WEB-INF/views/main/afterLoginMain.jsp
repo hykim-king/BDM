@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <style>
-<<<<<<< HEAD
+
 </style>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
@@ -43,25 +43,12 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-	<div class ="container-scroller">
-	<div class="search-container" id="search_area">
-		<div class="search">
-			<form action="#">
-				<a href="#" class="link_main">
-					<img src="${CP}/resources/images/logo-mini.png" alt="로고">
-				</a>
-				<input type="text" placeholder="검색어를 입력하세요" name="search" class="search-input">
-				<button type="submit" class="search-button"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
-			</form>
-		</div>
-	</div>
-</div>
+
 <style>
-=======
+
     .card-body{
         color:#f7e9e8;
     }
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
     .search-container {
       max-width: 1920px;
       width:80%;
@@ -179,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -195,24 +182,20 @@ document.addEventListener("DOMContentLoaded", function(){
                 </ul>
             </div>
         </div>
-    </nav> -->
-    
+    </nav>
     <div class ="container-scroller">
-        <div class="search-container" id="search_area">
-            <div class="search">
-                <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
-                    <input type="hidden" name="pageNo" id="pageNo" />
-                    <a href="#" class="link_main"> 
-                        <img src="${CP}/resources/images/logo-mini.png" alt="로고">
-                    </a>
-                    <input type="text" placeholder="검색어를 입력하세요" id = "searchWord" name="searchWord" class="search-input">
-                    <button type = "submit" class="search-button" id = "gumsaek"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
-                </form>
-            </div>
-            
-        </div> 
-    </div>
-    
+		<div class="search-container" id="search_area">
+			<div class="search">
+				<form action="#">
+					<a href="#" class="link_main">
+						<img src="${CP}/resources/images/logo-mini.png" alt="로고">
+					</a>
+					<input type="text" placeholder="검색어를 입력하세요" name="search" class="search-input">
+					<button type="submit" class="search-button"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
+				</form>
+			</div>
+		</div>
+	</div>
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
         <legend>환영합니다</legend>
         <div>

@@ -58,11 +58,10 @@
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<<<<<<< HEAD
-=======
+
 <jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
@@ -75,8 +74,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	const searchWordTxt = document.querySelector("#searchWord");
 	const moveToFindBtn = document.querySelector("#moveToFind");
 	
-<<<<<<< HEAD
-=======
 	moveToFindBtn.addEventListener("click", function(e){
 		location.href = "/bdm/beforeMain/moveToFind.do";
 	});
@@ -104,7 +101,6 @@ document.addEventListener("DOMContentLoaded", function(){
      moveToRegBtn.addEventListener("click", function(e){
     	 location.href = "/bdm/user/moveToReg.do";
      });
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
      moveToNoticeBtn.addEventListener("click", function(e){
          location.href = "/bdm/notice/doRetrieve.do";
      });
@@ -178,59 +174,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-<div class ="container-scroller">
-	<div class="search-container" id="search_area">
-		<div class="search">
-			<form action="#">
-				<a href="#" class="link_main">
-					<img src="${CP}/resources/images/logo-mini.png" alt="로고">
-				</a>
-				<input type="text" placeholder="검색어를 입력하세요" name="search" class="search-input">
-				<button type="submit" class="search-button"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
-			</form>
-		</div>
-	</div>
-</div>
-<style>
-    .search-container {
-      max-width: 1920px;
-      width:80%;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-    .search-input {
-      width: 70%;
-      padding: 10px;
-      border: 1px solid #FDCE64;
-      border-radius: 20px 0 0 20px;
-      font-size: 16px;
-      outline: none;
-    }
-    .search-button {
-      width: 50px;
-      padding: 10px;
-      background-color: #FDCE64;
-      border: none;
-      border-radius: 0 20px 20px 0;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .search-input:focus {
-      border-color: #007BFF;
-    }
-    .search-button img{
-        width: 20px;
-          height: 20px;
-    }
-    .link_main img{
-        width:50px;
-        height: auto;
-    }
-</style>
-=======
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -246,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 </ul>
             </div>
         </div>
-    </nav> -->
+    </nav>
 	
     <div class ="container-scroller">
         <div class="search-container" id="search_area">
@@ -263,13 +207,10 @@ document.addEventListener("DOMContentLoaded", function(){
             
         </div> 
     </div>
-
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
         <legend>로그인</legend>
         <div>
-	        <form action="#" method="post">
-	        
+	        <form action="#" method="post">        
 	            <table>
 	                <tr>
 	                    <td>
