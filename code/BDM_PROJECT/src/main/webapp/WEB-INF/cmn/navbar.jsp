@@ -6,11 +6,11 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <script>
-<<<<<<< HEAD
-document.addEventListener("DOMContentLoaded", function(){
-=======
-<%-- document.addEventListener("DOMContentLoaded", function(){
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
+
+
+
+ document.addEventListener("DOMContentLoaded", function(){
+
 	const logoutBTN = document.querySelector("#logout");
 	const loginBTN = document.querySelector("#login");
 	
@@ -65,11 +65,9 @@ document.addEventListener("DOMContentLoaded", function(){
             loginBTN.style.display = "block";
         }
     }
-<<<<<<< HEAD
+
 }); // -- DOM end
-=======
-}); // -- DOM end --%>
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
+
 </script>
 </head>
 <body>
@@ -79,12 +77,11 @@ document.addEventListener("DOMContentLoaded", function(){
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-<<<<<<< HEAD
+
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a></li>
 				<li class="nav-item"><a class="nav-link" href="/bdm/user/moveToReg.do" tabindex="-1" aria-disabled="true" id="moveToReg">회원가입</a></li>
-=======
 		<%-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do">메인으로</a></li>
@@ -108,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function(){
 				<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="login">로그인</a></li>
 			</ul>
 		</div> --%>
->>>>>>> 3c2080745217102700cd0c3e7cad33ff6f76c770
 	</div>
 </nav>
 

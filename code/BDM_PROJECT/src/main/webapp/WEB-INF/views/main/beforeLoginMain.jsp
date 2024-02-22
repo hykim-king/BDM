@@ -58,7 +58,6 @@
 <title>BDM</title>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-
 <jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 
 
@@ -87,111 +86,89 @@ document.addEventListener("DOMContentLoaded", function(){
             doRetrieve(1, searchWordTxt);
         }
     });
-	function doRetrieve(pageNo, searchWord) {
-        console.log("doRetrieve pageNO:" + pageNo);
-        console.log("doRetrieve searchWord:" + searchWord);
-
-        let gumsaekForm = document.gumsaekFrm;
-        gumsaekForm.pageNo.value = pageNo;
-        gumsaekForm.action = "/bdm/beforeMain/doGumsaek.do";
-        console.log("doRetrieve pageNO:" + gumsaekForm.pageNo.value);
-        gumsaekForm.submit();
-    }
 	
-     moveToRegBtn.addEventListener("click", function(e){
-    	 location.href = "/bdm/user/moveToReg.do";
-     });
-     moveToNoticeBtn.addEventListener("click", function(e){
-         location.href = "/bdm/notice/doRetrieve.do";
-     });
-     moveToBulletinBtn.addEventListener("click", function(e){
-         location.href = "/bdm/bulletin/doRetrieve.do";
-     });
-     moveToNewsBtn.addEventListener("click", function(e){
-         location.href = "/bdm/news/doRetrieve.do";
-     });
-     moveToMyPageBtn.addEventListener("click", function(e){
-    	 alert('로그인이 필요한 서비스입니다.');
-         location.href = "/bdm/beforeMain/moveToMain.do";
-     });
-     
-     $("#doLogin").on("click",function(e){
-         console.log( "doLogin click!" );
-         
-         let id = document.querySelector("#id").value;
-         if(eUtil.isEmpty(id)==true){
-             alert('아이디를 입력 하세요.');
-             document.querySelector("#id").focus();
-             return;
-         }
-         
-         let pw = document.querySelector("#pw").value;
-         if(eUtil.isEmpty(pw)==true){
-             alert('비번을 입력 하세요.');
-             document.querySelector("#pw").focus();
-             return;
-         }
-         
-         if(confirm("로그인 하시겠습니까?")===false) return;
-         
-         $.ajax({
-             type: "POST",
-             url:"/bdm/beforeMain/doLogin.do",
-             asyn:"true",
-             dataType:"json",
-             data:{
-                 "id": id,
-                 "pw": pw
-             },
-             success:function(data){//통신 성공
-                 console.log("data.msgId:"+data.msgId);
-                 console.log("data.msgContents:"+data.msgContents);
-                 
-                 if("10" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#id").focus();
-                 }else if("20" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#pw").focus();                 
-                 }else if("30" == data.msgId){
-                     alert(data.msgContents);
-                     location.href = "/bdm/beforeMain/moveToAfterMain.do";
-                 }
-             },
-             error:function(data){//실패시 처리
-                 console.log("error:"+data);
-             },
-             complete:function(data){//성공/실패와 관계없이 수행!
-                 console.log("complete:"+data);
-             }
-         });         
-         
-         
-     });//--#doLogin
-     
-     
- });//--document ready
+	moveToRegBtn.addEventListener("click", function(e){
+		location.href = "/bdm/user/moveToReg.do";
+	});
+	moveToNoticeBtn.addEventListener("click", moveToLink);
+	moveToBulletinBtn.addEventListener("click", moveToLink);
+	moveToNewsBtn.addEventListener("click", moveToLink);
+	moveToMyPageBtn.addEventListener("click", function(e){
+		alert('로그인이 필요한 서비스입니다.');
+		location.href = "/bdm/beforeMain/moveToMain.do";
+	});
+	
+	function moveToLink(e) {
+		const linkId = e.target.id;
+		switch(linkId) {
+			case "moveToNotice":
+				location.href = "/bdm/notice/doRetrieve.do";
+				break;
+			case "moveToBulletin":
+				location.href = "/bdm/bulletin/doRetrieve.do";
+				break;
+			case "moveToNews":
+				location.href = "/bdm/news/doRetrieve.do";
+				break;
+		}
+	}
+	
+	$("#doLogin").on("click",function(e){
+		console.log( "doLogin click!" );
+		
+		let id = document.querySelector("#id").value;
+		if(eUtil.isEmpty(id)==true){
+			alert('아이디를 입력 하세요.');
+			document.querySelector("#id").focus();
+			return;
+		}
+		
+		let pw = document.querySelector("#pw").value;
+		if(eUtil.isEmpty(pw)==true){
+			alert('비번을 입력 하세요.');
+			document.querySelector("#pw").focus();
+			return;
+		}
+		
+		if(confirm("로그인 하시겠습니까?")===false) return;
+		
+		$.ajax({
+			type: "POST",
+			url:"/bdm/beforeMain/doLogin.do",
+			asyn:"true",
+			dataType:"json",
+			data:{
+				"id": id,
+				"pw": pw
+			},
+			success:function(data){//통신 성공
+				console.log("data.msgId:"+data.msgId);
+				console.log("data.msgContents:"+data.msgContents);
+				
+				if("10" == data.msgId){
+					alert(data.msgContents);
+					document.querySelector("#id").focus();
+				}else if("20" == data.msgId){
+					alert(data.msgContents);
+					document.querySelector("#pw").focus();                 
+				}else if("30" == data.msgId){
+					alert(data.msgContents);
+					location.href = "/bdm/beforeMain/moveToAfterMain.do";
+				}
+			},
+			error:function(data){//실패시 처리
+				console.log("error:"+data);
+			},
+			complete:function(data){//성공/실패와 관계없이 수행!
+				console.log("complete:"+data);
+			}
+		});         
+		
+	});//--#doLogin
+});
 </script>
 </head>
 <body>
- 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do">메인으로</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/notice/doRetrieve.do" id="moveToNotice">공지사항</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/news/doRetrieve.do" id="moveToNews">뉴스</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-	
     <div class ="container-scroller">
         <div class="search-container" id="search_area">
             <div class="search">

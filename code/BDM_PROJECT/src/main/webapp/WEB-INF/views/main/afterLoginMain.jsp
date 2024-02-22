@@ -11,41 +11,6 @@
 
 <style>
 
-</style>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>BDM</title>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-	const moveToRegBtn = document.querySelector("#moveToReg");
-	const moveToNoticeBtn = document.querySelector("#moveToNotice");
-	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
-	const moveToNewsBtn = document.querySelector("#moveToNews");
-	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
-	
-	moveToRegBtn.addEventListener("click", function(e){
-   	 location.href = "/bdm/user/moveToReg.do";
-    });
-    moveToNoticeBtn.addEventListener("click", function(e){
-        location.href = "/bdm/notice/doRetrieve.do";
-    });
-    moveToBulletinBtn.addEventListener("click", function(e){
-        location.href = "/bdm/bulletin/doRetrieve.do";
-    });
-    moveToMyPageBtn.addEventListener("click", function(e){
-		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
-    });
-    moveToNewsBtn.addEventListener("click", function(e){
-		window.location.href = "${CP }/news/doRetrieve.do"
-	});
-	
-});
-</script>
-</head>
-<body>
-
-<style>
-
     .card-body{
         color:#f7e9e8;
     }
@@ -94,6 +59,33 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 </style>
 <title>BDM</title>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+	const moveToRegBtn = document.querySelector("#moveToReg");
+	const moveToNoticeBtn = document.querySelector("#moveToNotice");
+	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
+	const moveToNewsBtn = document.querySelector("#moveToNews");
+	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
+	
+	moveToRegBtn.addEventListener("click", function(e){
+   	 location.href = "/bdm/user/moveToReg.do";
+    });
+    moveToNoticeBtn.addEventListener("click", function(e){
+        location.href = "/bdm/notice/doRetrieve.do";
+    });
+    moveToBulletinBtn.addEventListener("click", function(e){
+        location.href = "/bdm/bulletin/doRetrieve.do";
+    });
+    moveToMyPageBtn.addEventListener("click", function(e){
+		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+    });
+    moveToNewsBtn.addEventListener("click", function(e){
+		window.location.href = "${CP }/news/doRetrieve.do"
+	});
+	
+});
+</script>
+</head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
