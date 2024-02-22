@@ -40,7 +40,8 @@
 		        DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
 		        ,TO_CHAR(tt1.reg_dt,'HH24:MI')
 		        ,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
-		        tt1.id
+		        tt1.id,
+		        tt1.disclosure
 	        FROM (
 	            SELECT ROWNUM rnum, T1.*
 	            FROM (
@@ -78,7 +79,8 @@
 	    title,
 	    contents,
 	    TO_CHAR(reg_dt,'YYYY-MM-DD HH24:MI:SS') reg_dt,
-	    id
+	    id,
+	    disclosure
 	FROM
 	    qa
 	WHERE
@@ -96,13 +98,15 @@
 	    title,
 	    contents,
 	    reg_dt,
-	    id
+	    id, 
+	    disclosure
 	) VALUES (
 	    #{postNo},
 	    #{title},
 	    #{contents},
 	    SYSDATE,
-	    #{id}
+	    #{id}, 
+	    #{disclosure}
 	)
 	</insert>
 

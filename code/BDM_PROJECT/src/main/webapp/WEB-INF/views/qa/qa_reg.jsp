@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded",function(){
             return;
         }   		
 		
+		let disclosure = document.querySelector('input[name="visibility"]:checked').value;
+	    console.log("disclosure:" + disclosure);
 		
 		if(window.confirm("등록 하시겠습니까?")==false){
 			return;
@@ -61,7 +63,8 @@ document.addEventListener("DOMContentLoaded",function(){
             	"postNo": document.querySelector("#postNo").value,
                 "title": title.value,
                 "contents": contents.value,
-                "id": id.value
+                "id": id.value,
+                "disclosure": disclosure
             },
             success:function(data){//통신 성공
             	//data.msgId가 1이면 : 메시지 출력,목록으로 이동
@@ -144,6 +147,14 @@ document.addEventListener("DOMContentLoaded",function(){
             <input type="text" class="form-control" id="id" name="id" value="${sessionScope.user.id}" 
             readonly="readonly" >        
         </div>
+        <div class="mb-3 justify-content-end">
+			<label class="form-label">글 공개 여부</label><br>
+			<input type="radio" id="public" name="visibility" value="0" checked>
+			<label for="public">공개</label>
+    
+			<input type="radio" id="private" name="visibility" value="1">
+			<label for="private">비공개</label>
+		</div>
         <div class="mb-3">
             <label for="title" class="form-label">내용</label>
             <textarea rows="7" class="form-control"  id="contents" name="contents"></textarea>

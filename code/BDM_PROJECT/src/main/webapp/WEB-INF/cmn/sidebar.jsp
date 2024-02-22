@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function(){
       <ul>
         <li><a href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
         <li><a href="/bdm/notice/doRetrieve.do">공지사항</a></li>
-        <li><a href="#">Q&A</a></li>
+        <li><a href="/bdm/qa/doRetrieve.do">Q&A</a></li>
       </ul>
     </li>
     <li>

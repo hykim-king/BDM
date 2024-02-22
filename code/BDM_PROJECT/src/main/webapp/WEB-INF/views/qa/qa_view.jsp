@@ -21,8 +21,6 @@ document.addEventListener("DOMContentLoaded",function() {
     const moveToListBTN = document.querySelector("#moveToList");
     
     
-    const doSelectOneBTN = document.querySelector("#doSelectOne");
-    
     //삭제버튼
     const doDeleteBTN   = document.querySelector("#doDelete");
     
@@ -75,27 +73,6 @@ document.addEventListener("DOMContentLoaded",function() {
    
 
     });
-
-  //수정 이벤트 감지 및 처리
-    doSelectOneBTN.addEventListener("click",function(e){
-        console.log('doSelectOneBTN click');
-		var id = '${sessionScope.user.id}';
-        
-        if( id != regId ){
-        	alert('타인의 글은 수정이 불가능 합니다.');
-        	return;
-        } else if(confirm('수정페이지로 이동합니다') == false){
-            return;
-        } else {
-        var postNo = document.querySelector("#postNo").value;
-        doSelectOne(postNo);
-        }
-        
-    });
-    
-    function doSelectOne(postNo){
-    	window.location.href = "${CP}/qa/doSelectOne.do?postNo=" + postNo;
-    }
     
     
     //목록 이벤트 감지 및 처리
@@ -124,19 +101,17 @@ document.addEventListener("DOMContentLoaded",function() {
     <div class="row justify-content-end">
         <div class="col-auto">
             <input type="button" value="목록" class="btn btn-primary" id="moveToList">
-            <input type="button" value="수정" class="btn btn-primary" id="doSelectOne" >
             <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
         </div>
     </div>
-        <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
+        <div class="mb-3 row" style="display: none"> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100"
-                 value="${vo.postNo}"
-                 readonly>
+                 value="${vo.postNo}" readonly
+                >
             </div>
         </div>
-
         <div class="mb-3 row">
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">

@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.dao.CommentsDao;
 import com.test.bdm.comments.domain.CommentsVO;
 
-@Service("CommentsServiceImpl")
+@Service
 public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 
 	@Autowired
@@ -45,9 +44,9 @@ public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 		return dao.doSave(inVO);
 	}
 
-	
-	 @Override 
-	 public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException { 
-		 return dao.doRetrieve(inVO); 
-	 }
+	@Override
+	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
+		return dao.doRetrieve(inVO);
+	}
+
 }

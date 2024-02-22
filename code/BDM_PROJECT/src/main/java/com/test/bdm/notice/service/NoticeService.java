@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
-import com.test.bdm.cmn.DTO;
 import com.test.bdm.notice.domain.NoticeVO;
 
 public interface NoticeService {
@@ -21,6 +20,6 @@ public interface NoticeService {
 	
 	public int doSave(NoticeVO inVO) throws SQLException;
 	
-	public List<NoticeVO> doRetrieve(DTO inVO)throws SQLException;
+	public List<NoticeVO> doRetrieve(NoticeVO inVO)throws SQLException;
 
 }

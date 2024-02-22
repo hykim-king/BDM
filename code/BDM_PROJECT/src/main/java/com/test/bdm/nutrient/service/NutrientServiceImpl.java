@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.test.bdm.nutrient.dao.NutrientDao;
 import com.test.bdm.nutrient.domain.NutrientVO;
 
-@Service("NutrientServiceImpl")
+@Service
 public class NutrientServiceImpl implements NutrientService {
 	
 	@Autowired

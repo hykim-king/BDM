@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
-import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.WorkDiv;
 
@@ -33,6 +32,4 @@ public interface BulletinDao extends WorkDiv<BulletinVO> {
 
 
 	int getBulletinSeq() throws SQLException;
-	
-	List<BulletinVO> doRetrieve(DTO inVO)throws SQLException;
 }

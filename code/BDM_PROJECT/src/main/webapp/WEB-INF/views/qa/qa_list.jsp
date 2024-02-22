@@ -65,6 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		let qaForm = document.qaFrm;
 		qaForm.pageNo.value = pageNo;
+		
+		// 여기서 disclosure 값을 확인
+	    let disclosureValues = document.querySelectorAll("#qaTable tbody td:nth-child(7)");
+
+	    if (disclosureValues == 1) {
+	        alert("비공개 질문입니다.");
+	        return; // doSelectOne을 실행하지 않고 함수 종료
+	    }
 		qaForm.action = "/bdm/qa/doRetrieve.do";
 		console.log("doRetrieve pageNO:" + qaForm.pageNo.value);
 		qaForm.submit();
@@ -150,6 +158,7 @@ function pageDoRerive(url, pageNo) {
 							<th class="text-center col-lg-2 col-sm-1">날짜</th>
 							<th class="col-lg-1">작성자</th>
 							<th scope="col" class="text-center   "style="display: none;">SEQ</th>
+							<th scope="col" class="text-center   "style="display: none;">공개여부</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -172,6 +181,9 @@ function pageDoRerive(url, pageNo) {
 										</td>
 										<td style="display: none;">
 											<c:out value="${vo.postNo}" />
+										</td>
+										<td style="display: none;">
+											${vo.disclosure}
 										</td>
 									</tr>
 								</c:forEach>

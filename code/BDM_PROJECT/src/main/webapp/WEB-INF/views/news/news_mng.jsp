@@ -12,8 +12,7 @@
 
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>news</title>
+<title>게시판 수정</title>
 <style>
    .readonly-input {
     background-color: #e9ecef ;
@@ -109,25 +108,25 @@ document.addEventListener("DOMContentLoaded",function(){
 </script>
 </head>
 <body>
-<!-- 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	        <div class="container-fluid">
-	            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-	            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	                <span class="navbar-toggler-icon"></span>
-	            </button>
-	            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-	                    
-	                    <li class="nav-item">
-	                        <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
-	                    </li>
-	                    <li class="nav-item">
-	                        <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
-	                    </li>
-	                </ul>
-	            </div>
-	        </div>
-	    </nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <div class="container">
     <!-- 제목 -->
     <div class="row">

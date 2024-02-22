@@ -11,6 +11,7 @@ import lombok.ToString;
 @Getter  //setter
 @Setter  //getter
 @NoArgsConstructor //default 생성자
+@ToString          //toString
 @AllArgsConstructor//모든인자 생성자
 public class FileVO extends DTO {
 	
@@ -22,13 +23,8 @@ public class FileVO extends DTO {
 	private String extension;//확장자
 	private long fileSize;//파일크기
 	private String savePath;//저장경로: /resources/upload/2023/12
+	
 	private String regDt    ;//등록일
 	private String regId    ;//등록자  ID
-	
-	@Override
-	public String toString() {
-		return "FileVO [uuid=" + uuid + ", seq=" + seq + ", orgFileName=" + orgFileName + ", saveFileName="
-				+ saveFileName + ", extension=" + extension + ", fileSize=" + fileSize + ", savePath=" + savePath
-				+ ", regDt=" + regDt + ", regId=" + regId + ", toString()=" + super.toString() + "]";
-	}
+
 }

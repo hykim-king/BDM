@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.news.domain.NewsVO;
 @Repository
@@ -63,7 +62,7 @@ public class NewsDaoImpl implements NewsDao,PcwkLogger {
 	}
 
 	@Override
-	public List<NewsVO> doRetrieve(DTO inVO) throws SQLException {
+	public List<NewsVO> doRetrieve(NewsVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
 		LOG.debug("│ NewsVO                            │"+inVO);

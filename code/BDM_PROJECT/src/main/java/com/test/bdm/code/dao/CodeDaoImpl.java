@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.code.domain.CodeVO;
 
@@ -54,7 +53,7 @@ public class CodeDaoImpl implements CodeDao, PcwkLogger {
 	
 
 	@Override
-	public List<CodeVO> doRetrieve(DTO inVO) throws SQLException {
+	public List<CodeVO> doRetrieve(CodeVO inVO) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

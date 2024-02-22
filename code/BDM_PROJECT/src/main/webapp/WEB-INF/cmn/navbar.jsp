@@ -25,12 +25,6 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
     });
 	
-	loginBTN.addEventListener("click", function(e){
-   	   alert('로그인 페이지로 이동합니다.');
-   	   return;
-   	 window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
-    });
-	
 	logoutBTN.addEventListener("click", function(e){
     	$.ajax({
             type: "GET",
@@ -61,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(){
             loginBTN.style.display = "block";
         }
     }
-});
+}); // -- DOM end
 </script>
 </head>
 <body>

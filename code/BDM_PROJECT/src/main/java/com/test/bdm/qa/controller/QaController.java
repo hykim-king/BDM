@@ -84,7 +84,7 @@ public class QaController implements PcwkLogger {
 		LOG.debug("QaVO Default처리: " + inVO);
 		//코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes =new HashMap<String, Object>();
-		String[] codeStr = {"PAGE_SIZE","SEARCH"};
+		String[] codeStr = {"PAGE_SIZE","QA_SEARCH"};
 		
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
@@ -94,7 +94,7 @@ public class QaController implements PcwkLogger {
 		
 		
 		for(CodeVO vo :codeList) {
-			if(vo.getCategory().equals("SEARCH")) {
+			if(vo.getCategory().equals("QA_SEARCH")) {
 				qaSearchList.add(vo);
 			}
 			
@@ -135,23 +135,13 @@ public class QaController implements PcwkLogger {
 		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
 				"/bdm/qa/doRetrieve.do", "pageDoRerive");
 		modelAndView.addObject("pageHtml", html);
-		
-		
-		//공지사항:10, 자유게시판:20
-		String title = "";
-		if(inVO.getSearchDiv().equals("10")) {
-			title = "공지사항-목록";
-		}else {
-			title = "자유게시판-목록";
-		}
-		modelAndView.addObject("title", title);	
 			
 		return modelAndView;   
 	}
 	
 	@PostMapping(value = "/doSave.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public MessageVO doSave(QaVO inVO) throws SQLException{
+	public MessageVO doSave(QaVO inVO, HttpSession httpSession) throws SQLException{
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug("doSave"                               );
 		LOG.debug("QaVO: " + inVO                        );
@@ -159,6 +149,18 @@ public class QaController implements PcwkLogger {
 		//seq조회
 		int seq = service.getQaSeq();
 		inVO.setPostNo(seq);
+		
+		if(null != httpSession.getAttribute("user")) {
+			UserVO user = (UserVO) httpSession.getAttribute("user");
+			inVO.setId(user.getId());
+		}
+		
+		if(inVO.getDisclosure() == 0) {
+			inVO.setDisclosure(0);
+		} else {
+			inVO.setDisclosure(1);
+		}
+		
 		LOG.debug("QaVO seq: " + inVO);
 		int flag = service.doSave(inVO);
 		
@@ -239,14 +241,13 @@ public class QaController implements PcwkLogger {
 			return messageVO;
 		} 
 		
-		
 		int flag = service.doDelete(inVO);
 		
 		String   message = "";
 		if(1==flag) {//삭제 성공
-			message = inVO.getPostNo()+"삭제 되었습니다.";	
+			message = "삭제 되었습니다.";	
 		}else {
-			message = inVO.getPostNo()+"삭제 실패!";
+			message = "삭제 실패!";
 		}
 		
 		MessageVO messageVO=new MessageVO(String.valueOf(flag), message);

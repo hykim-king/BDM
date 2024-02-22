@@ -19,10 +19,13 @@ public class QaVO extends DTO {
     private String contents;
     private String regDt;
     private String id;
+    private int disclosure;
+    
     
 	@Override
 	public String toString() {
 		return "QaVO [postNo=" + postNo + ", title=" + title + ", contents=" + contents + ", regDt=" + regDt + ", id="
-				+ id + ", toString()=" + super.toString() + "]";
+				+ id + ", disclosure=" + disclosure + ", toString()=" + super.toString() + "]";
 	}
+    
 }

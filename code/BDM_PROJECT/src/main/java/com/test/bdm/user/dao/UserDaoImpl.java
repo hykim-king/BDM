@@ -45,18 +45,5 @@ public class UserDaoImpl implements UserDao, PcwkLogger {
 		return this.sqlSessionTemplate.update(NAMESPACE + DOT + "doUpdate", inVO);
 	}
 	
-	@Override
-	public UserVO doFindId(UserVO inVO) throws SQLException {
-		return this.sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doFindId", inVO);
-	}
-
-	@Override
-	public UserVO doFindPassword(UserVO inVO) throws SQLException {
-		return this.sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doFindPassword", inVO);
-	}
-
-	@Override
-	public int changePassword(UserVO inVO) throws SQLException {
-		return this.sqlSessionTemplate.update(NAMESPACE + DOT + "changePassword", inVO);
-	}
+	
 }

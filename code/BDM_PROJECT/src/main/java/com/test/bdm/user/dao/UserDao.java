@@ -15,10 +15,4 @@ public interface UserDao {
 	int doSave(UserVO inVO) throws SQLException;
 	
 	int doUpdate(UserVO inVO) throws SQLException;
-	
-	UserVO doFindId(UserVO inVO) throws SQLException;
-	
-	UserVO doFindPassword(UserVO inVO) throws SQLException;
-	
-	int changePassword(UserVO inVO) throws SQLException;
 }
