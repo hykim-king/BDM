@@ -72,6 +72,15 @@ document.addEventListener("DOMContentLoaded", function(){
 	const gumsaekBtn = document.querySelector("#gumsaek"); 
 	const searchWordTxt = document.querySelector("#searchWord");
 	const moveToFindBtn = document.querySelector("#moveToFind");
+	const moveToRegBtn = document.querySelector("#moveToReg")
+	
+	if (moveToRegBtn) {
+    moveToRegBtn.addEventListener("click", function(e) {
+        location.href = "/bdm/user/moveToReg.do";
+    });
+	} else {
+	    console.error("moveToRegBtn is null or undefined");
+	}
 	
 	moveToFindBtn.addEventListener("click", function(e){
 		location.href = "/bdm/beforeMain/moveToFind.do";
@@ -87,9 +96,10 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
 	
-	moveToRegBtn.addEventListener("click", function(e){
-		location.href = "/bdm/user/moveToReg.do";
-	});
+	//moveToRegBtn.addEventListener("click", function(e){
+	//    location.href = "/bdm/user/moveToReg.do";
+	//});
+	
 	moveToNoticeBtn.addEventListener("click", moveToLink);
 	moveToBulletinBtn.addEventListener("click", moveToLink);
 	moveToNewsBtn.addEventListener("click", moveToLink);
