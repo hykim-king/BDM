@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function(){
             
         </div> 
     </div>
-    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
         <legend>로그인</legend>
         <div>
 	        <form action="#" method="post">        
