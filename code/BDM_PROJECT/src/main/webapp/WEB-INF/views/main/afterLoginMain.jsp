@@ -7,52 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <style>
-</style>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>BDM</title>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-	const moveToRegBtn = document.querySelector("#moveToReg");
-	const moveToNoticeBtn = document.querySelector("#moveToNotice");
-	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
-	const moveToNewsBtn = document.querySelector("#moveToNews");
-	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
-	
-	moveToRegBtn.addEventListener("click", function(e){
-   	 location.href = "/bdm/user/moveToReg.do";
-    });
-    moveToNoticeBtn.addEventListener("click", function(e){
-        location.href = "/bdm/notice/doRetrieve.do";
-    });
-    moveToBulletinBtn.addEventListener("click", function(e){
-        location.href = "/bdm/bulletin/doRetrieve.do";
-    });
-    moveToMyPageBtn.addEventListener("click", function(e){
-		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
-    });
-    moveToNewsBtn.addEventListener("click", function(e){
-		window.location.href = "${CP }/news/doRetrieve.do"
-	});
-	
-});
-</script>
-</head>
-<body>
-	<div class ="container-scroller">
-	<div class="search-container" id="search_area">
-		<div class="search">
-			<form action="#">
-				<a href="#" class="link_main">
-					<img src="${CP}/resources/images/logo-mini.png" alt="로고">
-				</a>
-				<input type="text" placeholder="검색어를 입력하세요" name="search" class="search-input">
-				<button type="submit" class="search-button"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
-			</form>
-		</div>
-	</div>
-</div>
-<style>
     .search-container {
       max-width: 1920px;
       width:80%;
@@ -89,6 +43,43 @@ document.addEventListener("DOMContentLoaded", function(){
         height: auto;
     }
 </style>
-<a>${user.getName()}님 반갑습니다.</a>
+<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+<title>BDM</title>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
+	
+    moveToMyPageBtn.addEventListener("click", function(e){
+		window.location.href = "${CP }/nutrient/doRetrieveOneDay.do";
+    });
+});
+</script>
+</head>
+<body>
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+
+        <legend>환영합니다.</legend>
+        <div>
+	        <form action="#" method="post">
+	        
+	            <table>
+	                <tr>
+	                    <td>
+	                        <label for="id">${user.getName()}님</label>
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>
+	                        <input type="button" id = "moveToMyPage" value = "마이페이지">
+	                    </td>
+	                </tr>
+	            </table>
+	        </form>
+	        <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
+	        </div>
+        </div>
+    </fieldset>
 </body>
 </html>

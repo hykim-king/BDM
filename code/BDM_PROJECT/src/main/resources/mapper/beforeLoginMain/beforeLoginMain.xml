@@ -3,6 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.test.bdm.beforeMain">
+  
+    <insert id = "doSaveSearch" parameterType = "map">
+        INSERT INTO SEARCHS(
+            gender,
+            birth,
+            words
+        ) VALUES(
+            #{gender},
+            #{birth},
+            #{words}
+        )
+    </insert>
+  
     <select id="idCheck" parameterType="com.test.bdm.user.domain.UserVO" resultType="int">
          SELECT                   
             COUNT(*) cnt

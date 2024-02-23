@@ -1,6 +1,7 @@
 package com.test.bdm.beforeMain.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,18 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 			LOG.debug("3.outVO \n" + outVO.toString());
 		}
 		return outVO;
+	}
+
+	@Override
+	public int doSaveSearch(int gender, int birth, String words) throws SQLException {
+		int flag = 0;
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("gender", gender);
+		map.put("birth", birth);
+		map.put("words", words);
+		
+		flag = sqlSessionTemplate.insert(NAMESPACE + DOT + "doSaveSearch", map);
+		
+		return flag;
 	}
 }

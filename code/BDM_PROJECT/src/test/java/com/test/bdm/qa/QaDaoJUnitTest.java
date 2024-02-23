@@ -47,7 +47,7 @@ public class QaDaoJUnitTest implements PcwkLogger {
 		String regDt   = "사용 하지 않음";
 		String id       = "hsm";
 
-	    qa01 = new QaVO(dao.getQaSeq(), title + "제목1", contents + "내용1", regDt, id);
+	    qa01 = new QaVO(dao.getQaSeq(), title + "제목1", contents + "내용1", regDt, id, 1);
 
 		searchVO = new QaVO();
 		searchVO.setTitle(title);
