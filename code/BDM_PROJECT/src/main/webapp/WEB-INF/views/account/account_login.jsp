@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function(){
 var naverLogin = new naver.LoginWithNaverId(
 		{
 			clientId: "8O6Ic7I8WQdgJXfbVAao", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
-			callbackUrl: "http://localhost:8080/bdm/beforeMain/popSearchWord.do", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+			callbackUrl: "http://localhost:8080/bdm/beforeMain/moveToAfterMain.do", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
 			isPopup: false,
 			callbackHandle: true
 		}
