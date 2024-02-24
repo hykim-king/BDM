@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="CP" value="${pageContext.request.contextPath}" />     
+<c:set var="CP" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +13,9 @@
 <script src="${CP}/resources/js/eUtil.js"></script>
 </head>
 <body>
+<c:redirect url="/beforeMain/moveToMain.do" />
 
-<ul class="nav">
+<%-- <ul class="nav">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="<c:url value='/beforeMain/moveToMain.do'/>">메인페이지</a>
   </li>
@@ -51,6 +52,6 @@
   <li class="nav-item">
     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
   </li>
-</ul>
+</ul> --%>
 </body>
 </html>

@@ -33,5 +33,6 @@ public interface NewsDao extends WorkDiv<NewsVO> {
 	
 	int updateReadCnt(NewsVO inVO)throws SQLException;  
 	
-	List<NewsVO> doRetrieve(DTO inVO)throws SQLException;
+	List<NewsVO> doRetrieve(DTO inVO) throws SQLException;
+	
 }

@@ -78,31 +78,15 @@ document.addEventListener("DOMContentLoaded", function(){
   	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="login">로그인</a></li>
   	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="logout">로그아웃</a></li>
     <li>
-      <a href="/bdm/beforeMain/moveToMyPage.do"><i class="fa-solid fa-cat"></i> mypage</a>
-    </li>
-    <li>
       <a href="#">게시판</a>
       <ul>
         <li><a href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
         <li><a href="/bdm/notice/doRetrieve.do">공지사항</a></li>
-        <li><a href="#">Q&A</a></li>
+        <li><a href="/bdm/qa/doRetrieve.do">Q&A</a></li>
       </ul>
     </li>
     <li>
-      <a href="/bdm/beforeMain/moveToNews.do">news</a>
-      <ul>
-        <li><a href="#">text1</a></li>
-        <li><a href="#">text2</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">notice</a>
-      <ul>
-        <li><a href="#">text1</a></li>
-        <li><a href="#">text2</a></li>
-        <li><a href="#">text3</a></li>
-        <li><a href="#">text4</a></li>
-      </ul>
+      <a href="/bdm/news/doRetrieve.do">뉴스</a>
     </li>
   </ul>
 </aside>

@@ -51,4 +51,9 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	public UserVO doSelectOne(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
 		return beforeMainDao.doSelectOne(inVO);
 	}
+
+	@Override
+	public int doSaveSearch(int gender, int birth, String words) throws SQLException {
+		return beforeMainDao.doSaveSearch(gender, birth, words);
+	}
 }

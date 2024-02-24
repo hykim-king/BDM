@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </head>
 <body>
-	 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
     </nav>
-		
+        
       <div class="container mt-4">
         <h1 class="mb-4">꼬르륵 뉴스</h1>
 
@@ -149,27 +149,27 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </form>
 
-		<!--// 검색 ----------------------------------------------------------------->
+        <!--// 검색 ----------------------------------------------------------------->
 
-		<!-- 		<div class="mb-3">
-			<div class="input-group">
+        <!--        <div class="mb-3">
+            <div class="input-group">
                 <input type="text" class="form-control ppl_input" id="search" name="search" placeholder="검색어를 입력하세요.">
                 <button type="button" class="btn btn-primary">검색</button>
                 <button type="button" class="btn btn-primary">등록</button>
             </div>
-  			<label for="exampleFormControlTextarea1" class="form-label">
-  			</label>
-		  	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-		</div> -->
-		<!-- table -->
-		<table
-			class="table table-bordered border-primary table-hover table-striped"
-			id="newsTable">
-			<thead>
-				
-			</thead>
-			<tbody>
-				<div class="container mt-4">
+            <label for="exampleFormControlTextarea1" class="form-label">
+            </label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div> -->
+        <!-- table -->
+        <table
+            class="table table-bordered border-primary table-hover table-striped"
+            id="newsTable">
+            <thead>
+                
+            </thead>
+            <tbody>
+                <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-1 g-0">
         <c:forEach var="vo" items="${list}" varStatus="status">
             <div class="col">
@@ -177,8 +177,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     <div class="card" style="width: 70%;">
                         <div class="row g-0">
                             <div class="col-md-4" style="padding: 20px;">
-							    <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="img-fluid rounded-start card-img" alt="이미지" style="max-width: 200px; max-height: 100px;">
-							</div>
+                                <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="img-fluid rounded-start card-img" alt="이미지" style="max-width: 200px; max-height: 100px;">
+                            </div>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h6 class="card-subtitle mb-2 text-muted">${vo.title}</h6>
@@ -207,12 +207,12 @@ document.addEventListener("DOMContentLoaded", function() {
         </c:if>
     </div>
 </div>
-			</tbody>
-		</table>
-		<!--// table -------------------------------------------------------------->
-		<div class="d-flex justify-content-center">
-			<nav>${pageHtml }</nav>
-		</div>
-	</div>
+            </tbody>
+        </table>
+        <!--// table -------------------------------------------------------------->
+        <div class="d-flex justify-content-center">
+            <nav>${pageHtml }</nav>
+        </div>
+    </div>
 </body>
 </html>

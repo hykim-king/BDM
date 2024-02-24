@@ -54,7 +54,8 @@ public class NewsController implements PcwkLogger {
    
    
    final String FILE_PATH = StringUtil.FILE_PATH;
-   final String IMG_PATH  = "C:\\JSPM_0907\\BDM\\BDM\\code\\BDM_cdh\\src\\main\\webapp\\resources\\upload";
+   //final String IMG_PATH  = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload";
+   final String IMG_PATH = "C:\\JSPM_0907\\BDM\\BDM\\code\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload";
    String yyyyMMPath = "";//년월을 포함하는 경로
    String saveFilePath = "";
    
@@ -177,8 +178,7 @@ public class NewsController implements PcwkLogger {
             "/bdm/news/doRetrieve.do", "pageDoRerive");
       modelAndView.addObject("pageHtml", html);
       
-      String title = "게시판-목록";
-		modelAndView.addObject("title", title);
+      
          
       return modelAndView;   
    }

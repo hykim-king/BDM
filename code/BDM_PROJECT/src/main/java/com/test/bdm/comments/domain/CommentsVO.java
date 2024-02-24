@@ -28,15 +28,6 @@ public class CommentsVO extends DTO {
 	private int   postNo  ;//게시순번
 	private String id      ;//등록자
 	private String modId;
-	
-	
-	@Override
-	public String toString() {
-		return "CommentsVO [regNo=" + regNo + ", contents=" + contents + ", regDt=" + regDt + ", postNo=" + postNo
-				+ ", id=" + id + ", modId=" + modId + ", toString()=" + super.toString() + "]";
-	}
-	
-	
 
 	
 	

@@ -21,25 +21,25 @@
   </sql>       
             
       <update id="updateReadCnt" parameterType="NewsVO">
-	    <![CDATA[
-	    UPDATE news
-	       SET read_cnt = NVL(read_cnt,0)+1
-	     WHERE post_no  = #{postNo}
-	       AND id <> #{id} ]]>  
-	  </update>
-	  
-	  
-	  <select id="doRetrieve" parameterType="NewsVO" resultType="NewsVO">
+        <![CDATA[
+        UPDATE news
+           SET read_cnt = NVL(read_cnt,0)+1
+         WHERE post_no  = #{postNo}
+           AND id <> #{id} ]]>  
+      </update>
+      
+      
+      <select id="doRetrieve" parameterType="NewsVO" resultType="NewsVO">
     SELECT A.*,B.totalCnt
     FROM (
         SELECT 
-        	   tt1.post_no as postNo,
-        	   tt1.rnum as no, 
+               tt1.post_no as postNo,
+               tt1.rnum as no, 
                tt1.title,
                tt1.contents,
                DECODE(TO_CHAR(tt1.reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
-				,TO_CHAR(tt1.reg_dt,'HH24:MI')
-				,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
+                ,TO_CHAR(tt1.reg_dt,'HH24:MI')
+                ,TO_CHAR(tt1.reg_dt,'YYYY-MM-DD')) as regDt,
                tt1.read_cnt as readCnt,
                tt1.id as id,
                tt1.uuid as uuid
@@ -67,55 +67,55 @@
         <include refid="searchCondition"/>
     )B  
   </select>
-	  
-	  
-	  
-	  <insert id="doSave">
-		  INSERT INTO news (
-			    post_no,
-			    title,
-			    contents,
-			    reg_dt,
-			    read_cnt,
-			    id,
-			    uuid
-			) VALUES (
-			    news_seq.NEXTVAL,
-			    #{title},
-			    #{contents},
-			    SYSDATE,
-			    0,
-			    #{id},
-			    #{uuid, jdbcType=VARCHAR}
-				)
-	  </insert>
+      
+      
+      
+      <insert id="doSave">
+          INSERT INTO news (
+                post_no,
+                title,
+                contents,
+                reg_dt,
+                read_cnt,
+                id,
+                uuid
+            ) VALUES (
+                news_seq.NEXTVAL,
+                #{title},
+                #{contents},
+                SYSDATE,
+                0,
+                #{id},
+                #{uuid, jdbcType=VARCHAR}
+                )
+      </insert>
   
   
    <select id="doSelectOne" parameterType="NewsVO" resultType="NewsVO">
     SELECT
-	    post_no,
-		title,
-		contents,
-		reg_dt,
-		read_cnt,
-		id,
-		uuid
+        post_no,
+        title,
+        contents,
+        reg_dt,
+        read_cnt,
+        id,
+        uuid
    FROM
         news
     WHERE post_no = #{postNo}      
   </select>
   
   
-	<delete id="doDelete" parameterType="NewsVO">
+    <delete id="doDelete" parameterType="NewsVO">
     DELETE FROM news
     WHERE   post_no = #{postNo}  
-  </delete>	
+  </delete> 
   
   <delete id="doDeleteAll" parameterType="NewsVO" >
     DELETE FROM news
     WHERE title LIKE #{title}||'%'
   </delete>
-	  
+      
   
   
     

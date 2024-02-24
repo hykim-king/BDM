@@ -11,4 +11,6 @@ public interface BeforeMainDao {
 	int idPassCheck(UserVO inVO)throws SQLException;
 	
 	UserVO doSelectOne(UserVO inVO) throws SQLException;
+	
+	int doSaveSearch(int gender, int birth, String words) throws SQLException;
 }
