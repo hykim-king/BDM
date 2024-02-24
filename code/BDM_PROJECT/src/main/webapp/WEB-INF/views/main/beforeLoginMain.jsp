@@ -134,6 +134,51 @@ document.addEventListener("DOMContentLoaded", function(){
              </c:otherwise>
          </c:choose>
     </fieldset>
+    
+   <legend style="position: absolute; top: 60; left: 50; right: 0;">건강 뉴스</legend>
+
+    <table
+            class="table table-bordered border-primary table-hover table-striped"
+            id="noticeTable">
+            
+            <tbody>
+                <c:choose>
+                    <c:when test="${ not empty newsList }">
+                        <!-- 반복문 -->
+                        <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
+	                            <div class="col">
+				                <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
+				                    <div class="card" style="width: 70%;">
+				                        <div class="row g-0">
+				                            <div class="col-md-4" style="padding: 20px;">
+				                                <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="img-fluid rounded-start card-img" alt="이미지" style="max-width: 200px; max-height: 100px;">
+				                            </div>
+				                            <div class="col-md-8">
+				                                <div class="card-body">
+				                                    <h6 class="card-subtitle mb-2 text-muted">${vo.title}</h6>
+				                                    <p class="card-text">${vo.regDt}</p>
+				                                    <p class="card-text">${vo.contents}</p>
+				                                    <c:if test="${empty vo.fileList}">
+				                                        <!-- 이미지가 없는 경우에만 표시됩니다 -->
+				                                        <p class="card-text">이미지가 없습니다.</p>
+				                                    </c:if>
+				                                </div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </a>
+				            </div>
+                        </c:forEach>
+                        <!--// 반복문 -->
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="99" class="text-center">조회된 데이터가 없습니다.</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+            </tbody>
+        </table>
 </body>
 
 </html>
