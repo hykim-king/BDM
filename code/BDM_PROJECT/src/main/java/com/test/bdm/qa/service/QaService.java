@@ -22,6 +22,4 @@ public interface QaService {
 	
 	public List<QaVO> doRetrieve(QaVO inVO) throws SQLException;
 	
-	int getDisclosure(QaVO inVO) throws SQLException;
-	
 }

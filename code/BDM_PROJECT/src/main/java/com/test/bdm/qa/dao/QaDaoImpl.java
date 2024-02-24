@@ -80,14 +80,4 @@ public class QaDaoImpl implements PcwkLogger, QaDao {
 		return 0;
 	}
 
-
-	@Override
-	public int getDisclosure(QaVO inVO) throws SQLException {
-		LOG.debug("───────────────────────────────────────────────");
-		LOG.debug("getDisclosure"                                  );
-		LOG.debug("statement: " + NAMESPACE + DOT + "getDisclosure");
-		LOG.debug("────────────────────────────────────────────────");
-		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getDisclosure");
-	}
-
 }

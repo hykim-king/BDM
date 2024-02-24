@@ -19,18 +19,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	const qaForm = document.querySelector("#qaFrm");
 	const searchWordTxt = document.querySelector("#searchWord");
 	const rows = document.querySelectorAll("#qaTable>tbody>tr");
-	const loginId = '${user.id}';
 
 	rows.forEach(function (row) {
-		row.addEventListener('dblclick', function(e) {
+		row.addEventListener('click', function(e) {
 		let cells = row.getElementsByTagName("td");
 		
+		const userFilterValue = ${empty user ? 0 : user.userFilter};
 		const postNo = cells[4].innerText;
 		const disclosure = cells[5].innerText;
-		const login = cells[3].innerText;
 		console.log('postNo:'+ postNo);
 		
-		if(disclosure === '0' || loginId === login || ${user.userFilter eq '1'}){
+		if(disclosure == 0 || '${user.id}' == cells[3].innerText || userFilterValue == 1){
 			if(confirm('상세 조회 하시겠습니까?') == false) return;
 			window.location.href = "/bdm/qa/qaView.do?postNo=" + postNo;
 		} else{
@@ -125,8 +124,8 @@ function pageDoRerive(url, pageNo) {
 						<div class="col-auto">
 							<select class="form-select test_select" id="searchDiv" name="searchDiv">
 								<option value="">전체</option>
-								<c:forEach var="vo" items="${qaSearch }">
-									<option value="<c:out value='${vo.divs}'/>" <c:if test="${vo.divs == paramVO.searchDiv }">selected</c:if>>
+								<c:forEach var="vo" items="${qaSearch}">
+									<option value="<c:out value='${vo.divs}'/>" <c:if test="${vo.divs == paramVO.searchDiv}">selected</c:if>>
 										<c:out value="${vo.divName}" />
 									</option>
 								</c:forEach>
@@ -138,8 +137,8 @@ function pageDoRerive(url, pageNo) {
 						</div>
 						<div class="col-auto">
 							<select class="form-select" id="pageSize" name="pageSize">
-								<c:forEach var="vo" items="${pageSize }">
-									<option value="<c:out value='${vo.divs }' />" <c:if test="${vo.divs == paramVO.pageSize }">selected</c:if>>
+								<c:forEach var="vo" items="${pageSize}">
+									<option value="<c:out value='${vo.divs}' />" <c:if test="${vo.divs == paramVO.pageSize}">selected</c:if>>
 										<c:out value='${vo.divName}' />
 									</option>
 								</c:forEach>
@@ -159,8 +158,8 @@ function pageDoRerive(url, pageNo) {
 							<th class="text-left col-lg-7 col-sm-8">제목</th>
 							<th class="text-center col-lg-2 col-sm-1">날짜</th>
 							<th class="col-lg-1">작성자</th>
-							<th scope="col" class="text-center   "style="display: none;">SEQ</th>
-							<th scope="col" class="text-center   "style="display: none;">공개여부</th>
+							<th scope="col" class="text-center" style="display: none;">SEQ</th>
+							<th scope="col" class="text-center" style="display: none;">공개여부</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -227,7 +226,7 @@ function pageDoRerive(url, pageNo) {
 				</table>
 				<!--// table -------------------------------------------------------------->
 				<div class="d-flex justify-content-center">
-					<nav>${pageHtml }</nav>
+					<nav>${pageHtml}</nav>
 				</div>
 
 			</div>

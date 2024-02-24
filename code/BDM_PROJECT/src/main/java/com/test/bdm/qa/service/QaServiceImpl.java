@@ -45,9 +45,5 @@ public class QaServiceImpl implements QaService, PcwkLogger {
 		return dao.doRetrieve(inVO);
 	}
 
-	@Override
-	public int getDisclosure(QaVO inVO) throws SQLException {
-		return dao.getDisclosure(inVO);
-	}
 
 }
