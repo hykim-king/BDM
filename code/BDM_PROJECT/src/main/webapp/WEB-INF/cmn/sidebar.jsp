@@ -22,12 +22,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
     loginBTN.addEventListener("click", function(e){
         alert('로그인 페이지로 이동합니다.');
-        window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+        window.location.href = "/bdm/beforeMain/moveToLogin.do";
     });
 
     logoutBTN.addEventListener("click", function(e){
         alert('로그아웃 되었습니다.');
-        window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+        window.location.href = "/bdm/beforeMain/popSearchWord.do";
     });
 	
 	logoutBTN.addEventListener("click", function(e){
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function(){
             },
             success:function(data){//통신 성공     
                /* alert('로그아웃 되었습니다.'); */
-               window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+               window.location.href = "/bdm/beforeMain/popSearchWord.do";
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
@@ -75,8 +75,8 @@ document.addEventListener("DOMContentLoaded", function(){
     </section>
   </section>
   <ul>
-  	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="login">로그인</a></li>
-  	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="logout">로그아웃</a></li>
+  	<li><a class="side-link" href="/bdm/beforeMain/moveToLogin.do" id="login">로그인</a></li>
+  	<li><a class="side-link" href="/bdm/beforeMain/doLogout.do" id="logout">로그아웃</a></li>
     <li>
       <a href="#">게시판</a>
       <ul>

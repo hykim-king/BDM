@@ -13,6 +13,6 @@
 <script src="${CP}/resources/js/eUtil.js"></script>
 </head>
 <body>
-<c:redirect url="/beforeMain/moveToMain.do" />
+<c:redirect url="/beforeMain/popSearchWord.do" />
 </body>
 </html>
