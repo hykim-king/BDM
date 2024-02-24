@@ -46,6 +46,9 @@
 	<script src="${CP}/resources/js/dashboard.js"></script>
 <title>Insert title here</title>
 <style>
+	 .card-body{
+	        background-color:#fdce64;
+	 }
 	 .pieChart{
         max-width: 200px;
         max-height: 200px;
@@ -56,16 +59,55 @@
         flex-wrap: wrap; /* 차트가 창 너비를 벗어날 경우 다음 줄로 넘어갑니다. */
         justify-content: space-between; /* 차트를 가로로 분배합니다. */
      }
-     #calendar {
+       .calendar-container {
         display: none;
         position: absolute;
-        /* 필요에 따라 스타일을 추가적으로 설정할 수 있습니다. */
         border: 1px solid #ccc;
         background-color: #fff;
         padding: 10px;
         z-index: 1;  
-        color:darkslategray;
-        }
+        color: darkslategray;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .calendar-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .calendar-table th {
+        background-color: #f2f2f2;
+    }
+
+    .calendar-table td:hover {
+        cursor: pointer;
+        background-color: #f2f2f2;
+    }
+
+    .current-month {
+        font-weight: bold;
+    }
+
+    #prevMonthButton,
+    #nextMonthButton {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
 </style>
 
 <script>
@@ -81,100 +123,92 @@ function formatDate(date) {
     return year + '/' + month + '/' + day;
 }
 </script>
-<script>
-	/* function generateCalendar() { 
-	    var calendarBody = $("#calendarBody");
-	    calendarBody.empty(); // 기존 내용 제거
-	
+<script>	
+	function generateCalendar(year, month) {
+        var calendarBody = $("#calendarBody");
+        calendarBody.empty(); // 기존 내용 제거
+
+        var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
+        var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
+
+        var dayCounter = 1;
+        for (var i = 0; i < 6; i++) {
+            var row = $("<tr></tr>");
+            for (var j = 0; j < 7; j++) {
+                var cell = $("<td></td>");
+                if (i === 0 && j < currentDate.getDay()) {
+                    // 앞의 빈 칸 처리
+                    cell.text("");
+                } else if (dayCounter <= daysInMonth) {
+                    cell.text(dayCounter);
+                    dayCounter++;
+                    cell.click(function () {
+                        // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
+                        var clickedDate = new Date(year, month - 1, $(this).text());
+                        var formattedDate = formatDate(clickedDate);
+                        // alert("날짜를 클릭했습니다: " + formattedDate);
+                        console.log('formattedDate: ' + formattedDate);
+                        window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
+                    });
+                }
+                row.append(cell);
+            }
+            calendarBody.append(row);
+        }
+	}
+        
+
+	$(document).ready(function () {
+	    // 현재 년도와 월을 가져오기
 	    var currentDate = new Date();
-	    var currentMonth = currentDate.getMonth();
-	    var daysInMonth = new Date(currentDate.getFullYear(), currentMonth + 1, 0).getDate();
-	
-	    var dayCounter = 1;
-	    for (var i = 0; i < 6; i++) {
-	        var row = $("<tr></tr>");
-	        for (var j = 0; j < 7; j++) {
-	            var cell = $("<td></td>");
-	            if (i === 0 && j < new Date(currentDate.getFullYear(), currentMonth, 1).getDay()) {
-	                // 앞의 빈 칸 처리
-	                cell.text("");
-	            } else if (dayCounter <= daysInMonth) {
-	                cell.text(dayCounter);
-	                dayCounter++;
-	                cell.click(function () {
-	                	 // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-	                    var clickedDate = new Date(currentDate.getFullYear(), currentMonth, $(this).text());
-	                    var formattedDate = formatDate(clickedDate);
-	                    // alert("날짜를 클릭했습니다: " + formattedDate);
-	                    console.log('formattedDate: ' + formattedDate);
-	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
-	                
-	                      
-	                });
-	            }
-	            row.append(cell);
+	    var currentYear = currentDate.getFullYear();
+	    var currentMonth = currentDate.getMonth() + 1;
+
+	    generateCalendar(currentYear, currentMonth);
+	    displayCurrentMonth(currentMonth); // 현재 월 표시
+
+	    // 이전 달 버튼 클릭 시
+	    $("#prevMonthButton").click(function () {
+	        if (currentMonth === 1) {
+	            currentYear--;
+	            currentMonth = 12;
+	        } else {
+	            currentMonth--;
 	        }
-	        calendarBody.append(row);
-	    }
-	} */
-	
-	function generateCalendar(year, month) { 
-	    var calendarBody = $("#calendarBody");
-	    calendarBody.empty(); // 기존 내용 제거
+	        generateCalendar(currentYear, currentMonth);
+	        displayCurrentMonth(currentMonth); // 현재 월 표시
+	    });
 
-	    var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
-	    var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
-
-	    var dayCounter = 1;
-	    for (var i = 0; i < 6; i++) {
-	        var row = $("<tr></tr>");
-	        for (var j = 0; j < 7; j++) {
-	            var cell = $("<td></td>");
-	            if (i === 0 && j < currentDate.getDay()) {
-	                // 앞의 빈 칸 처리
-	                cell.text("");
-	            } else if (dayCounter <= daysInMonth) {
-	                cell.text(dayCounter);
-	                dayCounter++;
-	                cell.click(function () {
-	                     // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-	                    var clickedDate = new Date(year, month - 1, $(this).text());
-	                    var formattedDate = formatDate(clickedDate);
-	                    // alert("날짜를 클릭했습니다: " + formattedDate);
-	                    console.log('formattedDate: ' + formattedDate);
-	                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
-	                
-	                });
-	            }
-	            row.append(cell);
+	    // 다음 달 버튼 클릭 시
+	    $("#nextMonthButton").click(function () {
+	        if (currentMonth === 12) {
+	            currentYear++;
+	            currentMonth = 1;
+	        } else {
+	            currentMonth++;
 	        }
-	        calendarBody.append(row);
+	        generateCalendar(currentYear, currentMonth);
+	        displayCurrentMonth(currentMonth); // 현재 월 표시
+	    });
+
+	    function displayCurrentMonth(month) {
+	        var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+	        $("#currentMonth").text(months[month - 1]);
 	    }
-	}
+	});
 	
-	// 연도와 달을 변경하는 함수
-	function changeYearMonth(offset) {
-	    var currentYear = parseInt($("#yearSelect").val());
-	    var currentMonth = parseInt($("#monthSelect").val());
-	    var newDate = new Date(currentYear, currentMonth - 1 + offset, 1);
-	    var newYear = newDate.getFullYear();
-	    var newMonth = newDate.getMonth() + 1;
-	    $("#yearSelect").val(newYear);
-	    $("#monthSelect").val(newMonth);
-	    generateCalendar(newYear, newMonth);
-	}
-	
-	function formatDate(date) {
-	    var year = date.getFullYear() % 100;
-	    var month = date.getMonth() + 1;
-	    var day = date.getDate();
 
-	    // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
-	    month = month < 10 ? '0' + month : month;
-	    day = day < 10 ? '0' + day : day;
+    function formatDate(date) {
+        var year = date.getFullYear() % 100;
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
 
-	    return year + '/' + month + '/' + day;
-	}
+        // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+
+        return year + '/' + month + '/' + day;
+    }
 </script>
 <script>
             // 페이지 로드 후 실행되는 함수
@@ -275,35 +309,35 @@ function calculateAge(birth) {
                     {
                         label: '칼로리',
                         data: kcalData,
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '탄수화물',
                         data: carbData,
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1))',
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '단백질',
                         data: proteinData,
-                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(255, 206, 86, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '지방',
                         data: fatData,
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderWidth: 1
                     },
                     {
                         label: '당류',
                         data: sugarsData,
-                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderColor: 'rgba(247, 151, 28, 1)',
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderWidth: 1
                     }
@@ -323,17 +357,58 @@ function calculateAge(birth) {
         });
     }
 
-    /* document.addEventListener("DOMContentLoaded", function () {
-        var labels = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-        var selectedWeekDataMap = ${selectedWeekDataMap}// 해당 부분 수정
-        var kcalData = Object.values(selectedWeekDataMap).map(function (item) { return item.kcal; });
-        var carbData = Object.values(selectedWeekDataMap).map(function (item) { return item.carbohydrate; });
-        var proteinData = Object.values(selectedWeekDataMap).map(function (item) { return item.protein; });
-        var fatData = Object.values(selectedWeekDataMap).map(function (item) { return item.fat; });
-        var sugarsData = Object.values(selectedWeekDataMap).map(function (item) { return item.sugars; });
+    
+</script>
+<script>
+    const weekData = {
+      labels: ['일', '월', '화', '수', '목', '금', '토'],
+      datasets: [{
+        label: '칼로리',
+        data: [${weekKcal[0]}, ${weekKcal[1]}, ${weekKcal[2]}, ${weekKcal[3]}, ${weekKcal[4]}, ${weekKcal[5]}, ${weekKcal[6]}],
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 3, 
+        fill: false
+      }, {
+        label: '탄수화물',
+        data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
+        borderColor: 'rgb(54, 162, 235)',
+        borderWidth: 3,
+        fill: false
+      }, {
+        label: '단백질',
+        data: [${weekProtein[0]}, ${weekProtein[1]}, ${weekProtein[2]}, ${weekProtein[3]}, ${weekProtein[4]}, ${weekProtein[5]}, ${weekProtein[6]}],
+        borderColor: 'rgb(255, 206, 86)',
+        borderWidth: 3,
+        fill: false
+      }, {
+        label: '지방',
+        data: [${weekFat[0]}, ${weekFat[1]}, ${weekFat[2]}, ${weekFat[3]}, ${weekFat[4]}, ${weekFat[5]}, ${weekFat[6]}],
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 3,
+        fill: false 
+      }, {
+        label: '당류',
+        data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
+        borderColor: 'rgb(153, 102, 255)',
+        borderWidth: 3,
+        fill: false
+      }]
+    };
 
-        generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, 'combined-line-chart');
-    }); */
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('weeklyChart').getContext('2d');
+        const weeklyChart = new Chart(ctx, {
+            type: 'line',
+            data: weekData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
 </script>
 <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -422,8 +497,8 @@ function calculateAge(birth) {
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToNotice.do">공지사항</a></li>
                         </ul>
                     </div>
                 </li>
@@ -526,49 +601,34 @@ function calculateAge(birth) {
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                               <div class="card-body">
-                              oneDay: ${oneDay}
-                              thisWeek: ${thisWeek}
-                              formattedStartOfWeek: ${formattedStartOfWeek}
-                              selectedWeekDataMap: ${selectedWeekDataMap}
-                              startDate: ${startDate }
-                              finishDate: ${finishDate }
-                              weekKcal: ${weekKcal }
-                              weekCarbo: ${weekCarbo }
-                              weekProtein: ${weekProtein }
-                              weekFat: ${weekFat }
-                              weekSugars: ${weekSugars }
-                              ateList: ${ateList }
 	                                <div>
-	                                    <h4 class="card-title">${convertedDate}</h4>
-	                                    <button id="calendarButton">달력 열기</button>
-	                                    <button onclick="changeYearMonth(-1)">이전 달</button>
-	                                    <button onclick="changeYearMonth(1)">다음 달</button>
-	                                    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
-	                                    <!-- 달력 -->
-										<div id="calendar">
-										    <table>
+									    <h4 class="card-title">${convertedDate}</h4>
+									    <button id="calendarButton">달력 열기</button>
+									    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
+									    <!-- 달력 -->
+									    <div id="calendar" class="calendar-container">
+										    <div class="calendar-header">
+										        <button id="prevMonthButton">이전 달</button>
+										        <span id="currentMonth">2월</span>
+										        <button id="nextMonthButton">다음 달</button>
+										    </div>
+										    <table class="calendar-table">
 										        <thead>
-										        <tr>
-										           <th><button>이전 달</button></th>
-										           <th>5월</th>
-										           <th><button>다음 달</button></th>
-										        </tr>
-										        <tr>
-										            <th>일</th>
-										            <th>월</th>
-										            <th>화</th>
-										            <th>수</th>
-										            <th>목</th>
-										            <th>금</th>
-										            <th>토</th>
-										        </tr>
+										            <tr>
+										                <th>일</th>
+										                <th>월</th>
+										                <th>화</th>
+										                <th>수</th>
+										                <th>목</th>
+										                <th>금</th>
+										                <th>토</th>
+										            </tr>
 										        </thead>
 										        <tbody id="calendarBody">
 										        </tbody>
 										    </table>
 										</div>
-	                                 
-	                                 </div>
+									</div>
 	                                 <div class="chart-flex col-md-12">
 		                                 <canvas id="kcalDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="carbDayChart" class="pieChart col-md-4"></canvas>
@@ -576,10 +636,6 @@ function calculateAge(birth) {
 		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
 	                     			 </div>
-	                                 <div class="chart-flex col-md-12">
-	                                    <canvas id="line-chart" class="line-chart col-md-4"></canvas>
-	                     			 </div>
-	                     			 
 	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
 							            <thead>
 							                <tr>
@@ -673,8 +729,12 @@ function calculateAge(birth) {
 											</c:choose>
 							            </tbody>
 							        </table>
+                                    <div class="chart-flex col-md-12"> 
+                                        <canvas id="weeklyChart" class="weeklyChart col-md-12"></canvas>
+                                    </div>
                                 </div>
                             </div>
+                            
                           </div>
                     </div>  
                 </div>

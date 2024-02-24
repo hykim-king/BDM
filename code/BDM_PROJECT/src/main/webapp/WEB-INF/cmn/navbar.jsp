@@ -2,10 +2,12 @@
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
+<meta name="viewport"  content="width=device-width, initial-scale=1">
 <style>
     .card-body{
         color:#f7e9e8;
@@ -46,13 +48,6 @@
         height: auto;
     }
     
-    #loginFieldset {
-        width: 300px;
-        position: absolute;
-        top:  50%; /* 화면 상단에서 세로 중앙 정렬 */
-        left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
-        <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
-    }
 </style>
 <title>Insert title here</title>
 <script>

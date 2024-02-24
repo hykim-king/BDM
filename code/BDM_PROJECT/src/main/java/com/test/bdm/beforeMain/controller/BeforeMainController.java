@@ -118,7 +118,11 @@ public class BeforeMainController implements PcwkLogger {
 		List<DTO> wordList = beforeMainService.popSearchWord();
 		LOG.debug("wordList:"+wordList);
 		modelAndView.addObject("wordList", wordList);
-		modelAndView.setViewName("main/beforeLoginMain");
+		
+		List<NewsVO> newsList =  newsService.doRetrieve(inVO);
+		
+		modelAndView.addObject("newsList", newsList);
+		
 		if(httpSession.getAttribute("user") != null) {
 			modelAndView.setViewName("main/afterLoginMain");
 		}
