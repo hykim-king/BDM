@@ -11,5 +11,5 @@ public interface WorkDiv<T> {
 		int doDelete(T inVO) throws SQLException;
 		T doSelectOne(T inVO) throws SQLException, EmptyResultDataAccessException;
 		int doSave(T inVO) throws SQLException;
-		// List<T> doRetrieve(T inVO) throws SQLException;
 }
+
