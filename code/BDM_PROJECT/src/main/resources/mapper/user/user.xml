@@ -5,6 +5,29 @@
   
   <mapper namespace="com.test.bdm.user">
   
+    <update id="changePassword" parameterType = "UserVO">
+        UPDATE USERS
+        SET pw = #{pw}
+        WHERE id = #{id}
+    </update>
+  
+    <select id="doFindPassword" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "UserVO">
+        SELECT pw
+        FROM users
+        WHERE name = #{name}
+        AND birth = #{birth}
+        AND id = #{id}
+        AND email = #{email}
+    </select>  
+  
+    <select id="doFindId" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "UserVO">
+        SELECT id
+        FROM users
+        WHERE name = #{name}
+        AND birth = #{birth}
+        AND email = #{email}
+    </select>
+  
     <update id="doUpdate" parameterType = "UserVO">
         UPDATE USERS
         SET height = #{height},

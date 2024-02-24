@@ -64,14 +64,11 @@ public class NoticeController implements PcwkLogger {
 		model.addAttribute("divCode", codeList);
 		model.addAttribute("paramVO", inVO);
 		
-		//공지사항:10, 자유게시판:20
-		String title = "";
-		if(inVO.getSearchDiv().equals("10")) {
-			title = "공지사항-등록";
-		}else {
-			title = "자유게시판-등록";
-		}
-		model.addAttribute("title", title);	
+		/*
+		 * //공지사항:10, 자유게시판:20 String title = ""; if(inVO.getSearchDiv().equals("10")) {
+		 * title = "공지사항-등록"; }else { title = "자유게시판-등록"; } model.addAttribute("title",
+		 * title);
+		 */
 		
 		
 		
@@ -81,10 +78,10 @@ public class NoticeController implements PcwkLogger {
 	
 	@GetMapping(value = "/doRetrieve.do")
 	public ModelAndView doRetrieve(NoticeVO inVO, ModelAndView modelAndView) throws SQLException{
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ BoardVO                           │"+inVO);
-		LOG.debug("└───────────────────────────────────┘");
+		LOG.debug("─────────────────────────────────────");
+		LOG.debug("doRetrieve"                           );
+		LOG.debug("noticeVO: " + inVO                    );
+		LOG.debug("─────────────────────────────────────");
 		//Default처리
 		//페이지 사이즈:10
 		if(null != inVO && inVO.getPageSize() == 0) {
@@ -104,10 +101,10 @@ public class NoticeController implements PcwkLogger {
 		if(null != inVO && null == inVO.getSearchWord()) {
 			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
 		}
-		LOG.debug("│ NoticeVO Default처리                          │"+inVO);
+		LOG.debug("NoticeVO Default처리: " + inVO);
 		//코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes =new HashMap<String, Object>();
-		String[] codeStr = {"PAGE_SIZE","SEARCH"};
+		String[] codeStr = {"PAGE_SIZE","QA_SEARCH"};
 		
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
@@ -117,7 +114,7 @@ public class NoticeController implements PcwkLogger {
 		
 		
 		for(CodeVO vo :codeList) {
-			if(vo.getCategory().equals("SEARCH")) {
+			if(vo.getCategory().equals("QA_SEARCH")) {
 				noticeSearchList.add(vo);
 			}
 			
@@ -132,7 +129,7 @@ public class NoticeController implements PcwkLogger {
 		
 		long totalCnt = 0;
 		//총글수 
-		for(NoticeVO vo  :list) {
+		for(NoticeVO vo: list) {
 			if(totalCnt == 0) {
 				totalCnt = vo.getTotalCnt();
 				break;
@@ -148,7 +145,7 @@ public class NoticeController implements PcwkLogger {
 		modelAndView.addObject("paramVO", inVO);  
 		
 		//검색조건
-		modelAndView.addObject("boardSearch", noticeSearchList);
+		modelAndView.addObject("noticeSearch", noticeSearchList);
 		
 		//페이지 사이즈
 		modelAndView.addObject("pageSize",pageSizeList);
@@ -158,54 +155,14 @@ public class NoticeController implements PcwkLogger {
 		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
 				"/bdm/notice/doRetrieve.do", "pageDoRerive");
 		modelAndView.addObject("pageHtml", html);
-		
-		
-		//공지사항:10, 자유게시판:20
-		String title = "";
-		if(inVO.getSearchDiv().equals("10")) {
-			title = "공지사항-목록";
-		}else {
-			title = "자유게시판-목록";
-		}
-		modelAndView.addObject("title", title);	
 			
 		return modelAndView;   
 	}
 	
-	@PostMapping(value = "/doUpdate.do", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public MessageVO doUpdate(NoticeVO inVO) throws SQLException{
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ doUpdate                          │");
-		LOG.debug("│ NoticeVO                          │"+inVO);
-		LOG.debug("└───────────────────────────────────┘");
-		
-		int flag = service.doUpdate(inVO);
-		////현재 스레드에서 설정된 Locale이 반환
-		Locale  locale= LocaleContextHolder.getLocale();
-		
-		String message = "";
-		if(1==flag) {
-			//message = "수정 되었습니다.";
-			message = messageSource.getMessage("common.message.update", null, locale);
-			LOG.debug("│ message                           │"+message);
-			//파라메터 치환
-			String update = "수정";
-			message = MessageFormat.format(message, update);
-			LOG.debug("│ message                           │"+message);
-		}else {
-			message = "수정 실패.";
-		}
-		
-		MessageVO messageVO=new MessageVO(flag+"",message);
-		LOG.debug("│ messageVO                           │"+messageVO);
-		return messageVO;
-		
-	}
 	
-	@GetMapping(value = "/doSelectOne.do")
+	@GetMapping(value = "/noticeView.do")
 	public String doSelectOne(NoticeVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException{
-		String view = "notice/board_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
+		String view = "notice/notice_view";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doSelectOne                       │");
 		LOG.debug("│ NoticeVO                          │"+inVO);

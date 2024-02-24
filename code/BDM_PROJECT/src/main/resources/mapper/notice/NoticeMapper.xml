@@ -42,6 +42,7 @@
 	    FROM (
 	        SELECT 
 	        	tt1.post_no,
+	        	tt1.rnum as no,
 		        tt1.title, 
 		        tt1.contents,
 		        --당일 등록: 시:분, 그렇치 않으면 년-월-일

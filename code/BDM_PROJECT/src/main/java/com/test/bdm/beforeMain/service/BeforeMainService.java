@@ -17,4 +17,6 @@ public interface BeforeMainService {
 	int loginCheck(UserVO inVO)throws SQLException;
 	
 	UserVO doSelectOne(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
+	
+	int doSaveSearch(int gender, int birth, String words) throws SQLException;
 }

@@ -6,6 +6,8 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded",function() {
@@ -80,22 +82,6 @@ document.addEventListener("DOMContentLoaded",function() {
 </script>
 </head>
 <body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active"
-            aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
-        </li>
-        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown" href="#" role="button"
-            aria-expanded="false">MEMBER</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원가입</a></li>
-            </ul></li>
-        <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a>
-        </li>
-        <li class="nav-item"><a class="nav-link"
-            href="/bdm/beforeMain/moveToMain.do" tabindex="-1"
-            aria-disabled="true">로그인</a></li>
-    </ul>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
