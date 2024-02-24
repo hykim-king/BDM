@@ -7,6 +7,7 @@
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -18,16 +19,24 @@ document.addEventListener("DOMContentLoaded", function () {
 	const qaForm = document.querySelector("#qaFrm");
 	const searchWordTxt = document.querySelector("#searchWord");
 	const rows = document.querySelectorAll("#qaTable>tbody>tr");
+	const loginId = '${user.id}';
 
 	rows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
 		let cells = row.getElementsByTagName("td");
+		
 		const postNo = cells[4].innerText;
+		const disclosure = cells[5].innerText;
+		const login = cells[3].innerText;
 		console.log('postNo:'+ postNo);
-					    
-		if(confirm('상세 조회 하시겠습니까?') == false) return;
-
-		window.location.href = "/bdm/qa/qaView.do?postNo=" + postNo;
+		
+		if(disclosure === '0' || loginId === login || ${user.userFilter eq '1'}){
+			if(confirm('상세 조회 하시겠습니까?') == false) return;
+			window.location.href = "/bdm/qa/qaView.do?postNo=" + postNo;
+		} else{
+			alert('공개를 희망하지 않는 질문입니다.');
+		}
+			
 		});
 	});
 
@@ -66,13 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		let qaForm = document.qaFrm;
 		qaForm.pageNo.value = pageNo;
 		
-		// 여기서 disclosure 값을 확인
-	    let disclosureValues = document.querySelectorAll("#qaTable tbody td:nth-child(7)");
-
-	    if (disclosureValues == 1) {
-	        alert("비공개 질문입니다.");
-	        return; // doSelectOne을 실행하지 않고 함수 종료
-	    }
 		qaForm.action = "/bdm/qa/doRetrieve.do";
 		console.log("doRetrieve pageNO:" + qaForm.pageNo.value);
 		qaForm.submit();
@@ -170,18 +172,44 @@ function pageDoRerive(url, pageNo) {
 										<td class="text-center col-lg-1  col-sm-1">
 											<c:out value="${status.index+1}" escapeXml="true" />
 										</td>
-										<td class="text-left   col-lg-7  col-sm-8">
-											<c:out value="${vo.title}" escapeXml="true" />
-										</td>
+										
+										<td class="text-left col-lg-7 col-sm-8">
+            								<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                								<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+                    								<c:out value="${vo.title}" escapeXml="true" />
+                								</a>
+            								</c:if>
+            								<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                								<c:out value="비공개글입니다." />
+            								</c:if>
+        								</td>
+										
 										<td class="text-center col-lg-2  col-sm-1">
-											<c:out value="${vo.regDt}" escapeXml="true" />
+											<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                								<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+													<c:out value="${vo.regDt}" escapeXml="true" />
+												</a>
+											</c:if>
+											<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                								<c:out value="" />
+            								</c:if>
 										</td>
-										<td class="col-lg-1 ">
-											<c:out value="${vo.id}" />
+										
+										<td class="col-lg-1">
+											<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                								<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+													<c:out value="${vo.id}" />
+												</a>
+											</c:if>
+											<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                								<c:out value="비공개"/>
+            								</c:if>
 										</td>
+										
 										<td style="display: none;">
 											<c:out value="${vo.postNo}" />
 										</td>
+										
 										<td style="display: none;">
 											${vo.disclosure}
 										</td>

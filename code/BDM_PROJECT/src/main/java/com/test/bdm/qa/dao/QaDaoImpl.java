@@ -70,7 +70,7 @@ public class QaDaoImpl implements PcwkLogger, QaDao {
 		LOG.debug("──────────────────────────────────────────");
 		LOG.debug("getQaSeq"                                  );
 		LOG.debug("statement: " + NAMESPACE + DOT + "getQaSeq");
-		LOG.debug("──────────────────────────────────────────");	
+		LOG.debug("──────────────────────────────────────────");
 		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getQaSeq");
 	}
 
@@ -78,6 +78,15 @@ public class QaDaoImpl implements PcwkLogger, QaDao {
 	public int doDeleteAll(QaVO inVO) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int getDisclosure() throws SQLException {
+		LOG.debug("───────────────────────────────────────────────");
+		LOG.debug("getDisclosure"                                  );
+		LOG.debug("statement: " + NAMESPACE + DOT + "getDisclosure");
+		LOG.debug("────────────────────────────────────────────────");
+		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getDisclosure");
 	}
 
 }
