@@ -12,10 +12,4 @@ public interface WorkDiv<T> {
 		T doSelectOne(T inVO) throws SQLException, EmptyResultDataAccessException;
 		int doSave(T inVO) throws SQLException;
 		// List<T> doRetrieve(T inVO) throws SQLException;
-<<<<<<< HEAD
-		int getDisclosure() throws SQLException;
-=======
->>>>>>> e7dbeee0230a4f8c7dc29d9d7833fb5b3dd3ea15
-
 }
-

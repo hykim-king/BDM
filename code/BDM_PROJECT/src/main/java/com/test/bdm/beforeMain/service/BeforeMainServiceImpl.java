@@ -1,12 +1,14 @@
 package com.test.bdm.beforeMain.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.beforeMain.dao.BeforeMainDao;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.user.domain.UserVO;
 
@@ -55,5 +57,10 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	@Override
 	public int doSaveSearch(int gender, int birth, String words) throws SQLException {
 		return beforeMainDao.doSaveSearch(gender, birth, words);
+	}
+
+	@Override
+	public List<DTO> popSearchWord() throws SQLException {
+		return beforeMainDao.popSearchWord();
 	}
 }

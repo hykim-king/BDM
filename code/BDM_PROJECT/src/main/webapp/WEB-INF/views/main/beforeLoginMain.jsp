@@ -94,24 +94,45 @@ document.addEventListener("DOMContentLoaded", function(){
 
         <legend>로그인</legend>
         <div>
-	        <form action="#" method="post">
-	        
-	            <table>
-	                <tr>
-	                    <td>
-	                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
-	                    </td>
-	                </tr>
-	                <tr>
-	                	<td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
-	                	<td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
-	                	<td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
-	                </tr>
-	            </table>
-	        </form>
-	        <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-	        </div>
+            <form action="#" method="post">
+            
+                <table>
+                    <tr>
+                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
+                        <td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
+                        <td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
+                    </tr>
+                </table>
+            </form>
+            <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
+            </div>
         </div>
     </fieldset>
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+        <legend>인기 검색어</legend>
+        <c:choose>
+             <c:when test="${ not empty wordList }">  
+                 <!-- 반복문 -->
+                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+                     <table>
+                     <tr>
+                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+                     </tr>
+                     </table>
+                 </c:forEach>
+                 <!--// 반복문 -->
+             </c:when>
+             <c:otherwise>
+                 <tr>
+                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+                 </tr>
+             </c:otherwise>
+         </c:choose>
+    </fieldset>
 </body>
+
 </html>
