@@ -81,5 +81,27 @@ document.addEventListener("DOMContentLoaded", function(){
 	        </div>
         </div>
     </fieldset>
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+        <legend>인기 검색어</legend>
+        <c:choose>
+             <c:when test="${ not empty wordList }">  
+                 <!-- 반복문 -->
+                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+                     <table>
+                     <tr>
+                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+                     </tr>
+                     </table>
+                 </c:forEach>
+                 <!--// 반복문 -->
+             </c:when>
+             <c:otherwise>
+                 <tr>
+                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+                 </tr>
+             </c:otherwise>
+         </c:choose>
+    </fieldset>    
 </body>
 </html>

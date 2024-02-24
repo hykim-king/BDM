@@ -100,16 +100,67 @@ public class BeforeMainController implements PcwkLogger {
 		
 	}
 	
-	@RequestMapping(value="/doLogout.do", method = RequestMethod.GET)
-	public String doLogout(HttpSession httpSession) {
-		String view = "main/beforeLoginMain";
+	@GetMapping(value = "/popSearchWord.do")
+	public ModelAndView popSearchWord(DTO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		
+		inVO.setSearchDiv("10");
+		LOG.debug("inVO:"+inVO);
+		List<DTO> wordList = beforeMainService.popSearchWord();
+		LOG.debug("wordList:"+wordList);
+		modelAndView.addObject("wordList", wordList);
+		modelAndView.setViewName("main/beforeLoginMain");
+		if(httpSession.getAttribute("user") != null) {
+			modelAndView.setViewName("main/afterLoginMain");
+		}
+		else {
+			modelAndView.setViewName("main/beforeLoginMain");
+		}		
+		
+		return modelAndView;
+	}	
+	
+	@GetMapping(value="/doLogout.do")
+	public ModelAndView doLogout(DTO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
 		
 		if(httpSession.getAttribute("user") != null) {
 			httpSession.removeAttribute("user");
 			httpSession.invalidate();
 		}
 		
-	     return view;
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		
+		inVO.setSearchDiv("10");
+		LOG.debug("inVO:"+inVO);
+		List<DTO> wordList = beforeMainService.popSearchWord();
+		LOG.debug("wordList:"+wordList);
+		modelAndView.addObject("wordList", wordList);
+		if(httpSession.getAttribute("user") != null) {
+			modelAndView.setViewName("main/afterLoginMain");
+		}
+		else {
+			modelAndView.setViewName("main/beforeLoginMain");
+		}		
+		
+		return modelAndView;
 	}
 	
 	@GetMapping(value = "/doGumsaek.do")

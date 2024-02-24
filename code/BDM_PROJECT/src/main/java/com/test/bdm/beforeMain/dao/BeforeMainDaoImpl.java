@@ -2,11 +2,13 @@ package com.test.bdm.beforeMain.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.user.domain.UserVO;
 
@@ -67,5 +69,13 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 		flag = sqlSessionTemplate.insert(NAMESPACE + DOT + "doSaveSearch", map);
 		
 		return flag;
+	}
+
+	@Override
+	public List<DTO> popSearchWord() throws SQLException {
+		List<DTO> wordList;
+		wordList = sqlSessionTemplate.selectList(NAMESPACE + DOT + "popSearchWord");
+		
+		return wordList;
 	}
 }

@@ -72,7 +72,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 words: searchWordTxtV
             },
             success:function(data){//통신 성공
-                doRetrieve(1, searchWordTxt);
+            	// doRetrieve(1, searchWordTxtV);
+                location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
@@ -96,7 +97,8 @@ document.addEventListener("DOMContentLoaded", function(){
                     words: searchWordTxtV
                 },
                 success:function(data){//통신 성공
-                    doRetrieve(1, searchWordTxt);
+                    // doRetrieve(1, searchWordTxtV);
+                	location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
                 },
                 error:function(data){//실패시 처리
                     console.log("error:"+data);
@@ -124,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="${CP }/beforeMain/moveToMain.do">Balance Diet Management</a>
+		<a class="navbar-brand" href="${CP }/beforeMain/popSearchWord.do">Balance Diet Management</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -132,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
 			<div class="search-container" id="search_area">
 				<div class="search">
 	                <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
-	                    <input type="hidden" name="pageNo" id="pageNo" />
+	                    <input type="hidden" name="pageNo" id="pageNo" value = "1"/>
 	                    <a href="#" class="link_main"> 
 	                        <img src="${CP}/resources/images/logo-mini.png" alt="로고">
 	                    </a>
