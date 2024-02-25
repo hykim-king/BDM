@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="${CP}/resources/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="${CP}/resources/vendors/owl-carousel-2/owl.theme.default.min.css">
-    <link rel="stylesheet" href="${CP}/resources/css/style.css">
+    <link rel="stylesheet" href="${CP}/resources/css/style.css" >
     <link rel="shortcut icon" href="${CP}/resources/images/favicon.png" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
@@ -46,8 +46,16 @@
 	<script src="${CP}/resources/js/dashboard.js"></script>
 <title>Insert title here</title>
 <style>
+	body{
+		background-color: #f7e9e8 !important;
+	}
+	.sidebar{
+		background-color:#f7e9e8 !important;
+		color:#514752;
+	}
 	 .card-body{
 	        background-color:#fdce64;
+	        border: 1px solid #fa9624;
 	 }
 	 .pieChart{
         max-width: 200px;
@@ -100,6 +108,16 @@
     .current-month {
         font-weight: bold;
     }
+    .current-date {
+    background-color: #ee845c;
+    color: white;
+    border-radius: 50%;
+	}
+	.current-date:hover {
+    background-color: #fc424a !important; /* hover 시 변경할 색상 */
+    color: white; /* hover 시 변경할 글자 색상 */
+    border-radius: 50%;
+}
 
     #prevMonthButton,
     #nextMonthButton {
@@ -108,11 +126,24 @@
         cursor: pointer;
         outline: none;
     }
+    .card-footer{
+    	background-color: #fa9624;
+    }
+    .sidebar .sidebar-brand-wrapper{
+    	background-color: #f7e9e8;
+    }
+    .navbar .navbar-menu-wrapper{
+    	background-color: #f7e9e8;
+    	color:#514752;
+    }
+    .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right{
+    
+    }
 </style>
 
 <script>
 function formatDate(date) {
-	var year = date.getFullYear().toString().slice(-2); //뒤의 2자리만 추출
+    var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
 
@@ -124,91 +155,107 @@ function formatDate(date) {
 }
 </script>
 <script>	
-	function generateCalendar(year, month) {
-        var calendarBody = $("#calendarBody");
-        calendarBody.empty(); // 기존 내용 제거
+function generateCalendar(year, month) {
+    var calendarBody = $("#calendarBody");
+    calendarBody.empty(); // 기존 내용 제거
 
-        var currentDate = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
-        var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
+    var currentDate = new Date(); // 현재 날짜 가져오기
+    var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
 
-        var dayCounter = 1;
-        for (var i = 0; i < 6; i++) {
-            var row = $("<tr></tr>");
-            for (var j = 0; j < 7; j++) {
-                var cell = $("<td></td>");
-                if (i === 0 && j < currentDate.getDay()) {
-                    // 앞의 빈 칸 처리
-                    cell.text("");
-                } else if (dayCounter <= daysInMonth) {
-                    cell.text(dayCounter);
-                    dayCounter++;
-                    cell.click(function () {
-                        // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
-                        var clickedDate = new Date(year, month - 1, $(this).text());
-                        var formattedDate = formatDate(clickedDate);
-                        // alert("날짜를 클릭했습니다: " + formattedDate);
-                        console.log('formattedDate: ' + formattedDate);
-                        window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
-                    });
-                }
-                row.append(cell);
+    var dayCounter = 1;
+    for (var i = 0; i < 6; i++) {
+        var row = $("<tr></tr>");
+        for (var j = 0; j < 7; j++) {
+            var cell = $("<td></td>");
+            if (i === 0 && j < currentDate.getDay()) {
+                // 앞의 빈 칸 처리
+                cell.text("");
+            } else if (dayCounter <= daysInMonth) {
+                cell.text(dayCounter);
+                dayCounter++;
+                cell.click(function () {
+                    // 날짜를 클릭했을 때 'yy/mm/dd' 형식으로 출력
+                    var clickedDate = new Date(year, month - 1, $(this).text());
+                    var formattedDate = formatDate(clickedDate);
+                    // alert("날짜를 클릭했습니다: " + formattedDate);
+                    console.log('formattedDate: ' + formattedDate);
+                    window.location.href = "${CP }/nutrient/doRetrieveOneDay.do?regDt=" + formattedDate;
+                });
             }
-            calendarBody.append(row);
+            row.append(cell);
         }
-	}
-        
-
-	$(document).ready(function () {
-	    // 현재 년도와 월을 가져오기
-	    var currentDate = new Date();
-	    var currentYear = currentDate.getFullYear();
-	    var currentMonth = currentDate.getMonth() + 1;
-
-	    generateCalendar(currentYear, currentMonth);
-	    displayCurrentMonth(currentMonth); // 현재 월 표시
-
-	    // 이전 달 버튼 클릭 시
-	    $("#prevMonthButton").click(function () {
-	        if (currentMonth === 1) {
-	            currentYear--;
-	            currentMonth = 12;
-	        } else {
-	            currentMonth--;
-	        }
-	        generateCalendar(currentYear, currentMonth);
-	        displayCurrentMonth(currentMonth); // 현재 월 표시
-	    });
-
-	    // 다음 달 버튼 클릭 시
-	    $("#nextMonthButton").click(function () {
-	        if (currentMonth === 12) {
-	            currentYear++;
-	            currentMonth = 1;
-	        } else {
-	            currentMonth++;
-	        }
-	        generateCalendar(currentYear, currentMonth);
-	        displayCurrentMonth(currentMonth); // 현재 월 표시
-	    });
-
-	    function displayCurrentMonth(month) {
-	        var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-	        $("#currentMonth").text(months[month - 1]);
-	    }
-	});
-	
-
-    function formatDate(date) {
-        var year = date.getFullYear() % 100;
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
-        month = month < 10 ? '0' + month : month;
-        day = day < 10 ? '0' + day : day;
-
-        return year + '/' + month + '/' + day;
+        calendarBody.append(row);
     }
+    markCurrentDate(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate()); // 현재 날짜 표시
+}
+
+$(document).ready(function () {
+    // 현재 년도와 월을 가져오기
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth() + 1;
+
+    generateCalendar(currentYear, currentMonth);
+    displayCurrentMonth(currentMonth); // 현재 월 표시
+    markCurrentDate(currentDate.getDate()); // 현재 날짜 표시
+
+    // 이전 달 버튼 클릭 시
+    $("#prevMonthButton").click(function () {
+        if (currentMonth === 1) {
+            currentYear--;
+            currentMonth = 12;
+        } else {
+            currentMonth--;
+        }
+        generateCalendar(currentYear, currentMonth);
+        displayCurrentMonth(currentMonth); // 현재 월 표시
+        markCurrentDate(0); // 현재 날짜 표시 제거
+    });
+
+    // 다음 달 버튼 클릭 시
+    $("#nextMonthButton").click(function () {
+        if (currentMonth === 12) {
+            currentYear++;
+            currentMonth = 1;
+        } else {
+            currentMonth++;
+        }
+        generateCalendar(currentYear, currentMonth);
+        displayCurrentMonth(currentMonth); // 현재 월 표시
+        markCurrentDate(0); // 현재 날짜 표시 제거
+    });
+});
+
+function displayCurrentMonth(month) {
+    var months = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+    $("#currentMonth").text(months[month - 1]);
+}
+
+function markCurrentDate(year, month, day) {
+    // 현재 날짜의 셀을 찾아서 스타일을 적용
+    var currentDate = new Date(year, month - 1, day);
+    var formattedDate = formatDate(currentDate);
+    $("#calendarBody td").each(function () {
+        var cellDate = new Date(year, month - 1, parseInt($(this).text()));
+        if (cellDate.getFullYear() === year && cellDate.getMonth() === month - 1 && cellDate.getDate() === day) {
+            $(this).addClass("current-date");
+        } else {
+            $(this).removeClass("current-date");
+        }
+    });
+}
+
+function formatDate(date) {
+    var year = date.getFullYear() % 100;
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+
+    // 달이나 일이 한 자리 수일 경우 앞에 0을 붙여줌
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    return year + '/' + month + '/' + day;
+}
 </script>
 <script>
             // 페이지 로드 후 실행되는 함수
@@ -299,63 +346,63 @@ function calculateAge(birth) {
 
 </script>
 <script>
-    function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, canvasId) {
-        var ctx = document.getElementById(canvasId).getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: '칼로리',
-                        data: kcalData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '탄수화물',
-                        data: carbData,
-                        borderColor: 'rgba(247, 151, 28, 1))',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '단백질',
-                        data: proteinData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '지방',
-                        data: fatData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '당류',
-                        data: sugarsData,
-                        borderColor: 'rgba(247, 151, 28, 1)',
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatData, sugarsData, canvasId) {
+    var ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: '칼로리',
+                    data: kcalData,
+                    borderColor: pastelColors[0], // 연한 파랑
+                    backgroundColor: pastelColors[0],
+                    borderWidth: 1
+                },
+                {
+                    label: '탄수화물',
+                    data: carbData,
+                    borderColor: pastelColors[1], // 연한 보라
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: '단백질',
+                    data: proteinData,
+                    borderColor: pastelColors[2], // 연한 노랑
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: '지방',
+                    data: fatData,
+                    borderColor: pastelColors[3], // 연한 주황
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 1
+                },
+                {
+                    label: '당류',
+                    data: sugarsData,
+                    borderColor: pastelColors[4], // 연한 빨강
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderWidth: 1
                 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
-        });
-    }
+        }
+    });
+}
 
     
 </script>
@@ -371,25 +418,25 @@ function calculateAge(birth) {
       }, {
         label: '탄수화물',
         data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
-        borderColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgba(255, 255, 181, 1)',
         borderWidth: 3,
         fill: false
       }, {
         label: '단백질',
         data: [${weekProtein[0]}, ${weekProtein[1]}, ${weekProtein[2]}, ${weekProtein[3]}, ${weekProtein[4]}, ${weekProtein[5]}, ${weekProtein[6]}],
-        borderColor: 'rgb(255, 206, 86)',
+        borderColor: 'rgba(153, 255, 194, 1)',
         borderWidth: 3,
         fill: false
       }, {
         label: '지방',
         data: [${weekFat[0]}, ${weekFat[1]}, ${weekFat[2]}, ${weekFat[3]}, ${weekFat[4]}, ${weekFat[5]}, ${weekFat[6]}],
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(153, 194, 255, 1)',
         borderWidth: 3,
         fill: false 
       }, {
         label: '당류',
         data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
-        borderColor: 'rgb(153, 102, 255)',
+        borderColor: 'rgba(234, 147, 255, 1)',
         borderWidth: 3,
         fill: false
       }]
