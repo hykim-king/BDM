@@ -23,12 +23,14 @@ public class UserVO {
 	private int activity;
 	private String regDt;
 	private int userFilter;
+	private String salt;
 
 	@Override
 	public String toString() {
 		return "UserVO [id=" + id + ", no=" + no + ", pw=" + pw + ", email=" + email + ", name=" + name + ", birth="
 				+ birth + ", gender=" + gender + ", height=" + height + ", weight=" + weight + ", activity=" + activity
-				+ ", regDt=" + regDt + ", userFilter=" + userFilter + ", toString()=" + super.toString() + "]";
+				+ ", regDt=" + regDt + ", userFilter=" + userFilter + ", salt=" + salt + ", toString()="
+				+ super.toString() + "]";
 	}
 
 }

@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     document.querySelector("#pw").focus();                 
                 }else if("30" == data.msgId){
                     alert(data.msgContents);
-                    location.href = "/bdm/beforeMain/moveToAfterMain.do";
+                    location.href = "/bdm/beforeMain/popSearchWord.do";
                 }
             },
             error:function(data){//실패시 처리

@@ -155,8 +155,10 @@ public class BeforeMainController implements PcwkLogger {
 		inVO.setSearchDiv("10");
 		LOG.debug("inVO:"+inVO);
 		List<DTO> wordList = beforeMainService.popSearchWord();
+		List<NewsVO> newsList =  newsService.doRetrieve(inVO);
 		LOG.debug("wordList:"+wordList);
 		modelAndView.addObject("wordList", wordList);
+		modelAndView.addObject("newsList", newsList);
 		if(httpSession.getAttribute("user") != null) {
 			modelAndView.setViewName("main/afterLoginMain");
 		}

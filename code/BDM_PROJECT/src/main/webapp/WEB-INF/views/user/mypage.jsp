@@ -3,6 +3,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="com.test.bdm.nutrient.domain.NutrientVO" %>
+<%@ page import="com.test.bdm.user.domain.UserVO" %>
 <%
     LocalDate today = LocalDate.now();
     LocalDate firstDayOfWeek = today.with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
@@ -339,7 +340,7 @@ function calculateAge(birth) {
 	}
 	
 	var totalDailyKcal = (${user.height} - 100) * 0.9 * ${user.activity};
-	var totalDailyCarb = (totalDailyKcal * 0.4) / 4;
+	var totalDailyCarbo = (totalDailyKcal * 0.4) / 4;
 	var totalDailyProtein = (totalDailyKcal * 0.4) / 4;
 	var totalDailyFat = (totalDailyKcal * 0.2) / 9;
 	var totalDailySugars = 30;
@@ -411,31 +412,31 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
       labels: ['일', '월', '화', '수', '목', '금', '토'],
       datasets: [{
         label: '칼로리',
-        data: [${weekKcal[0]}, ${weekKcal[1]}, ${weekKcal[2]}, ${weekKcal[3]}, ${weekKcal[4]}, ${weekKcal[5]}, ${weekKcal[6]}],
+        data: [${weekKcal[0]}/totalDailyKcal*100, ${weekKcal[1]}/totalDailyKcal*100, ${weekKcal[2]}/totalDailyKcal*100, ${weekKcal[3]}/totalDailyKcal*100, ${weekKcal[4]}/totalDailyKcal*100, ${weekKcal[5]}/totalDailyKcal*100, ${weekKcal[6]}/totalDailyKcal*100],
         borderColor: 'rgb(255, 99, 132)',
         borderWidth: 3, 
         fill: false
       }, {
         label: '탄수화물',
-        data: [${weekCarbo[0]}, ${weekCarbo[1]}, ${weekCarbo[2]}, ${weekCarbo[3]}, ${weekCarbo[4]}, ${weekCarbo[5]}, ${weekCarbo[6]}],
+        data: [${weekCarbo[0]}/totalDailyCarbo*100, ${weekCarbo[1]}/totalDailyCarbo*100, ${weekCarbo[2]}/totalDailyCarbo*100, ${weekCarbo[3]}/totalDailyCarbo*100, ${weekCarbo[4]}/totalDailyCarbo*100, ${weekCarbo[5]}/totalDailyCarbo*100, ${weekCarbo[6]}/totalDailyCarbo*100],
         borderColor: 'rgba(255, 255, 181, 1)',
         borderWidth: 3,
         fill: false
       }, {
         label: '단백질',
-        data: [${weekProtein[0]}, ${weekProtein[1]}, ${weekProtein[2]}, ${weekProtein[3]}, ${weekProtein[4]}, ${weekProtein[5]}, ${weekProtein[6]}],
+        data: [${weekProtein[0]}/totalDailyProtein*100, ${weekProtein[1]}/totalDailyProtein*100, ${weekProtein[2]}/totalDailyProtein*100, ${weekProtein[3]}/totalDailyProtein*100, ${weekProtein[4]}/totalDailyProtein*100, ${weekProtein[5]}/totalDailyProtein*100, ${weekProtein[6]}/totalDailyProtein*100],
         borderColor: 'rgba(153, 255, 194, 1)',
         borderWidth: 3,
         fill: false
       }, {
         label: '지방',
-        data: [${weekFat[0]}, ${weekFat[1]}, ${weekFat[2]}, ${weekFat[3]}, ${weekFat[4]}, ${weekFat[5]}, ${weekFat[6]}],
+        data: [${weekFat[0]}/totalDailyFat*100, ${weekFat[1]}/totalDailyFat*100, ${weekFat[2]}/totalDailyFat*100, ${weekFat[3]}/totalDailyFat*100, ${weekFat[4]}/totalDailyFat*100, ${weekFat[5]}/totalDailyFat*100, ${weekFat[6]}/totalDailyFat*100],
         borderColor: 'rgba(153, 194, 255, 1)',
         borderWidth: 3,
         fill: false 
       }, {
         label: '당류',
-        data: [${weekSugars[0]}, ${weekSugars[1]}, ${weekSugars[2]}, ${weekSugars[3]}, ${weekSugars[4]}, ${weekSugars[5]}, ${weekSugars[6]}],
+        data: [${weekSugars[0]}/totalDailySugars*100, ${weekSugars[1]}/totalDailySugars*100, ${weekSugars[2]}/totalDailySugars*100, ${weekSugars[3]}/totalDailySugars*100, ${weekSugars[4]}/totalDailySugars*100, ${weekSugars[5]}/totalDailySugars*100, ${weekSugars[6]}/totalDailySugars*100],
         borderColor: 'rgba(234, 147, 255, 1)',
         borderWidth: 3,
         fill: false
@@ -482,7 +483,6 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
                     },
                     success:function(data){//통신 성공     
                        alert('로그아웃 되었습니다.');
-                       window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
                     },
                     error:function(data){//실패시 처리
                         console.log("error:"+data);
@@ -506,7 +506,7 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
 	            // Generate pie charts for each nutrient
 	            var colors = getPastelColors(5);
 	            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
-	            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarb);
+	            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarbo);
 	            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
 	            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
 	            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
@@ -516,6 +516,21 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
 </script>
 </head>
 <body>
+    <%
+        UserVO sessionData = (UserVO) session.getAttribute("user");
+        // 위에서 선언한 변수들을 사용
+        double totalDailyKcal = ((sessionData.getHeight() - 100) * 0.9 * sessionData.getActivity());
+        double totalDailyCarbo = Math.round((totalDailyKcal * 0.4) / 4 * 100.0) / 100.0;
+        double totalDailyProtein = Math.round((totalDailyKcal * 0.4) / 4 * 100.0) / 100.0;
+        double totalDailyFat = Math.round((totalDailyKcal * 0.2) / 9 * 100.0) / 100.0;
+        int totalDailySugars = 30;
+    %>
+    <c:set var="totalDailyKcal" value="<%= totalDailyKcal %>" />
+    <c:set var="totalDailyCarbo" value="<%= totalDailyCarbo %>" />
+    <c:set var="totalDailyProtein" value="<%= totalDailyProtein %>" />
+    <c:set var="totalDailyFat" value="<%= totalDailyFat %>" />
+    <c:set var="totalDailySugars" value="<%= totalDailySugars %>" />
+    
     <div class ="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -527,7 +542,7 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
                     <span class="nav-link">Navigation</span>
                 </li>
                 <li class="nav-item menu-item">
-                    <a class="nav-link" href="/bdm/beforeMain/moveToAfterMain.do">
+                    <a class="nav-link" href="/bdm/beforeMain/popSearchWord.do">
                         <span class="menu-icon">
                             <i class="mdi mdi-speedometer"></i>
                         </span>
@@ -544,13 +559,13 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a></li>
-                          <li class="nav-item"> <a class="nav-link" href="/bdm/beforeMain/moveToNotice.do">공지사항</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
+                          <li class="nav-item"> <a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">
+                    <a class="nav-link" href="/bdm/news/doRetrieve.do">
                       <span class="menu-icon">
                         <i class="mdi mdi-playlist-play"></i>
                       </span>
@@ -649,6 +664,7 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
                             <div class="card">
                               <div class="card-body">
 	                                <div>
+	                                    <h2>일일 섭취량</h2>
 									    <h4 class="card-title">${convertedDate}</h4>
 									    <button id="calendarButton">달력 열기</button>
 									    <span>*예전 기록이 궁금하다면 클릭해서 해당 날짜로 이동*</span>
@@ -683,6 +699,120 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
 		                                 <canvas id="fatDayChart" class="pieChart col-md-4"></canvas>
 		                                 <canvas id="sugarsDayChart" class="pieChart col-md-4"></canvas>
 	                     			 </div>
+	                     			 <!-- FeedBack 부분 시작 -->
+	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope = "col" class = "text-center">영양소</th>
+                                                <th scope = "col" class = "text-center">상태</th>
+                                                <th scope = "col" class = "text-center">현황</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+		                                        <td class="text-center">
+		                                            <c:out value="열량" escapeXml="true" />
+		                                        </td>
+		                                        <c:choose>
+		                                          <c:when test="${totalDailyKcal > oneDay.kcal}">
+			                                          <td class="text-center">
+			                                            <c:out value="부족" escapeXml="true" />
+			                                          </td>
+		                                          </c:when>
+		                                          <c:otherwise>
+		                                              <td class="text-center">
+                                                        <c:out value="초과" escapeXml="true" />
+                                                      </td>
+		                                          </c:otherwise>
+		                                        </c:choose>
+		                                        <td class="text-center">
+		                                            <c:out value= "${totalDailyKcal}g 중 ${oneDay.kcal}g 섭취" escapeXml="true" />
+		                                        </td>
+		                                    </tr>
+		                                    <tr>
+                                                <td class="text-center">
+                                                    <c:out value="탄수화물" escapeXml="true" />
+                                                </td>
+                                                <c:choose>
+                                                  <c:when test="${totalDailyCarbo > oneDay.carbohydrate}">
+                                                      <td class="text-center">
+                                                        <c:out value="부족" escapeXml="true" />
+                                                      </td>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <td class="text-center">
+                                                        <c:out value="초과" escapeXml="true" />
+                                                      </td>
+                                                  </c:otherwise>
+                                                </c:choose>
+                                                <td class="text-center">
+                                                    <c:out value="${totalDailyCarbo}g 중 ${oneDay.carbohydrate}g 섭취" escapeXml="true" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <c:out value="단백질" escapeXml="true" />
+                                                </td>
+                                                <c:choose>
+                                                  <c:when test="${totalDailyProtein > oneDay.protein}">
+                                                      <td class="text-center">
+                                                        <c:out value="부족" escapeXml="true" />
+                                                      </td>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <td class="text-center">
+                                                        <c:out value="초과" escapeXml="true" />
+                                                      </td>
+                                                  </c:otherwise>
+                                                </c:choose>
+                                                <td class="text-center">
+                                                    <c:out value="${totalDailyProtein}g 중 ${oneDay.protein}g 섭취" escapeXml="true" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <c:out value="지방" escapeXml="true" />
+                                                </td>
+                                                <c:choose>
+                                                  <c:when test="${totalDailyFat > oneDay.fat}">
+                                                      <td class="text-center">
+                                                        <c:out value="부족" escapeXml="true" />
+                                                      </td>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <td class="text-center">
+                                                        <c:out value="초과" escapeXml="true" />
+                                                      </td>
+                                                  </c:otherwise>
+                                                </c:choose>
+                                                <td class="text-center">
+                                                    <c:out value="${totalDailyFat}g 중 ${oneDay.fat}g 섭취" escapeXml="true" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <c:out value="당류" escapeXml="true" />
+                                                </td>
+                                                <c:choose>
+                                                  <c:when test="${totalDailySugars > oneDay.sugars}">
+                                                      <td class="text-center">
+                                                        <c:out value="부족" escapeXml="true" />
+                                                      </td>
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                      <td class="text-center">
+                                                        <c:out value="초과" escapeXml="true" />
+                                                      </td>
+                                                  </c:otherwise>
+                                                </c:choose>
+                                                <td class="text-center">
+                                                    <c:out value="${totalDailySugars}g 중 ${oneDay.sugars}g 섭취" escapeXml="true" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                     <br/><br/>
+	                     			 <!-- FeedBack 부분 끝 -->
 	                     			 <table class = "table table-bordered border-primary table-hover table-striped" id = "foodTable">
 							            <thead>
 							                <tr>
@@ -776,6 +906,8 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
 											</c:choose>
 							            </tbody>
 							        </table>
+							        <br/><br/>
+							        <h2>주간 섭취량</h2>
                                     <div class="chart-flex col-md-12"> 
                                         <canvas id="weeklyChart" class="weeklyChart col-md-12"></canvas>
                                     </div>
