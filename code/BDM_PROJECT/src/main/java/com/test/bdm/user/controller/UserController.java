@@ -28,7 +28,12 @@ public class UserController implements PcwkLogger {
 	UserService userService;
 
 	private static final int SALT_SIZE = 16;
-
+	
+	@GetMapping(value = "/moveToDelete.do")
+	public String moveToDelete() throws SQLException {
+		return "user/user_delete";
+	}
+	
 	@GetMapping(value = "/changePassword.do")
 	public String changePassword() throws SQLException {
 		return "account/account_changePassword";
@@ -93,6 +98,34 @@ public class UserController implements PcwkLogger {
 
 		return jsonString;
 	}
+	
+	@GetMapping(value = "/doDelete.do", produces = "application/json;charset=UTF-8") // RequestMethod.GET)
+	@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
+	public MessageVO doDelete(UserVO inVO) throws SQLException {
+
+		int count = userService.doCheckPassword(inVO);
+		int flag = 0;
+		String message = "";
+
+		if (count == 1) {
+			flag = userService.doDelete(inVO);
+		} else {
+			message = "잘못된 비밀번호 입니다.";
+			MessageVO messageVO = new MessageVO(String.valueOf(flag), message);
+			return messageVO;
+		}
+
+		if (1 == flag) {// 삭제 성공
+			message = "그 동안 서비스를 이용해 주셔서 감사합니다.";
+		} else {
+			message = "탈퇴 실패!";
+		}
+
+		MessageVO messageVO = new MessageVO(String.valueOf(flag), message);
+
+		LOG.debug("│ messageVO                           │" + messageVO);
+		return messageVO;
+	}	
 
 	// =========================================================================
 

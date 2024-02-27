@@ -44,6 +44,11 @@ public class BeforeMainController implements PcwkLogger {
 	@Autowired
 	NewsService newsService;
 	
+	@GetMapping(value = "/moveToUserMonitor.do")
+	public String moveToUserMonitor() throws SQLException {
+		return "user/user_monitor";
+	}
+	
 	@GetMapping(value = "/moveToFindPassword.do")
 	public String moveToFindPassword() throws SQLException {
 		return "account/account_findPassword";

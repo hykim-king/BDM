@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 	public int changePassword(UserVO inVO) throws SQLException {
 		return userDao.changePassword(inVO);
 	}
+	
+	@Override
+	public int doDelete(UserVO inVO) throws SQLException {
+		return userDao.doDelete(inVO);
+	}
 }

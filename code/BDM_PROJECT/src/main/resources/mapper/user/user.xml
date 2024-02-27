@@ -5,6 +5,11 @@
   
   <mapper namespace="com.test.bdm.user">
 
+    <delete id="doDelete" parameterType = "UserVO">
+        DELETE FROM USERS
+        WHERE id = #{id}
+    </delete>
+
     <select id = "doFindSalt" parameterType = "UserVO" resultType = "UserVO">
         SELECT SALT
         FROM USERS

@@ -459,60 +459,98 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
     });
 </script>
 <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const addBtn = document.querySelector("#add");
-            const moveToModBtn = document.querySelector("#moveToMod");
-            const logoutBtn = document.querySelector("#logout");
-            
-            addBtn.addEventListener("click", function (e) {
-                console.log("moveToNutBTN")
-                window.location.href = "/bdm/nutrient/moveToNut.do";
-            });
-            
-            moveToModBtn.addEventListener("click", function(e){
-            	window.location.href = "/bdm/user/moveToMod.do";
-            });
-            
-            logoutBtn.addEventListener("click", function(e){
-            	$.ajax({
-                    type: "GET",
-                    url:"/bdm/beforeMain/doLogout.do",
-                    asyn:"true",
-                    dataType:"html",
-                    data:{
-                    },
-                    success:function(data){//통신 성공     
-                       alert('로그아웃 되었습니다.');
-                    },
-                    error:function(data){//실패시 처리
-                        console.log("error:"+data);
-                    },
-                    complete:function(data){//성공/실패와 관계없이 수행!
-                        console.log("complete:"+data);
-                    }
-                });
-            });
+document.addEventListener("DOMContentLoaded", function () {
+    const addBtn = document.querySelector("#add");
+    const moveToModBtn = document.querySelector("#moveToMod");
+    const logoutBtn = document.querySelector("#logout");
+    const foodRows = document.querySelectorAll("#foodTable>tbody>#trId");
+    
+    foodRows.forEach(function (row) {
+        row.addEventListener('dblclick', function(e) {
+         let cells = row.getElementsByTagName("td");
+         const foodName = cells[1].innerText;
+         const code = cells[3].innerText;
+         const regDt = cells[4].innerText;
+         const id = '${user.id}';
+         console.log('foodName:'+ foodName);
+         console.log('code:'+ code);
+         console.log('regDt:'+ regDt);
+         console.log('id:'+ id);
+                         
+         if(confirm(foodName + '삭제 하시겠습니까?') == false) return;
 
-            $(document).ready(function () {
-                $("#calendarButton").click(function () {
-                    $("#calendar").toggle();
-                    var currentYear = new Date().getFullYear();
-                    var currentMonth = new Date().getMonth() + 1;
-                    generateCalendar(currentYear, currentMonth);
-                });
-            });
-            
-	        <c:if test="${not empty oneDay}">
-	            // Generate pie charts for each nutrient
-	            var colors = getPastelColors(5);
-	            generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
-	            generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarbo);
-	            generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
-	            generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
-	            generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
-            </c:if>
+         $.ajax({
+             type: "GET",
+             url:"/bdm/nutrient/doDelete.do",
+             asyn:"true",
+             dataType:"html",
+             data:{
+             	id: id,
+             	code: code,
+             	regDt: regDt
+             },
+             success:function(data){//통신 성공     
+                alert('삭제 되었습니다.');
+                window.location.href = "/bdm/nutrient/doRetrieveOneDay.do";
+             },
+             error:function(data){//실패시 처리
+                 console.log("error:"+data);
+             },
+             complete:function(data){//성공/실패와 관계없이 수행!
+                 console.log("complete:"+data);
+             }
+         });
         });
+    });
+    
+    addBtn.addEventListener("click", function (e) {
+        console.log("moveToNutBTN")
+        window.location.href = "/bdm/nutrient/moveToNut.do";
+    });
+    
+    moveToModBtn.addEventListener("click", function(e){
+    	window.location.href = "/bdm/user/moveToMod.do";
+    });
+    
+    logoutBtn.addEventListener("click", function(e){
+    	$.ajax({
+            type: "GET",
+            url:"/bdm/beforeMain/doLogout.do",
+            asyn:"true",
+            dataType:"html",
+            data:{
+            },
+            success:function(data){//통신 성공     
+               alert('로그아웃 되었습니다.');
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });
+    });
 
+    $(document).ready(function () {
+        $("#calendarButton").click(function () {
+            $("#calendar").toggle();
+            var currentYear = new Date().getFullYear();
+            var currentMonth = new Date().getMonth() + 1;
+            generateCalendar(currentYear, currentMonth);
+        });
+    });
+    
+ <c:if test="${not empty oneDay}">
+     // Generate pie charts for each nutrient
+     var colors = getPastelColors(5);
+     generateNutrientPieChart(${oneDay.kcal }, '칼로리', 'kcalDayChart', colors.slice(0, 1), totalDailyKcal);
+     generateNutrientPieChart(${oneDay.carbohydrate}, '탄수화물', 'carbDayChart', colors.slice(1, 2), totalDailyCarbo);
+     generateNutrientPieChart(${oneDay.protein}, '단백질', 'proteinDayChart', colors.slice(2, 3), totalDailyProtein);
+     generateNutrientPieChart(${oneDay.fat}, '지방', 'fatDayChart', colors.slice(3, 4), totalDailyFat);
+     generateNutrientPieChart(${oneDay.sugars}, '당류', 'sugarsDayChart', colors.slice(4, 5), totalDailySugars);
+    </c:if>
+});
 </script>
 </head>
 <body>
@@ -891,10 +929,12 @@ function generateCombinedLineChart(labels, kcalData, carbData, proteinData, fatD
                                                                 </c:if>
                                                             </c:when>
 											            </c:choose>
-											            <tr>
+											            <tr id = "trId">
 											                <td class="text-center"><c:out value="${status.index + 1}" escapeXml="true"/></td>
 											                <td class="text-center"><c:out value="${vo.name}" escapeXml="true"/></td>
-											                <td class="text-center"><c:out value="${vo.protein}인분" escapeXml="true"/></td>
+											                <td class="text-center"><c:out value="${vo.amount}인분" escapeXml="true"/></td>
+											                <td style="display: none;"><c:out value="${vo.code}" /></td>
+											                <td style="display: none;"><c:out value="${vo.regDt}" /></td>
 											            </tr>
 											        </c:forEach>
 											    </c:when>

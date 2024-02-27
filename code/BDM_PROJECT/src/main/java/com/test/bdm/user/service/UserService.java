@@ -21,4 +21,6 @@ public interface UserService {
 	UserVO doFindPassword(UserVO inVO) throws SQLException;
 	
 	int changePassword(UserVO inVO) throws SQLException;
+
+	int doDelete(UserVO inVO) throws SQLException;
 }
