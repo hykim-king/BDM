@@ -63,4 +63,9 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	public List<DTO> popSearchWord() throws SQLException {
 		return beforeMainDao.popSearchWord();
 	}
+
+	@Override
+	public UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
+		return beforeMainDao.doSelectOneByEmail(inVO);
+	}
 }

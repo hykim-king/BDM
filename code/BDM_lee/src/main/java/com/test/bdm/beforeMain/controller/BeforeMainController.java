@@ -27,6 +27,7 @@ import com.test.bdm.news.service.NewsService;
 import com.test.bdm.notice.domain.NoticeVO;
 import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.user.domain.UserVO;
+import com.test.bdm.user.service.UserService;
 
 @Controller
 @RequestMapping("beforeMain")
@@ -43,6 +44,11 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	NewsService newsService;
+	
+	@GetMapping(value = "/moveKakaologin.do")
+	public String moveKakaologin() throws SQLException {
+		return "account/account_kakao_login";
+	}
 	
 	@GetMapping(value = "/moveToFindPassword.do")
 	public String moveToFindPassword() throws SQLException {
@@ -98,6 +104,16 @@ public class BeforeMainController implements PcwkLogger {
 			return "main/beforeLoginMain";
 		}
 		
+	}
+	
+	@GetMapping(value= "/doApiLogin.do")
+	public ModelAndView doApiLogin(UserVO inVO, ModelAndView modelAndView) throws SQLException{
+		UserVO outVO = beforeMainService.doSelectOneByEmail(inVO);
+		
+		modelAndView.addObject("outVO", outVO);
+		modelAndView.setViewName(viewName);
+		
+		return modelAndView;
 	}
 	
 	@GetMapping(value = "/popSearchWord.do")

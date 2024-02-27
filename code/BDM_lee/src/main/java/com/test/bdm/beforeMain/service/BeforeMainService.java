@@ -17,4 +17,6 @@ public interface BeforeMainService {
 	int doSaveSearch(int gender, int birth, String words) throws SQLException;
 	
 	List<DTO> popSearchWord() throws SQLException;
+	
+	UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
 }
