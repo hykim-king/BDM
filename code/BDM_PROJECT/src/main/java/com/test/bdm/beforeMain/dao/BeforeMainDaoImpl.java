@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.user.controller.UserController;
 import com.test.bdm.user.domain.UserVO;
 
 @Repository
@@ -34,13 +35,16 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 	}
 
 	@Override
-	public int idPassCheck(UserVO inVO) throws SQLException {
+	public int idPassCheck(UserVO inVO) throws Exception {
+		UserController controller = new UserController();
 		int count = 0;
 		LOG.debug("1.param :" + inVO.toString());
-		String statement = NAMESPACE+DOT+"idPassCheck";
-		LOG.debug("2.statement :" + statement);
+		UserVO outVO = sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doFindSalt", inVO);
+		String salt = outVO.getSalt();
+		byte[] password = controller.String_to_Byte(inVO.getPw());
+		inVO.setPw(controller.Hashing(password, salt));
 		
-		count =sqlSessionTemplate.selectOne(statement, inVO);
+		count =sqlSessionTemplate.selectOne(NAMESPACE+DOT+"idPassCheck", inVO);
 		LOG.debug("3.count :n" + count);
 		return count;
 	}

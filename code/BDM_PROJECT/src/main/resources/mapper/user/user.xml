@@ -4,7 +4,18 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.test.bdm.user">
-  
+
+    <delete id="doDelete" parameterType = "UserVO">
+        DELETE FROM USERS
+        WHERE id = #{id}
+    </delete>
+
+    <select id = "doFindSalt" parameterType = "UserVO" resultType = "UserVO">
+        SELECT SALT
+        FROM USERS
+        WHERE id = #{id}
+    </select>
+
     <update id="changePassword" parameterType = "UserVO">
         UPDATE USERS
         SET pw = #{pw}
@@ -67,7 +78,8 @@
 	        weight,
 	        activity,
 	        reg_dt,
-	        user_filter
+	        user_filter,
+	        salt
         ) VALUES (          
             #{id},
             users_seq.NEXTVAL,
@@ -80,7 +92,8 @@
             #{weight},
             #{activity},
             SYSDATE,
-            2
+            2,
+            #{salt}
         )                   
     </insert>
     

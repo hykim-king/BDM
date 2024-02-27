@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.nutrient.dao.NutrientDao;
+import com.test.bdm.nutrient.domain.EatVO;
 import com.test.bdm.nutrient.domain.NutrientVO;
 
 @Service
@@ -57,8 +58,12 @@ public class NutrientServiceImpl implements NutrientService {
 	}
 
 	@Override
-	public List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
+	public List<EatVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
 		return dao.doRetrieveAte(userId, formatedNow);
 	}
 
+	@Override
+	public int doDelete(EatVO inVO) throws SQLException {
+		return dao.doDelete(inVO);
+	}
 }

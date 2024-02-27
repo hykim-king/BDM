@@ -14,10 +14,15 @@
 document.addEventListener("DOMContentLoaded", function(){
 	const logoutBTN = document.querySelector("#logout");
 	const loginBTN = document.querySelector("#login");
+	const monitorBtn = document.querySelector("#monitor");
 	
 	// 서버로부터 전달된 로그인 여부 정보
     const isLoggedIn = <%= session.getAttribute("user") != null %>;
-    // 초기화 시 로그인 상태에 따라 버튼 표시 설정
+    
+    <c:if test = "${not empty user}">
+    const userFilter = ${user.userFilter}
+    </c:if>
+    
     updateButtonVisibility();
 
     loginBTN.addEventListener("click", function(e){
@@ -55,9 +60,14 @@ document.addEventListener("DOMContentLoaded", function(){
         if (isLoggedIn) {
             logoutBTN.style.display = "block";
             loginBTN.style.display = "none";
+            if(userFilter == 1){
+            	monitorBtn.style.display = "block";
+            }
+            else monitorBtn.style.display = "none";
         } else {
             logoutBTN.style.display = "none";
             loginBTN.style.display = "block";
+            monitorBtn.style.display = "none";
         }
     }
 }); // -- DOM end
@@ -87,6 +97,9 @@ document.addEventListener("DOMContentLoaded", function(){
     </li>
     <li>
       <a href="/bdm/news/doRetrieve.do">뉴스</a>
+    </li>
+    <li>
+      <a href="/bdm/beforeMain/moveToUserMonitor.do" id = "monitor">회원 관리</a>
     </li>
   </ul>
 </aside>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.nutrient.domain.EatVO;
 import com.test.bdm.nutrient.domain.NutrientVO;
 
 @Repository
@@ -180,14 +181,18 @@ public class NutrientDaoImpl implements NutrientDao, PcwkLogger {
 	}
 
 	@Override
-	public List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
+	public List<EatVO> doRetrieveAte(String userId, String formatedNow) throws SQLException {
 		HashMap<String, String> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("formatedNow", formatedNow);
 		
-		List<NutrientVO> outVO = sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveAte", map);
+		List<EatVO> outVO = sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieveAte", map);
 		LOG.debug("outVO:"+outVO);
 		return  outVO;
 	}
 
+	@Override
+	public int doDelete(EatVO inVO) throws SQLException {
+		return sqlSessionTemplate.delete(NAMESPACE + DOT + "doDelete", inVO);
+	}
 }

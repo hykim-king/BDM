@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
@@ -65,13 +66,13 @@ public class NoticeController implements PcwkLogger {
 		model.addAttribute("paramVO", inVO);
 		
 		//공지사항:10, 자유게시판:20
-//		String title = "";
-//		if(inVO.getSearchDiv().equals("10")) {
-//			title = "공지사항-등록";
-//		}else {
-//			title = "자유게시판-등록";
-//		}
-//		model.addAttribute("title", title);
+		String title = "";
+		if(inVO.getSearchDiv().equals("10")) {
+			title = "공지사항-등록";
+		}else {
+			title = "자유게시판-등록";
+		}
+		model.addAttribute("title", title);	
 		
 		
 		
@@ -80,15 +81,10 @@ public class NoticeController implements PcwkLogger {
 	}
 	
 	@GetMapping(value = "/doRetrieve.do")
-	public ModelAndView doRetrieve(NoticeVO inVO, ModelAndView modelAndView) throws SQLException{
-		LOG.debug("─────────────────────────────────────");
-		LOG.debug(" doRetrieve"                          );
-		LOG.debug(" NoticeVO: " + inVO                    );
-		LOG.debug("─────────────────────────────────────");
-		
+	public ModelAndView doRetrieve(DTO inVO, ModelAndView modelAndView) throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ NoticeVO                          │"+inVO);
+		LOG.debug("│ BoardVO                           │"+inVO);
 		LOG.debug("└───────────────────────────────────┘");
 		//Default처리
 		//페이지 사이즈:10
@@ -112,20 +108,21 @@ public class NoticeController implements PcwkLogger {
 		LOG.debug("│ NoticeVO Default처리                          │"+inVO);
 		//코드목록 조회 : 'PAGE_SIZE','BOARD_SEARCH'
 		Map<String, Object> codes =new HashMap<String, Object>();
-		String[] codeStr = {"page_size","search"};
+		String[] codeStr = {"PAGE_SIZE","SEARCH"};
 		
 		codes.put("code", codeStr);
 		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+		
 		List<CodeVO> noticeSearchList=new ArrayList<CodeVO>();
 		List<CodeVO> pageSizeList=new ArrayList<CodeVO>();
 		
 		
 		for(CodeVO vo :codeList) {
-			if(vo.getCategory().equals("search")) {
+			if(vo.getCategory().equals("SEARCH")) {
 				noticeSearchList.add(vo);
 			}
 			
-			if(vo.getCategory().equals("page_size")) {
+			if(vo.getCategory().equals("PAGE_SIZE")) {
 				pageSizeList.add(vo);
 			}	
 			//LOG.debug(vo);
@@ -152,7 +149,7 @@ public class NoticeController implements PcwkLogger {
 		modelAndView.addObject("paramVO", inVO);  
 		
 		//검색조건
-		modelAndView.addObject("noticeSearch", noticeSearchList);
+		modelAndView.addObject("boardSearch", noticeSearchList);
 		
 		//페이지 사이즈
 		modelAndView.addObject("pageSize",pageSizeList);
@@ -164,14 +161,14 @@ public class NoticeController implements PcwkLogger {
 		modelAndView.addObject("pageHtml", html);
 		
 		
-//		//공지사항:10, 자유게시판:20
-//		String title = "";
-//		if(inVO.getSearchDiv().equals("10")) {
-//			title = "공지사항-목록";
-//		}else {
-//			title = "자유게시판-목록";
-//		}
-//		modelAndView.addObject("title", title);	
+		//공지사항:10, 자유게시판:20
+		String title = "";
+		if(inVO.getSearchDiv().equals("10")) {
+			title = "공지사항-목록";
+		}else {
+			title = "자유게시판-목록";
+		}
+		modelAndView.addObject("title", title);	
 			
 		return modelAndView;   
 	}
@@ -186,12 +183,12 @@ public class NoticeController implements PcwkLogger {
 		
 		int flag = service.doUpdate(inVO);
 		////현재 스레드에서 설정된 Locale이 반환
-//		Locale  locale= LocaleContextHolder.getLocale();
+		Locale  locale= LocaleContextHolder.getLocale();
 		
 		String message = "";
 		if(1==flag) {
 			//message = "수정 되었습니다.";
-//			message = messageSource.getMessage("common.message.update", null, locale);
+			message = messageSource.getMessage("common.message.update", null, locale);
 			LOG.debug("│ message                           │"+message);
 			//파라메터 치환
 			String update = "수정";
@@ -209,7 +206,7 @@ public class NoticeController implements PcwkLogger {
 	
 	@GetMapping(value = "/doSelectOne.do")
 	public String doSelectOne(NoticeVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException{
-		String view = "notice/notice_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
+		String view = "notice/board_mng";///WEB-INF/views/+board/board_mng+.jsp ->/WEB-INF/views/board/board_mng.jsp
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doSelectOne                       │");
 		LOG.debug("│ NoticeVO                          │"+inVO);
@@ -236,12 +233,12 @@ public class NoticeController implements PcwkLogger {
 		model.addAttribute("vo", outVO);
 		
 		//DIV코드 조회
-//		Map<String, Object> codes=new HashMap<String, Object>();
-//		String[] codeStr = {"BOARD_DIV"};
-//		codes.put("code", codeStr);
-//		
-//		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-//		model.addAttribute("divCode", codeList);
+		Map<String, Object> codes=new HashMap<String, Object>();
+		String[] codeStr = {"BOARD_DIV"};
+		codes.put("code", codeStr);
+		
+		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
+		model.addAttribute("divCode", codeList);
 		
 		//공지사항:10, 자유게시판:20
 //		String title = "";
@@ -277,13 +274,13 @@ public class NoticeController implements PcwkLogger {
 			message = "등록 실패.";
 		}
 		
-		MessageVO  messageVO=new MessageVO(String.valueOf(flag), message);
+		MessageVO  messageVO=new MessageVO(flag + "", message);
 		LOG.debug("│ messageVO                           │"+messageVO);
 		return messageVO;
 	}
 	
-	//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
-	@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )
+
+	@GetMapping(value ="/doDelete.do",produces = "application/json;charset=UTF-8" )//@RequestMapping(value = "/doDelete.do",method = RequestMethod.GET)
 	@ResponseBody// HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public MessageVO doDelete(NoticeVO inVO) throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");

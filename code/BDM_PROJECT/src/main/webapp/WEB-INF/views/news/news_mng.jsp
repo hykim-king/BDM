@@ -14,18 +14,17 @@
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <title>게시판 수정</title>
 <style>
-   .readonly-input {
-    background-color: #e9ecef ;
-   }
-   
-    .thumbnail {
-        width: 500px; /* 원하는 가로 크기로 조정 */
-        height: 500px; /* 원하는 세로 크기로 조정 */
-    }
-
-
-</style>
-<script>
+		 .form-control[readonly] {
+		    background-color: #FFFFFF; /* 하얀색 배경색으로 설정 */
+		}
+		
+        .thumbnail {
+            width: 500px; /* 원하는 가로 크기로 조정 */
+            height: 500px; /* 원하는 세로 크기로 조정 */
+        }
+       
+    </style>
+    <script>
 document.addEventListener("DOMContentLoaded",function(){ 
     
     //목록버튼
@@ -109,51 +108,45 @@ document.addEventListener("DOMContentLoaded",function(){
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
-                    </li>
-                </ul>
-            </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
+                </li>
+            </ul>
         </div>
-    </nav>
-<div class="container">
+    </div>
+</nav>
+<div class="container"style="max-width: 900px;">
     <!-- 제목 -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">${title}</h1>
-        </div>
-    </div>    
+    <div class="col-lg-12" style="margin-top: 20px;">
+    <span class="less-bold">꼬르륵 뉴스</span>
+	</div>
     <!--// 제목 ----------------------------------------------------------------->
-    
     <!-- 버튼 -->
     <div class="row justify-content-end">
         <div class="col-auto">
             <input type="button" value="목록" class="btn btn-primary" id="moveToList">
-           
-            <input type="button" value="삭제" class="btn btn-primary" id="doDelete" >
+            <input type="button" value="삭제" class="btn btn-primary" id="doDelete">
         </div>
     </div>
     <!--// 버튼 ----------------------------------------------------------------->
-    <!-- 
+    <!--
     seq : sequence별도 조회
     div : 10(공지사항)고정
-    read_cnt : 0 
+    read_cnt : 0
     title,contents : 화면에서 전달
     reg_id,mod_id  : session에서 처리
-     -->
-   
-        <div class="mb-3 row" style="display: none;">  
+    -->
+    <div class="mb-3 row" style="display: none;">  
             <label for="postNo" class="col-sm-2 col-form-label" >순번</label> 
             <div class="col-sm-10"> 
                 <input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100" 
@@ -161,46 +154,26 @@ document.addEventListener("DOMContentLoaded",function(){
                  readonly> 
             </div> 
         </div> 
-
-        <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
-            <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="readCnt" name="readCnt" maxlength="100"
-                 value="${vo.readCnt}" >
-            </div>
-        </div>
-
-         <div class="mb-3 row">
-            <label for="regId" class="col-sm-2 col-form-label">등록자</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="id" name="id"  readonly="readonly"
-                 value=${vo.id }
-                 >
-            </div>         
-        </div>
-        <div class="mb-3 row">
-            <label for="regDt" class="col-sm-2 col-form-label">등록일</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt}"  readonly="readonly" >
-            </div>        
-        </div>        
-         
-        <div class="mb-3"> <!--  아래쪽으로  여백 -->
-            <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" maxlength="100" 
-             value=${vo.title}
-            placeholder="제목을 입력 하세요">
-        </div>      
-        <div class="mb-3">
-            <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control"  id="contents" name="contents">${vo.contents }</textarea>
-        </div>
-        <c:forEach var="file" items="${fileList}">
-	    <img src="<spring:url value='/resources/upload/${file.saveFileName}'/>" class="thumbnail">
-		</c:forEach>
-    </form>    
+    
+    <div class="mb-3" style="text-align: center;">
+	    <h2><strong>${vo.title}</strong></h2>
+	</div>
+	<div class="mb-3 row d-none">
+    <div class="col-sm-10 d-none">
+        <input type="text" class="form-control readonly-input d-none" id="id" name="id" readonly="readonly" value="${vo.id}">
+	    </div>         
+	</div>
+    
+    
+    <div class="mb-3 row">
+        <h5>${vo.id} 기자</h5><h6 style="color:lightgrey;">입력 ${vo.regDt}</h6> <h6 style="color:lightgrey;">조회수 ${vo.readCnt}</h6>
     </div>
-
+    
+    <c:forEach var="file" items="${fileList}">
+        <img src="<spring:url value='/resources/upload/${file.saveFileName}'/>" class="thumbnail" >
+    </c:forEach>
+    <div class="mb-3" style="margin-top: 40px;">
+    <h6 style="white-space: pre-line;">${vo.contents}</h6>
+</div>
 </body>
 </html>

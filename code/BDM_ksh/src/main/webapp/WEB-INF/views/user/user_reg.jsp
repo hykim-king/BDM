@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <script src="${CP }/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP }/resources/js/eUtil.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+   integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
+   integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> -->
 <title>회원 가입</title>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -44,8 +47,8 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     
     doCheckEmailBtn.addEventListener("click", function(e){
-    	console.log('doCheckEmailBtn');
-    	let email = regForm.email.value;
+        console.log('doCheckEmailBtn');
+        let email = regForm.email.value;
         if(eUtil.isEmpty(email)==true){
             alert('이메일을 입력 하세요.');
             regForm.email.focus();
@@ -58,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function(){
             asyn:"true",
             dataType:"html",
             data:{
-            	email: email
+                email: email
             },
             success:function(data){//통신 성공     
                 console.log("data:" + data);
@@ -82,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     
     doCheckIdBtn.addEventListener("click", function(e){
-    	console.log('doCheckIdBtn');
-    	let id = regForm.id.value;
+        console.log('doCheckIdBtn');
+        let id = regForm.id.value;
         if(eUtil.isEmpty(id)==true){
             alert('아이디를 입력 하세요.');
             regForm.id.focus();
@@ -122,16 +125,16 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     
     doSaveBtn.addEventListener("click", function(e){
-    	var radioBtn = document.getElementsByName('flexRadioDefault');
-    	var radioValue = '';
-    	
-    	for(var i=0; i<radioBtn.length; i++){
-    		if(radioBtn[i].checked){
-    			radioValue = radioBtn[i].value;
-    			break;
-    		}
-    	}
-    	
+        var radioBtn = document.getElementsByName('flexRadioDefault');
+        var radioValue = '';
+        
+        for(var i=0; i<radioBtn.length; i++){
+            if(radioBtn[i].checked){
+                radioValue = radioBtn[i].value;
+                break;
+            }
+        }
+        
         console.log("doSaveBtn");
         console.log("javascript id:"+document.querySelector("#id").value);
         console.log("javascript pw:"+document.querySelector("#pw").value);
@@ -141,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("javascript gender:"+radioValue);
         console.log("javascript height:"+document.querySelector("#height").value);
         console.log("javascript weight:"+document.querySelector("#weight").value);
+        console.log("javascript activity:"+document.querySelector("#activity").value);
         
         let id = regForm.id.value;
         if(eUtil.isEmpty(id)==true){
@@ -184,10 +188,16 @@ document.addEventListener("DOMContentLoaded", function(){
             regForm.weight.focus();
             return;
         }
+        let activity = regForm.activity.value;
+        if(eUtil.isEmpty(activity)==true){
+            alert('활동지수를 입력 하세요.');
+            regForm.activity.focus();
+            return;
+        }
         if(document.querySelector("#idCheck").value == 0){
-        	alert('아이디 중복체크를 수행하세요.');
-        	document.querySelector("#idCheck").focus();
-        	return;
+            alert('아이디 중복체크를 수행하세요.');
+            document.querySelector("#idCheck").focus();
+            return;
         }
         if(document.querySelector("#emailCheck").value == 0){
             alert('이메일 중복체크를 수행하세요.');
@@ -213,7 +223,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 birth: document.querySelector("#birth").value,
                 gender: radioValue,
                 height: document.querySelector("#height").value,
-                weight: document.querySelector("#weight").value
+                weight: document.querySelector("#weight").value,
+                activity: document.querySelector("#activity").value
             },
             success:function(data){//통신 성공     
                console.log("success data:"+data);
@@ -243,14 +254,6 @@ document.addEventListener("DOMContentLoaded", function(){
                <h1 class = "page-header">회원 등록</h1>
            </div>
        </div>
-         <!-- Button영역 -->
-       <div class = "row justify-content-end">
-           <div class = "col-auto">
-               <input type="button" class="btn btn-primary" value="가입하기" id="doSave">
-               <input type="button" class="btn btn-primary" value="돌아가기" id="moveToMain" >
-           </div>
-       </div>
-         <!--// Button영역 ------------------------------------------------------>
          
          <!-- 회원 등록영역 -->  
          <div>
@@ -285,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function(){
                    <label for="login" class="form-label">생년월일</label>
                    <input type="text"  class="form-control" name="birth" id="birth" placeholder="앞 6자리만 입력하세요." size="20"  maxlength="6">
                </div>
-               <div class="form-check" id = "gender">     
+               <div class="p-div" id = "gender">     
                    <label for="recommend" class="form-label">성별</label>
                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="man" value = 1 checked>
                    <label class="form-check-label" for="man">남자</label>
@@ -299,10 +302,23 @@ document.addEventListener("DOMContentLoaded", function(){
                <div class="p-div">
                    <label for="regDt" class="form-label">몸무게</label>
                    <input type="text" class="form-control"  name="weight" id="weight" placeholder="몸무게를 입력하세요" size="20"  maxlength="7">
-               </div>                                                 
+               </div>
+               <div class="p-div">
+                   <label for="activity" class="form-label">활동지수</label>
+                   <input type="text" class="form-control"  name="activity" id="activity" placeholder="활동지수를 입력하세요" size="20"  maxlength="7">
+               </div>
            </form>
          </div>
          <!--// 회원 등록영역 ------------------------------------------------------>
+         
+           <!-- Button영역 -->
+       <div class = "row justify-content-end">
+           <div class = "col-auto">
+               <input type="button" class="btn btn-primary" value="돌아가기" id="moveToMain" >
+               <input type="button" class="btn btn-primary" value="가입하기" id="doSave">
+           </div>
+       </div>
+         <!--// Button영역 ------------------------------------------------------>
          
      </div>
 </body>

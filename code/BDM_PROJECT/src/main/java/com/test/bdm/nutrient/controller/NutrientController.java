@@ -16,11 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.food.domain.FoodVO;
+import com.test.bdm.nutrient.domain.EatVO;
 import com.test.bdm.nutrient.domain.NutrientVO;
 import com.test.bdm.nutrient.service.NutrientService;
 import com.test.bdm.user.domain.UserVO;
@@ -35,6 +38,24 @@ public class NutrientController implements PcwkLogger{
 	@GetMapping(value = "/moveToNut.do")
 	public String moveToNut() throws SQLException {
 		return "nutrient/nutrient";
+	}
+	
+	@GetMapping(value = "/doDelete.do", produces = "application/json;charset=UTF-8") // RequestMethod.GET)
+	@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
+	public MessageVO doDelete(EatVO inVO) throws SQLException {
+		int flag = service.doDelete(inVO);
+
+		String message = "";
+		if (1 == flag) {// 삭제 성공
+			message = inVO.getName() + " 삭제 되었습니다.";
+		} else {
+			message = inVO.getName() + "삭제 실패!";
+		}
+
+		MessageVO messageVO = new MessageVO(String.valueOf(flag), message);
+
+		LOG.debug("│ messageVO                           │" + messageVO);
+		return messageVO;
 	}
 	
 	public static Date convertStringToDate(String dateString, String dateFormat) {
@@ -154,7 +175,7 @@ public class NutrientController implements PcwkLogger{
 		ArrayList<Double> weekProtein = service.doRetrieveWeekProtein(userId, weekly);
 		ArrayList<Double> weekFat = service.doRetrieveWeekFats(userId, weekly);
 		ArrayList<Double> weekSugars = service.doRetrieveWeekSugars(userId, weekly);
-		List<NutrientVO> ateList = service.doRetrieveAte(userId, formatedNow);
+		List<EatVO> ateList = service.doRetrieveAte(userId, formatedNow);
 		
 		// "yy/MM/dd" 형식을 "yyyy년 MM월 dd일"로 변환
         String convertedDate = convertDateFormat(formatedNow, "yy/MM/dd", "yyyy년 MM월 dd일");

@@ -33,6 +33,7 @@
             gender,
             height,
             weight,
+            activity,
             reg_dt,
             user_filter
          FROM               

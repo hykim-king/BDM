@@ -1,146 +1,131 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%@ page import="com.test.bdm.nutrient.domain.NutrientVO"%>
+
+<c:set var="CP" value="${pageContext.request.contextPath}" scope="page" />
+>>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<meta name="viewport"  content="width=device-width, initial-scale=1">
-<style>
-    .card-body{
-        color:#f7e9e8;
-    }
-    .search-container {
-      max-width: 1920px;
-      width:80%;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-    .search-input {
-      width: 70%;
-      padding: 10px;
-      border: 1px solid #fdce64; 
-      border-radius: 20px 0 0 20px;
-      font-size: 16px;
-      outline: none;
-    }
-    .search-button {
-      width: 50px;
-      padding: 10px;
-      background-color: #fdce64;
-      border: none;
-      border-radius: 0 20px 20px 0;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .search-input:focus {
-      border-color: #007bff;
-    }
-    .search-button img{
-        width: 20px;
-          height: 20px;
-    }
-    .link_main img{
-        width:50px;
-        height: auto;
-    }
-    
-</style>
-<title>Insert title here</title>
-<script>
-document.addEventListener("DOMContentLoaded", function(){
-	const gumsaekBtn = document.querySelector("#gumsaek");
-	const searchWordTxt = document.querySelector("#searchWord");
-	const moveToFindBtn = document.querySelector("#moveToFind");
-     
-	gumsaekBtn.addEventListener("click", function(e){
-		let searchWordTxtV = document.querySelector("#searchWord").value;
-        $.ajax({
-            type: "POST",
-            url:"/bdm/beforeMain/doSaveSearch.do",
-            asyn:"true",
-            dataType:"json",
-            data:{
-                words: searchWordTxtV
-            },
-            success:function(data){//Åë½Å ¼º°ø
-            	// doRetrieve(1, searchWordTxtV);
-                location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
-            },
-            error:function(data){//½ÇÆĞ½Ã Ã³¸®
-                console.log("error:"+data);
-            },
-            complete:function(data){//¼º°ø/½ÇÆĞ¿Í °ü°è¾øÀÌ ¼öÇà!
-                console.log("complete:"+data);
-            }
-        });
-	});
-	
-	searchWordTxt.addEventListener("keyup", function(e) {
-        console.log("keyup:" + e.keyCode);
-        let searchWordTxtV = document.querySelector("#searchWord").value;
-        if (13 == e.keyCode) {
-        	$.ajax({
-                type: "POST",
-                url:"/bdm/beforeMain/doSaveSearch.do",
-                asyn:"true",
-                dataType:"json",
-                data:{
-                    words: searchWordTxtV
-                },
-                success:function(data){//Åë½Å ¼º°ø
-                    // doRetrieve(1, searchWordTxtV);
-                	location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
-                },
-                error:function(data){//½ÇÆĞ½Ã Ã³¸®
-                    console.log("error:"+data);
-                },
-                complete:function(data){//¼º°ø/½ÇÆĞ¿Í °ü°è¾øÀÌ ¼öÇà!
-                    console.log("complete:"+data);
-                }
-            });
-        }
-    });
-	
-	function doRetrieve(pageNo, searchWord) {
-        console.log("doRetrieve pageNO:" + pageNo);
-        console.log("doRetrieve searchWord:" + searchWord);
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        let gumsaekForm = document.gumsaekFrm;
-        gumsaekForm.pageNo.value = pageNo;
-        gumsaekForm.action = "/bdm/beforeMain/doGumsaek.do";
-        console.log("doRetrieve pageNO:" + gumsaekForm.pageNo.value);
-        gumsaekForm.submit();
-    }
-}); // -- DOM end
+<title>Insert title here</title>
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/nav_style.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+// ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
+document.getElementById('navbar-toggler').addEventListener('click', function() {
+    var layerBox = document.querySelector('.layer_box');
+    // íŒì—…ì´ ì—´ë ¤ìˆëŠ”ì§€ í™•ì¸
+    var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+    // íŒì—… ìƒíƒœë¥¼ í† ê¸€
+    isOpen ? closePopup() : openPopup();
+});
+
+// íŒì—… ì—´ê¸° í•¨ìˆ˜
+function openPopup() {
+    var layerBox = document.querySelector('.layer_box');
+    layerBox.style.display = 'block';
+    layerBox.setAttribute('aria-hidden', 'false');
+}
+
+// íŒì—… ë‹«ê¸° í•¨ìˆ˜
+function closePopup() {
+    var layerBox = document.querySelector('.layer_box');
+    layerBox.style.display = 'none';
+    layerBox.setAttribute('aria-hidden', 'true');
+}
+</script>
+<script>
+
 </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="${CP }/beforeMain/popSearchWord.do">Balance Diet Management</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<div class="search-container" id="search_area">
-				<div class="search">
-	                <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
-	                    <input type="hidden" name="pageNo" id="pageNo" value = "1"/>
-	                    <a href="#" class="link_main"> 
-	                        <img src="${CP}/resources/images/logo-mini.png" alt="·Î°í">
-	                    </a>
-	                    <input type="text" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä" id = "searchWord" name="searchWord" class="search-input">
-	                    <button type = "submit" class="search-button" id = "gumsaek"><img src="${CP}/resources/images/search_icon.png" alt=""></button>
-	                </form>
-	            </div>
-			</div>
-		</div>
+	<div id="wrap">
+        <nav class="navbar navbar-expand-md bg-primary navbar-dark">
+            <div class="container">
+                <div class="d-flex align-items-center"> <!-- ë¡œê³ ì™€ ë²„íŠ¼ì„ ê°ì‹¸ëŠ” ë¶€ëª¨ ìš”ì†Œ -->
+                    <div id="topAsideArea" class="menu_area">
+                        <button id="navbar-toggler" type="button" class="btn_menu" data-bs-toggle="#navbarNav-menu" 
+                        aria-haspopup="navbarNav-menu" aria-expanded="false" aria-label="Toggle navigation"
+                        expanded="false" style="background-image:url(${CP}/resources/images/sp_main.ae81c9d5.png);">
+                        </button>
+                        <div class="layer_box" aria-hidden="true">
+                            <div class="box_content">
+                                <iframe src="menuBTN.jsp" title="í™•ì¥ì˜ì—­" width="100%" height="100%"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="navbar-brand">
+                        <img src="${CP}/resources/images/logo.png" alt=""/>
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav-menu"
+                    aria-controls="navbarNav-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <div class="search-container">
+            <div class="search">
+                <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
+                    <input type="hidden" name="pageNo" id="pageNo" value="1" /> 
+                    <a href="#" class="link_main"> 
+                        <img src="${CP}/resources/images/logo_kor.jpg" alt="ë¡œê³ ">
+                    </a> 
+                    <input type="text" placeholder="ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•˜ì„¸ìš”" id="searchWord"
+                        name="searchWord" class="search-input">
+                    <button type="submit" class="search-button" id="gumsaek">
+                        <img src="${CP}/resources/images/search_icon.png" alt="">
+                    </button>
+                </form>
+            </div>
+        </div>
 	</div>
-</nav>
 
 </body>
+<script>
+    // ë²„íŠ¼ í´ë¦­ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
+    document.getElementById('navbar-toggler').addEventListener('click', function() {
+        var layerBox = document.querySelector('.layer_box');
+        // íŒì—…ì´ ì—´ë ¤ìˆëŠ”ì§€ í™•ì¸
+        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+        // íŒì—… ìƒíƒœë¥¼ í† ê¸€
+        isOpen ? closePopup() : openPopup();
+    });
+
+    // íŒì—… ì—´ê¸° í•¨ìˆ˜
+    function openPopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'block';
+        layerBox.setAttribute('aria-hidden', 'false');
+    }
+
+    // íŒì—… ë‹«ê¸° í•¨ìˆ˜
+    function closePopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'none';
+        layerBox.setAttribute('aria-hidden', 'true');
+    }
+</script>
+</head>
+<style>
+    .bg-primary{
+        background-color: #f7e9e8;
+    }
+</style>
 </html>

@@ -37,7 +37,11 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 		}
 		
 		//idCheck:비번 check;
-		status = beforeMainDao.idPassCheck(inVO);
+		try {
+			status = beforeMainDao.idPassCheck(inVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if(status==0) {
 			checkStatus = 20;
 			LOG.debug("20 idPassCheck checkStatus:"+checkStatus);
