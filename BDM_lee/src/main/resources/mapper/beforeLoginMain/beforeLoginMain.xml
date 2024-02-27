@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.test.bdm.beforeMain">
+    
+    <select id="popSearchWord" resultType = "com.test.bdm.cmn.DTO">
+        SELECT A.WORDS as searchWord
+		FROM (
+		    SELECT WORDS, COUNT(*) AS cnt
+		    FROM SEARCHS
+		    WHERE TO_CHAR(SEARCH_DT, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+		    GROUP BY WORDS
+		    <![CDATA[ HAVING COUNT(*) > 5 ]]>
+		    ORDER BY cnt desc) A
+    </select>
+  
+    <insert id = "doSaveSearch" parameterType = "map">
+        INSERT INTO SEARCHS(
+            gender,
+            birth,
+            words
+        ) VALUES(
+            #{gender},
+            #{birth},
+            #{words}
+        )
+    </insert>
+  
+    <select id="idCheck" parameterType="com.test.bdm.user.domain.UserVO" resultType="int">
+         SELECT                   
+            COUNT(*) cnt
+         FROM                     
+            users
+         WHERE id = #{id}
+    </select>
+    
+    <!-- idPassCheck -->
+    <select id="idPassCheck" parameterType="com.test.bdm.user.domain.UserVO" resultType="int">
+         SELECT                   
+            COUNT(*) cnt         
+         FROM                     
+            users                
+         WHERE id = #{id} 
+         AND   pw = #{pw}        
+    </select>
+        
+    <!-- login -->
+    <select id="doSelectOne" parameterType="com.test.bdm.user.domain.UserVO" resultType="com.test.bdm.user.domain.UserVO">
+        SELECT
+            id,
+            no,
+            pw,
+            email,
+            name,
+            birth,
+            gender,
+            height,
+            weight,
+            activity,
+            reg_dt,
+            user_filter
+         FROM               
+             users          
+         WHERE id = #{id}     
+    </select>
+  </mapper>
