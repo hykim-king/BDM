@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded",function(){
                 console.log("success msgId:"+data.msgId);
                 console.log("success msgContents:"+data.msgContents);
                 
-                if("1"==data.msgId){
+                if("1" == data.msgId){
                 	alert(data.msgContents);
                 	commentsRetrieve();//댓글 조회
                 	//등록 댓글 초기화
