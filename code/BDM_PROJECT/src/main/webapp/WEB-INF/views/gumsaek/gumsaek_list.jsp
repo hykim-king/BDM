@@ -6,28 +6,32 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded",function() {
     console.log("DOMContentLoaded");
 
-    const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
+    const rowsBulletin = document.querySelectorAll("#bulletinTable>tbody>tr");
+    const rowsNotice = document.querySelectorAll("#noticeTable>tbody>tr");
+    const rowsNews = document.querySelectorAll("#newsTable>tbody>tr");
     const plusBulletinBtn = document.querySelector("#plusBulletin");
     const plusNoticeBtn = document.querySelector("#plusNotice");
     const plusNewsBtn = document.querySelector("#plusNews");
     const searchWord = '${paramVO.searchWord}';
     
     plusBulletinBtn.addEventListener("click", function(e){
-    	window.location.href = "${CP}/bulletin/doRetrieve.do?searchWord="+searchWord;
+    	window.location.href = "${CP}/bulletin/doRetrieve.do?searchDiv=10&searchWord="+searchWord;
     });
     plusNoticeBtn.addEventListener("click", function(e){
-        window.location.href = "${CP}/notice/doRetrieve.do?searchWord="+searchWord;
+        window.location.href = "${CP}/notice/doRetrieve.do?searchDiv=10&searchWord="+searchWord;
     });
     plusNewsBtn.addEventListener("click", function(e){
-        window.location.href = "${CP}/news/doRetrieve.do?searchWord="+searchWord;
+        window.location.href = "${CP}/news/doRetrieve.do?searchDiv=10&searchWord="+searchWord;
     });
 
-    rows.forEach(function(row) {
+    rowsBulletin.forEach(function(row) {
         row.addEventListener('click', function(e) {         
             let cells = row.getElementsByTagName("td");
                 const postNo = cells[5].innerText;
@@ -37,6 +41,30 @@ document.addEventListener("DOMContentLoaded",function() {
             //javascript
             if (confirm('상세 조회 하시겠어요?') == false) return;
             window.location.href = "${CP}/bulletin/doSelectOne.do?postNo="+postNo;
+        });
+    });
+    rowsNotice.forEach(function(row) {
+        row.addEventListener('click', function(e) {         
+            let cells = row.getElementsByTagName("td");
+                const postNo = cells[5].innerText;
+                console.log('postNo:'+ postNo);
+            
+
+            //javascript
+            if (confirm('상세 조회 하시겠어요?') == false) return;
+            window.location.href = "${CP}/notice/doSelectOne.do?postNo="+postNo;
+        });
+    });
+    rowsNews.forEach(function(row) {
+        row.addEventListener('click', function(e) {         
+            let cells = row.getElementsByTagName("td");
+                const postNo = cells[5].innerText;
+                console.log('postNo:'+ postNo);
+            
+
+            //javascript
+            if (confirm('상세 조회 하시겠어요?') == false) return;
+            window.location.href = "${CP}/news/doSelectOne.do?postNo="+postNo;
         });
     });
 
@@ -54,22 +82,6 @@ document.addEventListener("DOMContentLoaded",function() {
 </script>
 </head>
 <body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link active"
-            aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
-        </li>
-        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown" href="#" role="button"
-            aria-expanded="false">MEMBER</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원가입</a></li>
-            </ul></li>
-        <a class="nav-link" href="/bdm/beforeMain/moveToBulletin.do">자유게시판</a>
-        </li>
-        <li class="nav-item"><a class="nav-link"
-            href="/bdm/beforeMain/moveToMain.do" tabindex="-1"
-            aria-disabled="true">로그인</a></li>
-    </ul>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

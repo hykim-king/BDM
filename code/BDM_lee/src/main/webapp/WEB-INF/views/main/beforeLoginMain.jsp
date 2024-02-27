@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>BDM</title> 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -94,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-<ul class="nav nav-tabs">
+<!-- <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
   </li>
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
   <li class="nav-item">
     <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
   </li>
-</ul>
+</ul> -->
     <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
         <legend>로그인</legend>
         <div>
@@ -148,9 +150,9 @@ document.addEventListener("DOMContentLoaded", function(){
             <input type="button" value="회원가입"  id="moveToReg">
         </div>
     </fieldset>
-    <input type="button" value="공지사항"  id="moveToNotice">
+    <!-- <input type="button" value="공지사항"  id="moveToNotice">
     <input type="button" value="자유게시판"  id="moveToBulletin">
     <input type="button" value="뉴스"  id="moveToNews">
-    <input type="button" value="마이페이지"  id="moveToMyPage">
+    <input type="button" value="마이페이지"  id="moveToMyPage"> -->
 </body>
 </html>

@@ -16,4 +16,11 @@ public interface UserService {
 	
 	public int doUpdate(UserVO inVO) throws SQLException;
 
+	UserVO doFindId(UserVO inVO) throws SQLException;
+	
+	UserVO doFindPassword(UserVO inVO) throws SQLException;
+	
+	int changePassword(UserVO inVO) throws SQLException;
+
+	int doDelete(UserVO inVO) throws SQLException;
 }

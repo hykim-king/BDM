@@ -6,6 +6,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>게시물 등록</title>
 <script>
 document.addEventListener("DOMContentLoaded",function(){
@@ -110,7 +111,7 @@ document.addEventListener("DOMContentLoaded",function(){
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">${title}</h1>
+            <h1 class="page-header">게시글 작성</h1>
         </div>
     </div>    
     <!--// 제목 ----------------------------------------------------------------->

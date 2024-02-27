@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.test.bdm.nutrient.domain.EatVO;
 import com.test.bdm.nutrient.domain.NutrientVO;
 
 public interface NutrientDao {
@@ -24,5 +25,7 @@ public interface NutrientDao {
 	
 	ArrayList<Double> doRetrieveWeekSugars(String userId, ArrayList<String> weekly) throws SQLException;
 	
-	List<NutrientVO> doRetrieveAte(String userId, String formatedNow) throws SQLException;
+	List<EatVO> doRetrieveAte(String userId, String formatedNow) throws SQLException;
+
+	int doDelete(EatVO inVO) throws SQLException;
 }

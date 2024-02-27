@@ -6,6 +6,8 @@
 
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -30,10 +32,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 
-	moveToRegBTN.addEventListener("click", function (e) {
-		console.log("moveToRegBTN click");
-		
-
+	moveToRegBTN.addEventListener("click", function(e) {
+		console.log("moveRegBTN click");
+		<c:if test="${empty user}">
+ 	   		alert('로그인이 필요한 서비스입니다.');
+ 	   		return;
+ 	 	</c:if>
+ 	 	window.location.href = "/bdm/notice/moveToReg.do";
 	});
 
 	searchWordTxt.addEventListener("keyup", function (e) {
@@ -97,24 +102,6 @@ function pageDoRerive(url, pageNo) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do">메인으로</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMyPage.do" id="moveToMyPage">마이페이지</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/bulletin/doRetrieve.do" id="moveToBulletin">자유게시판</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/notice/doRetrieve.do" id="moveToNotice">공지사항</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToNews.do" id="moveToNews">뉴스</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -151,8 +138,10 @@ function pageDoRerive(url, pageNo) {
 						</div>
 						<div class="col-auto ">
 							<!-- 열의 너비를 내용에 따라 자동으로 설정 -->
-							<input type="button" value="목록" class="btn btn-primary" id="doRetrieve">
-							<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
+							<input type="button" value="조회" class="btn btn-primary" id="doRetrieve">
+							<c:if test="${user.userFilter eq '1'}">
+        						<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
+    						</c:if>
 						</div>
 					</div>
 				</form>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,8 @@ import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.file.domain.FileVO;
+import com.test.bdm.file.service.AttachFileService;
 import com.test.bdm.news.domain.NewsVO;
 import com.test.bdm.news.service.NewsService;
 import com.test.bdm.notice.domain.NoticeVO;
@@ -42,6 +45,30 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	NewsService newsService;
+	
+	
+	@Autowired
+	AttachFileService attachFileService;
+	
+	@GetMapping(value = "/moveToUserMonitor.do")
+	public String moveToUserMonitor() throws SQLException {
+		return "user/user_monitor";
+	}
+	
+	@GetMapping(value = "/moveToFindPassword.do")
+	public String moveToFindPassword() throws SQLException {
+		return "account/account_findPassword";
+	}
+	
+	@GetMapping(value = "/moveToFindId.do")
+	public String moveToFindId() throws SQLException {
+		return "account/account_findId";
+	}
+	
+	@GetMapping(value = "/moveToLogin.do")
+	public String moveToLogin() throws SQLException {
+		return "account/account_login";
+	}
 	
 	@GetMapping(value = "/moveToBeforeMain.do")
 	public String moveToBeforeMain() throws SQLException {
@@ -78,19 +105,171 @@ public class BeforeMainController implements PcwkLogger {
 		if(httpSession.getAttribute("user") != null) {
 			return "main/afterLoginMain";
 		}
-		else return "main/beforeLoginMain";
+		else {
+			return "main/beforeLoginMain";
+		}
+		
 	}
 	
-	@RequestMapping(value="/doLogout.do", method = RequestMethod.GET)
-	public String doLogout(HttpSession httpSession) {
-		String view = "main/beforeLoginMain";
+	@GetMapping(value = "/popSearchWord.do")
+	public ModelAndView popSearchWord(DTO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		
+		inVO.setSearchDiv("10");
+		LOG.debug("inVO:"+inVO);
+		List<DTO> wordList = beforeMainService.popSearchWord();
+		LOG.debug("wordList:"+wordList);
+		modelAndView.addObject("wordList", wordList);
+		
+	
+	
+		List<NewsVO> newsList =  newsService.doRetrieve(inVO);
+		for (NewsVO news : newsList) {
+		    List<FileVO> fileList = attachFileService.getFileUuid(news.getUuid());
+		    news.setFileList(fileList);
+		}
+		
+		modelAndView.addObject("newsList", newsList);
+		
+		if(httpSession.getAttribute("user") != null) {
+			modelAndView.setViewName("main/afterLoginMain");
+		}
+		else {
+			modelAndView.setViewName("main/beforeLoginMain");
+		}		
+		
+		return modelAndView;
+	}	
+	
+	@GetMapping(value="/doLogout.do")
+	public ModelAndView doLogout(DTO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
 		
 		if(httpSession.getAttribute("user") != null) {
 			httpSession.removeAttribute("user");
 			httpSession.invalidate();
 		}
 		
-	     return view;
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		
+		inVO.setSearchDiv("10");
+		LOG.debug("inVO:"+inVO);
+		List<DTO> wordList = beforeMainService.popSearchWord();
+		List<NewsVO> newsList =  newsService.doRetrieve(inVO);
+		LOG.debug("wordList:"+wordList);
+		modelAndView.addObject("wordList", wordList);
+		modelAndView.addObject("newsList", newsList);
+		if(httpSession.getAttribute("user") != null) {
+			modelAndView.setViewName("main/afterLoginMain");
+		}
+		else {
+			modelAndView.setViewName("main/beforeLoginMain");
+		}		
+		
+		return modelAndView;
+	}
+	
+	@GetMapping(value = "/doGumsaek.do")
+	public ModelAndView doGumsaek(DTO inVO, ModelAndView modelAndView) throws SQLException {
+		if(inVO != null && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+		if(inVO != null && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+		
+		if(inVO != null && inVO.getSearchWord() == null) {
+			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		inVO.setSearchDiv("10");
+		
+		List<BulletinVO> bulletinList = bulletinService.doRetrieve(inVO);
+		List<NoticeVO> noticeList = noticeService.doRetrieve(inVO);
+		List<NewsVO> newsList = newsService.doRetrieve(inVO);
+		
+		long totalBulletin = 0;
+		// 총 자유글
+		for(BulletinVO vo  :bulletinList) {
+			if(totalBulletin == 0) {
+				totalBulletin = vo.getTotalCnt();
+				break;
+			}
+		}
+		// 총 공지글
+		long totalNotice = 0;
+		for(NoticeVO vo  :noticeList) {
+			if(totalNotice == 0) {
+				totalNotice = vo.getTotalCnt();
+				break;
+			}
+		}
+		// 총 뉴스글
+		long totalNews = 0;
+		for(NewsVO vo  :newsList) {
+			if(totalNews == 0) {
+				totalNews = vo.getTotalCnt();
+				break;
+			}
+		}				
+		modelAndView.addObject("totalBulletin", totalBulletin);
+		modelAndView.addObject("totalNotice", totalNotice);
+		modelAndView.addObject("totalNews", totalNews);
+		modelAndView.setViewName("gumsaek/gumsaek_list");
+		modelAndView.addObject("bulletinList", bulletinList);
+		modelAndView.addObject("noticeList", noticeList);
+		modelAndView.addObject("newsList", newsList);
+		modelAndView.addObject("paramVO", inVO);
+		
+		return modelAndView;
+	}	
+	
+	@PostMapping(value = "/doSaveSearch.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String doSaveSearch(HttpSession httpSession, String words) throws SQLException {
+		int gender = 0;
+		int birth = 000000;
+		UserVO sessionData = (UserVO) httpSession.getAttribute("user");
+		
+		if(httpSession.getAttribute("user") != null) {
+			gender = sessionData.getGender();
+			birth = sessionData.getBirth();
+		}
+		
+		int flag = beforeMainService.doSaveSearch(gender, birth, words);
+		
+		String jsonString = "";
+		String message = "";
+		if(flag == 1) {
+			LOG.debug("검색어 저장 성공");
+			message = "검색어 저장 성공";
+		}
+		else {
+			LOG.debug("검색어 저장 실패");
+			message = "검색어 저장 실패";
+		}
+		
+		MessageVO messageVO = new MessageVO(flag + "", message);
+		jsonString = new Gson().toJson(messageVO);
+		LOG.debug("jsonString: " + jsonString);
+		
+		return jsonString;
 	}
 
 	@RequestMapping(value = "/doLogin.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -149,58 +328,4 @@ public class BeforeMainController implements PcwkLogger {
 
 		return jsonString;
 	}
-	
-	@GetMapping(value = "/doGumsaek.do")
-	public ModelAndView doGumsaek(DTO inVO, ModelAndView modelAndView) throws SQLException {
-		if(inVO != null && inVO.getPageSize() == 0) {
-			inVO.setPageSize(10L);
-		}
-		if(inVO != null && inVO.getPageNo() == 0) {
-			inVO.setPageNo(1L);
-		}
-		
-		if(inVO != null && inVO.getSearchWord() == null) {
-			inVO.setSearchWord(StringUtil.nvl(inVO.getSearchWord()));
-		}
-		inVO.setSearchDiv("10");
-		
-		List<BulletinVO> bulletinList = bulletinService.doRetrieve(inVO);
-		List<NoticeVO> noticeList = noticeService.doRetrieve(inVO);
-		List<NewsVO> newsList = newsService.doRetrieve(inVO);
-		
-		long totalBulletin = 0;
-		// 총 자유글
-		for(BulletinVO vo  :bulletinList) {
-			if(totalBulletin == 0) {
-				totalBulletin = vo.getTotalCnt();
-				break;
-			}
-		}
-		// 총 공지글
-		long totalNotice = 0;
-		for(NoticeVO vo  :noticeList) {
-			if(totalNotice == 0) {
-				totalNotice = vo.getTotalCnt();
-				break;
-			}
-		}
-		// 총 뉴스글
-		long totalNews = 0;
-		for(NewsVO vo  :newsList) {
-			if(totalNews == 0) {
-				totalNews = vo.getTotalCnt();
-				break;
-			}
-		}				
-		modelAndView.addObject("totalBulletin", totalBulletin);
-		modelAndView.addObject("totalNotice", totalNotice);
-		modelAndView.addObject("totalNews", totalNews);
-		modelAndView.setViewName("gumsaek/gumsaek_list");
-		modelAndView.addObject("bulletinList", bulletinList);
-		modelAndView.addObject("noticeList", noticeList);
-		modelAndView.addObject("newsList", newsList);
-		modelAndView.addObject("paramVO", inVO);
-		
-		return modelAndView;
-	}	
 }

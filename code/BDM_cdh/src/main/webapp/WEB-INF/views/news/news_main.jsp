@@ -239,7 +239,41 @@ function pageDoRerive(url,pageNo){
     <a href="#" class="btn btn-primary">Go somewhere</a>
   </div>
 </div>
- 
+ <div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card-group">
+        <div class="card" style="width: 18rem;">
+        <form id="newsForm3" action="/bdm/news/doSelectOne.do" method="GET">
+          <img src="<spring:url value='/resources/upload/2024/02/test.jpg'/>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">뉴스1</h5>
+            <p class="card-text">식단을 준비하기 위해서3</p>
+            <button type="submit" name="postNo" value="3" class="btn btn-primary">상세 보기</button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+        <form id="newsForm4" action="/bdm/news/doSelectOne.do" method="GET">
+          <img src="<spring:url value='/resources/upload/2024/02/test.jpg'/>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">뉴스2</h5>
+            <p class="card-text">식단을 준비하기 위해서4</p>
+            <button type="submit" name="postNo" value="4" class="btn btn-primary">상세 보기</button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+        <form id="newsForm5" action="/bdm/news/doSelectOne.do" method="GET">
+          <img src="<spring:url value='/resources/upload/2024/02/test.jpg'/>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">뉴스3</h5>
+            <p class="card-text">식단을 준비하기 위해서5</p>
+            <button type="submit" name="postNo" value="5" class="btn btn-primary">상세 보기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

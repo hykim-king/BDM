@@ -15,5 +15,5 @@ public interface NoticeDao extends WorkDiv<NoticeVO> {
 	
 	int updateReadCnt(NoticeVO inVO)throws SQLException;
 	
-	List<NoticeVO> doRetrieve(DTO inVO)throws SQLException;
+	List<NoticeVO> doRetrieve(DTO inVO) throws SQLException;
 }
