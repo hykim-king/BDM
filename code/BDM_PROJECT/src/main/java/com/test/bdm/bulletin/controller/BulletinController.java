@@ -29,6 +29,8 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.code.service.CodeService;
+import com.test.bdm.heart.domain.HeartVO;
+import com.test.bdm.heart.service.HeartService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
@@ -37,6 +39,9 @@ public class BulletinController implements PcwkLogger {
 	
 	@Autowired
 	BulletinService service;
+
+	@Autowired
+	HeartService heartService;	
 	
 	@Autowired
 	CodeService codeService;
@@ -228,7 +233,7 @@ public class BulletinController implements PcwkLogger {
 	}
 	
 	@GetMapping(value="/bulletinView.do")
-	public String bulletinView(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
+	public String bulletinView(BulletinVO inVO, HeartVO heartVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
 		String view = "bulletin/bulletin_view";
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" bulletinView"                        );
@@ -249,12 +254,19 @@ public class BulletinController implements PcwkLogger {
 		UserVO user = (UserVO) httpSession.getAttribute("user");
 		if(user != null) {
 			inVO.setId(user.getId());
+			heartVO.setId(user.getId());			
 		} else {
 			inVO.setId("");
 		}
 		
 		BulletinVO outVO = service.bulletinView(inVO);
 		model.addAttribute("vo", outVO);
+		
+		int myCount = heartService.getCount(heartVO);
+		model.addAttribute("myCount", myCount);
+		
+		int count = heartService.getTotalCount(heartVO);
+		model.addAttribute("count", count);		
 		
 		return view;
 	

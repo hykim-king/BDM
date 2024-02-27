@@ -308,26 +308,5 @@ public class BulletinController implements PcwkLogger {
 		return messageVO;
 	}
 
-//	@GetMapping(value = "/like.do", produces = "application/json;charset=UTF-8")
-//	@ResponseBody
-//	public MessageVO doLike(BulletinVO inVO, HttpSession httpSession) throws SQLException {
-//		UserVO userVO = (UserVO) httpSession.getAttribute("user");
-//		if (userVO == null) {
-//			return new MessageVO("-1", "사용자 정보를 찾을 수 없습니다.");
-//		}
-//
-//		int result = service.like(inVO.getPostNo(), userVO.getId());
-//
-//		String message = "";
-//		if (result == 1) {
-//			message = "좋아요를 추가했습니다.";
-//		} else if (result == 0) {
-//			message = "좋아요를 취소했습니다.";
-//		} else {
-//			message = "좋아요 처리에 실패했습니다.";
-//		}
-//
-//		return new MessageVO(String.valueOf(result), message);
-//	}
 
 }

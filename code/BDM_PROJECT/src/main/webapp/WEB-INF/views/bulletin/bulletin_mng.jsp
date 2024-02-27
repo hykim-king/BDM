@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
     <!-- form -->
     <form action="#" name="regFrm" id="regFrm">
-        <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
+        <div class="mb-3 row" hidden> <!--  아래쪽으로  여백 -->
             <label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="readCnt" name="readCnt" maxlength="100"
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded",function(){
             </div>
         </div>
 
-        <div class="mb-3 row">
+        <div class="mb-3 row" hidden>
             <label for="regId" class="col-sm-2 col-form-label">등록자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regId" name="regId"  readonly="readonly"
@@ -160,13 +160,13 @@ document.addEventListener("DOMContentLoaded",function(){
             </div>        
         </div>
         <div class="mb-3 row">
-            <label for="regId" class="col-sm-2 col-form-label">등록일</label>
+            <label for="regDt" class="col-sm-2 col-form-label">등록일</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
                 value="${vo.regDt }"  readonly="readonly" >
             </div>        
         </div>        
-        <div class="mb-3 row">
+        <div class="mb-3 row" hidden>
             <label for="regId" class="col-sm-2 col-form-label">수정자</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control readonly-input" id="modId" name="modId" 
