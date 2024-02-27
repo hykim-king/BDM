@@ -22,6 +22,8 @@ import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.file.domain.FileVO;
+import com.test.bdm.file.service.AttachFileService;
 import com.test.bdm.news.domain.NewsVO;
 import com.test.bdm.news.service.NewsService;
 import com.test.bdm.notice.domain.NoticeVO;
@@ -43,6 +45,10 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	NewsService newsService;
+	
+	
+	@Autowired
+	AttachFileService attachFileService;
 	
 	@GetMapping(value = "/moveToUserMonitor.do")
 	public String moveToUserMonitor() throws SQLException {
@@ -124,7 +130,13 @@ public class BeforeMainController implements PcwkLogger {
 		LOG.debug("wordList:"+wordList);
 		modelAndView.addObject("wordList", wordList);
 		
+	
+	
 		List<NewsVO> newsList =  newsService.doRetrieve(inVO);
+		for (NewsVO news : newsList) {
+		    List<FileVO> fileList = attachFileService.getFileUuid(news.getUuid());
+		    news.setFileList(fileList);
+		}
 		
 		modelAndView.addObject("newsList", newsList);
 		

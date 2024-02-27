@@ -57,6 +57,24 @@
         left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
         <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
     }
+   
+    .card-img-top {
+        width: 200px; /* 원하는 너비 */
+        height: 150px; /* 원하는 높이 */
+        object-fit: cover; /* 이미지가 잘리지 않고 부모 요소에 맞춰집니다. */
+    }
+   .row {
+    
+    bottom: 0px; /* 요소를 뷰포트의 아래쪽으로 100px 이동 */
+    left: 100px;
+    right: 0;
+    margin-right: 40rem;
+    margin-left: 0rem;
+}
+	.card{
+	
+	}
+	
 </style>
 <title>BDM</title>
 <script>
@@ -137,48 +155,31 @@ document.addEventListener("DOMContentLoaded", function(){
     
    <legend style="position: absolute; top: 60; left: 50; right: 0;">건강 뉴스</legend>
 
-    <table
-            class="table table-bordered border-primary table-hover table-striped"
-            id="noticeTable">
-            
-            <tbody>
-                <c:choose>
-                    <c:when test="${ not empty newsList }">
-                        <!-- 반복문 -->
-                        <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
-	                            <div class="col">
-				                <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
-				                    <div class="card" style="width: 70%;">
-				                        <div class="row g-0">
-				                            <div class="col-md-4" style="padding: 20px;">
-				                                <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="img-fluid rounded-start card-img" alt="이미지" style="max-width: 200px; max-height: 100px;">
-				                            </div>
-				                            <div class="col-md-8">
-				                                <div class="card-body">
-				                                    <h6 class="card-subtitle mb-2 text-muted">${vo.title}</h6>
-				                                    <p class="card-text">${vo.regDt}</p>
-				                                    <p class="card-text">${vo.contents}</p>
-				                                    <c:if test="${empty vo.fileList}">
-				                                        <!-- 이미지가 없는 경우에만 표시됩니다 -->
-				                                        <p class="card-text">이미지가 없습니다.</p>
-				                                    </c:if>
-				                                </div>
-				                            </div>
-				                        </div>
-				                    </div>
-				                </a>
-				            </div>
-                        </c:forEach>
-                        <!--// 반복문 -->
-                    </c:when>
-                    <c:otherwise>
-                        <tr>
-                            <td colspan="99" class="text-center">조회된 데이터가 없습니다.</td>
-                        </tr>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
+    <div class="row">
+    <c:choose>
+        <c:when test="${ not empty newsList }">
+            <!-- 반복문 -->
+            <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="width: 18rem;">
+                        <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
+                            <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="card-img-top img-fluid rounded-start" alt="이미지" style="max-height: 200px;">
+                            <div class="card-body">
+                                <h5 class="card-title">${vo.title}</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </c:forEach>
+            <!--// 반복문 -->
+        </c:when>
+        <c:otherwise>
+            <div class="col text-center">
+                조회된 데이터가 없습니다.
+            </div>
+        </c:otherwise>
+    </c:choose>
+</div>
 </body>
 
 </html>
