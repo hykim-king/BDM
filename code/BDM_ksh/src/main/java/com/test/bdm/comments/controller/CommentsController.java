@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.comments.domain.CommentsVO;
@@ -44,13 +45,13 @@ public class CommentsController implements PcwkLogger {
 		LOG.debug("│ CommentsVO                           │" + inVO);
 		LOG.debug("└───────────────────────────────────┘");
 
-		if (0 == inVO.getPostNo()) {
-			LOG.debug("┌──────────┐");
-			LOG.debug("│   PostNo │" + inVO.getPostNo());
-			LOG.debug("└──────────┘");
-
-			throw new NullPointerException("게시판 순번을 입력 하세요.");
-		}
+//		if (0 == inVO.getPostNo()) {
+//			LOG.debug("┌──────────┐");
+//			LOG.debug("│   PostNo │" + inVO.getPostNo());
+//			LOG.debug("└──────────┘");
+//
+//			throw new NullPointerException("게시판 순번을 입력 하세요.");
+//		}
 
 		list = service.doRetrieve(inVO);
 

@@ -13,13 +13,13 @@ public class HeartVO {
 	
 	private int postNo;
 	private String id;
-	private int heartCheck;
 	
 	@Override
 	public String toString() {
-		return "HeartVO [postNo=" + postNo + ", id=" + id + ", heartCheck=" + heartCheck + ", toString()="
-				+ super.toString() + "]";
+		return "HeartVO [postNo=" + postNo + ", id=" + id + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 	
 	
 	

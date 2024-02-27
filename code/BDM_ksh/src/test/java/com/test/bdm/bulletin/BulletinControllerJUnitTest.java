@@ -62,8 +62,8 @@ public class BulletinControllerJUnitTest implements PcwkLogger {
 		String regDt    = "사용 하지 않음";
 		String modDt    = "사용 하지 않음";
 		int    readCnt  = 0;
-		String id    = "ksh";
-		String modId    = "ksh";
+		String id    = "hsm";
+		String modId    = "hsm";
 		
 		mockMvc  = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 		bulletinList = Arrays.asList(

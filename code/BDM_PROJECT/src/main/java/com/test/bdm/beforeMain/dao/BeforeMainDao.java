@@ -10,7 +10,7 @@ public interface BeforeMainDao {
 	
 	int idCheck(UserVO inVO)throws SQLException;
 	
-	int idPassCheck(UserVO inVO)throws SQLException;
+	int idPassCheck(UserVO inVO)throws Exception;
 	
 	UserVO doSelectOne(UserVO inVO) throws SQLException;
 	

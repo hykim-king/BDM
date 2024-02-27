@@ -17,8 +17,8 @@ public class FoodServiceImpl implements FoodService {
 	public FoodServiceImpl() {}
 
 	@Override
-	public int doSaveFood(String userId, List<String> selectedFoodCode) {
-		return foodDao.doSaveFood(userId, selectedFoodCode);
+	public int doSaveFood(String userId, List<String> selectedFoodCode, List<Double> amountList, String divs) {
+		return foodDao.doSaveFood(userId, selectedFoodCode, amountList, divs);
 	}
 
 }

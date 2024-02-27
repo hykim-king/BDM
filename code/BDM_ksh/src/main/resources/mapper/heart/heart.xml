@@ -3,27 +3,50 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.bdm.heart">
 
-<delete id="delete" parameterType="HeartVO">
+<insert id="save" parameterType="HeartVO">
+	INSERT INTO heart (
+	    post_no,
+	    id
+	) VALUES (
+	    #{postNo},
+	    #{id}
+	)
+</insert>
+
+
+<select id="selectHeart" resultType="int">
+	SELECT
+	    post_no,
+	    id
+	FROM
+    	heart
+    WHERE post_no = #{postNo}
+    AND   id=#{id}
+    	
+</select>
+
+<delete id="delete">
 	DELETE FROM heart
 	WHERE
         post_no = #{postNo}
-    AND id = #{Id}
-    AND heart_check = 1;
-	
+    AND id = #{id}
 </delete>
 
+<select id="count" parameterType="HeartVO" resultType = "int">
+	SELECT COUNT(*)
+	FROM HEART
+	WHERE ID = #{id}
+	AND POST_NO = #{postNo}
+</select>
 
-<insert id="save" parameterType="HeartVO">
-	
-	INSERT INTO heart (
-	    post_no,
-	    id,
-	    heart_check
-	) VALUES (
-	    #{postNo},
-	    #{Id},
-	    #{heartCheck}
-	)
-</insert>
+<select id="getTotalCount" parameterType="HeartVO" resultType = "int">
+	SELECT COUNT(*)
+	FROM HEART
+	WHERE  POST_NO = #{postNo}
+</select>
+
+
+
+
 
 </mapper>

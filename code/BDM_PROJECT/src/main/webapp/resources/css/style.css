@@ -11453,7 +11453,7 @@ input[type="button"].btn-block {
 
 .card-footer {
   padding: 0.75rem 1.25rem;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #fa9624;
   border-top: 1px solid rgba(0, 0, 0, 0.125); }
   .card-footer:last-child {
     border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px); }
@@ -20341,7 +20341,7 @@ div.tagsinput {
 /* Navbar */
 .navbar {
   font-weight: normal;
-  background: #191c24;
+  background: #f7e9e8;
   left: 244px;
   transition: left 0.25s ease;
   -webkit-transition: left 0.25s ease;
@@ -20355,7 +20355,7 @@ div.tagsinput {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    background: #191c24;
+    background: #f7e9e8;
     width: 244px;
     height: 70px; }
     @media (max-width: 991px) {
@@ -20369,7 +20369,7 @@ div.tagsinput {
       padding: 0rem 0rem 0rem 1.3rem;
       width: 100%; }
       .navbar .navbar-brand-wrapper .navbar-brand:active, .navbar .navbar-brand-wrapper .navbar-brand:focus, .navbar .navbar-brand-wrapper .navbar-brand:hover {
-        color: #252b3e; }
+        color: #514752; }
       .navbar .navbar-brand-wrapper .navbar-brand img {
         width: calc(244px - 120px);
         max-width: 100%;
@@ -20391,7 +20391,7 @@ div.tagsinput {
     box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 20px 19px 34px -15px rgba(0, 0, 0, 0.5);
-    color: #ffffff;
+    color: #514752;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
@@ -20425,24 +20425,24 @@ div.tagsinput {
       padding: .5rem; }
       .navbar .navbar-menu-wrapper .search-field .input-group input:-ms-input-placeholder, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap input:-ms-input-placeholder {
         font-size: 0.9375rem;
-        color: #ffffff;
+        color: #514752;
         font-weight: 300; }
       .navbar .navbar-menu-wrapper .search-field .input-group input:-moz-placeholder, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap input:-moz-placeholder {
         font-size: 0.9375rem;
-        color: #ffffff;
+        color: #514752;
         font-weight: 300; }
       .navbar .navbar-menu-wrapper .search-field .input-group input::-moz-placeholder, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap input::-moz-placeholder {
         font-size: 0.9375rem;
-        color: #ffffff;
+        color: #514752;
         font-weight: 300; }
       .navbar .navbar-menu-wrapper .search-field .input-group input::-webkit-input-placeholder, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap input::-webkit-input-placeholder {
         font-size: 0.9375rem;
-        color: #ffffff;
+        color: #514752;
         font-weight: 300; }
     .navbar .navbar-menu-wrapper .search-field .input-group i, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap i {
       font-size: 17px;
       margin-right: 0;
-      color: #ffffff; }
+      color: #514752; }
     .navbar .navbar-menu-wrapper .search-field .input-group .input-group-text, .navbar .navbar-menu-wrapper .search-field .asColorPicker-wrap .input-group-text {
       background: transparent; }
     .navbar .navbar-menu-wrapper .count-indicator {
@@ -20461,7 +20461,7 @@ div.tagsinput {
         min-width: 14px;
         height: 14px;
         font-size: .5rem;
-        color: #ffffff;
+        color: #514752;
         bottom: 16px;
         right: -5px;
         line-height: 1;
@@ -20473,7 +20473,7 @@ div.tagsinput {
         left: 66%;
         width: 7px;
         height: 7px;
-        color: #ffffff;
+        color: #514752;
         border-radius: 100%;
         text-align: center;
         font-size: .625rem;
@@ -20568,7 +20568,7 @@ div.tagsinput {
           bottom: 5px;
           right: -5px; }
           .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile .nav-link .nav-profile-img .availability-status.online {
-            background: #00d25b; }
+            background: #f7e9e8; }
           .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile .nav-link .nav-profile-img .availability-status.offline {
             background: #fc424a; }
           .navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile .nav-link .nav-profile-img .availability-status.busy {
@@ -20624,7 +20624,7 @@ div.tagsinput {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background:  #427d4f;
+  background:  #fdce64;
   font-weight: normal;
   padding: 0;
   width: 244px;
@@ -20638,7 +20638,7 @@ div.tagsinput {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    background: #00C734;
+    background-color: #f7e9e8;
     width: 244px;
     height: 70px; }
     @media (max-width: 991px) {

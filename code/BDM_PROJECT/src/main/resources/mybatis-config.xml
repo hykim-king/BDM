@@ -19,5 +19,6 @@
         <typeAlias type="com.test.bdm.file.domain.FileVO"			alias="FileVO"/>
         <typeAlias type="com.test.bdm.qa.domain.QaVO"				alias="QaVO"/>
         <typeAlias type="com.test.bdm.comments.domain.CommentsVO"	alias="CommentsVO"/>
+        <typeAlias type="com.test.bdm.nutrient.domain.EatVO"        alias="EatVO"/>
     </typeAliases>
 </configuration>
