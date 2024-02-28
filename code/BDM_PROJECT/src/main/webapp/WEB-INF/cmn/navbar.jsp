@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
-=======
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +7,6 @@
 <%@ page import="com.test.bdm.nutrient.domain.NutrientVO"%>
 
 <c:set var="CP" value="${pageContext.request.contextPath}" scope="page" />
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
 
 <!DOCTYPE html>
 <html>

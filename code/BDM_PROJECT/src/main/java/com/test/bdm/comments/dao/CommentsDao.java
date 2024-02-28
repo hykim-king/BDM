@@ -10,5 +10,9 @@ public interface CommentsDao extends WorkDiv<CommentsVO> {
 
 	public int getRegNo() throws SQLException;
 	
+	List<CommentsVO> bulletinDoRetrieve(CommentsVO inVO) throws SQLException;
+	
+	List<CommentsVO> qaDoRetrieve(CommentsVO inVO) throws SQLException;
+	
 	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
 }

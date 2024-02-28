@@ -45,7 +45,12 @@ public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 	}
 
 	@Override
-	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
+	public List<CommentsVO> bulletinDoRetrieve(CommentsVO inVO) throws SQLException {
+		return dao.doRetrieve(inVO);
+	}
+	
+	@Override
+	public List<CommentsVO> qaDoRetrieve(CommentsVO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 

@@ -35,16 +35,34 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 	
 	@Override
+	public List<CommentsVO> bulletinDoRetrieve(CommentsVO inVO) throws SQLException {
+		LOG.debug("┌───────────────────────────────────┐");
+		LOG.debug("│ bulletinDoRetrieve                        │");
+		LOG.debug("│ comments                          │"+inVO);
+		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"bulletinDoRetrieve");
+		LOG.debug("└───────────────────────────────────┘");			
+		return sqlSessionTemplate.selectList(NAMESPACE+DOT+"bulletinDoRetrieve", inVO);
+	}
+	
+	@Override
+	public List<CommentsVO> qaDoRetrieve(CommentsVO inVO) throws SQLException {
+		LOG.debug("┌───────────────────────────────────┐");
+		LOG.debug("│ qaDoRetrieve                        │");
+		LOG.debug("│ comments                          │"+inVO);
+		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"qaDoRetrieve");
+		LOG.debug("└───────────────────────────────────┘");			
+		return sqlSessionTemplate.selectList(NAMESPACE+DOT+"qaDoRetrieve", inVO);
+	}
+	
+	@Override
 	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ comments                           │"+inVO);
+		LOG.debug("│ comments                          │"+inVO);
 		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"doRetrieve");
 		LOG.debug("└───────────────────────────────────┘");			
 		return sqlSessionTemplate.selectList(NAMESPACE+DOT+"doRetrieve", inVO);
 	}
-	
-	
 	
 	@Override
 	public int doDelete(CommentsVO inVO) throws SQLException {

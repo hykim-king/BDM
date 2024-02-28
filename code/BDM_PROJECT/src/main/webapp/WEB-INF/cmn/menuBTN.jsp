@@ -53,7 +53,7 @@
                                             </a>
                                         </li>
                                         <li class="ss_shortcut_item">
-                                            <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
+                                            <a class="shortcut_a" href="/bdm/notice/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="notice_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
@@ -61,7 +61,7 @@
                                             </a>
                                         </li>
                                         <li class="ss_shortcut_item">
-                                            <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
+                                            <a class="shortcut_a" href="/bdm/bulletin/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="board_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>

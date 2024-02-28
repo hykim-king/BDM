@@ -9,19 +9,37 @@
 	WHERE  reg_no = #{regNo}
 </update>
 
-<select id="doRetrieve" parameterType="CommentsVO" resultType="CommentsVO">
+<select id="bulletinDoRetrieve" parameterType="CommentsVO" resultType="CommentsVO">
 	SELECT
 	    reg_no,
 	    contents,
 	    DECODE(TO_CHAR(reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
 	    ,TO_CHAR(reg_dt,'HH24:MI')
 	    ,TO_CHAR(reg_dt,'YYYY-MM-DD')) as regDt,	    	    
-	    post_no,
+	    bulletin_post_no,
+	    qa_post_no,
 	    id,
 	    mod_id
 	FROM
 	    comments
-	WHERE post_no =  #{postNo}   
+	WHERE bulletin_post_no =  #{bulletinPostNo}   
+	ORDER BY reg_no
+</select>
+
+<select id="qaDoRetrieve" parameterType="CommentsVO" resultType="CommentsVO">
+	SELECT
+	    reg_no,
+	    contents,
+	    DECODE(TO_CHAR(reg_dt,'YYYYMMDD'), TO_CHAR(SYSDATE,'YYYYMMDD')
+	    ,TO_CHAR(reg_dt,'HH24:MI')
+	    ,TO_CHAR(reg_dt,'YYYY-MM-DD')) as regDt,	    	    
+	    bulletin_post_no,
+	    qa_post_no,
+	    id,
+	    mod_id
+	FROM
+	    comments
+	WHERE qa_post_no =  #{qaPostNo}   
 	ORDER BY reg_no
 </select>
 
@@ -56,14 +74,16 @@
 	    reg_no,
 	    contents,
 	    reg_dt,
-	    post_no,
+	    bulletin_post_no,
+	    qa_post_no,
 	    id,
 	    mod_id
 	) VALUES (
 	    comments_seq.NEXTVAL,
 	    #{contents},
 	   	SYSDATE,	    
-        #{postNo},
+        #{bulletinPostNo},
+        #{qaPostNo},
 	    #{id},
 	    #{modId}
 	)

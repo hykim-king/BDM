@@ -35,24 +35,46 @@ public class CommentsController implements PcwkLogger {
 	public CommentsController() {
 	}
 
-	@GetMapping(value = "/doRetrieve.do", produces = "application/json;charset=UTF-8")
+	@GetMapping(value = "/bulletinDoRetrieve.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
+	public List<CommentsVO> bulletinDoRetrieve(CommentsVO inVO) throws SQLException {
 		List<CommentsVO> list = new ArrayList<CommentsVO>();
 		LOG.debug("─────────────────────────────────────");
-		LOG.debug("doRetrieve"                           );
+		LOG.debug("bulletinDoRetrieve"                   );
 		LOG.debug("CommentsVO: " + inVO                  );
 		LOG.debug("─────────────────────────────────────");
 
-		if (0 == inVO.getPostNo()) {
+		if (0 == inVO.getBulletinPostNo()) {
 			LOG.debug("─────────────────────────────────────");
-			LOG.debug("PostNo: " + inVO.getPostNo()          );
+			LOG.debug("PostNo: " + inVO.getBulletinPostNo()  );
 			LOG.debug("─────────────────────────────────────");
 
 			throw new NullPointerException("게시판 순번을 입력 하세요.");
 		}
 
-		list = service.doRetrieve(inVO);
+		list = service.bulletinDoRetrieve(inVO);
+
+		return list;
+	}
+	
+	@GetMapping(value = "/qaDoRetrieve.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<CommentsVO> qaDoRetrieve(CommentsVO inVO) throws SQLException {
+		List<CommentsVO> list = new ArrayList<CommentsVO>();
+		LOG.debug("─────────────────────────────────────");
+		LOG.debug("qaDoRetrieve"                         );
+		LOG.debug("CommentsVO: " + inVO                  );
+		LOG.debug("─────────────────────────────────────");
+
+		if (0 == inVO.getQaPostNo()) {
+			LOG.debug("─────────────────────────────────────");
+			LOG.debug("PostNo: " + inVO.getQaPostNo()        );
+			LOG.debug("─────────────────────────────────────");
+
+			throw new NullPointerException("게시판 순번을 입력 하세요.");
+		}
+
+		list = service.qaDoRetrieve(inVO);
 
 		return list;
 	}

@@ -6,7 +6,6 @@
 <html>
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <style>
    .readonly-input {

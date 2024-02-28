@@ -18,13 +18,16 @@ public class CommentsVO extends DTO {
 	private int   regNo   ;//순번
 	private String contents;
 	private String regDt   ;
-	private int   postNo  ;//게시순번
+	private int   bulletinPostNo  ;//게시순번
+	private int   qaPostNo  ;
 	private String id      ;//등록자
 	private String modId;
 	
 	@Override
 	public String toString() {
-		return "CommentsVO [regNo=" + regNo + ", contents=" + contents + ", regDt=" + regDt + ", postNo=" + postNo
-				+ ", id=" + id + ", modId=" + modId + ", toString()=" + super.toString() + "]";
+		return "CommentsVO [regNo=" + regNo + ", contents=" + contents + ", regDt=" + regDt + ", bulletinPostNo="
+				+ bulletinPostNo + ", qaPostNo=" + qaPostNo + ", id=" + id + ", modId=" + modId + ", toString()="
+				+ super.toString() + "]";
 	}
+	
 }

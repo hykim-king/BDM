@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-
 <c:set var="CP" value="${pageContext.request.contextPath}" />     
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+
 <title>Balance Diet Management</title>
 <style>
    .readonly-input {
@@ -35,24 +34,45 @@
 
 </style>
 <script>
-document.addEventListener("DOMContentLoaded",function() { 
+document.addEventListener("DOMContentLoaded",function() {
+	commentsRetrieve();//댓글 조회
 	const heartButton = document.querySelector("#heartButton");
     const heartIcon = document.querySelector("#heartIcon");
+	const moveToListBTN = document.querySelector("#moveToList");
+    const doSelectOneBTN = document.querySelector("#doSelectOne");
+    const doDeleteBTN   = document.querySelector("#doDelete");
+    const regId = document.querySelector("#regId").value;
+    const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
     const postNo = $('#postNo').val();
-	
-	commentsRetrieve();//댓글 조회
 	getTotalCount();
-    
-<<<<<<< HEAD
-	commentsRetrieve();
-=======
-    heartButton.addEventListener("click", function(e) {
-    	const id = '${sessionScope.user.id}';
+	
+	function getTotalCount() {
+		const postNo = $('#postNo').val();
+		$.ajax({
+			type: "GET",
+			url: "/bdm/heart/totalCount.do", // 총 좋아요 갯수를 가져오는 엔드포인트
+			asyn:"true",
+			dataType: "json",
+			data: {
+				postNo: postNo
+			},
+			success: function(data) {
+				$('#totalCount').text(data.count); // 총 좋아요 갯수를 화면에 업데이트
+				console.log("총 좋아요 갯수 성공: " + data.count);
+			},
+			error: function(data) {
+				console.error("총 좋아요 갯수 가져오기 실패: " + data);
+			}
+		});
+	}
+	
+	heartButton.addEventListener("click", function(e) {
+		const id = '${sessionScope.user.id}';
 
-        console.log('heartButton click');
-
+		console.log('heartButton click');
         console.log(id);
         console.log(postNo);
+        
         let i = ${count};
         if (i == 0) {
             heartIcon.classList.remove('bi-heart');
@@ -107,33 +127,10 @@ document.addEventListener("DOMContentLoaded",function() {
 	
 	count();
 	
-    
-	
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
-    //목록버튼
-    const moveToListBTN = document.querySelector("#moveToList");
-    
-    
-    const doSelectOneBTN = document.querySelector("#doSelectOne");
-    
-    //삭제버튼
-    const doDeleteBTN   = document.querySelector("#doDelete");
-    
-    const regId = document.querySelector("#regId").value;
-    
-    const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
-<<<<<<< HEAD
-    
-    commentsDoSaveBTN.addEventListener("click",function(e){
+	commentsDoSaveBTN.addEventListener("click",function(e){
     	console.log('commentsDoSaveBTN click');
     	
     	
-=======
-	
-    commentsDoSaveBTN.addEventListener("click",function(e){
-    	console.log('commentsDoSaveBTN click');
-    	
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
     	const postNo = document.querySelector('#postNo').value;
     	if(eUtil.isEmpty(postNo) == true){
     		alert('게시글 순번을 확인 하세요.');
@@ -141,10 +138,7 @@ document.addEventListener("DOMContentLoaded",function() {
     	}
     	console.log('postNo:'+postNo);
     	
-<<<<<<< HEAD
     	
-=======
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
     	const contents = document.querySelector('#replyContents').value;
         if(eUtil.isEmpty(contents) == true){
             alert('댓글을 확인 하세요.');
@@ -158,11 +152,7 @@ document.addEventListener("DOMContentLoaded",function() {
             alert('로그인 하세요.');
             return;
         }    	  
-<<<<<<< HEAD
         console.log('regId: ' + regId);  
-=======
-        console.log('regId:'+regId);  
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
         
         
         $.ajax({
@@ -197,26 +187,25 @@ document.addEventListener("DOMContentLoaded",function() {
             }
         });
     	  	
-<<<<<<< HEAD
     });
     
     
     function commentsRetrieve(){
-    	const postNo = document.querySelector("#postNo").value
-    	console.log('postNo:'+postNo)
+    	const bulletinPostNo = document.querySelector("#postNo").value
+    	console.log('bulletinPostNo:'+bulletinPostNo)
     	
-    	if(eUtil.isEmpty(postNo) == true){
+    	if(eUtil.isEmpty(bulletinPostNo) == true){
     		alert('게시글 번호를 확인 하세요.');
     		return;
     	}
     	
         $.ajax({
             type: "GET",
-            url:"/bdm/comments/doRetrieve.do",
+            url:"/bdm/comments/bulletinDoRetrieve.do",
             asyn:"true",
             dataType:"json", //return type
             data:{
-                "postNo": postNo  
+                "bulletinPostNo": bulletinPostNo  
             },
             success:function(data){//통신 성공
                 console.log("success data:"+data);
@@ -392,9 +381,6 @@ document.addEventListener("DOMContentLoaded",function() {
         });    	
     	
     }
-=======
-    });    
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
 
 
   //삭제 이벤트 감지 및 처리
@@ -475,217 +461,8 @@ document.addEventListener("DOMContentLoaded",function() {
     
         
     });
-    function commentsRetrieve(){
-    	const postNo = document.querySelector("#postNo").value
-    	console.log('postNo:'+postNo)
-    	
-    	if(eUtil.isEmpty(postNo) == true){
-    		alert('게시글 번호를 확인 하세요.');
-    		return;
-    	}
-    	
-        $.ajax({
-            type: "GET",
-            url:"/bdm/comments/doRetrieve.do",
-            asyn:"true",
-            dataType:"json", //return type
-            data:{
-                "postNo": postNo  
-            },
-            success:function(data){//통신 성공
-                console.log("success data:"+data);
-                console.log("data.length:"+data.length);
-                
-                let commentsDiv = '';
-                
-                //기존 댓글 모두 삭제
-                //#요소의 내용을 모두 지웁니다.
-                document.getElementById("contentsDoSaveArea").innerHTML = "";
-                
-                
-                if(0==data.length){
-                	console.log("댓글이 없어요1");
-                	return;
-                }
-                	
-                
-                for(let i=0;i<data.length;i++){
-                	commentsDiv += '<div class="dynamicComments"> \n';
-                	commentsDiv += '<div class="row justify-content-end"> \n';
-                	commentsDiv += '<div class="col-auto"> \n';
-                	commentsDiv += '<span>등록자: '+data[i].id+'</span> \n';
-                	commentsDiv += '<span>등록일:'+data[i].regDt+'</span> \n';
-                	commentsDiv += '\t\t\t <input type="button" value="댓글수정" class="btn btn-primary contentsDoUpdate"  >   \n';
-                	commentsDiv += '\t\t\t <input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >   \n';
-                	commentsDiv += '</div> \n';
-                	commentsDiv += '</div> \n';
-                	
-                	commentsDiv += '<div class="mb-3">  \n';
-                	commentsDiv += '<input type="hidden" name="regNo" value="'+data[i].regNo +'"> \n';
-                	
-                	commentsDiv += '<textarea rows="3" class="form-control dyCommentsContents"   name="dyCommentsContents">'+data[i].contents+'</textarea> \n';
-                	commentsDiv += '</div> \n';
-                	
-                	commentsDiv += '</div> \n';
-                	
-                }
-                
-                
-                //조회 댓글 출력
-                document.getElementById("contentsDoSaveArea").innerHTML = commentsDiv;
-                
-                
-                //-댓글:삭제,수정-------------------------------------------------------------
-                //댓글 수정
-               // $(".contentsDoUpdate").on("click", function(e){
-                //	console.log('contentsDoUpdate click');
-               // }); 
-
-                //javascript
-                commentsDoUpdateBTNS = document.querySelectorAll(".contentsDoUpdate");
-                commentsDoUpdateBTNS.forEach(function(e){
-                	e.addEventListener("click",function(e){
-                		console.log('commentsDoUpdate click');
-                		
-                		//reply,reply_seq
-                		const regNo =this.closest('.dynamicComments').querySelector('input[name="regNo"]')
-                		console.log('regNo:'+regNo.value);
-                		if(eUtil.isEmpty(regNo.value)==true){
-                			alert('댓글 순번을 확인하세요.');
-                			return;
-                		}
-                		
-                		const contents =this.closest('.dynamicComments').querySelector('textarea[name="dyCommentsContents"]')
-                        if(eUtil.isEmpty(contents.value)==true){
-                            alert('댓글을 확인하세요.');
-                            contents.focus();
-                            return;
-                        }
-                		
-                		console.log('contents:'+contents.value);
-                		
-                		if(window.confirm('수정 하시겠습니까?')==false){
-                			return ;
-                		}
-                		 var id = '${sessionScope.user.id}';
-                   	        
-                	        if(id != modId){
-                	        	alert('타인의 글은 수정 불가능합니다.');
-                	        	return;
-                	        }
-                		
-                        $.ajax({
-                            type: "POST",
-                            url:"/bdm/comments/doUpdate.do",
-                            asyn:"true",
-                            dataType:"json",
-                            data:{
-                                "regNo": regNo.value,
-                                "contents":contents.value,
-                                
-                            },
-                            success:function(data){//통신 성공
-                                console.log("success data:"+data.msgId);
-                                console.log("success data:"+data.msgContents);
-                                
-                                if("1" == data.msgId){
-                                    alert(data.msgContents);
-                                    commentsRetrieve();
-                                }else{
-                                    alert(data.msgContents);
-                                }
-                            },
-                            error:function(data){//실패시 처리
-                                console.log("error:"+data);
-                            },
-                            complete:function(data){//성공/실패와 관계없이 수행!
-                                console.log("complete:"+data);
-                            }
-                        });
-                        
-                		
-                	});
-                	
-                });//-----replyDoUpdateBTNS-------------------------------------
-                
-                //댓글삭제
-                $(".contentsDoDelete").on("click", function(e){
-                	console.log('contentsDoDelete click');
-                	
-                	const regNo = $(this).closest('.dynamicComments').find('input[name="regNo"]').val();
-                	console.log('regNo:'+regNo);
-                	
-                	if(window.confirm("삭제 하시겠습니까?")==false){
-                		return;
-                	}	
-                		
-                		var id = '${sessionScope.user.id}';
-                    
-                    if(id != modId){
-                    	alert('타인의 글은 삭제 불가능합니다.');
-                    	return;
-                    }
-                	
-                    $.ajax({
-                        type: "GET",
-                        url:"/bdm/comments/doDelete.do",
-                        asyn:"true",
-                        dataType:"json",
-                        data:{
-                            "regNo": regNo
-                        },
-                        success:function(data){//통신 성공
-                            console.log("success data:"+data.msgId);
-                            console.log("success data:"+data.msgContents);
-                            
-                            if("1" == data.msgId){
-                            	alert(data.msgContents);
-                            	commentsRetrieve();
-                            }else{
-                            	alert(data.msgContents);
-                            }
-                        },
-                        error:function(data){//실패시 처리
-                            console.log("error:"+data);
-                        },
-                        complete:function(data){//성공/실패와 관계없이 수행!
-                            console.log("complete:"+data);
-                        }
-                    });                	
-                });
-                
-                
-                //--------------------------------------------------------------
-            },
-            error:function(data){//실패시 처리
-                console.log("error:"+data);
-            },
-            complete:function(data){//성공/실패와 관계없이 수행!
-                console.log("complete:"+data);
-            }
-        });    	
-    }
-});//--DOMContentLoaded
-function getTotalCount() {
 	
-	 const postNo = $('#postNo').val();
-	       $.ajax({
-	           type: "GET",
-	           url: "/bdm/heart/totalCount.do", // 총 좋아요 갯수를 가져오는 엔드포인트
-	           asyn:"true",
-	           dataType: "json",
-	           data: {
-	               postNo: postNo
-	           },
-	           success: function(data) {
-	               $('#totalCount').text(data.count); // 총 좋아요 갯수를 화면에 업데이트
-	               console.log("총 좋아요 갯수 성공: " + data.count);
-	           },
-	           error: function(data) {
-	               console.error("총 좋아요 갯수 가져오기 실패: " + data);
-	           }
-	       });
-	   }
+});//--DOMContentLoaded
 </script>
 </head>
 <body>
@@ -716,16 +493,6 @@ function getTotalCount() {
 		<span id="totalCount">${count}</span>
         </div>
     </div>
-<<<<<<< HEAD
-    <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
-		<label for="seq" class="col-sm-2 col-form-label">순번</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control readonly-input" id="postNo" name="postNo" maxlength="100"
-				value="${vo.postNo}"
-				readonly>
-		</div>
-	</div>
-=======
         <div class="mb-3 row" hidden> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">
@@ -734,7 +501,6 @@ function getTotalCount() {
                  readonly>
             </div>
         </div>
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
 
 	<div class="mb-3 row"> <!--  아래쪽으로  여백 -->
 		<label for="readCnt" class="col-sm-2 col-form-label">조회수</label>
@@ -745,7 +511,6 @@ function getTotalCount() {
 		</div>
 	</div>
 
-<<<<<<< HEAD
 	<div class="mb-3 row">
 		<label for="regId" class="col-sm-2 col-form-label">등록자</label>
 		<div class="col-sm-10">
@@ -776,40 +541,6 @@ function getTotalCount() {
 		<label for="contents" class="form-label">내용</label>
 		<textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
 	</div>
-=======
-        <div class="mb-3 row">
-            <label for="regId" class="col-sm-2 col-form-label">등록자</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="regId" name="regId"  readonly="readonly"
-                 value="${vo.id}"
-                 >
-            </div>        
-        </div>
-        <div class="mb-3 row">
-            <label for="regId" class="col-sm-2 col-form-label">등록일</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
-                value="${vo.regDt}"  readonly="readonly" >
-            </div>        
-        </div>        
-        <div class="mb-3 row" hidden>
-            <label for="regId" class="col-sm-2 col-form-label">수정자</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control readonly-input" id="modId" name="modId" 
-                value="${vo.modId}"  readonly="readonly"  >
-            </div>        
-        </div>
-        <div class="mb-3"> <!--  아래쪽으로  여백 -->
-            <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 
-             value="${vo.title}"
-            placeholder="제목을 입력 하세요">
-        </div>      
-        <div class="mb-3">
-            <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
-        </div>
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
     <!--// form --------------------------------------------------------------->
 	</div>
      <div id="contentsDoSaveArea">
@@ -828,39 +559,6 @@ function getTotalCount() {
         </div>        
     </div>
          <div id="contentsDoSaveArea">
-    
-<<<<<<< HEAD
-	<div id="contentsDoSaveArea">
-        <!-- 버튼 -->
-		<div class="dynamicComments">
-			
-			<div class="row justify-content-end">
-				<div class="col-auto">
-					<input type="button" value="댓글수정" class="btn btn-primary commentsDoUpdate"  >
-					<input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >
-				</div>
-			</div>
-			<div class="mb-3">
-				<input type="hidden" name="regNo" value="">
-				<textarea rows="3" class="form-control dyCommentsContents"   name="dyCommentsContents"></textarea>
-			</div>
-		</div>        
-	</div>
-	<div id="contentsDoSaveArea">
-    
-	    <!-- 버튼 -->
-		<div class="row justify-content-end">
-			<div class="col-auto">
-				<input type="button" value="댓글등록" class="btn btn-primary" id="commentsDoSave" >
-			</div>
-		</div>
-	    <!--// 버튼 ----------------------------------------------------------------->
-		<div class="mb-3">
-			<textarea rows="3" class="form-control"  id="replyContents" name="replyContents"></textarea>
-		</div>        
-	</div>
-</div>
-=======
 	    <!-- 버튼 -->
 	    <div class="row justify-content-end">
 	        <div class="col-auto">
@@ -873,7 +571,5 @@ function getTotalCount() {
 	    </div>        
     </div>
     <!--// reply --------------------------------------------------------------> 
->>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
-
 </body>
 </html>
