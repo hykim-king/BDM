@@ -86,6 +86,12 @@ document.addEventListener("DOMContentLoaded", function(){
     $("#moveToReg").on("click",function(e){
     	location.href = "/bdm/user/moveToReg.do";
     }); // --#moveToMain
+    
+    $("#naverLogin").on("click",function(e){
+    	location.href = "/bdm/login/login.do";
+    }); // --#moveToMain
+    
+    
  }); //--document ready
 </script>
 </head>
@@ -118,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     <tr>
                         <td colspan="2" style="text-align: center;">
                             <input type="button" value="로그인" id="doLogin" style="height: 30px; width: 100%; box-sizing: border-box;">
-                            <input type="button" value="네이버로그인" id="naverIdLogin_loginButton" style="height: 30px; width: 100%; href="javascript:void(0)">
+                            <input type="button" value="네이버로그인" id="naverLogin" style="height: 30px; width: 100%; href="javascript:void(0)">
                         </td>
                     </tr>
                 </table>
@@ -132,15 +138,14 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
 </div>
 
-
-<!-- 네이버 스크립트 -->
+<!-- 네이버 스크립트
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script>
-    var clientId = "8O6Ic7I8WQdgJXfbVAao"; // 클라이언트 아이디 설정
+    var clientId = "xH8CIFYIccFEu1_htDkb"; // 클라이언트 아이디 설정
 
     var naverLogin = new naver.LoginWithNaverId({
         clientId: clientId, // 클라이언트 아이디 설정
-        callbackUrl: "http://localhost:8080/bdm/beforeMain/checkSession.do", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
+        callbackUrl: "http://localhost:8080/bdm/login/callback.do", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
         isPopup: false,
         callbackHandle: true
     });
@@ -175,5 +180,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }, 1000);
     }
 </script>
+-->
+
 </body>
 </html>
