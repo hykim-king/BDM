@@ -7,9 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
     .card-body{
         color:#f7e9e8;
@@ -109,77 +114,86 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 </head>
 <body>
-    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
-
-        <legend>로그인</legend>
-        <div>
-            <form action="#" method="post">
-            
-                <table>
-                    <tr>
-                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
-                    </tr>
-                    <tr>
-                        <td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
-                        <td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
-                        <td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
-                    </tr>
-                </table>
-            </form>
-            <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-            </div>
-        </div>
-    </fieldset>
-    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
-        <legend>인기 검색어</legend>
-        <c:choose>
-             <c:when test="${ not empty wordList }">  
-                 <!-- 반복문 -->
-                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
-                     <table>
-                     <tr>
-                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
-                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
-                     </tr>
-                     </table>
-                 </c:forEach>
-                 <!--// 반복문 -->
-             </c:when>
-             <c:otherwise>
-                 <tr>
-                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
-                 </tr>
-             </c:otherwise>
-         </c:choose>
-    </fieldset>
-    
-   <legend style="position: absolute; top: 60; left: 50; right: 0;">건강 뉴스</legend>
-
-    <div class="row">
-    <c:choose>
-        <c:when test="${ not empty newsList }">
-            <!-- 반복문 -->
-            <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 18rem;">
-                        <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
-                            <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="card-img-top img-fluid rounded-start" alt="이미지" style="max-height: 200px;">
-                            <div class="card-body">
-                                <h5 class="card-title">${vo.title}</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </c:forEach>
-            <!--// 반복문 -->
-        </c:when>
-        <c:otherwise>
-            <div class="col text-center">
-                조회된 데이터가 없습니다.
-            </div>
-        </c:otherwise>
-    </c:choose>
-</div>
+    <div class="wrap">
+		<div class="container bg-primary">
+			<div class="row">
+		        <div class="col">
+		            <img src="${CP}/resources/images/main.jpg" class="img-fluid" alt="Main Image">
+		        </div>
+		    </div>
+		</div>    
+		    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+		
+		        <legend>로그인</legend>
+		        <div>
+		            <form action="#" method="post">
+		            
+		                <table>
+		                    <tr>
+		                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
+		                    </tr>
+		                    <tr>
+		                        <td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
+		                        <td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
+		                        <td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
+		                    </tr>
+		                </table>
+		            </form>
+		            <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
+		            </div>
+		        </div>
+		    </fieldset>
+		    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+		        <legend>인기 검색어</legend>
+		        <c:choose>
+		             <c:when test="${ not empty wordList }">  
+		                 <!-- 반복문 -->
+		                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+		                     <table>
+		                     <tr>
+		                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+		                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+		                     </tr>
+		                     </table>
+		                 </c:forEach>
+		                 <!--// 반복문 -->
+		             </c:when>
+		             <c:otherwise>
+		                 <tr>
+		                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+		                 </tr>
+		             </c:otherwise>
+		         </c:choose>
+		    </fieldset>
+		    
+		   <legend style="position: absolute; top: 60; left: 50; right: 0;">건강 뉴스</legend>
+		
+		    <div class="row">
+		    <c:choose>
+		        <c:when test="${ not empty newsList }">
+		            <!-- 반복문 -->
+		            <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
+		                <div class="col-md-4 mb-4">
+		                    <div class="card" style="width: 18rem;">
+		                        <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
+		                            <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="card-img-top img-fluid rounded-start" alt="이미지" style="max-height: 200px;">
+		                            <div class="card-body">
+		                                <h5 class="card-title">${vo.title}</h5>
+		                            </div>
+		                        </a>
+		                    </div>
+		                </div>
+		            </c:forEach>
+		            <!--// 반복문 -->
+		        </c:when>
+		        <c:otherwise>
+		            <div class="col text-center">
+		                조회된 데이터가 없습니다.
+		            </div>
+		        </c:otherwise>
+		    </c:choose>
+		</div>
+	</div>	
 </body>
 
 </html>

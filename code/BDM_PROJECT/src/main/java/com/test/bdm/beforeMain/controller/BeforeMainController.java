@@ -61,6 +61,10 @@ public class BeforeMainController implements PcwkLogger {
 	    }
 	}
 	
+	@GetMapping(value="/moveToMenuBTN.do")
+	public String moveToMenuBTN() {
+        return "cmn/menuBTN";  
+    }
 	@GetMapping(value = "/moveToUserMonitor.do")
 	public String moveToUserMonitor() throws SQLException {
 		return "user/user_monitor";
