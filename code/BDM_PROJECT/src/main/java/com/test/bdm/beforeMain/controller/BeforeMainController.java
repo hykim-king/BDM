@@ -52,13 +52,13 @@ public class BeforeMainController implements PcwkLogger {
 	AttachFileService attachFileService;
 
 	@GetMapping(value = "/checkSession.do")
-	public String checkSession(@RequestParam(name = "access_token", required = false) String accessToken,
-	                           @RequestParam(name = "clientId", required = false) String clientId) throws SQLException {
-	    if ("8O6Ic7I8WQdgJXfbVAao".equals(clientId)) {
-	        return "user/naver_user_reg";
-	    } else {
-	        return "user/naver_user_reg";
-	    }
+	public String checkSession(HttpSession httpSession) throws SQLException {
+		if(httpSession.getAttribute("sessionId") != null) {
+			return "main/afterLoginMain";
+		}
+		else {
+			return "user/user_reg";
+		}
 	}
 	
 	@GetMapping(value="/moveToMenuBTN.do")
