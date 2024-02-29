@@ -11,8 +11,8 @@
 
 <style>
 .bi-heart-fill {
-    font-size: 25px;
-    line-height: 25px;
+    font-size: 15px;
+    line-height: 15px;
     color: crimson;
     border: none; /* 테두리 제거 */
 }
@@ -26,7 +26,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 	console.log("DOMContentLoaded ON");
 	
-	getTotalCount();
+	//getTotalCount();
 
 	const moveToRegBTN = document.querySelector("#moveToReg");
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const bulletinForm = document.querySelector("#bulletinFrm");
 	const searchWordTxt = document.querySelector("#searchWord");
 	const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
+	
 
 	rows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
@@ -113,46 +114,6 @@ function pageDoRerive(url, pageNo) {
 	bulletinForm.action = url;
 	bulletinForm.submit();
 }
-function getTotalCount() {
-	
-	 const postNo = $('#postNo').val();
-	       $.ajax({
-	           type: "GET",
-	           url: "/bdm/heart/totalCount.do", // 총 좋아요 갯수를 가져오는 엔드포인트
-	           asyn:"true",
-	           dataType: "json",
-	           data: {
-	               postNo: postNo
-	           },
-	           success: function(data) {
-	               $('#totalCount').text(data.count); // 총 좋아요 갯수를 화면에 업데이트
-	               console.log("총 좋아요 갯수 성공: " + data.count);
-	           },
-	           error: function(data) {
-	               console.error("총 좋아요 갯수 가져오기 실패: " + data);
-	           }
-	       });
-	   }
-function count() {
-	const id = '${sessionScope.user.id}';
-	
-    $.ajax({
-        type: "GET",
-        url: "/bdm/heart/count.do", // 좋아요 갯수를 가져오는 엔드포인트
-        asyn:"true",
-        dataType: "json",
-        data: {
-        	postNo: postNo
-        },
-        success: function (data) {
-            $('#count').text(data.count); // 좋아요 갯수를 화면에 업데이트
-    		console.log("좋아요 성공:"+data);
-        },
-        error: function (data) {
-            console.error("error:"+data);
-        }
-    });
-}
 
 
 </script>
@@ -220,21 +181,13 @@ function count() {
 										<td class="text-center col-lg-1  col-sm-1">
 											<c:out value="${status.index+1}" escapeXml="true" />
 										</td>
-										<td class="text-left   col-lg-7  col-sm-8">
-											<c:out value="${vo.title}" escapeXml="true" />
-											<button id="heartButton">
-											    <c:choose>
-											        <c:when test="${myCount eq 1}">
-											            <i id="heartIcon" class="bi bi-heart-fill"></i>
-											        </c:when>
-											        <c:otherwise>
-											            <i id="heartIcon" class="bi bi-heart"></i>
-											        </c:otherwise>
-											    </c:choose>
-											    <span id="totalCount">${count}</span>
-											    
-											</button>
-										</td>
+											<td class="text-left col-lg-7 col-sm-8">
+											    <c:out value="${vo.title}" escapeXml="true" />
+											    <button id="heartButton">
+											        <i id="heartIcon" class="bi bi-heart-fill"></i>
+											        <span id="totalCount">${count}</span>
+											    </button>
+											</td>
 										<td class="text-center col-lg-2  col-sm-1">
 											<c:out value="${vo.regDt}" escapeXml="true" />
 										</td>
