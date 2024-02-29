@@ -91,11 +91,8 @@ public class CommentsController implements PcwkLogger {
 		return messageVO;
 	}
 
-<<<<<<< HEAD
-	@GetMapping(value = "doDelete.do", produces = "application/json;charset=UTF-8")
-=======
+
 	@GetMapping(value = "doDelete.do", produces = "application/json;charset=UTF-8") 
->>>>>>> da901afa03ad08804fc17b4c9b6e1ba022d7265b
 	@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
 	public MessageVO doDelete(CommentsVO inVO) throws SQLException {
 		MessageVO messageVO = null;
@@ -115,25 +112,9 @@ public class CommentsController implements PcwkLogger {
 		int flag = service.doDelete(inVO);
 		LOG.debug("flag: " + flag);
 
-<<<<<<< HEAD
-
 		String message = "";
 		if (1 == flag) {
 			message = "삭제 성공";
-=======
-		//Locale locale = LocaleContextHolder.getLocale();
-
-		String message = "";
-		if (1 == flag) {
-			// {0} 되었습니다.
-			//message = this.messageSource.getMessage("common.message.update", null, locale);
-			// LOG.debug("│ message │" + message);
-
-			 message = "삭제 성공";
-			//message = MessageFormat.format(message, tranMessage);
-
-			// LOG.debug("│ message │" + message);
->>>>>>> da901afa03ad08804fc17b4c9b6e1ba022d7265b
 		} else {
 			message = "삭제 실패!";
 		}
