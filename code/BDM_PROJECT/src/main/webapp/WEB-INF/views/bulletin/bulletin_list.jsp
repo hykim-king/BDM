@@ -6,7 +6,6 @@
 
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/menuBTN.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <style >
 

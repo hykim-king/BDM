@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.test.bdm.comments">
+<mapper namespace="com.test.bdm.qacomments">
 <!-- CRUD -->
-<update id="doUpdate" parameterType="CommentsVO">
-	UPDATE bulletin_comments
+<update id="doUpdate" parameterType="QaCommentsVO">
+	UPDATE qa_comments
 	   SET contents = #{contents}
 	      ,reg_dt = SYSDATE
 	WHERE  reg_no = #{regNo}
 </update>
 
-<select id="doRetrieve" parameterType="CommentsVO" resultType="CommentsVO">
+<select id="doRetrieve" parameterType="QaCommentsVO" resultType="QaCommentsVO">
 	SELECT
 	    reg_no,
 	    contents,
@@ -20,17 +20,17 @@
 	    id,
 	    mod_id
 	FROM
-	    bulletin_comments
+	    qa_comments
 	WHERE post_no =  #{postNo}   
 	ORDER BY reg_no
 </select>
 
 
 <select id="getRegNo" resultType="int">
-    SELECT COMMENTS_SEQ.NEXTVAL FROM dual
+    SELECT QA_COMMENTS_SEQ.NEXTVAL FROM dual
 </select>
 
-<select id="doSelectOne" parameterType="CommentsVO" resultType="CommentsVO">
+<select id="doSelectOne" parameterType="QaCommentsVO" resultType="QaCommentsVO">
 	SELECT
 	    reg_no,
 	    contents,
@@ -39,20 +39,20 @@
 	    id,
 	    mod_id
 	FROM
-	    bulletin_comments
+	    qa_comments
 	WHERE
 	    reg_no = #{regNo}
 
 </select>
 
-<delete id="doDelete"  parameterType="CommentsVO">
-	DELETE FROM bulletin_comments
+<delete id="doDelete"  parameterType="QaCommentsVO">
+	DELETE FROM qa_comments
 	WHERE   reg_no = #{regNo}
 </delete>
 
 
-<insert id="doSave" parameterType="CommentsVO">
-	INSERT INTO bulletin_comments (
+<insert id="doSave" parameterType="QaCommentsVO">
+	INSERT INTO qa_comments (
 	    reg_no,
 	    contents,
 	    reg_dt,
@@ -60,7 +60,7 @@
 	    id,
 	    mod_id
 	) VALUES (
-	    comments_seq.NEXTVAL,
+	    qa_comments_seq.NEXTVAL,
 	    #{contents},
 	   	SYSDATE,	    
         #{postNo},

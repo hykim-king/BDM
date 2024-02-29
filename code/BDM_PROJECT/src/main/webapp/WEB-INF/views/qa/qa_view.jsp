@@ -15,19 +15,12 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded",function() {
-	
 	commentsRetrieve();
-    
-    //목록버튼
     const moveToListBTN = document.querySelector("#moveToList");
-    
-    
-    //삭제버튼
     const doDeleteBTN   = document.querySelector("#doDelete");
-    
     const regId = document.querySelector("#regId").value;
-    
     const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
+    const postNo = $('#postNo').val();
     
     commentsDoSaveBTN.addEventListener("click",function(e){
     	console.log('commentsDoSaveBTN click');
@@ -59,7 +52,7 @@ document.addEventListener("DOMContentLoaded",function() {
         
         $.ajax({
             type: "POST",
-            url:"/bdm/comments/doSave.do",
+            url:"/bdm/qaComments/doSave.do",
             asyn:"true",
             dataType:"json",
             data:{
@@ -102,7 +95,7 @@ document.addEventListener("DOMContentLoaded",function() {
     	
         $.ajax({
             type: "GET",
-            url:"/bdm/comments/doRetrieve.do",
+            url:"/bdm/qaComments/doRetrieve.do",
             asyn:"true",
             dataType:"json", //return type
             data:{
@@ -193,7 +186,7 @@ document.addEventListener("DOMContentLoaded",function() {
                 		
                         $.ajax({
                             type: "POST",
-                            url:"/bdm/comments/doUpdate.do",
+                            url:"/bdm/qaComments/doUpdate.do",
                             asyn:"true",
                             dataType:"json",
                             data:{
@@ -244,7 +237,7 @@ document.addEventListener("DOMContentLoaded",function() {
                 	
                     $.ajax({
                         type: "GET",
-                        url:"/bdm/comments/doDelete.do",
+                        url:"/bdm/qaComments/doDelete.do",
                         asyn:"true",
                         dataType:"json",
                         data:{

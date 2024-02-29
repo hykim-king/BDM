@@ -35,8 +35,8 @@ import com.test.bdm.bulletin.dao.BulletinDao;
 import com.test.bdm.bulletin.domain.BulletinVO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
-import com.test.bdm.comments.dao.CommentsDao;
-import com.test.bdm.comments.domain.CommentsVO;
+import com.test.bdm.comments.dao.QaCommentsDao;
+import com.test.bdm.comments.domain.QaCommentsVO;
 import com.test.bdm.qa.dao.QaDao;
 import com.test.bdm.qa.domain.QaVO;
 
@@ -45,10 +45,10 @@ import com.test.bdm.qa.domain.QaVO;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CommentsControllerJunitTest implements PcwkLogger {
+public class QaCommentsControllerJunitTest implements PcwkLogger {
 
 	@Autowired
-	CommentsDao dao;
+	QaCommentsDao dao;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -57,13 +57,13 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 	MockMvc mockMvc;
 
 	@Autowired
-	BulletinDao bulletinDao;
+	QaDao qaDao;
 
-	BulletinVO bulletin01;
+	QaVO qa01;
 	
-	BulletinVO searchVO;
+	QaVO searchVO;
 
-	CommentsVO comments01;
+	QaCommentsVO qaComments01;
 
 	@Before
 	public void setUp() throws Exception {
@@ -73,33 +73,33 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "20240214", "contents", "사용하지않음", "사용하지않음", 0, "hsm", "hsm");
+		qa01 = new QaVO(qaDao.getQaSeq(), "테스트제목", "테스트내용", "사용하지않음", "hsm", 0);
 
-		int postNo = bulletin01.getPostNo();
+		int postNo = qa01.getPostNo();
 
-		comments01 = new CommentsVO(dao.getRegNo(), "댓글내용-01", "사용하지않음", postNo, "hsm", "hsm");
+		qaComments01 = new QaCommentsVO(dao.getRegNo(), "댓글내용-01", "사용하지않음", postNo, "hsm", "hsm");
 	}
 
-	@Ignore
+	//@Ignore
 	@Test
 	public void doRetrieve() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                                │");
 		LOG.debug("└───────────────────────────────────────────┘");
 
-		this.bulletinDao.doDelete(bulletin01);
-		int flag = bulletinDao.doSave(bulletin01);
+		this.qaDao.doDelete(qa01);
+		int flag = qaDao.doSave(qa01);
 		assertEquals(1, flag);
 
 		// 댓글1. 등록
-		flag = dao.doSave(comments01);
+		flag = dao.doSave(qaComments01);
 		assertEquals(1, flag);
 		
-		LOG.debug("c.getRegNo(): " + comments01.getRegNo());
+		LOG.debug("c.getRegNo(): " + qaComments01.getRegNo());
 
 
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/comments/bulletinDoRetrieve.do")
-				.param("postNo", comments01.getPostNo() + "");
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/comments/doRetrieve.do")
+				.param("postNo", qaComments01.getPostNo() + "");
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());
@@ -107,15 +107,15 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		String result = resultActions.andDo(print()).andReturn().getResponse().getContentAsString();
 		LOG.debug("result: " + result);
 
-		Type listType = new TypeToken<List<CommentsVO>>() {
+		Type listType = new TypeToken<List<QaCommentsVO>>() {
 		}.getType();
 
-		List<CommentsVO> list = new Gson().fromJson(result, listType);
+		List<QaCommentsVO> list = new Gson().fromJson(result, listType);
 
 		assertEquals(1, list.size());
 		assertNotNull(list);
 
-		for (CommentsVO vo : list) {
+		for (QaCommentsVO vo : list) {
 			LOG.debug(vo);
 		}
 
@@ -136,15 +136,15 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		// this.bulletinDao.doDelete(bulletin01);
 
 		// 2
-		int flag = bulletinDao.doSave(bulletin01);
+		int flag = qaDao.doSave(qa01);
 		assertEquals(1, flag);
 
 		// 댓글1. 등록
-		flag = dao.doSave(comments01);
+		flag = dao.doSave(qaComments01);
 		assertEquals(1, flag);
 
 		// 댓글2. 단건조회
-		CommentsVO vo = dao.doSelectOne(comments01);
+		QaCommentsVO vo = dao.doSelectOne(qaComments01);
 
 		// 댓글 수정
 		vo.setContents(vo.getContents() + "_U");
@@ -162,7 +162,7 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		assertEquals("1", messageVO.getMsgId());
 	}
 
-	//@Ignore
+	@Ignore
 	@Test
 	public void doDelete() throws Exception {
 		LOG.debug("┌───────────────────────────────────────────┐");
@@ -173,16 +173,16 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		// 2.신규등록
 
 		// 1
-		this.bulletinDao.doDelete(bulletin01);
+		this.qaDao.doDelete(qa01);
 
 		// 2
-		int flag = bulletinDao.doSave(bulletin01);
+		int flag = qaDao.doSave(qa01);
 		assertEquals(1, flag);
 
 		// Reply삭제
-		CommentsVO vo = comments01;
+		QaCommentsVO vo = qaComments01;
 		// 1. 등록
-		flag = dao.doSave(comments01);
+		flag = dao.doSave(qaComments01);
 		assertEquals(1, flag);
 
 		
@@ -209,16 +209,17 @@ public class CommentsControllerJunitTest implements PcwkLogger {
 		LOG.debug("│ doSave()                                  │");
 		LOG.debug("└───────────────────────────────────────────┘");
 
-		// this.bulletinDao.doDelete(bulletin01);
-
-		int flag = bulletinDao.doSave(bulletin01);
+		int flag = qaDao.doSave(qa01);
 		assertEquals(1, flag);
 
-		CommentsVO vo = comments01;
+		QaCommentsVO vo = qaComments01;
 
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/comments/doSave.do")
-				.param("regNo", vo.getRegNo() + "").param("contents", vo.getContents())
-				.param("postNo", vo.getPostNo() + "").param("id", vo.getId()).param("modId", vo.getModId());
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/qaComments/doSave.do")
+				.param("regNo", vo.getRegNo() + "")
+				.param("contents", vo.getContents())
+				.param("postNo", vo.getPostNo() + "")
+				.param("id", vo.getId())
+				.param("modId", vo.getModId());
 
 		// 호출
 		ResultActions resultActions = mockMvc.perform(requestBuilder).andExpect(status().isOk());

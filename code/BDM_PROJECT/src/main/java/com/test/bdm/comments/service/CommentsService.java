@@ -25,8 +25,6 @@ public interface CommentsService {
 	int doSave(CommentsVO inVO) throws SQLException;
 	
 	
-	List<CommentsVO> bulletinDoRetrieve(CommentsVO inVO) throws SQLException;
-	
-	List<CommentsVO> qaDoRetrieve(CommentsVO inVO) throws SQLException;
+	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
 		
 }

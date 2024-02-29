@@ -15,38 +15,27 @@ import com.test.bdm.comments.domain.QaCommentsVO;
 
 
 @Repository
-public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
-	final String NAMESPACE = "com.test.bdm.comments";
+public class QaCommentsDaoImpl implements QaCommentsDao,PcwkLogger {
+	final String NAMESPACE = "com.test.bdm.qacomments";
 	final String DOT       = ".";
 	
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public CommentsDaoImpl() {}
-	
-	
+	public QaCommentsDaoImpl() {}
+
 	@Override
-	public int doUpdate(CommentsVO inVO) throws SQLException {
+	public int doUpdate(QaCommentsVO inVO) throws SQLException {
 		LOG.debug("──────────────────────────────────────────");
 		LOG.debug("doUpdate"                                  );
 		LOG.debug("comments: " + inVO                         );
 		LOG.debug("statement: " + NAMESPACE + DOT + "doUpdate");
 		LOG.debug("──────────────────────────────────────────");
-		return sqlSessionTemplate.update(NAMESPACE + DOT + "doUpdate", inVO);
+		return sqlSessionTemplate.update(NAMESPACE+DOT+"doUpdate", inVO);
 	}
-	
+
 	@Override
-	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
-		LOG.debug("────────────────────────────────────────────");
-		LOG.debug("doRetrieve"                                  );
-		LOG.debug("comments: " + inVO                           );
-		LOG.debug("statement: " + NAMESPACE + DOT + "doRetrieve");
-		LOG.debug("────────────────────────────────────────────");			
-		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieve", inVO);
-	}
-	
-	@Override
-	public int doDelete(CommentsVO inVO) throws SQLException {
+	public int doDelete(QaCommentsVO inVO) throws SQLException {
 		LOG.debug("──────────────────────────────────────────");
 		LOG.debug("doDelete"                                  );
 		LOG.debug("comments: " + inVO                         );
@@ -56,7 +45,7 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 
 	@Override
-	public CommentsVO doSelectOne(CommentsVO inVO) throws SQLException, EmptyResultDataAccessException {
+	public QaCommentsVO doSelectOne(QaCommentsVO inVO) throws SQLException, EmptyResultDataAccessException {
 		LOG.debug("─────────────────────────────────────────────");
 		LOG.debug("doSelectOne"                                  );
 		LOG.debug("comments: " + inVO                            );
@@ -66,7 +55,7 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 	}
 
 	@Override
-	public int doSave(CommentsVO inVO) throws SQLException {
+	public int doSave(QaCommentsVO inVO) throws SQLException {
 		LOG.debug("────────────────────────────────────────");
 		LOG.debug("doSave"                                  );
 		LOG.debug("comments: " + inVO                       );
@@ -75,7 +64,6 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 		return sqlSessionTemplate.insert(NAMESPACE + DOT + "doSave", inVO);
 	}
 
-
 	@Override
 	public int getRegNo() throws SQLException {
 		LOG.debug("──────────────────────────────────────────");
@@ -83,7 +71,16 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 		LOG.debug("statement: " + NAMESPACE + DOT + "getRegNo");
 		LOG.debug("──────────────────────────────────────────");	
 		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getRegNo");
+	}
 
+	@Override
+	public List<QaCommentsVO> doRetrieve(QaCommentsVO inVO) throws SQLException {
+		LOG.debug("────────────────────────────────────────────");
+		LOG.debug("doRetrieve"                                  );
+		LOG.debug("comments: " + inVO                           );
+		LOG.debug("statement: " + NAMESPACE + DOT + "doRetrieve");
+		LOG.debug("────────────────────────────────────────────");			
+		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieve", inVO);
 	}
 
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter  //getter
 @NoArgsConstructor //default 생성자
 @AllArgsConstructor//모든인자 생성자 
-public class CommentsVO extends DTO {
+public class QaCommentsVO extends DTO {
 	
 	//소문자 변환: ctrl+shift+y
 	//대문자 변환: ctrl+shift+x
@@ -24,7 +24,7 @@ public class CommentsVO extends DTO {
 	
 	@Override
 	public String toString() {
-		return "CommentsVO [regNo=" + regNo + ", contents=" + contents + ", regDt=" + regDt + ", postNo=" + postNo
+		return "QaCommentsVO [regNo=" + regNo + ", contents=" + contents + ", regDt=" + regDt + ", postNo=" + postNo
 				+ ", id=" + id + ", modId=" + modId + ", toString()=" + super.toString() + "]";
 	}
 	

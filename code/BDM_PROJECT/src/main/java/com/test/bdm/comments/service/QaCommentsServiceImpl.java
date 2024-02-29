@@ -8,16 +8,16 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.cmn.PcwkLogger;
-import com.test.bdm.comments.dao.CommentsDao;
-import com.test.bdm.comments.domain.CommentsVO;
+import com.test.bdm.comments.dao.QaCommentsDao;
+import com.test.bdm.comments.domain.QaCommentsVO;
 
 @Service
-public class CommentsServiceImpl implements CommentsService, PcwkLogger {
+public class QaCommentsServiceImpl implements QaCommentsService, PcwkLogger {
 
 	@Autowired
-	CommentsDao dao;
+	QaCommentsDao dao;
 	
-	public CommentsServiceImpl() {}
+	public QaCommentsServiceImpl() {}
 	
 	@Override
 	public int getRegNo() throws SQLException {
@@ -25,27 +25,27 @@ public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 	}
 
 	@Override
-	public int doUpdate(CommentsVO inVO) throws SQLException {
+	public int doUpdate(QaCommentsVO inVO) throws SQLException {
 		return dao.doUpdate(inVO);
 	}
 
 	@Override
-	public int doDelete(CommentsVO inVO) throws SQLException {
+	public int doDelete(QaCommentsVO inVO) throws SQLException {
 		return dao.doDelete(inVO);
 	}
 
 	@Override
-	public CommentsVO doSelectOne(CommentsVO inVO) throws SQLException, EmptyResultDataAccessException {
+	public QaCommentsVO doSelectOne(QaCommentsVO inVO) throws SQLException, EmptyResultDataAccessException {
 		return dao.doSelectOne(inVO);
 	}
 
 	@Override
-	public int doSave(CommentsVO inVO) throws SQLException {
+	public int doSave(QaCommentsVO inVO) throws SQLException {
 		return dao.doSave(inVO);
 	}
 
 	@Override
-	public List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException {
+	public List<QaCommentsVO> doRetrieve(QaCommentsVO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 

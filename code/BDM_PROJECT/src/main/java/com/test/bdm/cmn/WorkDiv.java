@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+
+import com.test.bdm.comments.domain.CommentsVO;
 	
 public interface WorkDiv<T> {
 
