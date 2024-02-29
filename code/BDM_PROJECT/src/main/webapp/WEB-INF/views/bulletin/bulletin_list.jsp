@@ -1,19 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>Balance Diet Management</title>
+<%-- <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+ --%><title>Balance Diet Management</title>
 <style >
-
+.bi-heart-fill {
+    font-size: 25px;
+    line-height: 25px;
+    color: crimson;
+    border: none; /* 테두리 제거 */
+}
+#heartButton {
+    border: none; /* 테두리 제거 */
+    background-color: transparent; /* 배경색을 투명으로 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	console.log("DOMContentLoaded ON");
+	
+	getTotalCount();
 
 	const moveToRegBTN = document.querySelector("#moveToReg");
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
@@ -100,6 +114,48 @@ function pageDoRerive(url, pageNo) {
 	bulletinForm.action = url;
 	bulletinForm.submit();
 }
+function getTotalCount() {
+	
+	 const postNo = $('#postNo').val();
+	       $.ajax({
+	           type: "GET",
+	           url: "/bdm/heart/totalCount.do", // 총 좋아요 갯수를 가져오는 엔드포인트
+	           asyn:"true",
+	           dataType: "json",
+	           data: {
+	               postNo: postNo
+	           },
+	           success: function(data) {
+	               $('#totalCount').text(data.count); // 총 좋아요 갯수를 화면에 업데이트
+	               console.log("총 좋아요 갯수 성공: " + data.count);
+	           },
+	           error: function(data) {
+	               console.error("총 좋아요 갯수 가져오기 실패: " + data);
+	           }
+	       });
+	   }
+function count() {
+	const id = '${sessionScope.user.id}';
+	
+    $.ajax({
+        type: "GET",
+        url: "/bdm/heart/count.do", // 좋아요 갯수를 가져오는 엔드포인트
+        asyn:"true",
+        dataType: "json",
+        data: {
+        	postNo: postNo
+        },
+        success: function (data) {
+            $('#count').text(data.count); // 좋아요 갯수를 화면에 업데이트
+    		console.log("좋아요 성공:"+data);
+        },
+        error: function (data) {
+            console.error("error:"+data);
+        }
+    });
+}
+
+
 </script>
 </head>
 
@@ -149,7 +205,7 @@ function pageDoRerive(url, pageNo) {
 					<thead>
 						<tr>
 							<th class="text-center col-lg-1 col-sm-1">번호</th>
-							<th class="text-left col-lg-7 col-sm-8">제목</th>
+							<th class="text-left col-lg-7 col-sm-8">제목 </th>
 							<th class="text-center col-lg-2 col-sm-1">날짜</th>
 							<th class="col-lg-1">작성자</th>
 							<th class="text-end col-lg-1">조회수</th>
@@ -167,6 +223,18 @@ function pageDoRerive(url, pageNo) {
 										</td>
 										<td class="text-left   col-lg-7  col-sm-8">
 											<c:out value="${vo.title}" escapeXml="true" />
+											<button id="heartButton">
+											    <c:choose>
+											        <c:when test="${myCount eq 1}">
+											            <i id="heartIcon" class="bi bi-heart-fill"></i>
+											        </c:when>
+											        <c:otherwise>
+											            <i id="heartIcon" class="bi bi-heart"></i>
+											        </c:otherwise>
+											    </c:choose>
+											    <span id="totalCount">${count}</span>
+											    
+											</button>
 										</td>
 										<td class="text-center col-lg-2  col-sm-1">
 											<c:out value="${vo.regDt}" escapeXml="true" />

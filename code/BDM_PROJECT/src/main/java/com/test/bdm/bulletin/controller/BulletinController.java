@@ -73,7 +73,7 @@ public class BulletinController implements PcwkLogger {
 	}
 	
 	@GetMapping(value = "/doRetrieve.do")
-	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException {
+	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView,HeartVO heartVO,Model model) throws SQLException {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doRetrieve"                          );
 		LOG.debug(" bulletinVO: " + inVO                 );
@@ -142,6 +142,9 @@ public class BulletinController implements PcwkLogger {
 
 		String title = "게시판-목록";
 		modelAndView.addObject("title", title);
+		
+		int count = heartService.getTotalCount(heartVO);
+		model.addAttribute("count", count);	
 
 		return modelAndView;
 		}

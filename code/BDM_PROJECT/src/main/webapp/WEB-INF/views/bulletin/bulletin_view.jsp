@@ -8,8 +8,8 @@
 <html>
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>Balance Diet Management</title>
+<%-- <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+ --%><title>Balance Diet Management</title>
 <style>
    .readonly-input {
     background-color: #e9ecef ;
@@ -34,7 +34,7 @@
 }
 
 </style>
-<script>
+<script >
 document.addEventListener("DOMContentLoaded",function() { 
 	const heartButton = document.querySelector("#heartButton");
     const heartIcon = document.querySelector("#heartIcon");
@@ -351,8 +351,8 @@ document.addEventListener("DOMContentLoaded",function() {
                 			return ;
                 		}
                 		 var id = '${sessionScope.user.id}';
-                   	        
-                	        if(id != modId){
+                		 var authorId = $(this).closest('.dynamicComments').find('span:contains("등록자:")').text().replace('등록자: ', '').trim();
+                	        if(id != authorId){
                 	        	alert('타인의 글은 수정 불가능합니다.');
                 	        	return;
                 	        }
@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded",function() {
                             dataType:"json",
                             data:{
                                 "regNo": regNo.value,
-                                "contents":contents.value,
+                                "contents":contents.value
                                 
                             },
                             success:function(data){//통신 성공
@@ -403,8 +403,8 @@ document.addEventListener("DOMContentLoaded",function() {
                 	}	
                 		
                 		var id = '${sessionScope.user.id}';
-                    
-                    if(id != modId){
+               		 var authorId = $(this).closest('.dynamicComments').find('span:contains("등록자:")').text().replace('등록자: ', '').trim();
+                    if(id != authorId){
                     	alert('타인의 글은 삭제 불가능합니다.');
                     	return;
                     }
