@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,7 +50,21 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	AttachFileService attachFileService;
+
+	@GetMapping(value = "/checkSession.do")
+	public String checkSession(HttpSession httpSession) throws SQLException {
+		if(httpSession.getAttribute("sessionId") != null) {
+			return "main/afterLoginMain";
+		}
+		else {
+			return "user/user_reg";
+		}
+	}
 	
+	@GetMapping(value="/moveToMenuBTN.do")
+	public String moveToMenuBTN() {
+        return "cmn/menuBTN";  
+    }
 	@GetMapping(value = "/moveToUserMonitor.do")
 	public String moveToUserMonitor() throws SQLException {
 		return "user/user_monitor";
