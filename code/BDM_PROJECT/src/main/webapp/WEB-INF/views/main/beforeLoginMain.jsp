@@ -11,75 +11,15 @@
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <style>
-    .card-body{
-        color:#f7e9e8;
-    }
-    .search-container {
-      max-width: 1920px;
-      width:80%;
-      margin: 0 auto;
-      padding: 20px;
-      text-align: center;
-    }
-    .search-input {
-      width: 70%;
-      padding: 10px;
-      border: 1px solid #fdce64; 
-      border-radius: 20px 0 0 20px;
-      font-size: 16px;
-      outline: none;
-    }
-    .search-button {
-      width: 50px;
-      padding: 10px;
-      background-color: #fdce64;
-      border: none;
-      border-radius: 0 20px 20px 0;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .search-input:focus {
-      border-color: #007bff;
-    }
-    .search-button img{
-        width: 20px;
-          height: 20px;
-    }
-    .link_main img{
-        width:50px;
-        height: auto;
-    }
     
-    #loginFieldset {
-        width: 300px;
-        position: absolute;
-        top:  50%; /* 화면 상단에서 세로 중앙 정렬 */
-        left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
-        <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
-    }
-   
-    .card-img-top {
-        width: 200px; /* 원하는 너비 */
-        height: 150px; /* 원하는 높이 */
-        object-fit: cover; /* 이미지가 잘리지 않고 부모 요소에 맞춰집니다. */
-    }
-   .row {
-    
-    bottom: 0px; /* 요소를 뷰포트의 아래쪽으로 100px 이동 */
-    left: 100px;
-    right: 0;
-    margin-right: 40rem;
-    margin-left: 0rem;
-}
-	.card{
-	
-	}
-	
 </style>
 <title>BDM</title>
 <script>
@@ -115,63 +55,163 @@ document.addEventListener("DOMContentLoaded", function(){
 </head>
 <body>
     <div class="wrap">
-		<div class="container bg-primary">
-			<div class="row">
-		        <div class="col">
-		            <img src="${CP}/resources/images/main.jpg" class="img-fluid" alt="Main Image">
-		        </div>
-		    </div>
-		</div>    
-		    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
-		
-		        <legend>로그인</legend>
-		        <div>
-		            <form action="#" method="post">
-		            
-		                <table>
-		                    <tr>
-		                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
-		                    </tr>
-		                    <tr>
-		                        <td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
-		                        <td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
-		                        <td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
-		                    </tr>
-		                </table>
-		            </form>
-		            <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-		            </div>
-		        </div>
-		    </fieldset>
-		    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
-		        <legend>인기 검색어</legend>
-		        <c:choose>
-		             <c:when test="${ not empty wordList }">  
-		                 <!-- 반복문 -->
-		                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
-		                     <table>
-		                     <tr>
-		                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
-		                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
-		                     </tr>
-		                     </table>
-		                 </c:forEach>
-		                 <!--// 반복문 -->
-		             </c:when>
-		             <c:otherwise>
-		                 <tr>
-		                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
-		                 </tr>
-		             </c:otherwise>
-		         </c:choose>
-		    </fieldset>
-		    
+		<div class="row">
+            <div class="col">
+                <img src="${CP }/resources/images/main.jpg" class="img-fluid" alt="Main Image" style="width: 100%;">
+            </div>
+        </div>
+		<div class="container login-container">
+            <div class="row">
+                <div class="col-md-7 d-flex flex-column" style="height: 100%;"> <!-- .col-md-7의 높이를 100%로 설정 -->
+                    <div class="slider-wrap">
+                        <div class="cont slick_01"></div>
+                        <div class="cont slick_02"></div>
+                        <div class="cont slick_03"></div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h3 class="text-center mb-4">로그인</h3>
+                            <form style="width: 100%;">
+                                <button type="submit" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button>
+                            </form>
+                            <div class="text-center mt-3" style="width: 100%;">
+                                <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a> | <a href="#">회원 가입</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="container main_news">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3>실시간 뉴스</h3>
+                    <div class="row ">
+                        <div class="col-md-6 news_tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="#">
+                                        <div class="news_img"><img src=""></div>
+                                        <div class="news_comment">
+                                            <h4>아이유, 박명수 선물에 “눈물 날것 같아” 울컥</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 news_tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="#">
+                                        <div class="news_img"><img src=""></div>
+                                        <div class="news_comment">
+                                            <h4>고진영 “HSBC 챔피언십 3연패 GO!”</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 news_tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="#">
+                                        <div class="news_img"><img src=""></div>
+                                        <div class="news_comment">
+                                            <h4>남편상 사강, 절절한 그리움 “거기선 아프지마”</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 news_tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="#">
+                                        <div class="news_img"><img src=""></div>
+                                        <div class="news_comment">
+                                            <h4>엄정화 “3일 동안 계란만 먹었다"극한 다이어트 고충</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pop_search">    
+                    <div class="row">
+                        <h3>실시간 인기 검색어</h3>
+                        <div class="card">
+                            <div class="card-body">
+                            	<c:choose>
+						            <c:when test="${ not empty wordList }">  
+						                 <!-- 반복문 -->
+						                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+						                     <table>
+						                     <tr>
+						                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+						                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+						                     </tr>
+						                     </table>
+						                 </c:forEach> 
+		             				</c:when>
+			             			<c:otherwise>
+						                 <tr>
+						                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+						                 </tr>
+			             			</c:otherwise>
+		         				</c:choose>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row week_pop">
+                        <h3>주간 인기 검색어</h3>
+                        <div class="card">
+                            <div class="card-body"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+		<div class="container board_main">
+            <div class="row">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="bulli-tab" type="button" role="tab" 
+                        aria-controls="bulli" aria-selected="true">게시판</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="notice-tab" type="button" role="tab" 
+                        aria-controls="notice" aria-selected="false">공지사항</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="QandA-tab" type="button" role="tab" 
+                        aria-controls="QandA" aria-selected="false">Q&A</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">    
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="bulli" role="tabpanel"
+                     aria-labelledby="bulli-tab">게시판</div>
+                    <div class="tab-pane fade" id="notice" role="tabpanel" 
+                    aria-labelledby="notice-tab">공지사항</div>
+                    <div class="tab-pane fade" id="QandA" role="tabpanel" 
+                    aria-labelledby="QandA-tab">Q&A</div>
+                </div>
+            </div>
+        </div>     
+	</div>
+		 
+		        
+		  <!--    
 		   <legend style="position: absolute; top: 60; left: 50; right: 0;">건강 뉴스</legend>
 		
 		    <div class="row">
 		    <c:choose>
 		        <c:when test="${ not empty newsList }">
-		            <!-- 반복문 -->
+		           
 		            <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 3 ? newsList.size() : 3))}" varStatus="status">
 		                <div class="col-md-4 mb-4">
 		                    <div class="card" style="width: 18rem;">
@@ -184,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		                    </div>
 		                </div>
 		            </c:forEach>
-		            <!--// 반복문 -->
+		            
 		        </c:when>
 		        <c:otherwise>
 		            <div class="col text-center">
@@ -193,7 +233,86 @@ document.addEventListener("DOMContentLoaded", function(){
 		        </c:otherwise>
 		    </c:choose>
 		</div>
-	</div>	
+	</div>
+	-->	
 </body>
+<script>
+    // 버튼 클릭 이벤트 핸들러
+    document.getElementById('navbar-toggler').addEventListener('click', function() {
+        var layerBox = document.querySelector('.layer_box');
+        // 팝업이 열려있는지 확인
+        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+        // 팝업 상태를 토글
+        isOpen ? closePopup() : openPopup();
+    });
 
+    // 팝업 열기 함수
+    function openPopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'block';
+        layerBox.setAttribute('aria-hidden', 'false');
+    }
+
+    // 팝업 닫기 함수
+    function closePopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'none';
+        layerBox.setAttribute('aria-hidden', 'true');
+    }
+</script>
+<script>
+    $(document).ready(function(){
+            $('.slider-wrap').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                arrows : false,
+                dots : false,
+                autoplay : true,
+                responsive: [ // 반응형 웹 구현 옵션
+                    {  
+                    breakpoint: 960, //화면 사이즈 960px
+                    settings: {
+                        slidesToShow: 1
+                    } 
+                    },
+                    { 
+                    breakpoint: 768, //화면 사이즈 768px
+                    settings: {    
+                        slidesToShow: 1
+                    } 
+                    }
+                ]
+            });
+        });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const triggerTabList = document.querySelectorAll('#myTab button');
+        const tabPaneList = document.querySelectorAll('.tab-pane');
+
+        triggerTabList.forEach(triggerEl => {
+            triggerEl.addEventListener('click', event => {
+                event.preventDefault();
+                const tabPaneId = event.target.getAttribute('aria-controls');
+                const tabPane = document.getElementById(tabPaneId);
+                const tabTrigger = new bootstrap.Tab(triggerEl);
+
+                triggerTabList.forEach(el => {
+                    el.classList.remove('active');
+                });
+                tabPaneList.forEach(el => {
+                    el.classList.remove('show', 'active');
+                });
+
+                triggerEl.classList.add('active');
+                tabPane.classList.add('show', 'active');
+                tabTrigger.show();
+            });
+        });
+    });
+</script>
 </html>

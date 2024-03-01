@@ -47,7 +47,7 @@
                                         <li class="ss_shortcut_item">
                                             <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="new_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/new_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">뉴스</em>
                                             </a>
@@ -55,7 +55,7 @@
                                         <li class="ss_shortcut_item">
                                             <a class="shortcut_a" href="/bdm/notice/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="notice_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/notice_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">공지사항</em>
                                             </a>
@@ -63,7 +63,7 @@
                                         <li class="ss_shortcut_item">
                                             <a class="shortcut_a" href="/bdm/bulletin/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="board_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/board_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">게시판</em>
                                             </a>
@@ -71,7 +71,7 @@
                                         <li class="ss_shortcut_item">
                                             <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="mall_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">꼬르륵몰</em>
                                             </a>

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,40 +18,50 @@
 <link rel="stylesheet" href="${CP}/resources/css/nav_style.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    // Execute the script when the DOM content is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // 버튼 클릭 이벤트 핸들러
-        document.getElementById('navbar-toggler').addEventListener('click', function() {
-            var layerBox = document.querySelector('.layer_box');
-            // 팝업이 열려있는지 확인
-            var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
-            // 팝업 상태를 토글
-            isOpen ? closePopup() : openPopup();
-            
-            // AJAX request to load menuBTN.jsp
-            if (!isOpen) {
-                $.get('${CP}/beforeMain/moveToMenuBTN.do', function(data) {
-                    $('#topAsideArea iframe').attr('src', data);
-                });
-            }
-        });
-
-        // 팝업 열기 함수
-        function openPopup() {
-            var layerBox = document.querySelector('.layer_box');
-            layerBox.style.display = 'block';
-            layerBox.setAttribute('aria-hidden', 'false');
+// Execute the script when the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+	const navbarTogglerBtn = document.querySelector("#navbar-toggler");
+    
+    /* navbarTogglerBtn.addEventListener('click', function() {
+    	console.log('click');
+    	
+        var layerBox = document.querySelector("#layer_box");
+        
+        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+        
+        console.log("isOpen: " + isOpen);
+        
+        isOpen ? closePopup() : openPopup();
+        
+        if (!isOpen) {
+            $.get('${CP}/beforeMain/moveToMenuBTN.do', function(data) {
+                $('#topAsideArea iframe').attr('src', data);
+            });
         }
-
-        // 팝업 닫기 함수
-        function closePopup() {
-            var layerBox = document.querySelector('.layer_box');
-            layerBox.style.display = 'none';
-            layerBox.setAttribute('aria-hidden', 'true');
-        }
+    }); */
+	// 버튼 클릭 이벤트 핸들러
+    document.getElementById('navbar-toggler').addEventListener('click', function() {
+        var layerBox = document.querySelector('.layer_box');
+        // 팝업이 열려있는지 확인
+        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+        // 팝업 상태를 토글
+        isOpen ? closePopup() : openPopup();
     });
+});
+// 팝업 열기 함수
+function openPopup() {
+    var layerBox = document.querySelector('.layer_box');
+    layerBox.style.display = 'block';
+    layerBox.setAttribute('aria-hidden', 'false');
+}
+
+// 팝업 닫기 함수
+function closePopup() {
+    var layerBox = document.querySelector('.layer_box');
+    layerBox.style.display = 'none';
+    layerBox.setAttribute('aria-hidden', 'true');
+}
 </script>
 <style>
 	.btn_menu{
@@ -78,17 +87,16 @@
             <div class="container">
                 <div class="d-flex align-items-center"> <!-- 로고와 버튼을 감싸는 부모 요소 -->
 				    <div id="topAsideArea" class="menu_area">
-				        <button id="navbar-toggler" type="button" class="btn_menu" 
-				        data-bs-toggle="#navbarNav-menu" aria-haspopup="navbarNav-menu" 
-				        aria-expanded="false" aria-label="탐색 전환" expanded="false">
-				            <img class="navbar-toggler-icon" src="../../resources/images/3bar.png">
-				        </button>
-				        <div class="layer_box" aria-hidden="true">
-				            <div class="box_content">
-				                <iframe title="확장 영역" width="100%" height="100%"></iframe>
-				            </div>
-				        </div>
-				    </div>
+                        <button id="navbar-toggler" type="button" class="btn_menu" data-bs-toggle="#navbarNav-menu" 
+                        aria-haspopup="navbarNav-menu" aria-expanded="false" aria-label="Toggle navigation"
+                        expanded="false">
+                        </button>
+                        <div class="layer_box" aria-hidden="true">
+                            <div class="box_content">
+                                <iframe src="${CP}/beforeMain/moveToMenuBTN.do" title="확장영역" width="100%" height="100%"></iframe>
+                            </div>
+                        </div>
+                    </div>
 				    <a href="#" class="navbar-brand">
 				        <img src="${CP}/resources/images/logo.png" alt=""/>
 				    </a>
