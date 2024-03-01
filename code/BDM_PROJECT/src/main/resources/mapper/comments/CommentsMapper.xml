@@ -69,4 +69,8 @@
 	)
 </insert>
 
+<select id="commentsCount" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM bulletin_comments WHERE post_no = #{postNo}
+</select>
+
 </mapper>

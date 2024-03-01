@@ -45,7 +45,10 @@
 	WHERE  POST_NO = #{postNo}
 </select>
 
-
+ <!-- 해당 게시물의 하트 개수를 가져오는 쿼리 -->
+<select id="getHeartCountForBulletin" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM heart WHERE post_no = #{postNo}
+</select>
 
 
 

@@ -185,8 +185,9 @@ function pageDoRerive(url, pageNo) {
 											    <c:out value="${vo.title}" escapeXml="true" />
 											    <button id="heartButton">
 											        <i id="heartIcon" class="bi bi-heart-fill"></i>
-											        <span id="totalCount">${count}</span>
+											        <span id="totalCount">${vo.heartCount}</span>
 											    </button>
+											    <span id="commentsCount">(${vo.commentsCount})</span>
 											</td>
 										<td class="text-center col-lg-2  col-sm-1">
 											<c:out value="${vo.regDt}" escapeXml="true" />

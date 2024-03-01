@@ -21,5 +21,6 @@ public interface HeartService {
 	
 	int getTotalCount(HeartVO heartVO) throws SQLException;
 
+	int getHeartCountForBulletin(int postNo) throws SQLException;
 
 }

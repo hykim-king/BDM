@@ -18,7 +18,7 @@ public interface HeartDao {
     int getHeartStatus(HeartVO heartVO) throws SQLException;
     int getCount(HeartVO heartVO) throws SQLException;
 	int getTotalCount(HeartVO heartVO) throws SQLException;
-	
+	int getHeartCountForBulletin(int postNo) throws SQLException;
 	
 	
 

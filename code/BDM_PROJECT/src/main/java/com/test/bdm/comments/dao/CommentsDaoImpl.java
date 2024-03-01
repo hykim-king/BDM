@@ -86,4 +86,11 @@ public class CommentsDaoImpl implements CommentsDao,PcwkLogger {
 
 	}
 
+
+	@Override
+	public int commentsCount(int postNo) throws SQLException {
+		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "commentsCount",postNo);
+
+	}
+
 }

@@ -71,5 +71,10 @@ public class HeartDaoImpl implements HeartDao,PcwkLogger {
 		return sqlSessionTemplate.selectOne(NAMESPACE+DOT+"getTotalCount", heartVO);
 	}
 
+	@Override
+	public int getHeartCountForBulletin(int postNo) throws SQLException {
+		 return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getHeartCountForBulletin", postNo);
+	}
+
 
 }

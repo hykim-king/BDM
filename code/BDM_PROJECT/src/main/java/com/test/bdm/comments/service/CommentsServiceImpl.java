@@ -49,5 +49,14 @@ public class CommentsServiceImpl implements CommentsService, PcwkLogger {
 		return dao.doRetrieve(inVO);
 	}
 
+	@Override
+	public int commentsCount(int postNo) throws SQLException {
+		try {
+            return dao.commentsCount(postNo);
+        } catch (SQLException e) {
+            throw new SQLException("게시물의 댓글 개수를 가져오는 중에 오류가 발생했습니다.", e);
+        }
+    }
+
 
 }

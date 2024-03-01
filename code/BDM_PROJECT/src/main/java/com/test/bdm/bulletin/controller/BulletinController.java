@@ -29,6 +29,7 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.code.service.CodeService;
+import com.test.bdm.comments.service.CommentsService;
 import com.test.bdm.heart.domain.HeartVO;
 import com.test.bdm.heart.service.HeartService;
 import com.test.bdm.user.domain.UserVO;
@@ -48,6 +49,9 @@ public class BulletinController implements PcwkLogger {
 	
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	CommentsService commentsService;
 	
 	public BulletinController() {}
 	
@@ -117,7 +121,18 @@ public class BulletinController implements PcwkLogger {
 				pageSizeList.add(vo);
 			}
 		}
-		List<BulletinVO> list = service.doRetrieve(inVO);
+		 List<BulletinVO> list = service.doRetrieve(inVO);
+
+		    for (BulletinVO vo : list) {
+		        int count = heartService.getHeartCountForBulletin(vo.getPostNo()); // 게시물 번호를 기반으로 하트 개수를 가져오는 메소드 호출
+		        vo.setHeartCount(count); // BulletinVO에 하트 개수 설정
+		    }
+		    
+		    for (BulletinVO vo:list) {
+		    	int commentsCount = commentsService.commentsCount(vo.getPostNo());
+		    	vo.setCommentsCount(commentsCount);
+		    }
+		
 		
 		long totalCnt = 0;
 		
@@ -143,9 +158,7 @@ public class BulletinController implements PcwkLogger {
 		String title = "게시판-목록";
 		modelAndView.addObject("title", title);
 		
-		int count = heartService.getTotalCount(heartVO);
-		modelAndView.addObject("count", count);	
-
+		
 		return modelAndView;
 		}
 	

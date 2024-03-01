@@ -14,5 +14,7 @@ public interface CommentsDao extends WorkDiv<CommentsVO> {
 	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
 
 	int doUpdate(CommentsVO inVO) throws SQLException;
+	
+	int commentsCount(int postNo) throws SQLException;
 
 }
