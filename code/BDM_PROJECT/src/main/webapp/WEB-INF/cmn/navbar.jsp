@@ -93,7 +93,9 @@ function closePopup() {
                         </button>
                         <div class="layer_box" aria-hidden="true">
                             <div class="box_content">
-                                <iframe src="${CP}/beforeMain/moveToMenuBTN.do" title="확장영역" width="100%" height="100%"></iframe>
+                                <iframe src="${CP}/beforeMain/moveToMenuBTN.do" title="확장영역" width="100%" height="100%">
+                                	<img src="${CP}/resources/images/3bar.png"/>
+                                </iframe>
                             </div>
                         </div>
                     </div>
