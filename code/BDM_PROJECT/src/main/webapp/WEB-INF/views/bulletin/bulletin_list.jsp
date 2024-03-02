@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
-=======
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<title>Balance Diet Management</title>
-
->>>>>>> c05ab32d6f86eb7cc5452776e57b93b1f2c7bad3
 <style>
 .bi-heart-fill {
     font-size: 15px;
