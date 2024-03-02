@@ -5,8 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<script src="${CP}/resources/js/eUtil.js"></script>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded",function(){
@@ -60,7 +70,8 @@ document.addEventListener("DOMContentLoaded",function(){
             	"postNo": document.querySelector("#postNo").value,
                 "title": title.value,
                 "contents": contents.value,
-                "id": id.value
+                "id": id.value,
+                "readCnt": 0  
             },
             success:function(data){//통신 성공
             	//data.msgId가 1이면 : 메시지 출력,목록으로 이동
@@ -100,7 +111,6 @@ document.addEventListener("DOMContentLoaded",function(){
 		
 	});
 });//--DOMContentLoaded
-
 </script>
 </head>
 <body>
@@ -108,7 +118,7 @@ document.addEventListener("DOMContentLoaded",function(){
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">${title}</h1>
+            <h1 class="page-header">공지사항작성</h1>
         </div>
     </div>    
     <!--// 제목 ----------------------------------------------------------------->

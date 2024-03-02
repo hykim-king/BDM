@@ -5,8 +5,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
+=======
+<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<title>Balance Diet Management</title>
+
+>>>>>>> c05ab32d6f86eb7cc5452776e57b93b1f2c7bad3
 <style>
 .bi-heart-fill {
     font-size: 15px;
