@@ -5,10 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<%-- <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
- --%><title>Balance Diet Management</title>
-
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<title>Balance Diet Management</title>
 <style>
 .bi-heart-fill {
     font-size: 15px;
@@ -21,6 +19,7 @@
     background-color: transparent; /* 배경색을 투명으로 설정 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
+
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

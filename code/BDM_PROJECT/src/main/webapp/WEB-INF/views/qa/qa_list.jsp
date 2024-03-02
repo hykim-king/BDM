@@ -2,18 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 페이지 경로를 변수로 설정 -->
 <c:set var="CP" value="${pageContext.request.contextPath}" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <!-- 공통 헤더 포함 -->
-    <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<title>Balance Diet Management</title>
 
-    <title>Balance Diet Management</title>
-
-    <script>
+<script>
         document.addEventListener("DOMContentLoaded", function () {
             // DOM이 로드된 후 실행되는 코드
 
@@ -113,17 +108,17 @@
             qaForm.action = url;
             qaForm.submit();
         }
-    </script>
-    <style>
-    	/* 공통 배경 색상 */
-    	.accordion-item {
-        	background-color: #f0e68c; /*연한 금색 */
-    	}
-	</style>
+</script>
+<style>
+/* 공통 배경 색상 */
+.accordion-item {
+	background-color: #f0e68c; /*연한 금색 */
+}
+</style>
 </head>
 
 <body>
-    <!-- 페이지 내용 시작 -->
+        <!-- 페이지 내용 시작 -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -132,46 +127,46 @@
 
                 <!-- 자주 묻는 질문 아코디언 -->
                 <div class="accordion" id="accordionExample">
-                    <!-- 질문 1 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                	자주하는 질문 1
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>강조</strong> 자주하는질문1의 답변
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 질문 2 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                	자주하는 질문 2
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>강조</strong> 자주하는질문2의 답변
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 질문 3 -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                	자주하는 질문 3
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <strong>강조</strong> 자주하는질문3의 답변
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    				<!-- 질문 1 -->
+    				<div class="accordion-item">
+        				<h2 class="accordion-header" id="headingOne">
+            				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                				식단 기록을 어떻게 해야 하나요?
+            				</button>
+        				</h2>
+        				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            				<div class="accordion-body">
+                				<strong>답변</strong> BDM <a href="#">회원 가입</a> 후 <a href="#">마이페이지</a>에서 각 날짜에 섭취한 음식을 검색하고 추가한 후 저장하면 됩니다.
+            				</div>
+        				</div>
+    				</div>
+    				<!-- 질문 2 -->
+    				<div class="accordion-item">
+        				<h2 class="accordion-header" id="headingTwo">
+            				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                				음식 추가 버튼에 원하는 음식이 없어요.
+            				</button>
+        				</h2>
+        				<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            				<div class="accordion-body">
+                				<strong>답변</strong> 곧 섭취한 음식도 직접 추가 가능한 기능을 업데이트할 예정이니 좀만 기다려 주세요 :)
+            				</div>
+        				</div>
+    				</div>
+    				<!-- 질문 3 -->
+    				<div class="accordion-item">
+        				<h2 class="accordion-header" id="headingThree">
+            				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                				BDM은 무슨 의미인가요?
+            				</button>
+        				</h2>
+        				<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            				<div class="accordion-body">
+                				<strong>답변</strong> BDM은 Balance Diet Management의 약자로서 현대인의 건강한 식습관을 위해 균형 잡힌 식단을 설계하고 관리하는 사이트입니다.
+            				</div>
+        				</div>
+    				</div>
+				</div>
                 <!--// 아코디언 -->
 
                 <hr />

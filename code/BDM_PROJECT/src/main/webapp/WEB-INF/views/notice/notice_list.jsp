@@ -97,6 +97,9 @@ function pageDoRerive(url, pageNo) {
 	noticeForm.submit();
 }
 </script>
+<style>
+
+</style>
 </head>
 
 <body>
