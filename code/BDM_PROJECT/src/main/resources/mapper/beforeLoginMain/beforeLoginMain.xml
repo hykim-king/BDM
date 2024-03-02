@@ -75,4 +75,26 @@
              users          
          WHERE id = #{id}     
     </select>
+    
+    <!-- login -->
+    <select id="doSelectNaverEmail" parameterType="com.test.bdm.user.domain.UserVO" resultType="com.test.bdm.user.domain.UserVO">
+        SELECT
+            id,
+            no,
+            pw,
+            email,
+            name,
+            birth,
+            gender,
+            height,
+            weight,
+            activity,
+            reg_dt,
+            user_filter
+         FROM               
+             users          
+         WHERE email = #{email}     
+    </select>
+    
+    
   </mapper>

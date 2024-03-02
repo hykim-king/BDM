@@ -64,12 +64,29 @@ public class BeforeMainController implements PcwkLogger {
 	AttachFileService attachFileService;
 
 	@GetMapping(value = "/checkSession.do")
-	public String checkSession(HttpSession httpSession) throws SQLException {
-		if (httpSession.getAttribute("sessionId") != null) {
-			return "main/afterLoginMain";
-		} else {
-			return "user/user_reg";
+	public String checkSession(UserVO user, HttpSession httpSession) throws SQLException {
+			
+		String jsonString = "";
+		LOG.debug("┌───────────────────────────────────────────┐");
+		LOG.debug("│ checkSession                              │user:" + user);
+		LOG.debug("└───────────────────────────────────────────┘");
+
+		MessageVO message = new MessageVO();
+		
+		UserVO outVO = beforeMainService.doSelectNaverEmail(user);
+
+		if (null != outVO) {
+			httpSession.setAttribute("user", outVO);
 		}
+		else {
+			return "user/naver_user_reg";
+		}
+		
+		jsonString = new Gson().toJson(message);
+		LOG.debug("jsonString:" + jsonString);
+
+		return "main/afterLoginMain";
+		
 	}
 
 	@GetMapping(value = "/moveToMenuBTN.do")

@@ -17,7 +17,12 @@
 document.addEventListener("DOMContentLoaded", function(){
     console.log("DOMContentLoaded");
     
-    alert("네이버와 일반회원을 연동합니다.");
+ // 이메일 값을 가져와서 변수에 저장합니다.
+    const emailFromURL = getEmailFromURL();
+    // 가져온 이메일 값을 폼의 value로 설정합니다.
+    document.getElementById('email').value = emailFromURL;
+    
+    console.log(emailFromURL);
     
     const moveToMainBtn = document.querySelector("#moveToMain");
     // const moveToListBtn = document.getElementById("moveToList");
@@ -247,13 +252,31 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     });
 });
+// URL에서 이메일 값을 가져오는 함수
+function getEmailFromURL() {
+    // 현재 페이지 URL을 가져옵니다.
+    var url = window.location.href;
+    
+ 	// URL에서 '?' 이후의 문자열을 추출합니다.
+    var queryString = url.split('?')[1];
+    // queryString을 '&'로 분할하여 배열로 만듭니다.
+    var params = queryString.split('&');
+    // 배열을 순회하며 '='를 기준으로 분할하고, 'email' 파라미터를 찾습니다.
+    for (var i = 0; i < params.length; i++) {
+        var param = params[i].split('=');
+        if (param[0] === 'email') {
+            console.log('emailParam: ' + param[1]);
+            return param[1];
+        }
+    }
+}
 </script>
 </head>
 <body>
     <div class = "container">
        <div class ="row">
            <div class = "col-lg-12">
-               <h1 class = "page-header">네이버<->회원 연동하기</h1>
+               <h1 class = "page-header">회원 등록</h1>
            </div>
        </div>
          
@@ -279,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function(){
                </div>
                <div class="p-div">
                    <label for="email" class="form-label">이메일</label>
-                   <input type="text"  class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" size="20"  maxlength="320">
+                   <input type="text" readOnly="readonly" form-control" name="email" id="email" placeholder="이메일을 입력하세요" size="20"  maxlength="320" value = "">
                    <input type="button" class="btn btn-primary" value="중복 체크" id="doCheckEmail">
                </div>
                <div class = "mb-3">
