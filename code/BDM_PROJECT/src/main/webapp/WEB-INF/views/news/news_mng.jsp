@@ -6,12 +6,9 @@
 <c:set var="CP" value="${pageContext.request.contextPath}" />     
 <!DOCTYPE html>
 <html>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 
 <head> 
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <title>게시판 수정</title>
 <style>
 		 .form-control[readonly] {
@@ -107,24 +104,6 @@ document.addEventListener("DOMContentLoaded",function(){
 </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/bdm/index.jsp">Balance Diet Management</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/bdm/beforeMain/moveToNews.do">자유게시판</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <div class="container"style="max-width: 900px;">
     <!-- 제목 -->
     <div class="col-lg-12" style="margin-top: 20px;">
