@@ -74,13 +74,13 @@ h4{
     height: 100%; /* slick-track 요소 높이를 100%로 설정 */
 }
 .slick_01 {
-    background-image: url(slick_01.jpg);
+    background-image: url(../../resources/images/slick_01.jpg);
 }
 .slick_02 {
-    background-image: url(slick_02.jpg);
+    background-image: url(../../resources/images/slick_02.jpg);
 }
 .slick_03 {
-    background-image: url(slick_03.jpg);
+    background-image: url(../../resources/images/slick_03.jpg);
 }
 .news_main, .pop_search {
     height: 100%; 

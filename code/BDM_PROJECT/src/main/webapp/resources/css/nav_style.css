@@ -11,6 +11,9 @@ em {
     text-decoration: none;
     color: #514752;
 }
+.wrap{
+	background-color: #f7e9e8;
+}
 .container .navbar-brand img{
     width: 130px;
     height: auto;
@@ -39,10 +42,6 @@ em {
     content: "";
     display: block;
     margin:0 auto;
-    background-image:url(sp_main.ae81c9d5.png);
-    background-size: 444px 434px;
-    background-position: -314px -330px;
-    background-repeat: no-repeat;
     width: 26px;
     height: 26px;
     background-color: #f7e9e8;
