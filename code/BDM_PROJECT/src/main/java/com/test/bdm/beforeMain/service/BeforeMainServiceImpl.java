@@ -1,6 +1,7 @@
 package com.test.bdm.beforeMain.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,10 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	@Override
 	public List<DTO> popSearchWord() throws SQLException {
 		return beforeMainDao.popSearchWord();
+	}
+
+	@Override
+	public List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException {
+		return beforeMainDao.popWeeklySearchWord(map);
 	}
 }

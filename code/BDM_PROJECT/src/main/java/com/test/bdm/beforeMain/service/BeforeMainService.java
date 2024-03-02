@@ -1,6 +1,7 @@
 package com.test.bdm.beforeMain.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,4 +18,6 @@ public interface BeforeMainService {
 	int doSaveSearch(int gender, int birth, String words) throws SQLException;
 	
 	List<DTO> popSearchWord() throws SQLException;
+
+	List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException;
 }

@@ -10,7 +10,7 @@
         AND code = #{code}
         AND reg_dt = TO_DATE(#{regDt}, 'YY/MM/DD HH24:MI:SS')
       </delete>  
-  
+   
       <select id="doRetrieveAte" parameterType = "map" resultType = "EatVO">
         SELECT N.NAME AS name,
                E.DIVS AS divs,

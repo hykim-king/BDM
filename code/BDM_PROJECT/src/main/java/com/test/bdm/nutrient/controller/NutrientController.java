@@ -65,7 +65,6 @@ public class NutrientController implements PcwkLogger{
             return formatter.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            // 예외 처리: 날짜 형식이 올바르지 않을 경우
             return null;
         }
     }

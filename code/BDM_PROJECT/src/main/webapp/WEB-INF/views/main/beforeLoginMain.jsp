@@ -14,7 +14,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
 
@@ -25,11 +27,14 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
+	var button = document.getElementById('loginButton');
+	
 	console.log( "main!" );
-     
-     $("#doLogin").on("click",function(e){
-    	 window.location.href = "${CP }/beforeMain/moveToLogin.do";
-     });//--#doLogin
+	
+	button.addEventListener("click", function(e){
+		console.log('버튼 클릭');
+		window.location.href = "${CP }/beforeMain/moveToLogin.do";
+	});
      
      $("#findId").on("click",function(e){
      	var width = 750;
@@ -74,10 +79,10 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="card-body d-flex flex-column justify-content-end">
                             <h3 class="text-center mb-4">로그인</h3>
                             <form style="width: 100%;">
-                                <button type="submit" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button>
+                                <a id = "loginButton" href ="${CP }/beforeMain/moveToLogin.do"><button type="submit" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button></a>
                             </form>
                             <div class="text-center mt-3" style="width: 100%;">
-                                <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a> | <a href="#">회원 가입</a>
+                                <a href="" id = "findId">아이디 찾기</a> | <a href="#" id = "findPassword">비밀번호 찾기</a> | <a href="#" id = "moveToReg">회원 가입</a>
                             </div>
                         </div>
                     </div>
@@ -168,7 +173,26 @@ document.addEventListener("DOMContentLoaded", function(){
                     <div class="row week_pop">
                         <h3>주간 인기 검색어</h3>
                         <div class="card">
-                            <div class="card-body"></div>
+                            <div class="card-body">
+                                <c:choose>
+                                    <c:when test="${ not empty weeklyWordList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${weeklyWordList.subList(0, (weeklyWordList.size() < 5 ? weeklyWordList.size() : 5))}" varStatus="status">
+                                             <table>
+                                             <tr>
+                                                 <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+                                             </tr>
+                                             </table>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -179,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="bulli-tab" type="button" role="tab" 
-                        aria-controls="bulli" aria-selected="true">게시판</button>
+                        aria-controls="bulli" aria-selected="true">자유게시판</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="notice-tab" type="button" role="tab" 
@@ -194,11 +218,108 @@ document.addEventListener("DOMContentLoaded", function(){
             <div class="row">    
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="bulli" role="tabpanel"
-                     aria-labelledby="bulli-tab">게시판</div>
+                     aria-labelledby="bulli-tab">
+						<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+						    <thead>
+						        <tr>
+						            <th class="text-left col-lg-7 col-sm-8">제목 </th>
+						            <th class="text-center col-lg-2 col-sm-1">날짜</th>
+						            <th class="col-lg-1">작성자</th>
+						            <th class="text-end col-lg-1">조회수</th>
+						            <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+		                        <c:choose>
+		                            <c:when test="${ not empty bulletinList }">  
+		                                 <!-- 반복문 -->
+		                                 <c:forEach var="vo" items="${bulletinList.subList(0, (bulletinList.size() < 5 ? bulletinList.size() : 5))}" varStatus="status">
+		                                     <tr>
+		                                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.title}" escapeXml="true" /></td>
+		                                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+		                                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.id}" escapeXml="true" /></td>
+		                                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
+		                                         <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+		                                     </tr>
+		                                 </c:forEach> 
+		                            </c:when>
+		                            <c:otherwise>
+		                                 <tr>
+		                                     <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+		                                 </tr>
+		                            </c:otherwise>
+		                        </c:choose>
+						    </tbody>
+						</table>
+                     </div>
                     <div class="tab-pane fade" id="notice" role="tabpanel" 
-                    aria-labelledby="notice-tab">공지사항</div>
+                    aria-labelledby="notice-tab">
+                        <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-7 col-sm-8">제목 </th>
+                                    <th class="text-center col-lg-2 col-sm-1">날짜</th>
+                                    <th class="col-lg-1">작성자</th>
+                                    <th class="text-end col-lg-1">조회수</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty noticeList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${noticeList.subList(0, (noticeList.size() < 5 ? noticeList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.title}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.id}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
+                                                 <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                             </tr>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="tab-pane fade" id="QandA" role="tabpanel" 
-                    aria-labelledby="QandA-tab">Q&A</div>
+                    aria-labelledby="QandA-tab">
+                        <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-7 col-sm-8">제목 </th>
+                                    <th class="text-center col-lg-2 col-sm-1">날짜</th>
+                                    <th class="col-lg-1">작성자</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty qaList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${qaList.subList(0, (qaList.size() < 5 ? qaList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.title}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.id}" escapeXml="true" /></td>
+                                                 <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                             </tr>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>                    
+                    </div>
                 </div>
             </div>
         </div>     

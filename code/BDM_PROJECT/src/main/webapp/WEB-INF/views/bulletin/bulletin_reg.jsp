@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<script src="${CP}/resources/js/eUtil.js"></script>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>게시물 등록</title>
 <script>

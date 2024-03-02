@@ -82,4 +82,12 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 		
 		return wordList;
 	}
+
+	@Override
+	public List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException {
+		List<DTO> weeklyWordList;
+		weeklyWordList = sqlSessionTemplate.selectList(NAMESPACE + DOT + "popWeeklySearchWord", map);
+		
+		return weeklyWordList;
+	}
 }
