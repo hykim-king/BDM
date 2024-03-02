@@ -26,6 +26,11 @@
             rows.forEach(function (row) {
                 row.addEventListener('click', function(e) {
                     // 행 클릭 시 동작
+                    
+	                <c:if test="${empty user}">
+	                    alert('로그인이 필요한 서비스입니다.');
+	                    return;
+	                </c:if>
 
                     let cells = row.getElementsByTagName("td");
 

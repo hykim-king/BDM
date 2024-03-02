@@ -4,8 +4,9 @@
 <c:set var="CP" value="${pageContext.request.contextPath}" />     
 <!DOCTYPE html>
 <html>
-<head> 
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<head>
+<script src="${CP}/resources/js/eUtil.js"></script>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <style>
    .readonly-input {
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded",function() {
     const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
     const postNo = $('#postNo').val();
     
-    commentsDoSaveBTN.addEventListener("click",function(e){
+    commentsDoSaveBTN.addEventListener("click", function(e){
     	console.log('commentsDoSaveBTN click');
     	
     	
@@ -124,8 +125,8 @@ document.addEventListener("DOMContentLoaded",function() {
                 	commentsDiv += '<div class="col-auto"> \n';
                 	commentsDiv += '<span>등록자: ' + data[i].id + '</span> \n';
                 	commentsDiv += '<span>등록일: ' + data[i].regDt + '</span> \n';
-                	commentsDiv += '\t\t\t <input type="button" value="댓글수정" class="btn btn-primary contentsDoUpdate"  >   \n';
-                	commentsDiv += '\t\t\t <input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >   \n';
+                	commentsDiv += '\t\t\t <input type="button" value="답글수정" class="btn btn-primary contentsDoUpdate"  >   \n';
+                	commentsDiv += '\t\t\t <input type="button" value="답글삭제" class="btn btn-primary contentsDoDelete"  >   \n';
                 	commentsDiv += '</div> \n';
                 	commentsDiv += '</div> \n';
                 	
@@ -381,11 +382,11 @@ document.addEventListener("DOMContentLoaded",function() {
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 
              value="${vo.title}"
-            placeholder="제목을 입력 하세요">
+            placeholder="제목을 입력 하세요" readonly>
         </div>      
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
+            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents" readonly>${vo.contents }</textarea>
         </div>
     <!--// form --------------------------------------------------------------->
     
@@ -395,8 +396,10 @@ document.addEventListener("DOMContentLoaded",function() {
 			
 			<div class="row justify-content-end">
 				<div class="col-auto">
-					<input type="button" value="댓글수정" class="btn btn-primary commentsDoUpdate"  >
-					<input type="button" value="댓글삭제" class="btn btn-primary contentsDoDelete"  >
+					<c:if test="${user.userFilter eq 1}">
+						<input type="button" value="답글수정" class="btn btn-primary commentsDoUpdate"  >
+						<input type="button" value="답글삭제" class="btn btn-primary contentsDoDelete"  >
+					</c:if>
 				</div>
 			</div>
 			<div class="mb-3">
@@ -410,7 +413,9 @@ document.addEventListener("DOMContentLoaded",function() {
 	    <!-- 버튼 -->
 		<div class="row justify-content-end">
 			<div class="col-auto">
-				<input type="button" value="댓글등록" class="btn btn-primary" id="commentsDoSave" >
+				<c:if test="${user.userFilter eq 1}">
+					<input type="button" value="답글등록" class="btn btn-primary" id="commentsDoSave" >
+				</c:if>
 			</div>
 		</div>
 	    <!--// 버튼 ----------------------------------------------------------------->
