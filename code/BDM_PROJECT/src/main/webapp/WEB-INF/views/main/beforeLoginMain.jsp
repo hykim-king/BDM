@@ -27,14 +27,13 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
-	var button = document.getElementById('loginButton');
-	
 	console.log( "main!" );
 	
-	button.addEventListener("click", function(e){
-		console.log('버튼 클릭');
-		window.location.href = "${CP }/beforeMain/moveToLogin.do";
-	});
+	$("#login").click(function(event) {
+        event.preventDefault();
+        window.location.href = "${CP}/beforeMain/moveToLogin.do";
+    });
+
      
      $("#findId").on("click",function(e){
      	var width = 750;
@@ -79,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="card-body d-flex flex-column justify-content-end">
                             <h3 class="text-center mb-4">로그인</h3>
                             <form style="width: 100%;">
-                                <a id = "loginButton" href ="${CP }/beforeMain/moveToLogin.do"><button type="submit" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button></a>
+                                <button type="submit" id = "login" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button>
                             </form>
                             <div class="text-center mt-3" style="width: 100%;">
                                 <a href="" id = "findId">아이디 찾기</a> | <a href="#" id = "findPassword">비밀번호 찾기</a> | <a href="#" id = "moveToReg">회원 가입</a>

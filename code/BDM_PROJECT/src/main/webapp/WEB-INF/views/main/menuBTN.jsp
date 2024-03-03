@@ -22,7 +22,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
-	const userFilter = 2;
+	const userFilter;
     
 	<c:if test = "${not empty user}">
     userFilter = ${user.userFilter}
