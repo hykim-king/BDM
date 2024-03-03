@@ -4,6 +4,71 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.test.bdm.user">
+  
+    <!-- div -->
+    <sql id="divCondition">
+        <choose>
+            <when test=" ''!=div and '20' == div ">20
+                AND div = '20'
+            </when>
+            <otherwise> 10
+                AND div = '10'
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="searchCondition">
+        <choose>
+            <when test=" ''!= searchDiv and '10' == searchDiv ">
+                AND name LIKE '%' || #{searchWord} || '%'
+            </when>
+            <when test=" ''!= searchDiv and '20' == searchDiv ">
+                AND contents LIKE '%' || #{searchWord} || '%'
+            </when>
+            <when test=" ''!= searchDiv and '30' == searchDiv ">
+                AND mod_id LIKE '%' || #{searchWord} || '%'
+            </when>
+        </choose>
+    </sql>
+    
+    <select id="doRetrieve" parameterType="UserDTO"
+        resultType="UserVO">
+        SELECT A.*,B.totalCnt
+        FROM (
+            SELECT  
+                tt1.id as id,  
+                tt1.rnum as no,
+                tt1.email as email,
+                tt1.name as name,
+                tt1.birth as birth,
+                tt1.gender as gender,
+                tt1.reg_dt as regDt,
+                tt1.user_filter as userFilter
+            FROM (
+                SELECT ROWNUM rnum, T1.*
+                FROM (
+                    SELECT *
+                    FROM users
+                    --WHERE 검색
+                    WHERE 1=1
+                <!-- <include refid="divCondition"/> -->
+                <include refid="searchCondition" />
+                    ORDER BY reg_dt DESC
+                )T1 --10,20,30,...
+                <![CDATA[   WHERE ROWNUM <=#{pageSize} * (#{pageNo}-1) + #{pageSize} ]]>
+            )TT1
+            --1,11,21,31,..
+            <![CDATA[ WHERE rnum >= #{pageSize} * (#{pageNo}-1) + 1 ]]>
+        )A
+        CROSS JOIN (
+            SELECT COUNT(*) totalCnt
+            FROM users
+            --WHERE 검색
+            WHERE 1=1
+            <!-- <include refid="divCondition"/> -->
+            <include refid="searchCondition" />
+        )B
+    </select>  
 
     <delete id="doDelete" parameterType = "UserVO">
         DELETE FROM USERS

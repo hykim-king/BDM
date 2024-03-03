@@ -22,24 +22,70 @@
 // Execute the script when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
 	const navbarTogglerBtn = document.querySelector("#navbar-toggler");
+    const gumsaekBtn = document.querySelector("#gumsaek");
+    const searchWordTxt = document.querySelector("#searchWord");
+     
+    gumsaekBtn.addEventListener("click", function(e){
+        let searchWordTxtV = document.querySelector("#searchWord").value;
+        $.ajax({
+            type: "POST",
+            url:"/bdm/beforeMain/doSaveSearch.do",
+            asyn:"true",
+            dataType:"json",
+            data:{
+                words: searchWordTxtV
+            },
+            success:function(data){//?듭떊 ?깃났
+                // doRetrieve(1, searchWordTxtV);
+                location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
+            },
+            error:function(data){//?ㅽ뙣??泥섎━
+                console.log("error:"+data);
+            },
+            complete:function(data){//?깃났/?ㅽ뙣? 愿怨꾩뾾???섑뻾!
+                console.log("complete:"+data);
+            }
+        });
+    });
     
-    /* navbarTogglerBtn.addEventListener('click', function() {
-    	console.log('click');
-    	
-        var layerBox = document.querySelector("#layer_box");
-        
-        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
-        
-        console.log("isOpen: " + isOpen);
-        
-        isOpen ? closePopup() : openPopup();
-        
-        if (!isOpen) {
-            $.get('${CP}/beforeMain/moveToMenuBTN.do', function(data) {
-                $('#topAsideArea iframe').attr('src', data);
+    searchWordTxt.addEventListener("keyup", function(e) {
+        console.log("keyup:" + e.keyCode);
+        let searchWordTxtV = document.querySelector("#searchWord").value;
+        if (13 == e.keyCode) {
+            $.ajax({
+                type: "POST",
+                url:"/bdm/beforeMain/doSaveSearch.do",
+                asyn:"true",
+                dataType:"json",
+                data:{
+                    words: searchWordTxtV
+                },
+                success:function(data){//?듭떊 ?깃났
+                    // doRetrieve(1, searchWordTxtV);
+                    location.href = "/bdm/beforeMain/doGumsaek.do?pageNo=1&searchWord="+searchWordTxtV;
+                },
+                error:function(data){//?ㅽ뙣??泥섎━
+                    console.log("error:"+data);
+                },
+                complete:function(data){//?깃났/?ㅽ뙣? 愿怨꾩뾾???섑뻾!
+                    console.log("complete:"+data);
+                }
             });
         }
-    }); */
+    });
+    
+    function doRetrieve(pageNo, searchWord) {
+        console.log("doRetrieve pageNO:" + pageNo);
+        console.log("doRetrieve searchWord:" + searchWord);
+
+        let gumsaekForm = document.gumsaekFrm;
+        gumsaekForm.pageNo.value = pageNo;
+        gumsaekForm.action = "/bdm/beforeMain/doGumsaek.do";
+        console.log("doRetrieve pageNO:" + gumsaekForm.pageNo.value);
+        gumsaekForm.submit();
+    }
+
+    
 	// 버튼 클릭 이벤트 핸들러
     document.getElementById('navbar-toggler').addEventListener('click', function() {
         var layerBox = document.querySelector('.layer_box');
@@ -93,9 +139,7 @@ function closePopup() {
                         </button>
                         <div class="layer_box" aria-hidden="true">
                             <div class="box_content">
-                                <iframe src="${CP}/beforeMain/moveToMenuBTN.do" title="확장영역" width="100%" height="100%">
-                                	<img src="${CP}/resources/images/3bar.png"/>
-                                </iframe>
+                                <iframe src="${CP}/beforeMain/moveToMenuBTN.do" title="확장영역" width="100%" height="100%"></iframe>
                             </div>
                         </div>
                     </div>

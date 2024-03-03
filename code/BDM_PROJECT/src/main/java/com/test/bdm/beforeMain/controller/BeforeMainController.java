@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +32,9 @@ import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.cmn.UserDTO;
+import com.test.bdm.code.domain.CodeVO;
+import com.test.bdm.code.service.CodeService;
 import com.test.bdm.file.domain.FileVO;
 import com.test.bdm.file.service.AttachFileService;
 import com.test.bdm.news.domain.NewsVO;
@@ -40,6 +44,7 @@ import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.qa.domain.QaVO;
 import com.test.bdm.qa.service.QaService;
 import com.test.bdm.user.domain.UserVO;
+import com.test.bdm.user.service.UserService;
 
 @Controller
 @RequestMapping("beforeMain")
@@ -62,6 +67,12 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	AttachFileService attachFileService;
+	
+	@Autowired
+	CodeService codeService;
+	
+	@Autowired
+	UserService userService;
 
 	@GetMapping(value = "/checkSession.do")
 	public String checkSession(UserVO user, HttpSession httpSession) throws SQLException {
@@ -95,8 +106,72 @@ public class BeforeMainController implements PcwkLogger {
 	}
 
 	@GetMapping(value = "/moveToUserMonitor.do")
-	public String moveToUserMonitor() throws SQLException {
-		return "user/user_monitor";
+	public ModelAndView moveToUserMonitor(ModelAndView modelAndView, UserDTO inVO) throws SQLException {
+		if (null != inVO && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+
+		// 페이지 번호:1
+		if (null != inVO && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+
+		// 검색구분:""
+		if (null != inVO && null == inVO.getSearchDiv()) {
+			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchDiv()));
+		}
+		// 검색어:""
+		if (null != inVO && null == inVO.getSearchWord()) {
+			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		LOG.debug("Bulletin Default처리: " + inVO);
+		
+		Map<String, Object> codes = new HashMap<String, Object>();
+		String[] codeStr = { "PAGE_SIZE", "USER_SEARCH" };
+
+		codes.put("code", codeStr);
+		List<CodeVO> codeList = codeService.doRetrieve(codes);
+
+		List<CodeVO> userSearchList = new ArrayList<CodeVO>();
+		List<CodeVO> pageSizeList = new ArrayList<CodeVO>();
+		
+		for (CodeVO vo : codeList) {
+			if (vo.getCategory().equals("USER_SEARCH")) {
+				userSearchList.add(vo);
+			}
+
+			if (vo.getCategory().equals("PAGE_SIZE")) {
+				pageSizeList.add(vo);
+			}
+		}
+		 List<UserVO> list = userService.doRetrieve(inVO);
+		
+		long totalCnt = 0;
+		
+		for(UserVO vo: list) {
+			if(totalCnt == 0) {
+				totalCnt = vo.getTotalCnt();
+				break;
+			}
+		}
+		modelAndView.addObject("totalCnt", totalCnt);
+		
+		modelAndView.setViewName("user/user_monitor");
+		modelAndView.addObject("list", list);
+		modelAndView.addObject("paramVO", inVO);
+		modelAndView.addObject("userSearch", userSearchList);
+		modelAndView.addObject("pageSize", pageSizeList);
+		
+		long bottomCount = StringUtil.BOTTOM_COUNT;// 바닥글
+		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
+				"/bdm/beforeMain/moveToUserMonitor.do", "pageDoRerive");
+		modelAndView.addObject("pageHtml", html);
+
+		String title = "회원 관리";
+		modelAndView.addObject("title", title);
+		
+		
+		return modelAndView;
 	}
 
 	@GetMapping(value = "/moveToFindPassword.do")
@@ -177,7 +252,7 @@ public class BeforeMainController implements PcwkLogger {
 
 		Date today = convertStringToDate(formatedNow, "yy/MM/dd");
 
-		String pattern = "yy/MM/dd";
+		String pattern = "yy/MM/dd HH:mm:ss";
 		// 출력용으로 사용할 데이트 포맷
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		// 포맷 적용
@@ -270,11 +345,6 @@ public class BeforeMainController implements PcwkLogger {
 	@GetMapping(value = "/doLogout.do")
 	public ModelAndView doLogout(DTO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
 
-		if (httpSession.getAttribute("user") != null) {
-			httpSession.removeAttribute("user");
-			httpSession.invalidate();
-		}
-
 		if (inVO != null && inVO.getPageSize() == 0) {
 			inVO.setPageSize(10L);
 		}
@@ -290,9 +360,30 @@ public class BeforeMainController implements PcwkLogger {
 		LOG.debug("inVO:" + inVO);
 		List<DTO> wordList = beforeMainService.popSearchWord();
 		List<NewsVO> newsList = newsService.doRetrieve(inVO);
-		LOG.debug("wordList:" + wordList);
+		List<BulletinVO> bulletinList = bulletinService.doRetrieve(inVO);
+		List<NoticeVO> noticeList = noticeService.doRetrieve(inVO);
+		List<QaVO> qaList = qaService.doRetrieve(inVO);
+		
+		HashMap<String, String> map = new HashMap<>();
+		try {
+			map = startFinish();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		List<DTO> weeklyWordList = beforeMainService.popWeeklySearchWord(map);
+		
 		modelAndView.addObject("wordList", wordList);
 		modelAndView.addObject("newsList", newsList);
+		modelAndView.addObject("bulletinList", bulletinList);
+		modelAndView.addObject("noticeList", noticeList);
+		modelAndView.addObject("qaList", qaList);
+		modelAndView.addObject("weeklyWordList", weeklyWordList);
+		
+		if (httpSession.getAttribute("user") != null) {
+			httpSession.removeAttribute("user");
+			httpSession.invalidate();
+		}
+		
 		if (httpSession.getAttribute("user") != null) {
 			modelAndView.setViewName("main/afterLoginMain");
 		} else {
@@ -368,7 +459,10 @@ public class BeforeMainController implements PcwkLogger {
 			birth = sessionData.getBirth();
 		}
 
-		int flag = beforeMainService.doSaveSearch(gender, birth, words);
+		int flag = 0;
+		if(!words.equals("")) {
+			flag = beforeMainService.doSaveSearch(gender, birth, words);
+		}
 
 		String jsonString = "";
 		String message = "";

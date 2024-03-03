@@ -19,7 +19,26 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+	
+	const userFilter = 2;
+    
+	<c:if test = "${not empty user}">
+    userFilter = ${user.userFilter}
+    </c:if>
+    
+    // HTML 요소 가져오기
+    var userMonitorItem = document.getElementById('userMonitor');
 
+    // userFilter가 1이면 보이고 그렇지 않으면 숨깁니다.
+    if (userFilter === 1) {
+        userMonitorItem.style.display = 'block'; // 보이기
+    } else {
+        userMonitorItem.style.display = 'none'; // 숨기기
+    }
+});
+</script>
 </head>
 <body id="aside">
     <div id="app" class="wrap">
@@ -44,15 +63,15 @@
                             <div class="ss_scroll_list native_scroll comp_snap_list" style="position: relative;">
                                 <div class="ss_scroll_item comp_snap_item">
                                     <ol class="ss_shortcut_list">
-                                        <li class="ss_shortcut_item">
-                                            <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
+                                        <li class="ss_shortcut_item" id = "news">
+                                            <a class="shortcut_a" href="/bdm/news/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="${CP }/resources/images/new_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">뉴스</em>
                                             </a>
                                         </li>
-                                        <li class="ss_shortcut_item">
+                                        <li class="ss_shortcut_item" id = "notice">
                                             <a class="shortcut_a" href="/bdm/notice/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="${CP }/resources/images/notice_icon.png" class="sa_m" width="48" height="48" alt="">
@@ -60,7 +79,7 @@
                                                 <em class="sa_t">공지사항</em>
                                             </a>
                                         </li>
-                                        <li class="ss_shortcut_item">
+                                        <li class="ss_shortcut_item" id = "bulletin">
                                             <a class="shortcut_a" href="/bdm/bulletin/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="${CP }/resources/images/board_icon.png" class="sa_m" width="48" height="48" alt="">
@@ -68,7 +87,23 @@
                                                 <em class="sa_t">게시판</em>
                                             </a>
                                         </li>
-                                        <li class="ss_shortcut_item">
+                                        <li class="ss_shortcut_item" id = "qna">
+                                            <a class="shortcut_a" href="/bdm/qa/doRetrieve.do" target="_blank" rel="noreferrer">
+                                                <div class="sa_mw">
+                                                    <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                </div>
+                                                <em class="sa_t">QnA</em>
+                                            </a>
+                                        </li>
+                                        <li class="ss_shortcut_item" id = "userMonitor">
+                                            <a class="shortcut_a" href="/bdm/beforeMain/moveToUserMonitor.do" target="_blank" rel="noreferrer">
+                                                <div class="sa_mw">
+                                                    <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                </div>
+                                                <em class="sa_t">유저관리</em>
+                                            </a>
+                                        </li>
+                                        <li class="ss_shortcut_item" id = "mall">
                                             <a class="shortcut_a" href="" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
                                                     <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">

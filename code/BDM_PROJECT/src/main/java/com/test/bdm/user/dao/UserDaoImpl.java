@@ -1,12 +1,14 @@
 package com.test.bdm.user.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.controller.UserController;
 import com.test.bdm.user.domain.UserVO;
 
@@ -85,5 +87,10 @@ public class UserDaoImpl implements UserDao, PcwkLogger {
 		}
 		
 		return this.sqlSessionTemplate.delete(NAMESPACE + DOT + "doDelete", inVO);
+	}
+	
+	@Override
+	public List<UserVO> doRetrieve(UserDTO inVO) throws SQLException {
+		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieve", inVO);
 	}
 }

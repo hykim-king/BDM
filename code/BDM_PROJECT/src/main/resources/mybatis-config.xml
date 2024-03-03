@@ -24,6 +24,7 @@
         <typeAlias type="com.test.bdm.nutrient.domain.EatVO"        alias="EatVO"/>
         <typeAlias type="com.test.bdm.heart.domain.HeartVO"         alias="HeartVO"/>
         <typeAlias type="com.test.bdm.cmn.DTO"                      alias="DTO"/>
+        <typeAlias type="com.test.bdm.cmn.UserDTO"                  alias="UserDTO"/>
         
     </typeAliases>
 </configuration>

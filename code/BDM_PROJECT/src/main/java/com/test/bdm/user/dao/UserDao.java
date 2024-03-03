@@ -1,7 +1,9 @@
 package com.test.bdm.user.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.domain.UserVO;
 
 public interface UserDao {
@@ -23,4 +25,6 @@ public interface UserDao {
 	int changePassword(UserVO inVO) throws SQLException;
 
 	int doDelete(UserVO inVO) throws SQLException;
+	
+	List<UserVO> doRetrieve(UserDTO inVO) throws SQLException;
 }

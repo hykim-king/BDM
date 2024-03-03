@@ -1,11 +1,13 @@
 package com.test.bdm.user.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.dao.UserDao;
 import com.test.bdm.user.domain.UserVO;
 
@@ -60,5 +62,10 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 	@Override
 	public int doDelete(UserVO inVO) throws SQLException {
 		return userDao.doDelete(inVO);
+	}
+	
+	@Override
+	public List<UserVO> doRetrieve(UserDTO inVO) throws SQLException {
+		return userDao.doRetrieve(inVO);
 	}
 }
