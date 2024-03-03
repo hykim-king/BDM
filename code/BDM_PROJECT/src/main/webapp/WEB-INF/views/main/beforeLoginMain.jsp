@@ -216,8 +216,7 @@ document.addEventListener("DOMContentLoaded", function(){
             </div>
             <div class="row">    
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="bulli" role="tabpanel"
-                     aria-labelledby="bulli-tab">
+                    <div class="tab-pane fade show active" id="bulli" role="tabpanel" aria-labelledby="bulli-tab">
 						<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
 						    <thead>
 						        <tr>
