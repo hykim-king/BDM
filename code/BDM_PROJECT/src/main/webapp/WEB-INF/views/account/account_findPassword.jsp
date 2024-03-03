@@ -1,16 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <style>
+	.black-han,
+	.noto-sans {
+	    font-weight: 400;
+	    font-style: normal;
+	}
+	
+	.black-han {
+	    font-family: "Black Han Sans", sans-serif;
+	}
+	
+	.noto-sans {
+	    font-family: "Noto Sans KR", sans-serif;
+	    font-optical-sizing: auto;
+	}
+	
+	body {
+		font-family: sans-serif;
+	    background-color: #f7e9e8;
+	    margin: 0;
+	    padding: 0;
+	} 
+	.wrap{
+	padding: 20px 0;
+	background-color: #f7e9e8;
+	}
+	label {
+    	font-weight: bold;
+	}
+	h1{
+		text-align:center;
+	}
+	.btn{
+		margin:7px 0;
+		margin-bottom:15px;
+	}
 </style>
 <title></title>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
-<script src="${CP }/resources/js/eUtil.js"></script>  
+<script src="${CP }/resources/js/eUtil.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
     const cancleBtn = document.querySelector("#cancle");
