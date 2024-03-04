@@ -24,11 +24,10 @@
 <style>
 	.card-title {
     color: #514752; /* 뉴스 제목 글씨색을 검은색으로 변경 */
-}
+	}
 	.card-body{
 	color: #514752;
-	}
- 	.   
+	}   
 </style>
 <title>Balance Diet Management</title>
 
@@ -146,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <button type="submit" id="login" class="btn btn-primary btn-block py-4" style="width:100%;"><span>꼬르륵 </span>로그인</button>
                             </form>
                             <div class="text-center mt-3">
-                                <a href="" id="findId">아이디 찾기</a> | <a href="#" id="findPassword">비밀번호 찾기</a> | <a href="#" id="moveToReg">회원 가입</a>
+                                <a href="#" id="findId">아이디 찾기</a> | <a href="#" id="findPassword">비밀번호 찾기</a> | <a href="#" id="moveToReg">회원 가입</a>
                             </div>
                         </div>
                     </div>

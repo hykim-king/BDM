@@ -7,18 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <title>Balance Diet Management</title>
+<style>
+	.card-title {
+    color: #514752; /* 뉴스 제목 글씨색을 검은색으로 변경 */
+	}
+	.card-body{
+	color: #514752;
+	}  
+</style>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
@@ -128,21 +137,21 @@ document.addEventListener("DOMContentLoaded", function(){
         </div>
         <div class="container login-container">
             <div class="row">
-                <div class="col-md-7 d-flex flex-column" style="height: 100%;"> <!-- .col-md-7의 높이를 100%로 설정 -->
-                    <div class="slider-wrap">
-                        <div class="cont slick_01"></div>
-                        <div class="cont slick_02"></div>
-                        <div class="cont slick_03"></div>
+                <div class="col-md-8 d-flex flex-column" style="height: 100%;">
+                    <div class="slider-wrap d-flex">
+                        <div class="cont slick_01"><img src="${CP }/resources/images/slick_01.jpg" alt="Image 1"></div>
+                        <div class="cont slick_02"><img src="${CP }/resources/images/slick_02.jpg" alt="Image 2"></div>
+                        <div class="cont slick_03"><img src="${CP }/resources/images/slick_03.jpg" alt="Image 3"></div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-body d-flex flex-column justify-content-end">
                             <h3 class="text-center mb-4">${user.name }님 환영합니다.</h3>
-                            <form style="width: 100%;">
+                            <form style="width: 100%;" class="d-flex">
                                 <button type="submit" id = "myPage" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>마이페이지</span></button>
                             </form>
-                            <div class="text-center mt-3" style="width: 100%;">
+                            <div class="text-center mt-3">
                                 <a href="#" id = "logout">로그아웃</a>
                             </div>
                         </div>
@@ -387,6 +396,33 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
 </body>
 <script>
+	$(document).ready(function(){
+	    $('.slider-wrap').slick({ 
+	        dots: false,
+	        infinite: true,
+	        speed: 200,
+	        slidesToShow: 1,
+	        adaptiveHeight: true, // 이미지 높이에 따라 슬라이더 높이 조절
+	        arrows: false,
+	        autoplay: true,
+	        responsive: [
+	            {  
+	                breakpoint: 960,
+	                settings: {
+	                    slidesToShow: 1
+	                } 
+	            },
+	            { 
+	                breakpoint: 768,
+	                settings: {    
+	                    slidesToShow: 1
+	                } 
+	            }
+	        ]
+	    });
+	});
+</script>
+<script>
     // 버튼 클릭 이벤트 핸들러
     document.getElementById('navbar-toggler').addEventListener('click', function() {
         var layerBox = document.querySelector('.layer_box');
@@ -466,3 +502,4 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 </script>
 </html>
+<jsp:include page="/WEB-INF/cmn/Footer.jsp"></jsp:include>
