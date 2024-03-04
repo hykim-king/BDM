@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <style>
 </style>
-<title>음식 검색</title>
+<title>Balance Diet Management</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
@@ -30,19 +30,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	const selectedDeleteBtn = document.querySelector("#selectedDelete");
 	const deleteAllBtn = document.querySelector("#deleteAll");
 	const closeBtn = document.querySelector("#close");
-	
-	/* abcBtn.addEventListener("click", function(e){
-		var abc = document.getElementsByName('options');
-        var radioValue = '';
-        
-        for(var i=0; i<abc.length; i++){
-            if(abc[i].checked){
-                radioValue = abc[i].value;
-                break;
-            }
-        }
-        console.log('divs: ' + radioValue);
-	}); */
 	
 	closeBtn.addEventListener("click", function(e){
 		if(confirm('입력된 정보들이 모두 사라집니다. 마이페이지로 되돌아 가시겠습니까?')==false) return;
@@ -240,12 +227,12 @@ function displaySelectedValue() {
         
         <form action ="#" method = "get" id = "foodFrm" name = "foodFrm">
             <input type = "hidden" name = "pageNo" id = "pageNo"/>
-            <div class = "col-auto">
-                <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." value = "${paramVO.searchWord }">
-                <input type = "button" value = "검색" id = "doRetrieve">
+            <div class = "col-md-3 d-flex">
+                <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." class="form-control" value = "${paramVO.searchWord }">
+                <input type = "button" value = "검색" id = "doRetrieve" class="btn btn-primary" style="margin-left:5px;">
             </div>
-            <div>
-                <input type="text" id = "amount" value="<c:out value='1.0'/>" />
+            <div class="col-md-1">
+                <input type="text" id = "amount" class="form-control" value="<c:out value='1.0'/>" />
             </div>
         </form>
         
@@ -314,9 +301,9 @@ function displaySelectedValue() {
 	        <label class="btn btn-outline-success" for="option7">기타</label>
         </div>
             <div>
-		        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods"/>
-		        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete"/>
-		        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll"/>
+		        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods" class="btn btn-primary"/>
+		        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete" class="btn btn-primary"/>
+		        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll" class="btn btn-primary"/>
 	        </div>
         </form>
         
