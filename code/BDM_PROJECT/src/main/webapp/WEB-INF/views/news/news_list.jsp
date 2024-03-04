@@ -148,7 +148,9 @@ document.addEventListener("DOMContentLoaded",function() {
                 </div>
             </div>
             <div class="col-lg-2">
-                <button type="button" class="btn btn-primary" id="moveToReg">글쓰기</button>
+            <c:if test="${user.userFilter eq '1'}">
+        						<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
+    						</c:if>
             </div>
         </div>
     </form>

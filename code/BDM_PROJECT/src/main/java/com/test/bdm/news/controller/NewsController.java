@@ -2,12 +2,17 @@ package com.test.bdm.news.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +60,7 @@ public class NewsController implements PcwkLogger {
    
    final String FILE_PATH = StringUtil.FILE_PATH;
    //final String IMG_PATH  = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload";
-   final String IMG_PATH = "C:\\JSPM_0907\\BDM\\BDM\\code\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload";
+   final String IMG_PATH = "/resources/upload/";
    String yyyyMMPath = "";//년월을 포함하는 경로
    String saveFilePath = "";
    
@@ -64,7 +69,7 @@ public class NewsController implements PcwkLogger {
    
    
    
-   private static String UPLOAD_DIR = "/path/to/your/upload/directory/";
+   private static String UPLOAD_DIR = "/resources/upload/";
    // 이미지 업로드 처리 메소드
    @PostMapping("/uploadImage")
    public String uploadImage(@RequestParam("file") MultipartFile file) {
@@ -190,7 +195,7 @@ public class NewsController implements PcwkLogger {
       //public MessageVO doSave(NewsVO inVO) throws SQLException{
          @RequestMapping(value="/doSave.do", method=RequestMethod.POST)   
       
-         public MessageVO doSave(@RequestPart(value = "key") Map<String, Object> param, @RequestPart(value = "file",required = false) List<MultipartFile> fileList) throws Exception {
+         public MessageVO doSave(HttpServletRequest request, @RequestPart(value = "key") Map<String, Object> param, @RequestPart(value = "file",required = false) List<MultipartFile> fileList) throws Exception {
          
             /*
              * LOG.debug("┌───────────────────────────────────┐");
@@ -257,14 +262,29 @@ public class NewsController implements PcwkLogger {
          //저장경로 : 
          String contentType = multipartFile.getContentType();
          String savePath    = "";
+         String savePathOrgin = "";
          
-         if(contentType.startsWith("image")==true) {//image파일
-            savePath = IMG_PATH;
-         }else {
-            savePath = FILE_PATH;
-         }
+         if(contentType.startsWith("image")) {//image파일
+        	    // 첫 번째 경로로 저장
+        	    savePath = "C:\\JSPM_0907\\03_Spring\\WORKSPACE\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
+        	    fileVO.setSavePath(savePath);
+
+        	    // 이미지를 첫 번째 경로에 저장
+        	    File saveFile = new File(savePath, fileVO.getSaveFileName());
+        	    multipartFile.transferTo(saveFile);
+
+        	    // 첫 번째 경로에 저장된 파일을 두 번째 경로로 복사
+        	    Path sourcePath = saveFile.toPath();
+        	    Path destinationPath = Paths.get("C:\\JSPM_0907\\03_Spring\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload", fileVO.getSaveFileName());
+        	    Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        	} else {
+        	    // 이미지가 아닌 경우에는 두 번째 경로로 저장
+        	    savePath = "C:\\JSPM_0907\\03_Spring\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload";
+        	    fileVO.setSavePath(savePath);
+        	}
          
-         fileVO.setSavePath(savePath);
+         
+         
          
          //------------------------------------------------------------------
          //TO DO: Session에서 사용자 ID가져올것

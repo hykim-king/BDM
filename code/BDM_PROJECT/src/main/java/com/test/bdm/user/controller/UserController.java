@@ -1,8 +1,10 @@
 package com.test.bdm.user.controller;
 
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 
-import com.test.bdm.user.domain.UserVO;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.user.domain.UserVO;
+import com.test.bdm.user.service.MailSendService;
 import com.test.bdm.user.service.UserService;
-
-import java.security.MessageDigest;
-import java.security.SecureRandom;
 
 @Controller
 @RequestMapping("user")
@@ -27,6 +28,9 @@ public class UserController implements PcwkLogger {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	private MailSendService mailService;
+	
 	private static final int SALT_SIZE = 16;
 	
 	@GetMapping(value = "/moveToDelete.do")
@@ -212,6 +216,7 @@ public class UserController implements PcwkLogger {
 		return jsonString;
 	}
 
+	
 	// email 검사
 	@RequestMapping(value = "/doCheckEmail.do", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	@ResponseBody // HTTP 요청 부분의 body 부분이 그대로 브라우저에 전달
@@ -236,6 +241,19 @@ public class UserController implements PcwkLogger {
 		LOG.debug("jsonString:" + jsonString);
 		return jsonString;
 	}
+	
+	// 이메일 인증
+			@RequestMapping(value = "/mailCheck.do", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+			@ResponseBody // HTTP 요청 부분의 body부분이 그대로 브라우저에 전달된다.
+			public String mailCheck(HttpServletRequest request) {
+				String email = request.getParameter("email");
+
+				LOG.debug("┌───────────────────────────────────────────┐");
+				LOG.debug("│ mailCheck()                               │email:" + email);
+				LOG.debug("└───────────────────────────────────────────┘");
+				return mailService.joinEmail(email);
+
+			}
 
 	// password 검사
 	@RequestMapping(value = "/doCheckPassword.do", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")

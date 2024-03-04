@@ -63,7 +63,18 @@ document.addEventListener("DOMContentLoaded", function(){
     const doCheckIdBtn = document.querySelector("#doCheckId");
     const doCheckEmailBtn = document.querySelector("#doCheckEmail");
     const matchText = document.getElementById('passwordMatchText');
-    
+    const emailInput = document.querySelector("#email");
+	
+    // Add event listener to email input to detect changes
+    emailInput.addEventListener("input", function(){
+    	// Reset email duplication check status
+        document.querySelector("#emailCheck").value = 0;
+        // Disable email authentication button
+        document.querySelector("#doCheckEmail").disabled = false;
+        // Clear the authentication code input field and message
+        document.querySelector(".mail-check-input").value = "";
+        document.querySelector("#mail-check-warn").innerText = "";
+    });
     
     // Add an event listener to the confirmPw input to check for password match on each input
     document.getElementById('confirmPw').addEventListener('input', function () {
@@ -122,6 +133,57 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         });
     });
+    $(document).ready(function () {
+        $('#mail-Check-Btn').click(function() {
+        	if(document.querySelector("#emailCheck").value == 0){
+                alert('이메일 중복체크를 수행하세요.');
+                document.querySelector("#emailCheck").focus();
+                return;
+            }
+        	
+        	
+            const email = $('#email').val()// 이메일 주소값 얻어오기!
+            console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+            const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+            
+            /* console.log("javascript ppl_input:"+document.querySelector(".ppl_input").value);    */
+             
+             if(eUtil.isEmpty(email) == true){
+                alert('이메일을 입력 하세요.');
+                //$("#email").focus();//사용자 id에 포커스
+                document.querySelector("#email").focus();
+                return;
+             }
+            
+            $.ajax({
+                type : 'get',
+                url : '/bdm/user/mailCheck.do?email='+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+                success : function (data) {
+                    console.log("data : " +  data);
+                    checkInput.attr('disabled',false);
+                    code =data;
+                    alert('인증번호가 전송되었습니다.')
+                }           
+            }); // end ajax
+        }); // end send eamil
+
+        // 인증번호 비교 
+        // blur -> focus가 벗어나는 경우 발생
+        $('.mail-check-input').blur(function () {
+            const inputCode = $(this).val();
+            const $resultMsg = $('#mail-check-warn'); // 이 위치로 이동되었습니다.
+
+            if(inputCode == code){
+                $resultMsg.html('인증번호가 일치합니다.');
+            }else{
+                $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+            }
+        });
+
+
+        });
+    
     
     doCheckIdBtn.addEventListener("click", function(e){
         console.log('doCheckIdBtn');
@@ -162,10 +224,13 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         });
     });
+   
     
     doSaveBtn.addEventListener("click", function(e){
         var radioBtn = document.getElementsByName('flexRadioDefault');
         var radioValue = '';
+        const $resultMsg = $('#mail-check-warn');
+        
         
         for(var i=0; i<radioBtn.length; i++){
             if(radioBtn[i].checked){
@@ -248,6 +313,16 @@ document.addEventListener("DOMContentLoaded", function(){
             document.querySelector("#passwordMatchText").focus();
             return;
         }
+        if($resultMsg.html() === '인증번호가 불일치 합니다. 다시 확인해주세요!.'){
+            alert('인증번호를 확인하세요.');
+            document.querySelector("#mail-check-warn").focus();
+            return;
+        }
+        if(eUtil.isEmpty(code)==true){
+            alert('인증번호를 입력하세요.'); // 인증번호가 비어있을 경우
+            return;
+        }
+        
         
         $.ajax({
             type: "POST",
@@ -316,7 +391,11 @@ document.addEventListener("DOMContentLoaded", function(){
 	                  <label for="email" class="form-label">이메일</label>
 	                  <input type="text"  class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" size="20"  maxlength="320">
 	                  <input type="button" class="btn btn-primary" value="이메일 인증" id="doCheckEmail">
+	            	  <input type="button" class="btn btn-primary" value="이메일 인증 요청" id="mail-Check-Btn">
+	           	      <input class="form-control mail-check-input mt-1" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+	           	      <p id="mail-check-warn"></p>
 	             </div>
+	             
 	             <div class = "mb-3">
 	                  <label for="name" class="form-label">이름</label>
 	                  <input type="text"  class="form-control"  name="name" id="name" placeholder="이름을 입력 하세요." size="20"  maxlength="21">

@@ -4,10 +4,13 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
 
 <c:set var="CP" value="${pageContext.request.contextPath}" />     
+
 <!DOCTYPE html>
 <html>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="${CP}/resources/js/eUtil.js"></script>
 <head> 
 <title>게시판 수정</title>
 <style>
@@ -21,6 +24,7 @@
         }
        
     </style>
+
     <script>
 document.addEventListener("DOMContentLoaded",function(){ 
     
@@ -102,6 +106,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 });//--DOMContentLoaded
 </script>
+
 </head>
 <body>
 <div class="container"style="max-width: 900px;">
