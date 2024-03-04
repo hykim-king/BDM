@@ -13,8 +13,15 @@
    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
-<script src="${CP }/resources/js/eUtil.js"></script>  
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -246,13 +253,13 @@ function displaySelectedValue() {
             <thead>
                 <tr>
                     <th scope = "col" class = "text-center" style="display: none;">코드</th>
-                    <th scope = "col" class = "text-center">NO</th>
-                    <th scope = "col" class = "text-center">음식명</th>
-                    <th scope = "col" class = "text-center">칼로리</th>
-                    <th scope = "col" class = "text-center">탄수화물(g)</th>
-                    <th scope = "col" class = "text-center">단백질(g)</th>
-                    <th scope = "col" class = "text-center">지방(g)</th>
-                    <th scope = "col" class = "text-center">당류(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">NO</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">음식명</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">칼로리</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">탄수화물(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">단백질(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">지방(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">당류(g)</th>
                 </tr>
             </thead>
             <tbody>
@@ -261,13 +268,13 @@ function displaySelectedValue() {
                         <c:forEach var = "vo" items = "${list}" varStatus = "status">
                             <tr>
                                 <td class = "text-center" style="display: none;"><c:out value="${vo.code}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${status.index + 1}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.name }" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.kcal }" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.carbohydrate}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.protein}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.fat}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.sugars}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${status.index + 1}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.name }" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.kcal }" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.carbohydrate}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.protein}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.fat}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.sugars}" escapeXml = "true"/></td>
                             </tr>
                         </c:forEach>
                     </c:when>
