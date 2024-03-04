@@ -1,0 +1,201 @@
+@charset "UTF-8";
+<c:set var="CP" value="${pageContext.request.contextPath}" scope="page" />
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select{
+	margin: 0;
+    padding: 0;
+}
+body, input, textarea, select, button, table {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+}
+div{
+	display: block;
+}
+h1{
+	display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+button{
+	appearance: auto;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-variant-alternates: ;
+    font-variant-position: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    font-optical-sizing: ;
+    font-kerning: ;
+    font-feature-settings: ;
+    font-variation-settings: ;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    box-sizing: border-box;
+    background-color: buttonface;
+    margin: 0em;
+    padding-block: 1px;
+    padding-inline: 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonborder;
+    border-image: initial;
+}
+input, button{
+	border-radius: 0;
+    border: 0;
+}
+
+.blind {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+#header{
+	width: 1280px;
+    margin: 0 auto;
+}
+#header .header_inner{
+	z-index: 120;
+    position: relative;
+    height: 156px;
+    padding: 70px 0 42px;
+}
+#header .header_inner .search_area{
+	position: absolute;
+    top: 70px;
+    left: 50%;
+    z-index: 10;
+    width: 706px;
+    border: 1px solid #fdce64;
+    border-radius: 33px;
+    background-color: #fff;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+#header .header_inner .search_logo{
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+#header .header_inner .btn_search {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 17px 27px 16px 10px;
+    cursor: pointer;
+}
+#header .header_inner .search_box .btn_keyboard[aria-pressed=true]::before{
+	background-image: url(sp_main.ae81c9d5.png);
+    background-size: 444px 434px;
+    background-position: -270px -234px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 14px;
+}
+#header .header_inner .search_box .btn_keyboard::before{
+	content: "";
+    display: block;
+    background-image: url(${CP}/resources/images/sp_main.ae81c9d5.png);
+    background-size: 444px 434px;
+    background-position: -199px -254px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 14px;
+}
+#header .header_inner .search_box button[class^=btn_]{
+	cursor: pointer;
+}
+#header .header_inner .search_box .btn_keyboard {
+	overflow: visible;
+    position: relative;
+    padding: 22px 3px;
+}
+.ly_inputko{
+	width:430px;
+	height:223px;
+	position: absolute;
+    top: 38px;
+    left: 404px;
+    z-index: 900;
+    border: 1px solid #939396;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 0 6px rgba(0,0,0,.05), 0 3px 6px rgba(0,0,0,.1);
+    box-shadow: 0 0 6px rgba(0,0,0,.05), 0 3px 6px rgba(0,0,0,.1);
+    font-family: ;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 400;
+    color: #444447;
+    letter-spacing: -.3px;
+    white-space: nowrap;
+    background-color: #f5f5f8;
+}
+.ly_inputko .api_keyboard{
+	position: relative;
+    padding: 8px 13px 15px;
+}
+.ly_inputko .api_keyboard .key_head{
+	padding: 0 30px 0 2px;
+}
+.ly_inputko .api_keyboard .key_head .bt_close{
+	position: absolute;
+    top: 9px;
+    right: 0;
+    padding: 6px 14px;
+    line-height: 12px;
+    cursor: pointer;
+}
+.ly_inputko button, .ly_inputko input, .ly_inputko select, .ly_inputko table, .ly_inputko textarea{
+	font-weight: 400;
+    letter-spacing: 0;
+}
+.ly_inputko .api_keyboard .key_head .bt_close{
+	position: absolute;
+    top: 9px;
+    right: 0;
+    padding: 6px 14px;
+    line-height: 12px;
+    cursor: pointer;
+}
+.ly_inputko .api_keyboard .key_main .key{
+	display: inline-block;
+    position: relative;
+    min-width: 26px;
+    height: 30px;
+    margin: 4px 0 0 2px;
+    border: 1px solid #d9d9dc;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 28px;
+    color: #444447;
+    font-weight: 400;
+    background: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#fafafb)),#fff;
+    background: linear-gradient(180deg,#fff 0,#fafafb 100%),#fff;
+    vertical-align: top;
+}
+

@@ -3,6 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.test.bdm.beforeMain">
+  
+    <select id="popWeeklySearchWord" parameterType = "map" resultType = "com.test.bdm.cmn.DTO">
+      SELECT A.WORDS as searchWord
+      FROM (
+          SELECT WORDS, COUNT(*) AS cnt
+          FROM SEARCHS
+          WHERE SEARCH_DT BETWEEN TO_DATE(#{startDate},'YY/MM/DD HH24:MI:SS') AND TO_DATE(#{finishDate},'YY/MM/DD HH24:MI:SS')
+          GROUP BY WORDS
+          <![CDATA[ HAVING COUNT(*) > 5 ]]>
+          ORDER BY cnt desc) A
+    </select>
     
     <select id="popSearchWord" resultType = "com.test.bdm.cmn.DTO">
         SELECT A.WORDS as searchWord
@@ -64,4 +75,26 @@
              users          
          WHERE id = #{id}     
     </select>
+    
+    <!-- login -->
+    <select id="doSelectNaverEmail" parameterType="com.test.bdm.user.domain.UserVO" resultType="com.test.bdm.user.domain.UserVO">
+        SELECT
+            id,
+            no,
+            pw,
+            email,
+            name,
+            birth,
+            gender,
+            height,
+            weight,
+            activity,
+            reg_dt,
+            user_filter
+         FROM               
+             users          
+         WHERE email = #{email}     
+    </select>
+    
+    
   </mapper>

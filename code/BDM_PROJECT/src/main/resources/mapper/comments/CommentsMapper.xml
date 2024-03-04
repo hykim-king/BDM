@@ -3,7 +3,7 @@
 <mapper namespace="com.test.bdm.comments">
 <!-- CRUD -->
 <update id="doUpdate" parameterType="CommentsVO">
-	UPDATE comments
+	UPDATE bulletin_comments
 	   SET contents = #{contents}
 	      ,reg_dt = SYSDATE
 	WHERE  reg_no = #{regNo}
@@ -20,7 +20,7 @@
 	    id,
 	    mod_id
 	FROM
-	    comments
+	    bulletin_comments
 	WHERE post_no =  #{postNo}   
 	ORDER BY reg_no
 </select>
@@ -39,20 +39,20 @@
 	    id,
 	    mod_id
 	FROM
-	    comments
+	    bulletin_comments
 	WHERE
 	    reg_no = #{regNo}
 
 </select>
 
 <delete id="doDelete"  parameterType="CommentsVO">
-	DELETE FROM comments
+	DELETE FROM bulletin_comments
 	WHERE   reg_no = #{regNo}
 </delete>
 
 
 <insert id="doSave" parameterType="CommentsVO">
-	INSERT INTO comments (
+	INSERT INTO bulletin_comments (
 	    reg_no,
 	    contents,
 	    reg_dt,
@@ -68,5 +68,9 @@
 	    #{modId}
 	)
 </insert>
+
+<select id="commentsCount" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM bulletin_comments WHERE post_no = #{postNo}
+</select>
 
 </mapper>

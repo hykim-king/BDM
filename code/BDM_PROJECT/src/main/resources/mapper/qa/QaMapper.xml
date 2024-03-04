@@ -28,7 +28,7 @@
 	    </choose>
 	</sql>
 
-	<select id="doRetrieve" parameterType="QaVO" resultType="QaVO">
+	<select id="doRetrieve" parameterType="DTO" resultType="QaVO">
 	    SELECT A.*,B.totalCnt
 	    FROM (
 	        SELECT 

@@ -161,6 +161,9 @@ function generateCalendar(year, month) {
     calendarBody.empty(); // 기존 내용 제거
 
     var currentDate = new Date(); // 현재 날짜 가져오기
+    var firstDayOfMonth = new Date(year, month - 1, 1); // 선택된 연도와 달의 첫째 날
+    var startingDay = firstDayOfMonth.getDay(); // 1일의 시작 요일
+
     var daysInMonth = new Date(year, month, 0).getDate(); // 선택된 연도와 달의 일수
 
     var dayCounter = 1;
@@ -168,7 +171,7 @@ function generateCalendar(year, month) {
         var row = $("<tr></tr>");
         for (var j = 0; j < 7; j++) {
             var cell = $("<td></td>");
-            if (i === 0 && j < currentDate.getDay()) {
+            if (i === 0 && j < startingDay) {
                 // 앞의 빈 칸 처리
                 cell.text("");
             } else if (dayCounter <= daysInMonth) {
@@ -187,7 +190,7 @@ function generateCalendar(year, month) {
         }
         calendarBody.append(row);
     }
-    markCurrentDate(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate()); // 현재 날짜 표시
+    markCurrentDate(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
 }
 
 $(document).ready(function () {

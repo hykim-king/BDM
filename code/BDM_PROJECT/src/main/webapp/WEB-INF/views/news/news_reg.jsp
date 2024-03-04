@@ -5,10 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="${CP}/resources/js/eUtil.js"></script>
 <title>게시판 등록</title>
 <script>
 function previewImages(event) {
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded",function(){
    const regForm       = document.querySelector("#regFrm");
    //doSave event감지 및 처리
    doSaveBTN.addEventListener("click", function(e){
-      /* console.log("doSaveBTN click");
+       console.log("doSaveBTN click");
       let title = document.querySelector("#title");
       console.log("title:"+title.value);
       if(eUtil.isEmpty(title.value) == true){
@@ -57,9 +56,19 @@ document.addEventListener("DOMContentLoaded",function(){
             contents.focus();
             return;
         }        
-      if(window.confirm("등록 하시겠습니까?")==false){
-         return;
+      if (!hasImageSelected()) {
+          alert("이미지를 선택하세요.");
+          return;
       }
+      if (!confirm("등록 하시겠습니까?")) {
+          return;
+      }
+      // 이미지가 선택되었는지 확인하는 함수
+      function hasImageSelected() {
+          var fileInput = document.querySelector("#file");
+          return fileInput.files.length > 0;
+      }
+      
         $.ajax({
             type: "POST",
             url:"/bdm/news/doSave.do",
@@ -87,7 +96,7 @@ document.addEventListener("DOMContentLoaded",function(){
                 console.log("complete:"+data);
             }
         });     
-       */
+       
       //FormData 새로운 객체 생성
       var formData = new FormData();
       // 넘길 데이터를 담아준다.

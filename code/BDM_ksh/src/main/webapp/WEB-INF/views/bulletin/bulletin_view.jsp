@@ -512,19 +512,8 @@ function getTotalCount() {
 		    </c:choose>
 		</button>
 		<span id="totalCount">${count}</span>
-		
-		<!-- <button id="heartButton">
-		    count의 값이 1이면 하트가 채워진 상태로 아니면 빈 상태로 표시
-		    <#if count == 1>
-		        <i id="heartIcon" class="bi bi-heart-fill"></i>
-		    <#else>
-		        <i id="heartIcon" class="bi bi-heart"></i>
-		    </#if>
-		</button> -->
-
 		</div>
-    </div>
-    
+    </div>    
         <div class="mb-3 row" hidden> <!--  아래쪽으로  여백 -->
             <label for="seq" class="col-sm-2 col-form-label">순번</label>
             <div class="col-sm-10">
@@ -557,8 +546,13 @@ function getTotalCount() {
                 <input type="text" class="form-control readonly-input" id="regDt" name="regDt" 
                 value="${vo.regDt}"  readonly="readonly" >
             </div>        
-        </div>        
-
+        </div> 
+          <div class="mb-3 row" hidden>
+            <label for="regId" class="col-sm-2 col-form-label">수정자</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control readonly-input" id="modId" name="modId" 
+                value="${vo.modId}"  readonly="readonly"  >
+            </div>          
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 

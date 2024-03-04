@@ -108,7 +108,11 @@ public class CommentsController implements PcwkLogger {
 
 		String message = "";
 		if (1 == flag) {
+			if(service.isDeleted(inVO)) {
+				message = "해당하는 데이터가 없습니다.";
+			} else {
 			message = "삭제 성공";
+			}
 		} else {
 			message = "삭제 실패!";
 		}

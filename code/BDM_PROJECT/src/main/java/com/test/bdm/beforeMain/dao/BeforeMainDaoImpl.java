@@ -61,6 +61,19 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 		}
 		return outVO;
 	}
+	
+	@Override
+	public UserVO doSelectNaverEmail(UserVO inVO) throws SQLException {
+		UserVO  outVO = null;
+		LOG.debug("1.param :" + inVO.toString());
+		String statement = NAMESPACE+DOT+"doSelectNaverEmail";
+		LOG.debug("2.statement :" + statement);
+		outVO=sqlSessionTemplate.selectOne(statement, inVO);
+		if(null != outVO) {
+			LOG.debug("3.outVO \n" + outVO.toString());
+		}
+		return outVO;
+	}
 
 	@Override
 	public int doSaveSearch(int gender, int birth, String words) throws SQLException {
@@ -81,5 +94,13 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 		wordList = sqlSessionTemplate.selectList(NAMESPACE + DOT + "popSearchWord");
 		
 		return wordList;
+	}
+
+	@Override
+	public List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException {
+		List<DTO> weeklyWordList;
+		weeklyWordList = sqlSessionTemplate.selectList(NAMESPACE + DOT + "popWeeklySearchWord", map);
+		
+		return weeklyWordList;
 	}
 }

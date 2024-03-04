@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.qa.dao.QaDao;
 import com.test.bdm.qa.domain.QaVO;
 
@@ -20,8 +21,6 @@ public interface QaService {
 	
 	public int doSave(QaVO inVO) throws SQLException;
 	
-	public List<QaVO> doRetrieve(QaVO inVO) throws SQLException;
-	
-	int getDisclosure(QaVO inVO) throws SQLException;
+	public List<QaVO> doRetrieve(DTO inVO) throws SQLException;
 	
 }

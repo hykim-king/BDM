@@ -1,16 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ page import="com.test.bdm.user.domain.UserVO" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="${CP }/resources/js/eUtil.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <style>
 </style>
 <title>개인정보 변경</title>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP }/resources/js/eUtil.js"></script>  
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -85,12 +92,7 @@ ${user }
            <div class = "col-lg-12">
                <h1 class = "page-header">개인정보 변경</h1>
            </div>
-       </div>
-          
-         <%
-             
-         %>
-         <!-- 회원 수정영역 -->  
+       </div> 
          <div>
            <form action="#" name="userModFrm" id = "userModFrm">
                <div class="mb-3 row"> <!--  아래쪽으로  여백 -->
@@ -131,9 +133,7 @@ ${user }
                </div>
            </form>
          </div>
-         <!--// 회원 등록영역 ------------------------------------------------------>
-         
-           <!-- Button영역 -->
+
        <div class = "row justify-content-end">
            <div class = "col-auto">
                <input type="button" class="btn btn-primary" value="돌아가기" id="moveToMyPage" >

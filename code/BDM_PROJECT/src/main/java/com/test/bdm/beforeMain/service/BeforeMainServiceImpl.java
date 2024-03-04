@@ -1,6 +1,7 @@
 package com.test.bdm.beforeMain.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,11 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	public UserVO doSelectOne(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
 		return beforeMainDao.doSelectOne(inVO);
 	}
+	
+	@Override
+	public UserVO doSelectNaverEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
+		return beforeMainDao.doSelectNaverEmail(inVO);
+	}
 
 	@Override
 	public int doSaveSearch(int gender, int birth, String words) throws SQLException {
@@ -67,4 +73,11 @@ public class BeforeMainServiceImpl implements BeforeMainService, PcwkLogger {
 	public List<DTO> popSearchWord() throws SQLException {
 		return beforeMainDao.popSearchWord();
 	}
+
+	@Override
+	public List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException {
+		return beforeMainDao.popWeeklySearchWord(map);
+	}
+
+
 }

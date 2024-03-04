@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.qa.dao.QaDao;
 import com.test.bdm.qa.domain.QaVO;
@@ -41,13 +42,9 @@ public class QaServiceImpl implements QaService, PcwkLogger {
 	}
 
 	@Override
-	public List<QaVO> doRetrieve(QaVO inVO) throws SQLException {
+	public List<QaVO> doRetrieve(DTO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 
-	@Override
-	public int getDisclosure(QaVO inVO) throws SQLException {
-		return dao.getDisclosure(inVO);
-	}
 
 }

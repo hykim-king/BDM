@@ -29,6 +29,9 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.cmn.StringUtil;
 import com.test.bdm.code.domain.CodeVO;
 import com.test.bdm.code.service.CodeService;
+import com.test.bdm.comments.service.CommentsService;
+import com.test.bdm.heart.domain.HeartVO;
+import com.test.bdm.heart.service.HeartService;
 import com.test.bdm.user.domain.UserVO;
 
 @Controller
@@ -37,12 +40,18 @@ public class BulletinController implements PcwkLogger {
 	
 	@Autowired
 	BulletinService service;
+
+	@Autowired
+	HeartService heartService;	
 	
 	@Autowired
 	CodeService codeService;
 	
 	@Autowired
 	MessageSource messageSource;
+	
+	@Autowired
+	CommentsService commentsService;
 	
 	public BulletinController() {}
 	
@@ -68,7 +77,7 @@ public class BulletinController implements PcwkLogger {
 	}
 	
 	@GetMapping(value = "/doRetrieve.do")
-	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView) throws SQLException {
+	public ModelAndView doRetrieve(BulletinVO inVO, ModelAndView modelAndView,HeartVO heartVO) throws SQLException {
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" doRetrieve"                          );
 		LOG.debug(" bulletinVO: " + inVO                 );
@@ -112,7 +121,18 @@ public class BulletinController implements PcwkLogger {
 				pageSizeList.add(vo);
 			}
 		}
-		List<BulletinVO> list = service.doRetrieve(inVO);
+		 List<BulletinVO> list = service.doRetrieve(inVO);
+
+		    for (BulletinVO vo : list) {
+		        int count = heartService.getHeartCountForBulletin(vo.getPostNo()); // 게시물 번호를 기반으로 하트 개수를 가져오는 메소드 호출
+		        vo.setHeartCount(count); // BulletinVO에 하트 개수 설정
+		    }
+		    
+		    for (BulletinVO vo:list) {
+		    	int commentsCount = commentsService.commentsCount(vo.getPostNo());
+		    	vo.setCommentsCount(commentsCount);
+		    }
+		
 		
 		long totalCnt = 0;
 		
@@ -137,7 +157,8 @@ public class BulletinController implements PcwkLogger {
 
 		String title = "게시판-목록";
 		modelAndView.addObject("title", title);
-
+		
+		
 		return modelAndView;
 		}
 	
@@ -228,7 +249,7 @@ public class BulletinController implements PcwkLogger {
 	}
 	
 	@GetMapping(value="/bulletinView.do")
-	public String bulletinView(BulletinVO inVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
+	public String bulletinView(BulletinVO inVO, HeartVO heartVO, Model model, HttpSession httpSession) throws SQLException, EmptyResultDataAccessException {
 		String view = "bulletin/bulletin_view";
 		LOG.debug("─────────────────────────────────────");
 		LOG.debug(" bulletinView"                        );
@@ -249,12 +270,19 @@ public class BulletinController implements PcwkLogger {
 		UserVO user = (UserVO) httpSession.getAttribute("user");
 		if(user != null) {
 			inVO.setId(user.getId());
+			heartVO.setId(user.getId());			
 		} else {
 			inVO.setId("");
 		}
 		
 		BulletinVO outVO = service.bulletinView(inVO);
 		model.addAttribute("vo", outVO);
+		
+		int myCount = heartService.getCount(heartVO);
+		model.addAttribute("myCount", myCount);
+		
+		int count = heartService.getTotalCount(heartVO);
+		model.addAttribute("count", count);		
 		
 		return view;
 	

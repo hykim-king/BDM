@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.qa.domain.QaVO;
 
@@ -56,7 +57,7 @@ public class QaDaoImpl implements PcwkLogger, QaDao {
 	}
 
 	@Override
-	public List<QaVO> doRetrieve(QaVO inVO) throws SQLException {
+	public List<QaVO> doRetrieve(DTO inVO) throws SQLException {
 		LOG.debug("────────────────────────────────────────────");
 		LOG.debug("doRetrieve"                                  );
 		LOG.debug("QaVO: " + inVO                               );
@@ -78,15 +79,6 @@ public class QaDaoImpl implements PcwkLogger, QaDao {
 	public int doDeleteAll(QaVO inVO) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public int getDisclosure(QaVO inVO) throws SQLException {
-		LOG.debug("───────────────────────────────────────────────");
-		LOG.debug("getDisclosure"                                  );
-		LOG.debug("statement: " + NAMESPACE + DOT + "getDisclosure");
-		LOG.debug("────────────────────────────────────────────────");
-		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "getDisclosure");
 	}
 
 }

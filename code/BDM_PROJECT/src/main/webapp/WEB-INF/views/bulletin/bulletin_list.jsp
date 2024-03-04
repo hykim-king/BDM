@@ -3,15 +3,29 @@
 <c:set var="CP" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
-
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
+<style>
+.bi-heart-fill {
+    font-size: 15px;
+    line-height: 15px;
+    color: crimson;
+    border: none; /* 테두리 제거 */
+}
+#heartButton {
+    border: none; /* 테두리 제거 */
+    background-color: transparent; /* 배경색을 투명으로 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+</style>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	console.log("DOMContentLoaded ON");
+	
+	//getTotalCount();
 
 	const moveToRegBTN = document.querySelector("#moveToReg");
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
@@ -19,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const bulletinForm = document.querySelector("#bulletinFrm");
 	const searchWordTxt = document.querySelector("#searchWord");
 	const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
+	
 
 	rows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
@@ -98,6 +113,8 @@ function pageDoRerive(url, pageNo) {
 	bulletinForm.action = url;
 	bulletinForm.submit();
 }
+
+
 </script>
 </head>
 
@@ -147,7 +164,7 @@ function pageDoRerive(url, pageNo) {
 					<thead>
 						<tr>
 							<th class="text-center col-lg-1 col-sm-1">번호</th>
-							<th class="text-left col-lg-7 col-sm-8">제목</th>
+							<th class="text-left col-lg-7 col-sm-8">제목 </th>
 							<th class="text-center col-lg-2 col-sm-1">날짜</th>
 							<th class="col-lg-1">작성자</th>
 							<th class="text-end col-lg-1">조회수</th>
@@ -163,9 +180,14 @@ function pageDoRerive(url, pageNo) {
 										<td class="text-center col-lg-1  col-sm-1">
 											<c:out value="${status.index+1}" escapeXml="true" />
 										</td>
-										<td class="text-left   col-lg-7  col-sm-8">
-											<c:out value="${vo.title}" escapeXml="true" />
-										</td>
+											<td class="text-left col-lg-7 col-sm-8">
+											    <c:out value="${vo.title}" escapeXml="true" />
+											    <button id="heartButton">
+											        <i id="heartIcon" class="bi bi-heart-fill"></i>
+											        <span id="totalCount">${vo.heartCount}</span>
+											    </button>
+											    <span id="commentsCount">(${vo.commentsCount})</span>
+											</td>
 										<td class="text-center col-lg-2  col-sm-1">
 											<c:out value="${vo.regDt}" escapeXml="true" />
 										</td>

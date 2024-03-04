@@ -1,5 +1,7 @@
 package com.test.bdm.user.domain;
 
+import com.test.bdm.cmn.UserDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO {
+public class UserVO extends UserDTO {
 
 	private String id;
 	private int no;

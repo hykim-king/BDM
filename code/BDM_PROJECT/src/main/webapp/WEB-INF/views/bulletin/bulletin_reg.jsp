@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<script src="${CP}/resources/js/eUtil.js"></script>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>게시물 등록</title>
 <script>
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control" id="title" name="title" maxlength="100" placeholder="제목을 입력 하세요">
         </div>
-        <div class="mb-3">
+        <div class="mb-3" hidden>
             <label for="id" class="form-label">등록자</label>
             <input type="text" class="form-control" id="id" name="id" value="${sessionScope.user.id}" 
             readonly="readonly" >        

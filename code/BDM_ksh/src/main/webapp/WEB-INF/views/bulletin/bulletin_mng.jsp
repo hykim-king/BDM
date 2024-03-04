@@ -25,7 +25,78 @@ document.addEventListener("DOMContentLoaded",function(){
     
     const postNo = document.querySelector("#postNo");
 
+<<<<<<< HEAD
+    const commentsDoSaveBTN = document.querySelector("#commentsDoSave");
+
+    
+    commentsDoSaveBTN.addEventListener("click",function(e){
+    	console.log('commentsDoSaveBTN click');
+    	
+    	
+    	const postNo = document.querySelector('#postNo').value;
+    	if(eUtil.isEmpty(postNo) == true){
+    		alert('게시글 순번을 확인 하세요.');
+    		return;
+    	}
+    	console.log('postNo:'+postNo);
+    	
+    	
+    	const contents = document.querySelector('#replyContents').value;
+        if(eUtil.isEmpty(contents) == true){
+            alert('댓글을 확인 하세요.');
+            document.querySelector('#replyContents').focus();
+            return;
+        }
+        console.log('replyContents:'+contents);
+        
+      	const regId    = '${sessionScope.user.id}';
+        if(eUtil.isEmpty(regId) == true){
+            alert('로그인 하세요.');
+            return;
+        }    	  
+        console.log('regId:'+regId);  
+        
+        
+        $.ajax({
+            type: "POST",
+            url:"/bdm/comments/doSave.do",
+            asyn:"true",
+            dataType:"json",
+            data:{
+            	"contents": contents,
+                "postNo": postNo,
+                "id": regId,
+                "modId": regId
+            },
+            success:function(data){//통신 성공
+                console.log("success msgId:"+data.msgId);
+                console.log("success msgContents:"+data.msgContents);
+                
+                if("1" == data.msgId){
+                	alert(data.msgContents);
+                	commentsRetrieve();//댓글 조회
+                	//등록 댓글 초기화
+                	document.querySelector('#replyContents').value = '';
+                }else{
+                	alert(data.msgContents);
+                }
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });
+    	  	
+    });
+    
+    	
+    
+    //수정 이벤트 감지 및 처리
+=======
   //수정 이벤트 감지 및 처리
+>>>>>>> 899eb84f5bd42cee9ee4caf060e0ae577f140b54
     doUpdateBTN.addEventListener("click", function(e){
   
     	const modId = document.querySelector("#modId").value;

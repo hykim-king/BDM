@@ -193,7 +193,7 @@ public class QaController implements PcwkLogger {
 		}
 		
 		inVO.setPostNo(inVO.getPostNo());
-		if( null==inVO.getId()) {
+		if( null == inVO.getId() ) {
 			inVO.setId(StringUtil.nvl(inVO.getId(),"Guest"));
 		}
 		
@@ -205,14 +205,6 @@ public class QaController implements PcwkLogger {
 		
 		QaVO  outVO = service.doSelectOne(inVO);
 		model.addAttribute("vo", outVO);
-		
-		//DIV코드 조회
-		Map<String, Object> codes=new HashMap<String, Object>();
-		String[] codeStr = {"BOARD_DIV"};
-		codes.put("code", codeStr);
-		
-		List<CodeVO> codeList = this.codeService.doRetrieve(codes);
-		model.addAttribute("divCode", codeList);
 		
 		return view;
 	}

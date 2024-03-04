@@ -129,13 +129,11 @@ document.addEventListener("DOMContentLoaded",function() {
         </div>
         <div class="mb-3"> <!--  아래쪽으로  여백 -->
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" 
-             value="${vo.title}"
-            placeholder="제목을 입력 하세요">
+            <input type="text" class="form-control readonly-input" id="title" name="title" maxlength="100" value="${vo.title}" placeholder="제목을 입력 하세요" readonly>
         </div>      
         <div class="mb-3">
             <label for="contents" class="form-label">내용</label>
-            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents">${vo.contents }</textarea>
+            <textarea rows="7" class="form-control readonly-input"  id="contents" name="contents" readonly>${vo.contents }</textarea>
         </div>
     <!--// form --------------------------------------------------------------->
     
