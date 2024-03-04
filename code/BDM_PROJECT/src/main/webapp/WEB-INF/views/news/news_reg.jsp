@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded",function(){
             type: "POST",
             url:"/bdm/news/doSave.do",
             processData: false,
-         contentType: false,
+            contentType: false,
             asyn:"true",
             dataType:"json",
             data:formData,
@@ -141,15 +141,15 @@ document.addEventListener("DOMContentLoaded",function(){
             }
       });
    });
-   function moveToListFun(){
-      window.location.href = "/bdm/news/doRetrieve.do";
-   }
    //event감지 및 처리
    moveToListBTN.addEventListener("click",function(e){
       console.log("moveToListBTN click");
       moveToListFun();
    });
 });//--DOMContentLoaded
+function moveToListFun(){
+    window.location.href = "/bdm/news/doRetrieve.do";
+ }
 </script>
 </head>
 <body>

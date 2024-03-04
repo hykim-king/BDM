@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     document.querySelector("#pw").focus();                 
                 }else if("30" == data.msgId){
                     alert(data.msgContents);
-                    location.href = "/bdm/beforeMain/popSearchWord.do";
+                    window.location.href = "${CP}/beforeMain/popSearchWord.do";
                 }
             },
             error:function(data){//실패시 처리
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }); //--#doLogin
     
     $("#moveToMain").on("click",function(e){
-    	location.href = "/bdm/beforeMain/moveToMain.do";
+    	location.href = "/bdm/beforeMain/popSearchWord.do";
     }); // --#moveToMain
     
     $("#findId").on("click",function(e){
@@ -139,19 +139,22 @@ document.addEventListener("DOMContentLoaded", function(){
         var left = (window.innerWidth - width) / 2;
         var top = (window.innerHeight - height) / 2;
         myWindow = window.open('../beforeMain/moveToFindPassword.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
-    }); // --#moveToMain
+    });
     
     $("#moveToReg").on("click",function(e){
     	location.href = "/bdm/user/moveToReg.do";
-    }); // --#moveToMain
+    });
     
-    $("#naverLogin").on("click",function(e){
-    	location.href = "/bdm/login/login.do";
-    }); // --#moveToMain
+    window.Kakao.init("7a61c303dff46bfedcb6d13327e48c00");
+    $("#kakaologin").on("click",function(e){
+    	kakaoLogin();
+    });
     
-    <!-- 카카오톡 연동 API -->
-	window.Kakao.init("7a61c303dff46bfedcb6d13327e48c00");
- }); //--document ready
+    /* $("#naverLogin").on("click",function(e){
+    	location.href = "${url}";
+    }); */
+	
+ }); //--document ready 
 	function kakaoLogin(){
 		window.Kakao.Auth.login({
 			scope: 'account_email',
@@ -200,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	    <div class="moveToMain">
 	        <a id="moveToMain"><img alt="" src="${CP }/resources/images/logo.png"></a>
 	    </div>
-	    <form>
+	    <form action="#" method="GET">
 	        <div class="mb-3">
 	            <label for="id" class="form-label">아이디</label>
 	            <input type="text" id="id" class="form-control" aria-describedby="emailHelp" placeholder="아이디를 입력하세요">
@@ -213,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	            <input type="checkbox" class="form-check-input" id="checkbox">
 	            <label class="form-check-label" for="exampleCheck1">자동 로그인</label>
 	        </div>
-	        <button type="submit" class="btn btn-primary">로그인</button>
+	        <button type="submit" id = "doLogin" class="btn btn-primary">로그인</button>
 	    </form>
 	    <div class="text-center mt-3">
 	        <a href="#" id="findId">아이디 찾기</a> | <a href="#" id="findPassword">비밀번호 찾기</a>
@@ -226,49 +229,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	        <a class="icon" id="kakaologin"><img alt="" src="${CP }/resources/images/kakao_icon.png"></a>
 	        <a class="icon" id="googlelogin"><img alt="" src="${CP }/resources/images/google_icon.png"></a>
 	    </div>
-	</div>    
-<!--  	    
-    <fieldset style="width: calc(100% - 260px); max-width: 300px; min-width: 240px;">
-        <legend>로그인</legend>
-        <div>
-            <form action="#" method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="id">아이디</label>
-                        </td>
-                        <td>
-                            <input type="text" id="id" name="id" size="20" maxlength="30">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="pw">비밀번호</label>
-                        </td>
-                        <td>
-                            <input type="password" id="pw" name="pw" size="20" maxlength="30">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center;">
-                            <input type="button" value="로그인" id="doLogin" style="height: 30px; width: 100%; box-sizing: border-box;">
-                            <input type="button" value="네이버로그인" id="naverLogin" style="height: 30px; width: 100%; href="javascript:void(0)">
-                            <a href="javascript:kakaoLogin();"><img src="${CP }/resources/images/kakao_login_medium.png" /></a>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </fieldset>
-    <div style="margin-top: 10px;">
-        <input type="button" value="아이디 찾기" id="findId" style="height: 30px;">
-        <input type="button" value="비밀번호 찾기" id="findPassword" style="height: 30px;">
-        <input type="button" value="회원 가입" id="moveToReg" style="height: 30px;">
-    </div>
-<<<<<<< HEAD
-</div>
-=======
-    -->
+	</div>
 </div> 
 
 <!-- 네이버 스크립트
@@ -314,6 +275,5 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 </script>
 -->
-
 </body>
 </html>

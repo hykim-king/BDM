@@ -223,11 +223,6 @@ function displaySelectedValue() {
 </script>
 </head>
 <body>
-    ${user } <br/>
-    selectedFoodList: ${selectedFoodList } <br/>
-    selectedCodeList: ${selectedCodeList } <br/>
-    amountList: ${amountList }
-    
     <div class = "container">
         <div class = "row">
             <div class="col-lg-12 d-flex justify-content-between">

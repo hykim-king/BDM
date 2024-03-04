@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
@@ -48,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function(){
         event.preventDefault();
         window.location.href = "${CP}/beforeMain/moveToLogin.do";
     });
-
      
      $("#findId").on("click",function(e){
      	var width = 750;

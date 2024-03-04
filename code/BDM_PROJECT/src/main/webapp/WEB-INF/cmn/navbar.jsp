@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	const navbarTogglerBtn = document.querySelector("#navbar-toggler");
     const gumsaekBtn = document.querySelector("#gumsaek");
     const searchWordTxt = document.querySelector("#searchWord");
+    
+    $("#moveToMain").click(function(event) {
+        event.preventDefault();
+        window.location.href = "${CP}/beforeMain/popSearchWord.do";
+    });
      
     gumsaekBtn.addEventListener("click", function(e){
         let searchWordTxtV = document.querySelector("#searchWord").value;
@@ -143,7 +148,7 @@ function closePopup() {
                             </div>
                         </div>
                     </div>
-				    <a href="#" class="navbar-brand">
+				    <a href="${CP }/beforeMain/popSearchWord.do" class="navbar-brand">
 				        <img src="${CP}/resources/images/logo.png" alt=""/>
 				    </a>
 				</div>
@@ -153,7 +158,7 @@ function closePopup() {
             <div class="search">
                 <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
                     <input type="hidden" name="pageNo" id="pageNo" value="1" /> 
-                    <a href="#" class="link_main"> 
+                    <a href="#" id = "moveToMain" class="link_main"> 
                         <img src="${CP}/resources/images/logo_kor.jpg" alt="로고">
                     </a> 
                     <input type="text" placeholder="검색어를 입력하세요" id="searchWord"
