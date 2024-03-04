@@ -13,6 +13,9 @@
 <script src="${CP }/resources/js/eUtil.js"></script>  
 <script>
 document.addEventListener("DOMContentLoaded", function(){
+<%
+    String id = request.getParameter("id");
+%>
     const cancleBtn = document.querySelector("#cancle");
     const changePasswordBtn = document.querySelector("#changePassword");
     const form = document.querySelector("#changePasswordFrm");
@@ -24,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(){
     changePasswordBtn.addEventListener("click", function(e){
         let password = form.password.value;
         if(eUtil.isEmpty(password)==true){
-            alert('비밀번호를 입력하세요.');
+            alert('새로운 비밀번호를 입력하세요.');
             form.password.focus();
             return;
         }
@@ -34,19 +37,11 @@ document.addEventListener("DOMContentLoaded", function(){
             form.confirm.focus();
             return;
         }
-        let newPassword = form.newPassword.value;
-        if(eUtil.isEmpty(newPassword)==true){
-            alert('새 비밀번호를 입력하세요.');
-            form.newPassword.focus();
-            return;
-        }
         
         if(password != confirm){
-            alert('현재 비밀번호를 확인하세요.');
+            alert('비밀번호가 일치하지 않습니다.');
             return;
         }
-        
-        let id = '${user.id}';
         
         $.ajax({
             type: "POST",
@@ -54,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function(){
             asyn:"true",
             dataType:"html",
             data:{
-                id: id,
-                pw: newPassword
+                id: '<%= id %>',
+                pw: password
             },
             success:function(data){//통신 성공     
                console.log("data:" + data);
@@ -91,16 +86,12 @@ document.addEventListener("DOMContentLoaded", function(){
          <div>
            <form action="#" name="changePasswordFrm" id = "changePasswordFrm">
                <div class = "p-div">
-                   <label for="password" class="form-label">현재 비밀번호</label>
+                   <label for="password" class="form-label">새 비밀번호</label>
                    <input type="text"  class="form-control"  name="password" id="password" placeholder="현재 비밀번호를 입력하세요." size="20"  maxlength="30">
                </div>         
                <div class="p-div">
-                   <label for="confirm" class="form-label">현재 비밀번호 확인</label>
+                   <label for="confirm" class="form-label">비밀번호 확인</label>
                    <input type="text"  class="form-control" name="confirm" id="confirm" placeholder="현재 비밀번호를 다시 입력하세요." size="20"  maxlength="30">
-               </div>                 
-               <div class="p-div">
-                   <label for="newPassword" class="form-label">새 비밀번호</label>
-                   <input type="text"  class="form-control" name="newPassword" id="newPassword" placeholder="새 비밀번호를 입력하세요." size="20"  maxlength="30">
                </div>
            </form>
          </div>

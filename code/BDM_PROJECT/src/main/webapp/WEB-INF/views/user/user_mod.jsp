@@ -25,6 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
 	const modForm = document.querySelector("#userModFrm");
 	const doChangeBtn = document.querySelector("#doChange");
 	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
+	const doDeleteBtn = document.querySelector("#doDelete");
+	
+	doDeleteBtn.addEventListener("click", function(e){
+		var width = 750;
+        var height = 1200;
+        var left = (window.innerWidth - width) / 2;
+        var top = (window.innerHeight - height) / 2;
+        myWindow = window.open('../user/moveToDelete.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+	});	
 	
 	doChangeBtn.addEventListener("click", function(e){
 		console.log('doChangeBtn clicked');
@@ -99,10 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		            <label for="seq" class="col-sm-2 col-form-label">아이디</label>
 		            <input type="text" class="form-control readonly-input" id="seq" name="seq" maxlength="100" value="${user.id }" readonly>
 		       </div>
-               <div class = "mb-3">
-                   <label for="pw" class="form-label">비밀번호</label>
-                   <input type="password"  class="form-control"  name="pw" id="pw" value="${user.pw }" readonly>
-               </div>
                <div class="p-div">
                    <label for="email" class="form-label">이메일</label>
                    <input type="text"  class="form-control" name="email" id="email" value="${user.email }" readonly>
@@ -138,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
            <div class = "col-auto">
                <input type="button" class="btn btn-primary" value="돌아가기" id="moveToMyPage" >
                <input type="button" class="btn btn-primary" value="저장하기" id="doChange">
+               <input type="button" class="btn btn-primary" value="탈퇴하기" id="doDelete">
            </div>
        </div>
          <!--// Button영역 ------------------------------------------------------>

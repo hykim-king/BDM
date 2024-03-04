@@ -157,8 +157,8 @@ public class UserController implements PcwkLogger {
 		return "user/user_delete";
 	}
 	
-	@GetMapping(value = "/changePassword.do")
-	public String changePassword() throws SQLException {
+	@GetMapping(value = "/moveToChangePassword.do")
+	public String moveToChangePassword() throws SQLException {
 		return "account/account_changePassword";
 	}
 

@@ -62,6 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
  	   		alert('로그인이 필요한 서비스입니다.');
  	   		return;
  	 	</c:if>
+ 	 	<c:if test="${user.block != null}">
+	        alert('현재 해당 기능을 사용할 수 없습니다.\n${user.block}까지 제재된 상태입니다.');
+	        return;
+    	</c:if>
  	 	window.location.href = "/bdm/bulletin/moveToReg.do";
 	});
 

@@ -89,28 +89,28 @@ public class BeforeMainController implements PcwkLogger {
 	}
 
 	@GetMapping(value = "/checkSession.do")
-	public String checkSession(UserVO user, HttpSession httpSession) throws SQLException {
+	public ModelAndView checkSession(DTO dto, UserVO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException {
 			
 		String jsonString = "";
 		LOG.debug("┌───────────────────────────────────────────┐");
-		LOG.debug("│ checkSession                              │user:" + user);
+		LOG.debug("│ checkSession                              │user:" + inVO);
 		LOG.debug("└───────────────────────────────────────────┘");
 
 		MessageVO message = new MessageVO();
 		
-		UserVO outVO = beforeMainService.doSelectNaverEmail(user);
+		UserVO outVO = beforeMainService.doSelectNaverEmail(inVO);
 
 		if (null != outVO) {
 			httpSession.setAttribute("user", outVO);
 		}
-		else {
-			return "user/naver_user_reg";
-		}
+//		else {
+//			return "user/naver_user_reg";
+//		}
 		
 		jsonString = new Gson().toJson(message);
 		LOG.debug("jsonString:" + jsonString);
 
-		return "main/afterLoginMain";
+		return popSearchWord(dto, modelAndView, httpSession);
 		
 	}
 
