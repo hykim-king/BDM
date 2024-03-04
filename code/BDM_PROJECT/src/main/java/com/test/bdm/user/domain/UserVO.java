@@ -26,13 +26,14 @@ public class UserVO extends UserDTO {
 	private String regDt;
 	private int userFilter;
 	private String salt;
+	private String block;
 
 	@Override
 	public String toString() {
 		return "UserVO [id=" + id + ", no=" + no + ", pw=" + pw + ", email=" + email + ", name=" + name + ", birth="
 				+ birth + ", gender=" + gender + ", height=" + height + ", weight=" + weight + ", activity=" + activity
-				+ ", regDt=" + regDt + ", userFilter=" + userFilter + ", salt=" + salt + ", toString()="
-				+ super.toString() + "]";
+				+ ", regDt=" + regDt + ", userFilter=" + userFilter + ", salt=" + salt + ", block=" + block
+				+ ", toString()=" + super.toString() + "]";
 	}
 
 }

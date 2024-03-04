@@ -3,6 +3,10 @@ package com.test.bdm.user.controller;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.test.bdm.cmn.MessageVO;
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.cmn.StringUtil;
+import com.test.bdm.cmn.UserDTO;
+import com.test.bdm.code.domain.CodeVO;
+import com.test.bdm.code.service.CodeService;
 import com.test.bdm.user.domain.UserVO;
 import com.test.bdm.user.service.MailSendService;
 import com.test.bdm.user.service.UserService;
@@ -27,11 +36,121 @@ public class UserController implements PcwkLogger {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CodeService codeService;
 
 	@Autowired
 	private MailSendService mailService;
 	
 	private static final int SALT_SIZE = 16;
+	
+	@GetMapping(value = "/moveToBlockList.do")
+	public ModelAndView moveToBlockList(ModelAndView model, UserDTO inVO) throws SQLException {
+		if (null != inVO && inVO.getPageSize() == 0) {
+			inVO.setPageSize(10L);
+		}
+
+		// 페이지 번호:1
+		if (null != inVO && inVO.getPageNo() == 0) {
+			inVO.setPageNo(1L);
+		}
+
+		// 검색구분:""
+		if (null != inVO && null == inVO.getSearchDiv()) {
+			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchDiv()));
+		}
+		// 검색어:""
+		if (null != inVO && null == inVO.getSearchWord()) {
+			inVO.setSearchDiv(StringUtil.nvl(inVO.getSearchWord()));
+		}
+		LOG.debug("Bulletin Default처리: " + inVO);
+		
+		Map<String, Object> codes = new HashMap<String, Object>();
+		String[] codeStr = { "PAGE_SIZE", "USER_SEARCH" };
+
+		codes.put("code", codeStr);
+		List<CodeVO> codeList = codeService.doRetrieve(codes);
+
+		List<CodeVO> userSearchList = new ArrayList<CodeVO>();
+		List<CodeVO> pageSizeList = new ArrayList<CodeVO>();
+		
+		for (CodeVO vo : codeList) {
+			if (vo.getCategory().equals("USER_SEARCH")) {
+				userSearchList.add(vo);
+			}
+
+			if (vo.getCategory().equals("PAGE_SIZE")) {
+				pageSizeList.add(vo);
+			}
+		}
+		
+		List<UserVO> list = userService.doSelectBlockUsers(inVO);
+		
+		long totalCnt = 0;
+		
+		for(UserVO vo: list) {
+			if(totalCnt == 0) {
+				totalCnt = vo.getTotalCnt();
+				break;
+			}
+		}
+		model.addObject("totalCnt", totalCnt);
+		model.addObject("list", list);
+		model.setViewName("user/user_block_list");
+		model.addObject("paramVO", inVO);
+		model.addObject("userSearch", userSearchList);
+		model.addObject("pageSize", pageSizeList);
+		
+		long bottomCount = StringUtil.BOTTOM_COUNT;// 바닥글
+		String html = StringUtil.renderingPager(totalCnt, inVO.getPageNo(), inVO.getPageSize(), bottomCount,
+				"/bdm/beforeMain/moveToUserMonitor.do", "pageDoRerive");
+		model.addObject("pageHtml", html);
+
+		String title = "제재 회원 목록";
+		model.addObject("title", title);
+		
+		return model;
+	}
+	
+	@PostMapping(value = "/doBlock.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody // HTTP 요청 부분의 body 부분이 그대로 브라우저에 전달
+	public String doBlock(UserVO inVO) throws Exception {
+		String jsonString = "";
+
+		LOG.debug("┌───────────────────┐");
+		LOG.debug("┃  doBlock()     │ inVO: " + inVO);
+		LOG.debug("└───────────────────┘");
+		
+		int flag = userService.doBlock(inVO);
+		String message = "";
+
+		if (flag == 1)
+			message = "제재 처리 되었습니다";
+		else
+			message = "제재 처리 실패";
+
+		MessageVO messageVO = new MessageVO(flag + "", message);
+		jsonString = new Gson().toJson(messageVO);
+		LOG.debug("jsonString: " + jsonString);
+
+		return jsonString;
+	}
+	
+	@GetMapping(value = "/moveToBlock.do")
+	public ModelAndView moveToBlock(ModelAndView model, UserVO inVO) throws SQLException {
+		String id = inVO.getId();
+		UserVO outVO = doSelectOne(id);
+		model.addObject("outVO", outVO);
+		model.setViewName("user/user_block");
+		
+		return model;
+	}
+	
+	@GetMapping(value = "/doSelectOne.do")
+	public UserVO doSelectOne(String id) throws SQLException {
+		return userService.doSelectOne(id);
+	}
 	
 	@GetMapping(value = "/moveToDelete.do")
 	public String moveToDelete() throws SQLException {

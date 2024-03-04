@@ -5,7 +5,7 @@
   <mapper namespace="com.test.bdm.beforeMain">
   
   <select id="doSelectOneByEmail" parameterType="com.test.bdm.user.domain.UserVO" resultType="com.test.bdm.user.domain.UserVO"> 
-      SELECT id, no, pw, email, name, birth, gender, height, weight, activity, reg_dt, user_filter 
+      SELECT id, no, pw, email, name, birth, gender, height, weight, activity, reg_dt, user_filter, block
       FROM users 
       WHERE email = #{email} 
    </select>
@@ -76,7 +76,8 @@
             weight,
             activity,
             reg_dt,
-            user_filter
+            user_filter,
+            block
          FROM               
              users          
          WHERE id = #{id}     
@@ -96,7 +97,8 @@
             weight,
             activity,
             reg_dt,
-            user_filter
+            user_filter,
+            block
          FROM               
              users          
          WHERE email = #{email}     
