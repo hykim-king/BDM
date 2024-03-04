@@ -23,6 +23,11 @@ public class UserController implements PcwkLogger {
 	@Autowired
 	UserService userService;
 	
+	@GetMapping(value = "/moveToKakao.do")
+	public String moveToKakao() throws SQLException {
+		return "user/kakao_user_reg";
+	}
+	
 	@GetMapping(value = "/changePassword.do")
 	public String changePassword() throws SQLException {
 		return "account/account_changePassword";

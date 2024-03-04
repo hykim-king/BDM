@@ -6,9 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +31,6 @@ import com.test.bdm.news.service.NewsService;
 import com.test.bdm.notice.domain.NoticeVO;
 import com.test.bdm.notice.service.NoticeService;
 import com.test.bdm.user.domain.UserVO;
-import com.test.bdm.user.service.UserService;
 
 @Controller
 @RequestMapping("beforeMain")
@@ -107,11 +110,15 @@ public class BeforeMainController implements PcwkLogger {
 	}
 	
 	@GetMapping(value= "/doApiLogin.do")
-	public ModelAndView doApiLogin(UserVO inVO, ModelAndView modelAndView) throws SQLException{
+	public ModelAndView doApiLogin(UserVO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException{
 		UserVO outVO = beforeMainService.doSelectOneByEmail(inVO);
 		
-		modelAndView.addObject("outVO", outVO);
-		modelAndView.setViewName(viewName);
+		modelAndView.setViewName("main/afterLoginMain");
+		// modelAndView.addObject("outVO", outVO);
+		
+		if (null != outVO) {
+			httpSession.setAttribute("user", outVO);
+		}
 		
 		return modelAndView;
 	}

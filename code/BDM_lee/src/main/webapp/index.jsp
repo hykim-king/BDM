@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"  content="width=device-width, initial-scale=1">
 <%-- <link rel="stylesheet" href="${CP}/resources/css/user.css"> --%>
-<title>게시등록</title>
+<title>index</title>
 <script src="${CP}/resources/js/jquery-3.7.1.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
 </head>

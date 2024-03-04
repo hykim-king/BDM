@@ -45,7 +45,7 @@
 				            		window.location.href = "${CP}/beforeMain/doApiLogin.do?email="+kakao_account.email;
 				                }else{
 				                	alert("등록되지 않은 회원입니다.\n회원가입 창으로 이동합니다");
-				    				window.location.href = "${CP}/user/moveToReg.do";
+				    				window.location.href = "${CP}/user/moveToKakao.do?email="+kakao_account.email;
 				                }
 				            },
 				            error:function(data){//실패시 처리

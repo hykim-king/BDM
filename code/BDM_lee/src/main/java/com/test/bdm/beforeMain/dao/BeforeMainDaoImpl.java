@@ -84,9 +84,9 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 	public UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
 		UserVO  outVO = null;
 		LOG.debug("1.param :" + inVO.toString());
-		String statement = NAMESPACE+DOT+"doSelectOne";
+		String statement = NAMESPACE+DOT+"doSelectOneByEmail";
 		LOG.debug("2.statement :" + statement);
-		outVO=sqlSessionTemplate.selectOne(statement, inVO);
+		outVO = sqlSessionTemplate.selectOne(statement, inVO);
 		if(null != outVO) {
 			LOG.debug("3.outVO \n" + outVO.toString());
 		}
