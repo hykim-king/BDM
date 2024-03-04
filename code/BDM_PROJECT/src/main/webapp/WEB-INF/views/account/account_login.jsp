@@ -8,11 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <title>Insert title here</title>
-=======
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
@@ -69,7 +67,6 @@
     }
 </style>
 <title>꼬르륵 로그인</title>
->>>>>>> e439598 (아이콘 및 menuBTN 수정 밎 추가)
 <script>
 document.addEventListener("DOMContentLoaded", function(){
      
@@ -349,6 +346,5 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 -->
 
->>>>>>> e439598 (아이콘 및 menuBTN 수정 밎 추가)
 </body>
 </html>
