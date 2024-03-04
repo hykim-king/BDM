@@ -254,9 +254,9 @@ document.addEventListener("DOMContentLoaded", function(){
             <div class="row">    
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="bulli" role="tabpanel" aria-labelledby="bulli-tab">
-<<<<<<< HEAD
+
                         <table class="table table-bordered border-primary table-hover" id="bulletinTable">
-=======
+
                     <input type="button" value="더보기" class="btn btn-primary" id="bulletinList">
                         <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
                             <thead>
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
                     <input type="button" value="더보기" class="btn btn-primary" id="noticeList">
                         <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
->>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
+
                             <thead>
                                 <tr>
                                     <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
@@ -327,17 +327,17 @@ document.addEventListener("DOMContentLoaded", function(){
                                 </c:choose>
                             </tbody>
                         </table>
-<<<<<<< HEAD
+
 							<input type="button" value="더보기" class="btn btn-primary float-end" id="bulletinList">
                      </div>
                     <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
                         <table class="table table-bordered border-primary table-hover" id="noticeTable">
-=======
+
                     </div>
                     <div class="tab-pane fade" id="QandA" role="tabpanel" aria-labelledby="QandA-tab">
                     <input type="button" value="더보기" class="btn btn-primary" id="qaList">
                         <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
->>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
+
                             <thead>
                                 <tr>
                                     <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
@@ -349,8 +349,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             </thead>
                             <tbody>
                                 <c:choose>
-<<<<<<< HEAD
-                                    <c:when test="${ not empty noticeList }">  
+<%--                                     <c:when test="${ not empty noticeList }">  
                                          <!-- 반복문 -->
                                          <c:forEach var="vo" items="${noticeList.subList(0, (noticeList.size() < 5 ? noticeList.size() : 5))}" varStatus="status">
                                              <tr>
@@ -360,8 +359,8 @@ document.addEventListener("DOMContentLoaded", function(){
                                                  <td class="text-end col-lg-1 col-sm-2"		style="background-color: #FDF8EE;"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
                                                  <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
                                              </tr>
-                                         </c:forEach> 
-=======
+                                         </c:forEach>  --%>
+
                                     <c:when test="${ not empty qaList }">  
                                          <c:forEach var="vo" items="${qaList.subList(0, (qaList.size() < 5 ? qaList.size() : 5))}" varStatus="status">
                                              <tr>

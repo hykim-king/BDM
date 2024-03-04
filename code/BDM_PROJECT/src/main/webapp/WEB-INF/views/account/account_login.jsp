@@ -150,9 +150,9 @@ document.addEventListener("DOMContentLoaded", function(){
     	kakaoLogin();
     });
     
-    /* $("#naverLogin").on("click",function(e){
-    	location.href = "${url}";
-    }); */
+    $("#naverLogin").on("click",function(e){
+    	location.href = "/bdm/login/login.do";
+    }); // --#moveToMain
 	
  }); //--document ready 
 	function kakaoLogin(){
@@ -225,7 +225,8 @@ document.addEventListener("DOMContentLoaded", function(){
 	        계정이 없으신가요? <a href="#" id="moveToReg">회원가입</a>
 	    </div>
 	    <div class="api_login d-flex justify-content-center">
-	        <a class="icon" id="naverlogin"><img alt="" src="${CP }/resources/images/naver_icon.png"></a>
+	    	<!-- <input type="button" value="네이버로그인" id="naverLogin" style="height: 30px; width: 100%; href="javascript:void(0)"> -->
+	        <a class="icon" id="naverLogin"><img alt="" src="${CP }/resources/images/naver_icon.png"></a>
 	        <a class="icon" id="kakaologin"><img alt="" src="${CP }/resources/images/kakao_icon.png"></a>
 	        <a class="icon" id="googlelogin"><img alt="" src="${CP }/resources/images/google_icon.png"></a>
 	    </div>
