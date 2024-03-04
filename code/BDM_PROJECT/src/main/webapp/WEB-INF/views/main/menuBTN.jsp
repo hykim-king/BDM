@@ -39,14 +39,13 @@
     }
 <<<<<<< HEAD
 }); */
-=======
+
     
     $("#login").click(function(event) {
         event.preventDefault();
         window.location.href = "${CP}/beforeMain/moveToLogin.do";
     });
 });
->>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
 </script>
 <style>
 
@@ -56,7 +55,7 @@
     <div id="app" class="wrap">
         <div class="aside_header">
             <div class="ah_wrap">
-                <a href="#" id="login"><h1 class="ah_title">로그인 바로가기</h1></a>
+                <h1 class="ah_title">바로가기</h1>
             </div>
         </div>
         <div class="aside_wrap">
