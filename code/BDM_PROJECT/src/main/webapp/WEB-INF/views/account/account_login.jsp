@@ -8,9 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<title>Insert title here</title>
+<title>로그인</title>
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
@@ -18,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
-<style>
+<style> 
 	body {
         background-color: #f7e9e8;
     }
@@ -152,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
     <!-- 카카오톡 연동 API -->
 	window.Kakao.init("7a61c303dff46bfedcb6d13327e48c00");
-
+ }); //--document ready
 	function kakaoLogin(){
 		window.Kakao.Auth.login({
 			scope: 'account_email',
@@ -193,36 +192,6 @@ document.addEventListener("DOMContentLoaded", function(){
 			}
 		});
 	}
-	
-	//카카오톡으로 로그인하기
-	function doCheckEmail(email){
-		/* $.ajax({
-            type: "GET",
-            url:"/bdm/user/doCheckEmail.do",
-            asyn:"true",
-            dataType:"html",
-            data:{
-                email: email
-            },
-            success:function(data){//통신 성공
-            	let parsedJSON = JSON.parse(data);
-            
-            	if("1" === parsedJSON.msgId){
-            		window.location.href = "${CP}/beforeMain/popSearchWord.do";
-                }else{
-                	alert("등록되지 않은 회원입니다.\n회원가입 창으로 이동합니다");
-    				window.location.href = "${CP}/beforeMain/moveToReg.do";
-                }
-            },
-            error:function(data){//실패시 처리
-                console.log("error:"+data);
-            },
-            complete:function(data){//성공/실패와 관계없이 수행!
-                console.log("complete:"+data);
-            }
-        });
-	}
- }); //--document ready
 </script>
 </head>
 <body>
@@ -241,16 +210,16 @@ document.addEventListener("DOMContentLoaded", function(){
 	            <input type="password" id="pw" class="form-control" placeholder="비밀번호를 입력하세요">
 	        </div>
 	        <div class="mb-3 form-check">
-	            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+	            <input type="checkbox" class="form-check-input" id="checkbox">
 	            <label class="form-check-label" for="exampleCheck1">자동 로그인</label>
 	        </div>
 	        <button type="submit" class="btn btn-primary">로그인</button>
 	    </form>
 	    <div class="text-center mt-3">
-	        <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a>
+	        <a href="#" id="findId">아이디 찾기</a> | <a href="#" id="findPassword">비밀번호 찾기</a>
 	    </div>
 	    <div class="text-center mt-3">
-	        계정이 없으신가요? <a href="#">회원가입</a>
+	        계정이 없으신가요? <a href="#" id="moveToReg">회원가입</a>
 	    </div>
 	    <div class="api_login d-flex justify-content-center">
 	        <a class="icon" id="naverlogin"><img alt="" src="${CP }/resources/images/naver_icon.png"></a>
