@@ -37,26 +37,34 @@ document.addEventListener("DOMContentLoaded", function(){
     } else {
         userMonitorItem.style.display = 'none'; // 숨기기
     }
+    
+    $("#login").click(function(event) {
+        event.preventDefault();
+        window.location.href = "${CP}/beforeMain/moveToLogin.do";
+    });
 });
 </script>
+<style>
+
+</style>
 </head>
 <body id="aside">
     <div id="app" class="wrap">
         <div class="aside_header">
             <div class="ah_wrap">
-                <h1 class="ah_title">바로가기</h1>
+                <a href="#" id="login"><h1 class="ah_title">로그인 바로가기</h1></a>
             </div>
         </div>
         <div class="aside_wrap">
             <div class="section_shortcut">
-                <div class="user_area">
-                    <a href="#" class="link_user" rel="noreferrer">
-                        <h2 class="title">
-                            <span class="name">로그인</span>
-                            <span class="text">하세요</span>
-                        </h2>
-                    </a>
-                </div>
+			    <div class="user_area"> <!-- 이 부분을 확인 -->
+			        <a href="#" class="link_user" rel="noreferrer">
+			            <h2 class="title">
+			                <span class="name">로그인</span>
+			                <span class="text">하세요</span>
+			            </h2>
+			        </a>
+			    </div>
                 <div class="bg_media_wrap">
                     <div class="ss_shortcut_wrap" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                         <div class="scroll-area">
@@ -90,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                         <li class="ss_shortcut_item" id = "qna">
                                             <a class="shortcut_a" href="/bdm/qa/doRetrieve.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/qa_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">QnA</em>
                                             </a>
@@ -98,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                         <li class="ss_shortcut_item" id = "userMonitor">
                                             <a class="shortcut_a" href="/bdm/beforeMain/moveToUserMonitor.do" target="_blank" rel="noreferrer">
                                                 <div class="sa_mw">
-                                                    <img src="${CP }/resources/images/mall_icon.png" class="sa_m" width="48" height="48" alt="">
+                                                    <img src="${CP }/resources/images/user_m_icon.png" class="sa_m" width="48" height="48" alt="">
                                                 </div>
                                                 <em class="sa_t">유저관리</em>
                                             </a>
