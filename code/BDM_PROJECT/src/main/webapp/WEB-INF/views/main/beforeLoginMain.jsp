@@ -27,7 +27,10 @@
 	}
 	.card-body{
 	color: #514752;
-	}   
+	}
+.moreButton{
+	margin-bottom:10px;
+}
 </style>
 <title>Balance Diet Management</title>
 
@@ -285,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 </c:choose>
                             </tbody>
                         </table>
-                        <input type="button" value="더보기" class="btn btn-primary float-end" id="bulletinList">
+                        <input type="button" value="더보기" class="btn btn-primary float-end moreButton" id="bulletinList">
                      </div>
                     <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
                         <table class="table table-bordered border-primary table-hover" id="noticeTable">
@@ -320,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 </c:choose>
                             </tbody>
                         </table>
-                        <input type="button" value="더보기" class="btn btn-primary float-end" id="noticeList">
+                        <input type="button" value="더보기" class="btn btn-primary float-end moreButton" id="noticeList">
                     </div>
                     <div class="tab-pane fade" id="QandA" role="tabpanel" aria-labelledby="QandA-tab">
                         <table class="table table-bordered border-primary table-hover" id="qaTable">
@@ -381,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 </c:choose>
                             </tbody>
                         </table>
-                        <input type="button" value="더보기" class="btn btn-primary float-end" id="qaList">
+                        <input type="button" value="더보기" class="btn btn-primary float-end moreButton" id="qaList">
                     </div>
                 </div>
             </div>
