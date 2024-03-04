@@ -5,16 +5,21 @@
   
   <mapper namespace="com.test.bdm.food">
   
-	  <insert id="doSaveFood" parameterType = "map">
-	        INSERT INTO EAT(
-	            id,
-	            reg_dt,
-	            code
-	        ) VALUES (
-	           #{userId},
-	           SYSDATE,
-	           #{foodCode}
-	        )                   
-	    </insert>
+	  <insert id="doSaveFood" parameterType="map"> 
+	  INSERT INTO EAT( 
+	       id, 
+	       reg_dt, 
+	       code, 
+	       divs, 
+	       amount
+	  ) 
+	  VALUES( 
+	       #{userId}, 
+	       SYSDATE, 
+	       #{foodCode}, 
+	       #{divs}, 
+	       #{amount}
+	  ) 
+	  </insert>
   
   </mapper>

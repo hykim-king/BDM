@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.bdm.bulletin.dao.BulletinDao;
 import com.test.bdm.bulletin.domain.BulletinVO;
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 
 @Service
@@ -18,6 +19,11 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	BulletinDao dao;
 	
 	public BulletinServiceImpl() {}
+	
+	@Override
+	public int getBulletinSeq() throws SQLException {
+		return dao.getBulletinSeq();
+	}
 
 	@Override
 	public int doSave(BulletinVO inVO) throws SQLException {
@@ -33,13 +39,6 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	public BulletinVO doSelectOne(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException {
 		BulletinVO outVO = dao.doSelectOne(inVO);
 		
-		if(null != outVO) {
-			int updateReadCnt = dao.updateReadCnt(inVO);
-			LOG.debug("──────────────────────────────────────────");
-			LOG.debug(" updateReadCnt: " + updateReadCnt          );
-			LOG.debug("──────────────────────────────────────────");
-		}
-		
 		return outVO;
 	}
 
@@ -54,7 +53,7 @@ public class BulletinServiceImpl implements PcwkLogger, BulletinService {
 	}
 
 	@Override
-	public List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException {
+	public List<BulletinVO> doRetrieve(DTO inVO) throws SQLException {
 		return dao.doRetrieve(inVO);
 	}
 

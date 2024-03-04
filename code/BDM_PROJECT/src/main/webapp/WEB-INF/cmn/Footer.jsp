@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <c:set var="CP" value="${pageContext.request.contextPath}" scope="page" />
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,18 +28,16 @@
     font-optical-sizing: auto;
 }
 
-body {
-    background-color: #fdce64;
-    margin: 0;
-    padding: 0;
-}
-
-.wrap {
+footer {
     background-color: #fdce64;
     padding: 20px 0;
 }
+#wrap_footer{
+	background-color: #fdce64;
+}
 
-.container {
+.footer_container {
+	background-color: #fdce64;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,25 +90,27 @@ p {
 
 </style>
 <body>
-	<div class="wrap">
-        <div class="container">
-            <div class="member col-md">
-                <div class="title"><img src="footer_logo.png" class="logo_img"><span>Balance Diet PROJECT</span></div>
-                <p>Kang Sohee</p>
-                <p>Kim Jiwoo</p>
-                <p>Lee Inkyung</p>
-                <p>Park Seonguk</p>
-                <p>Park Jinwoo</p>
-                <p>Chun Doheon</p>
-                <p>Heo Sungmu</p>
-            </div>
-            <div class="cum_icon">
-                <a href=""><div class="icon"><img src="${CP }/resources/images/facebook.png"></div></a>
-                <a href=""><div class="icon"><img src="${CP }/resources/images/instagram.png"></div></a>
-                <a href=""><div class="icon"><img src="${CP }/resources/images/twitter.png"></div></a>
-                <a href=""><div class="icon"><img src="${CP }/resources/images/youtube.png"></div></a>
+    <footer>
+        <div class="wrap" id="wrap_footer">
+            <div class="container footer_container">
+                <div class="member col-md">
+                    <div class="title"><img src="${CP }/resources/images/footer_logo.png" class="logo_img"><span>Balance Diet PROJECT</span></div>
+                    <p>Kang Sohee</p>
+                    <p>Kim Jiwoo</p>
+                    <p>Lee Inkyung</p>
+                    <p>Park Seonguk</p>
+                    <p>Park Jinwoo</p>
+                    <p>Chun Doheon</p>
+                    <p>Heo Sungmu</p>
+                </div>
+                <div class="cum_icon">
+                    <a href=""><div class="icon"><img src="${CP }/resources/images/facebook.png"></div></a>
+                    <a href=""><div class="icon"><img src="${CP }/resources/images/instagram.png"></div></a>
+                    <a href=""><div class="icon"><img src="${CP }/resources/images/twitter.png"></div></a>
+                    <a href=""><div class="icon"><img src="${CP }/resources/images/youtube.png"></div></a>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 </html>

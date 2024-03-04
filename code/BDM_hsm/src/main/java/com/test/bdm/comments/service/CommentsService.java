@@ -26,5 +26,8 @@ public interface CommentsService {
 	
 	
 	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
+	
+	int commentsCount(int postNo) throws SQLException;
+
 		
 }

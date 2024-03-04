@@ -8,6 +8,10 @@
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <style>
+body {
+	background-color: #f7e9e8;
+}
+
 .bi-heart-fill {
     font-size: 15px;
     line-height: 15px;
@@ -16,8 +20,13 @@
 }
 #heartButton {
     border: none; /* 테두리 제거 */
+    
     background-color: transparent; /* 배경색을 투명으로 설정 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+.searchButton{
+	margin-bottom:15px;
 }
 
 </style>
@@ -126,7 +135,7 @@ function pageDoRerive(url, pageNo) {
 				<hr />
 			</div>
 		</div>
-			<form action="#" method="get" id="bulletinFrm" name="bulletinFrm">
+			<form action="#" method="get" id="bulletinFrm" name="bulletinFrm" class="searchButton">
 				<input type="hidden" name="pageNo" id="pageNo" />
 				<div class="row g-1 justify-content-end ">
 					<label for="searchDiv" class="col-auto col-form-label">검색조건</label>
@@ -160,14 +169,14 @@ function pageDoRerive(url, pageNo) {
 						</div>
 					</div>
 				</form>
-				<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+				<table class="table table-bordered border-primary table-hover" id="bulletinTable">
 					<thead>
 						<tr>
-							<th class="text-center col-lg-1 col-sm-1">번호</th>
-							<th class="text-left col-lg-7 col-sm-8">제목 </th>
-							<th class="text-center col-lg-2 col-sm-1">날짜</th>
-							<th class="col-lg-1">작성자</th>
-							<th class="text-end col-lg-1">조회수</th>
+							<th class="text-center col-lg-1 col-sm-1" style="background-color: #514752; color: #ffffff;">번호</th>
+							<th class="text-left col-lg-7 col-sm-8" style="background-color: #514752; color: #ffffff;">제목 </th>
+							<th class="text-center col-lg-2 col-sm-1" style="background-color: #514752; color: #ffffff;">날짜</th>
+							<th class="col-lg-1" style="background-color: #514752; color: #ffffff;">작성자</th>
+							<th class="text-end col-lg-1" style="background-color: #514752; color: #ffffff;">조회수</th>
 							<th scope="col" class="text-center   "style="display: none;">SEQ</th>
 						</tr>
 					</thead>
@@ -177,24 +186,24 @@ function pageDoRerive(url, pageNo) {
 								<!-- 반복문 -->
 								<c:forEach var="vo" items="${list}" varStatus="status">
 									<tr>
-										<td class="text-center col-lg-1  col-sm-1">
+										<td class="text-center col-lg-1  col-sm-1" style="background-color: #FDF8EE;">
 											<c:out value="${status.index+1}" escapeXml="true" />
 										</td>
-											<td class="text-left col-lg-7 col-sm-8">
-											    <c:out value="${vo.title}" escapeXml="true" />
-											    <button id="heartButton">
-											        <i id="heartIcon" class="bi bi-heart-fill"></i>
-											        <span id="totalCount">${vo.heartCount}</span>
-											    </button>
-											    <span id="commentsCount">(${vo.commentsCount})</span>
-											</td>
-										<td class="text-center col-lg-2  col-sm-1">
+										<td class="text-left col-lg-7 col-sm-8" style="background-color: #FDF8EE;">
+											<c:out value="${vo.title}" escapeXml="true" />
+												<button id="heartButton">
+													<i id="heartIcon" class="bi bi-heart-fill"></i>
+													<span id="totalCount">${vo.heartCount}</span>
+												</button>
+											<span id="commentsCount">(${vo.commentsCount})</span>
+										</td>
+										<td class="text-center col-lg-2  col-sm-1" style="background-color: #FDF8EE;">
 											<c:out value="${vo.regDt}" escapeXml="true" />
 										</td>
-										<td class="col-lg-1 ">
+										<td class="col-lg-1" style="background-color: #FDF8EE;">
 											<c:out value="${vo.id}" />
 										</td>
-										<td class="text-end col-lg-1 ">
+										<td class="text-end col-lg-1" style="background-color: #FDF8EE;">
 											<c:out value="${vo.readCnt}" />
 										</td>
 										<td style="display: none;">

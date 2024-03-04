@@ -5,9 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${CP}/resources/js/eUtil.js"></script>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>게시물 등록</title>
+<style>
+body {
+	background-color: #f7e9e8;
+}
+</style>
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 	console.log("DOMContentLoaded");

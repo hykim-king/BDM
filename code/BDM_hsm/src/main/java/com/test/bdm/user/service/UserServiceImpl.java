@@ -1,11 +1,13 @@
 package com.test.bdm.user.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.cmn.PcwkLogger;
+import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.dao.UserDao;
 import com.test.bdm.user.domain.UserVO;
 
@@ -37,4 +39,33 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 		return userDao.doSave(inVO);
 	}
 
+	@Override
+	public int doUpdate(UserVO inVO) throws SQLException {
+		return userDao.doUpdate(inVO);
+	}
+
+	@Override
+	public UserVO doFindId(UserVO inVO) throws SQLException {
+		return userDao.doFindId(inVO);
+	}
+
+	@Override
+	public UserVO doFindPassword(UserVO inVO) throws SQLException {
+		return userDao.doFindPassword(inVO);
+	}
+
+	@Override
+	public int changePassword(UserVO inVO) throws SQLException {
+		return userDao.changePassword(inVO);
+	}
+	
+	@Override
+	public int doDelete(UserVO inVO) throws SQLException {
+		return userDao.doDelete(inVO);
+	}
+	
+	@Override
+	public List<UserVO> doRetrieve(UserDTO inVO) throws SQLException {
+		return userDao.doRetrieve(inVO);
+	}
 }

@@ -5,8 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <title>게시물 등록</title>
+<style>
+body {
+	background-color: #f7e9e8;
+}
+</style>
 <script>
 document.addEventListener("DOMContentLoaded",function(){
 	console.log("DOMContentLoaded");
@@ -110,7 +115,7 @@ document.addEventListener("DOMContentLoaded",function(){
     <!-- 제목 -->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">${title}</h1>
+            <h1 class="page-header">게시글 작성</h1>
         </div>
     </div>    
     <!--// 제목 ----------------------------------------------------------------->
@@ -140,7 +145,7 @@ document.addEventListener("DOMContentLoaded",function(){
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control" id="title" name="title" maxlength="100" placeholder="제목을 입력 하세요">
         </div>
-        <div class="mb-3">
+        <div class="mb-3" hidden>
             <label for="id" class="form-label">등록자</label>
             <input type="text" class="form-control" id="id" name="id" value="${sessionScope.user.id}" 
             readonly="readonly" >        

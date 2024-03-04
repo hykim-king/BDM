@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.test.bdm.cmn.DTO;
@@ -102,5 +103,18 @@ public class BeforeMainDaoImpl implements BeforeMainDao, PcwkLogger {
 		weeklyWordList = sqlSessionTemplate.selectList(NAMESPACE + DOT + "popWeeklySearchWord", map);
 		
 		return weeklyWordList;
+	}
+
+	@Override
+	public UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
+		UserVO  outVO = null;
+		LOG.debug("1.param :" + inVO.toString());
+		String statement = NAMESPACE+DOT+"doSelectOneByEmail";
+		LOG.debug("2.statement :" + statement);
+		outVO = sqlSessionTemplate.selectOne(statement, inVO);
+		if(null != outVO) {
+			LOG.debug("3.outVO \n" + outVO.toString());
+		}
+		return outVO;
 	}
 }
