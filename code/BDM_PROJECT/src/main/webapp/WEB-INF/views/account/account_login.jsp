@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <td colspan="2" style="text-align: center;">
                             <input type="button" value="로그인" id="doLogin" style="height: 30px; width: 100%; box-sizing: border-box;">
                             <input type="button" value="네이버로그인" id="naverLogin" style="height: 30px; width: 100%; href="javascript:void(0)">
+                        	<a href="javascript:kakaoLogin();"><img src="${CP }/resources/images/kakao_login_medium.png" /></a>
                         </td>
                     </tr>
                 </table>
