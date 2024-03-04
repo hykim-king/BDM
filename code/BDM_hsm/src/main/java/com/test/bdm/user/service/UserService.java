@@ -1,7 +1,9 @@
 package com.test.bdm.user.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.domain.UserVO;
 
 public interface UserService {
@@ -13,5 +15,16 @@ public interface UserService {
 	public int doCheckId(UserVO inVO) throws SQLException;
 	
 	public int doSave(UserVO inVO) throws SQLException;
+	
+	public int doUpdate(UserVO inVO) throws SQLException;
 
+	UserVO doFindId(UserVO inVO) throws SQLException;
+	
+	UserVO doFindPassword(UserVO inVO) throws SQLException;
+	
+	int changePassword(UserVO inVO) throws SQLException;
+
+	int doDelete(UserVO inVO) throws SQLException;
+
+	List<UserVO> doRetrieve(UserDTO inVO) throws SQLException;
 }

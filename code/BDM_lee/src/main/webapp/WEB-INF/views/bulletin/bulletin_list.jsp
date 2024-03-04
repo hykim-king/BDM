@@ -6,11 +6,12 @@
 
 <head>
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
 <title>Balance Diet Management</title>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	console.log("DOMContentLoaded ON");
-
 
 	const moveToRegBTN = document.querySelector("#moveToReg");
 	const doRetrieveBTN = document.querySelector("#doRetrieve");
@@ -20,31 +21,27 @@ document.addEventListener("DOMContentLoaded", function () {
 	const rows = document.querySelectorAll("#bulletinTable>tbody>tr");
 
 	rows.forEach(function (row) {
-		row.addEventListener('dblclick', function (e) {
-			const cells = row.cells;
-			if (cells.length > 5) {
-				const postNo = cells[5].innerText;
-				console.log('postNo:' + postNo);
-							    
-				if(confirm('상세 조회 하시겠습니까?') == false)
-				return;
-							    
-				window.location.href = "/bdm/bulletin/bulletinView.do?postNo=" + postNo;
-			}
+		row.addEventListener('dblclick', function(e) {
+		let cells = row.getElementsByTagName("td");
+		const postNo = cells[5].innerText;
+		console.log('postNo:'+ postNo);
+					    
+		if(confirm('상세 조회 하시겠습니까?') == false) return;
+
+		window.location.href = "/bdm/bulletin/bulletinView.do?postNo=" + postNo;
 		});
 	});
 
-	moveToRegBTN.addEventListener("click", function (e) {
+	moveToRegBTN.addEventListener("click", function(e) {
 		console.log("moveToRegBTN click");
-		alert("로그인 후 이용 가능합니다.");
-
-		bulletinForm.action = "/bdm/beforeMain/moveToMain.do";
-		bulletinForm.submit();
-
+		<c:if test="${empty user}">
+ 	   		alert('로그인이 필요한 서비스입니다.');
+ 	   		return;
+ 	 	</c:if>
+ 	 	window.location.href = "/bdm/bulletin/moveToReg.do";
 	});
 
 	searchWordTxt.addEventListener("keyup", function (e) {
-		console.log("keyup:" + e.keyCode);
 		if (13 == e.keyCode) {
 			doRetrieve();
 		}
@@ -61,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	doRetrieveBTN.addEventListener("click", function (e) {
 		console.log("doRetrieve click");
-		doRetrieve();
+		doRetrieve(1);
 	});
 
 	function doRetrieve(pageNo) {
@@ -105,25 +102,6 @@ function pageDoRerive(url, pageNo) {
 </head>
 
 <body>
-	<ul class="nav nav-tabs">
-		<li class="nav-item"><a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance DietManagement</a></li>
-		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
-			<ul class="dropdown-menu">
-				<li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
-				<li><a class="dropdown-item" href="#"></a></li>
-				<li><a class="dropdown-item" href="#"></a></li>
-				<li><hr class="dropdown-divider"></li>
-				<li><a class="dropdown-item" href="#">마이페이지</a></li>
-			</ul>
-		</li>
-		<li>
-			<a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
-		</li>
-		<li class="nav-item">
-    		<a class="nav-link" href="/bdm/notice/doRetrieve.do">공지사항</a>
-  		</li>
-		<li class="nav-item"><a class="nav-link" href="/bdm/beforeMain/moveToMain.do" tabindex="-1" aria-disabled="true">로그인</a></li>
-	</ul>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -131,16 +109,6 @@ function pageDoRerive(url, pageNo) {
 				<hr />
 			</div>
 		</div>
-		<!-- 		<div class="mb-3">
-			<div class="input-group">
-                <input type="text" class="form-control ppl_input" id="search" name="search" placeholder="검색어를 입력하세요.">
-                <button type="button" class="btn btn-primary">검색</button>
-                <button type="button" class="btn btn-primary">등록</button>
-            </div>
-  			<label for="exampleFormControlTextarea1" class="form-label"></label>
-		  	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-		</div> -->
-		<!-- table -->
 			<form action="#" method="get" id="bulletinFrm" name="bulletinFrm">
 				<input type="hidden" name="pageNo" id="pageNo" />
 				<div class="row g-1 justify-content-end ">
@@ -170,13 +138,21 @@ function pageDoRerive(url, pageNo) {
 						</div>
 						<div class="col-auto ">
 							<!-- 열의 너비를 내용에 따라 자동으로 설정 -->
-							<input type="button" value="목록" class="btn btn-primary" id="doRetrieve"> <input
-								type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
+							<input type="button" value="조회" class="btn btn-primary" id="doRetrieve">
+							<input type="button" value="글쓰기" class="btn btn-primary" id="moveToReg">
 						</div>
 					</div>
 				</form>
 				<table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
 					<thead>
+						<tr>
+							<th class="text-center col-lg-1 col-sm-1">번호</th>
+							<th class="text-left col-lg-7 col-sm-8">제목</th>
+							<th class="text-center col-lg-2 col-sm-1">날짜</th>
+							<th class="col-lg-1">작성자</th>
+							<th class="text-end col-lg-1">조회수</th>
+							<th scope="col" class="text-center   "style="display: none;">SEQ</th>
+						</tr>
 					</thead>
 					<tbody>
 						<c:choose>
@@ -185,7 +161,7 @@ function pageDoRerive(url, pageNo) {
 								<c:forEach var="vo" items="${list}" varStatus="status">
 									<tr>
 										<td class="text-center col-lg-1  col-sm-1">
-											<c:out value="${vo.postNo}" escapeXml="true" />
+											<c:out value="${status.index+1}" escapeXml="true" />
 										</td>
 										<td class="text-left   col-lg-7  col-sm-8">
 											<c:out value="${vo.title}" escapeXml="true" />
@@ -199,7 +175,9 @@ function pageDoRerive(url, pageNo) {
 										<td class="text-end col-lg-1 ">
 											<c:out value="${vo.readCnt}" />
 										</td>
-										<td  style="display: none;"><c:out value="${vo.postNo}" /></td>
+										<td style="display: none;">
+											<c:out value="${vo.postNo}" />
+										</td>
 									</tr>
 								</c:forEach>
 								<!--// 반복문 -->

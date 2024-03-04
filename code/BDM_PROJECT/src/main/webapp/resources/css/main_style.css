@@ -1,0 +1,139 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR&display=swap');
+// <uniquifier>: Use a unique and descriptive class name
+
+.noto-sans {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.black-han sans-regular {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+html{
+	background-color: #f7e9e8;
+}
+body{
+    background-color: #f7e9e8;
+    color:#514752;
+    font-family: sans-serif;
+}
+h3{
+    color:#514752;
+    font-size:14px;
+}
+a{
+    color: #514752;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+span{
+    font-family: "Black Han Sans";
+    font-size: 24px;
+}
+em {
+    text-decoration: none;
+    color: #514752;
+}
+h4{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top:20px;
+    text-align: center;
+}
+.wrap{
+	width:100%;
+	height:100%;
+	background-color: #f7e9e8;
+}
+
+.login-container {
+    margin-top: 50px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.row{
+    display: flex;
+}
+.card-body{
+    color:#f7e9e8;
+}
+.cont {
+    background-size: cover;
+    background-position: center;
+    height: 100%; /* 부모 요소인 .col-md-7의 높이에 맞춤 */
+}
+/* 슬라이더 컨테이너의 높이 조정 */
+.slider-wrap {
+    
+    max-height: 376px; /* 원하는 최대 높이로 설정 */
+    overflow: hidden; /* 넘치는 부분은 숨김 */
+}
+
+/* 이미지의 높이 조정 */
+.slider-wrap img {
+    height: 300px; /* 부모 요소인 .slider-wrap의 높이에 맞춤 */
+    width: auto; /* 가로 너비에 따라 자동으로 조정됨 */
+}
+.slick-track{
+    height: 210px;
+}
+.slick_h{
+    height: 100%;
+}
+.slick-slide {
+    height: 100%; /* 슬라이드 요소 높이를 100%로 설정 */
+}
+.slick-list {
+    height: 210px; /* slick-list 요소 높이를 100%로 설정 */
+}
+.slick-track {
+    height: 100%; /* slick-track 요소 높이를 100%로 설정 */
+}
+
+.news_main, .pop_search {
+    height: 100%; 
+    }
+/*
+.news_img{
+    background-color: aqua;
+}
+*/
+.main_news{
+    margin-top:50px;
+}
+.news_img {
+    display: flex; /* Flexbox를 사용하여 내부 요소를 가운데 정렬합니다. */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    height: 100%; /* 부모 요소인 card-body와 같은 높이로 설정하여 가운데 정렬됩니다. */
+}
+
+.news_img img {
+    max-width: 100%; /* 이미지가 부모 요소를 넘지 않도록 최대 너비를 100%로 설정합니다. */
+    max-height: 100%; /* 이미지가 부모 요소를 넘지 않도록 최대 높이를 100%로 설정합니다. */
+}
+.news_tab:nth-child(3){
+    margin-top: 15px;
+}
+.news_tab:nth-child(4){
+    margin-top: 15px;
+}
+/*임의로 인기검색어 높이 지정. 나중에 삭제*/
+.pop_search .card-body{
+    height:250px;
+}
+.week_pop{
+    margin-top: 15px;
+}
+.board_main{
+    margin-top: 50px;
+}
+

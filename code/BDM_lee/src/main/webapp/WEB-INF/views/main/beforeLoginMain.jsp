@@ -6,153 +6,134 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
-<title>BDM</title> 
+<style>
+    .card-body{
+        color:#f7e9e8;
+    }
+    .search-container {
+      max-width: 1920px;
+      width:80%;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .search-input {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #fdce64; 
+      border-radius: 20px 0 0 20px;
+      font-size: 16px;
+      outline: none;
+    }
+    .search-button {
+      width: 50px;
+      padding: 10px;
+      background-color: #fdce64;
+      border: none;
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .search-input:focus {
+      border-color: #007bff;
+    }
+    .search-button img{
+        width: 20px;
+          height: 20px;
+    }
+    .link_main img{
+        width:50px;
+        height: auto;
+    }
+    
+    #loginFieldset {
+        width: 300px;
+        position: absolute;
+        top:  50%; /* 화면 상단에서 세로 중앙 정렬 */
+        left: 0%; /* 화면 좌측에서 가로 중앙 정렬 */
+        <!--transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
+    }
+</style>
+<title>BDM</title>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
 	console.log( "main!" );
-	const moveToRegBtn = document.querySelector("#moveToReg");
-	const moveToNoticeBtn = document.querySelector("#moveToNotice");
-	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
-	const moveToNewsBtn = document.querySelector("#moveToNews");
-	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
-	
-     
-     moveToRegBtn.addEventListener("click", function(e){
-    	 location.href = "/bdm/user/moveToReg.do";
-     });
-     moveToNoticeBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNotice.do";
-     });
-     moveToBulletinBtn.addEventListener("click", function(e){
-         location.href = "/bdm/bulletin/doRetrieve.do";
-     });
-     moveToNewsBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNews.do";
-     });
-     moveToMyPageBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToMyPage.do";
-     });
      
      $("#doLogin").on("click",function(e){
-         console.log( "doLogin click!" );
-         
-         let id = document.querySelector("#id").value;
-         if(eUtil.isEmpty(id)==true){
-             alert('아이디를 입력 하세요.');
-             document.querySelector("#id").focus();
-             return;
-         }
-         
-         let pw = document.querySelector("#pw").value;
-         if(eUtil.isEmpty(pw)==true){
-             alert('비번을 입력 하세요.');
-             document.querySelector("#pw").focus();
-             return;
-         }
-         
-         if(confirm("로그인 하시겠습니까?")===false) return;
-         
-         $.ajax({
-             type: "POST",
-             url:"/bdm/beforeMain/doLogin.do",
-             asyn:"true",
-             dataType:"json",
-             data:{
-                 "id": id,
-                 "pw": pw
-             },
-             success:function(data){//통신 성공
-                 console.log("data.msgId:"+data.msgId);
-                 console.log("data.msgContents:"+data.msgContents);
-                 
-                 if("10" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#id").focus();
-                 }else if("20" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#pw").focus();                 
-                 }else if("30" == data.msgId){
-                     alert(data.msgContents);
-                     location.href = "/bdm/beforeMain/moveToAfterMain.do";
-                 }
-             },
-             error:function(data){//실패시 처리
-                 console.log("error:"+data);
-             },
-             complete:function(data){//성공/실패와 관계없이 수행!
-                 console.log("complete:"+data);
-             }
-         });         
-         
-         
+    	 window.location.href = "${CP }/beforeMain/moveToLogin.do";
      });//--#doLogin
      
+     $("#findId").on("click",function(e){
+     	var width = 750;
+         var height = 1200;
+         var left = (window.innerWidth - width) / 2;
+         var top = (window.innerHeight - height) / 2;
+         myWindow = window.open('../beforeMain/moveToFindId.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+     }); // --#moveToMain
      
+     $("#findPassword").on("click",function(e){
+     	var width = 750;
+         var height = 1200;
+         var left = (window.innerWidth - width) / 2;
+         var top = (window.innerHeight - height) / 2;
+         myWindow = window.open('../beforeMain/moveToFindPassword.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+     }); // --#moveToMain
+     
+     $("#moveToReg").on("click",function(e){
+     	location.href = "/bdm/user/moveToReg.do";
+     }); // --#moveToMain     
  });//--document ready
 </script>
 </head>
 <body>
-<!-- <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
-  </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
-  </li>
-</ul> -->
-    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+
         <legend>로그인</legend>
         <div>
-	        <form action="#" method="post">
-	        
-	            <table>
-	                <tr>
-	                    <td>
-	                        <label for="id">아이디</label>
-	                    </td>
-	                    <td>
-	                        <input type="text" id="id" name="id" size="20" maxlength="30">
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <label for="pw">비밀번호</label>
-	                    </td>
-	                    <td>
-	                        <input type="password" id="pw" name="pw" size="20" maxlength="30">
-	                    </td>
-	                </tr>
-	            </table>
-	        </form>
-	        <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-	            <input type="button" value="로그인" id="doLogin" style="height: 100%;">
-	        </div>
-        </div>
-        <div>
-            <input type="button" value="ID/PW 찾기"  id="doFindAccount">
-            <input type="button" value="회원가입"  id="moveToReg">
+            <form action="#" method="post">
+            
+                <table>
+                    <tr>
+                        <td class="col"><input type="button" value="BDM 로그인" id="doLogin" style="height: 100%;"></td>
+                    </tr>
+                    <tr>
+                        <td class="col"><input type="button" value="아이디 찾기" id="findId" style="height: 100%;"></td>
+                        <td class="col"><input type="button" value="비밀번호 찾기" id="findPassword" style="height: 100%;"></td>
+                        <td class="col"><input type="button" value="회원 가입" id="moveToReg" style="height: 100%;"></td>
+                    </tr>
+                </table>
+            </form>
+            <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
+            </div>
         </div>
     </fieldset>
-    <!-- <input type="button" value="공지사항"  id="moveToNotice">
-    <input type="button" value="자유게시판"  id="moveToBulletin">
-    <input type="button" value="뉴스"  id="moveToNews">
-    <input type="button" value="마이페이지"  id="moveToMyPage"> -->
+    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative; float:right;">
+        <legend>인기 검색어</legend>
+        <c:choose>
+             <c:when test="${ not empty wordList }">  
+                 <!-- 반복문 -->
+                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+                     <table>
+                     <tr>
+                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+                     </tr>
+                     </table>
+                 </c:forEach>
+                 <!--// 반복문 -->
+             </c:when>
+             <c:otherwise>
+                 <tr>
+                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+                 </tr>
+             </c:otherwise>
+         </c:choose>
+    </fieldset>
 </body>
+
 </html>

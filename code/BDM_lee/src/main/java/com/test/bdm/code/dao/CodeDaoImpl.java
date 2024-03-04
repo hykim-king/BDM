@@ -50,12 +50,5 @@ public class CodeDaoImpl implements CodeDao, PcwkLogger {
 		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieve", map);
 
 	}
-	
-
-	@Override
-	public List<CodeVO> doRetrieve(CodeVO inVO) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

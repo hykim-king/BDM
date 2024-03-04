@@ -1,0 +1,162 @@
+body{
+    font-size: 16px;
+    line-height: 19px;
+    
+}
+div{
+    display: block;
+}
+h1{
+    line-height: 29px;
+    font-weight: 700;
+}
+a{
+    color: #514752;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+em {
+    color: #514752; /* 원하는 색상으로 지정하세요 */
+    font-weight: 400; /* 원하는 글꼴 두께로 지정하세요 */
+    font-size: 14px; /* 원하는 글꼴 크기로 지정하세요 */
+    line-height: 17px; /* 원하는 줄 간격으로 지정하세요 */
+    text-align: center; /* 필요에 따라 텍스트 정렬을 지정하세요 */
+    display: block; /* 가운데 정렬을 위해 block 요소로 변경 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+    margin-top:10px;
+    }
+	
+}
+body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul{
+    margin: 0;
+    padding: 0;
+}
+span{
+    text-decoration: none;
+}
+
+.wrap{
+    height: 100%;
+    background-color: #f7e9e8;
+    border: 3px solid #fdce64;
+}
+.aside_header{
+    height: 63px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #f7e9e8;
+    z-index: 2100;
+    border: 3px solid #fdce64;
+    border-bottom: 2px solid rgba(81, 71, 82, 0.5);
+}
+.aside_header .ah_wrap{
+    max-width: 568px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.ah_title{
+    padding: 18px 0 16px;
+    color: #514752;
+    font-size: 17px;
+    letter-spacing: -.4px;
+}
+.title {
+    font-size: 17px; /* 원하는 글꼴 크기로 지정하세요 */
+    letter-spacing: -.4px; /* 원하는 글꼴 간격으로 지정하세요 */
+    display: flex; /* 내부 요소들을 가로로 배열하기 위해 flex로 설정 */
+    line-height: 25px; /* 원하는 줄 간격으로 지정하세요 */
+    font-weight: 700; /* 원하는 글꼴 두께로 지정하세요 */
+}
+
+.title .name,
+.title .text {
+    /* 필요한 스타일을 여기에 추가하세요 */
+    color: #514752; /* 원하는 색상으로 지정하세요 */
+}
+html.page_pc .aside_wrap{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    content: '';
+    margin-top: 64px;
+    overflow: hidden;
+    padding: 0 12px;
+    margin-top: 56px;
+}
+
+.section_shortcut{
+    max-width: 1080px;
+    margin: 0 auto;
+}
+.section_shortcut .user_area .link_user{
+    overflow: hidden;
+    position: relative;
+    padding: 7px 6px;
+}
+html.page_pc .user_area .title{
+    font-size: 17px;
+    letter-spacing: -.4px;
+    display: flex;
+    line-height: 25px;
+    font-weight: 700;
+}
+.section_shortcut .user_area .name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.section_shortcut .user_area .text{
+    font-weight: 400;
+    white-space: nowrap;
+}
+.ss_shortcut_wrap{
+    position: relative;
+    overflow: hidden;
+    margin: 0 -12px;
+}
+.ss_shortcut_wrap .ss_scroll_list{
+	width:420.36px;
+    position: relative;
+    overflow-x: inherit;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 20px;
+    font-size: 0;
+    white-space: nowrap;
+}
+html.page_pc .ss_shortcut_list{
+    padding: 0 8px;;
+    text-decoration: none;
+}
+.ss_shortcut_list .ss_shortcut_item{
+    position: relative;
+    float: left;
+    width: 25%;
+}
+.ss_shortcut_list .shortcut_a{
+    position: relative;
+    display: block;
+    padding: 7px 0 10px;
+}
+.sa_mw{
+    width:48px; 
+    height:48px;
+    margin: 0 auto;
+    position: relative;
+}
+html.page_pc .ss_shortcut_list .sa_t{
+    letter-spacing: -.4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #514752;
+    display: block;
+    padding-top: 7px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+}

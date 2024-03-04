@@ -12,17 +12,13 @@ import com.test.bdm.code.dao.CodeDao;
 import com.test.bdm.code.domain.CodeVO;
 
 @Service
-public class CodeServiceImpl implements PcwkLogger, CodeService {
-	
+public class CodeServiceImpl implements CodeService,PcwkLogger {
+
 	@Autowired
 	CodeDao dao;
 	
-	public CodeServiceImpl() {
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ CodeServiceImpl()                 │");
-		LOG.debug("└───────────────────────────────────┘");				
-	}
-
+	public CodeServiceImpl() {}
+	
 	@Override
 	public List<CodeVO> doRetrieve(Map<String, Object> map) throws SQLException {
 		return dao.doRetrieve(map);

@@ -35,7 +35,7 @@ public class CommentsDaoJunitTest implements PcwkLogger {
 	CommentsDao  dao;   
 	
 	@Autowired
-	BulletinDao bulletinDao;
+	BulletinDao  bulletinDao;
 	
 	BulletinVO bulletin01;
 	
@@ -48,14 +48,16 @@ public class CommentsDaoJunitTest implements PcwkLogger {
 		LOG.debug("│ setUp                             │");
 		LOG.debug("└───────────────────────────────────┘");		
 		
-		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "title", "contents", "사용하지않음", "사용하지않음", 0, "MN_LEE", "MN_LEE");
+		//board01 = new BoardVO(boardDao.getBoardSeq(), "10", "제목55", "내용55", 0, "사용X", "pcwk99", "사용X", "pcwk99");
+		//(bulletinDao.getBulletinSeq(), title + "제목1", contents + "제목1", regDt, modDt, readCnt, id, modId);
+		bulletin01 = new BulletinVO(bulletinDao.getBulletinSeq(), "title", "contents", "사용하지않음", "사용하지않음", 0, "ksh", "ksh");
 		
 		int postNo = bulletin01.getPostNo();
 		
-		comments01 = new CommentsVO(dao.getRegNo(), "댓글내용-01", "사용하지않음", postNo, "MN_LEE", "MN_LEE");
+		comments01 = new CommentsVO(dao.getRegNo(),"댓글내용-01","사용하지않음", postNo,"ksh","ksh");
 		
 	}
-//	@Ignore
+	//@Ignore
 	@Test
 	public void addAndGet() throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");
@@ -74,11 +76,18 @@ public class CommentsDaoJunitTest implements PcwkLogger {
 		
 		//1.?050278403271
 		dao.doDelete(comments01);
+	
+		
 		//2.
 		flag = dao.doSave(comments01);
 		assertEquals(1, flag);
+		
+	
+		
 		//3.
 		CommentsVO vo01 = dao.doSelectOne(comments01);
+		
+		
 		//4. 비교
 		isSameComments(vo01,comments01);
 	}  
@@ -92,18 +101,18 @@ public class CommentsDaoJunitTest implements PcwkLogger {
 		
 	}
 	
-//	@Ignore
+	@Ignore
 	@Test
 	public void doSave() throws SQLException{
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doSave                            │");
-		LOG.debug("└───────────────────────────────────┘");	
-		
+		LOG.debug("└───────────────────────────────────┘");				
 		//board등록 하고
 		bulletinDao.doDelete(bulletin01);//게시글 삭제
 		
 		int flag = bulletinDao.doSave(bulletin01);
 		assertEquals(1, flag);
+		
 		
 		//댓글 등록----------------------------------
 		//댓글 삭제, 등록
@@ -112,9 +121,10 @@ public class CommentsDaoJunitTest implements PcwkLogger {
 		flag = dao.doSave(comments01);
 		assertEquals(1, flag);
 		
+		
 	}
 	
-//	@Ignore
+	//@Ignore
 	@Test
 	public void beans() {
 		LOG.debug("┌───────────────────────────────────┐");
