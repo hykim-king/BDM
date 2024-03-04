@@ -13,11 +13,11 @@ import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.code.domain.CodeVO;
 
 @Repository
-public class CodeDaoImpl implements PcwkLogger, CodeDao {
-	
+public class CodeDaoImpl implements CodeDao, PcwkLogger {
+
 	final String NAMESPACE = "com.test.bdm.code";
 	final String DOT = ".";
-	
+
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 
@@ -46,21 +46,9 @@ public class CodeDaoImpl implements PcwkLogger, CodeDao {
 	}
 
 	@Override
-	public List<CodeVO> doRetrieve(CodeVO inVO) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<CodeVO> doRetrieve(Map<String, Object> map) throws SQLException {
-		//com.test.bdm.code.doRetrieve
-		LOG.debug("┌───────────────────────────────────┐");
-		LOG.debug("│ doRetrieve                        │");
-		LOG.debug("│ BoardVO                           │"+map);
-		LOG.debug("│ statement                         │"+NAMESPACE+DOT+"doRetrieve");//
-		LOG.debug("└───────────────────────────────────┘");				
-				
-		return sqlSessionTemplate.selectList(NAMESPACE+DOT+"doRetrieve", map);
+		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doRetrieve", map);
+
 	}
 
 }

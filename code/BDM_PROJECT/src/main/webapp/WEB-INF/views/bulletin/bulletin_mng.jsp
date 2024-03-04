@@ -6,13 +6,16 @@
 <html>
 <head> 
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<%-- <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
- --%><title>게시물 수정</title>
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+ <title>게시물 수정</title>
 <style>
-   .readonly-input {
-    background-color: #e9ecef ;
-   }
+.readonly-input {
+	background-color: #e9ecef ;
+}
 
+body {
+	background-color: #f7e9e8;
+}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded",function(){ 

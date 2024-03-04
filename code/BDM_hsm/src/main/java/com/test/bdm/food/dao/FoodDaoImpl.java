@@ -21,20 +21,24 @@ public class FoodDaoImpl implements FoodDao, PcwkLogger {
 	public FoodDaoImpl() {}
 
 	@Override
-	public int doSaveFood(String userId, List<String> selectedFoodCode) {
+	public int doSaveFood(String userId, List<String> selectedFoodCode, List<Double> amountList, String divs) {
 		int count = 0;
 		
-		HashMap<String, String> map = new HashMap<>();
+		HashMap<String, Object> map = new HashMap<>();
 		
 		LOG.debug("==========================================");
 		LOG.debug("====" + userId + "======");
 		LOG.debug("====" + selectedFoodCode + "======");
+		LOG.debug("====" + amountList + "======");
 		LOG.debug("==========================================");
 		
 		for(int i=0; i<selectedFoodCode.size(); i++) {
 			String foodCode = selectedFoodCode.get(i);
+			double amount = amountList.get(i);
 			map.put("userId", userId);
 			map.put("foodCode", foodCode);
+			map.put("amount", amount);
+			map.put("divs", divs);
 			LOG.debug("map: " + map);
 			count += sqlSessionTemplate.insert(NAMESPACE + DOT + "doSaveFood", map);
 			map.clear();

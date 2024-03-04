@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.test.bdm.bulletin.domain.BulletinVO;
+import com.test.bdm.cmn.DTO;
 
 public interface BulletinService {
 	
@@ -26,8 +27,10 @@ public interface BulletinService {
 	
 	int doDelete(BulletinVO inVO) throws SQLException;
 	
-	List<BulletinVO> doRetrieve(BulletinVO inVO) throws SQLException;
+	List<BulletinVO> doRetrieve(DTO inVO) throws SQLException;
 	
 	BulletinVO bulletinView(BulletinVO inVO) throws SQLException, EmptyResultDataAccessException;
+	
+	public int getBulletinSeq()throws SQLException;
 
 }

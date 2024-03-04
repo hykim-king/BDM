@@ -6,151 +6,455 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
-<title>BDM</title> 
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<title>BDM</title>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	
 	console.log( "main!" );
-	const moveToRegBtn = document.querySelector("#moveToReg");
-	const moveToNoticeBtn = document.querySelector("#moveToNotice");
-	const moveToBulletinBtn = document.querySelector("#moveToBulletin");
-	const moveToNewsBtn = document.querySelector("#moveToNews");
-	const moveToMyPageBtn = document.querySelector("#moveToMyPage");
 	
+	const bRows = document.querySelectorAll("#bulletinTable>tbody>tr");
+	const nRows = document.querySelectorAll("#noticeTable>tbody>tr");
+	const qRows = document.querySelectorAll("#qaTable>tbody>tr");
+	
+
+	bRows.forEach(function (row) {
+		row.addEventListener('dblclick', function(e) {
+		let cells = row.getElementsByTagName("td");
+		const postNo = cells[4].innerText;
+		console.log('postNo:'+ postNo);
+					    
+		if(confirm('상세 조회 하시겠습니까?') == false) return;
+
+		window.location.href = "/bdm/bulletin/bulletinView.do?postNo=" + postNo;
+		});
+	});
+	
+	nRows.forEach(function (row) {
+		row.addEventListener('dblclick', function(e) {
+		let cells = row.getElementsByTagName("td");
+		const postNo = cells[4].innerText;
+		console.log('postNo:'+ postNo);
+					    
+		if(confirm('상세 조회 하시겠습니까?') == false) return;
+
+		window.location.href = "/bdm/notice/noticeView.do?postNo=" + postNo;
+		});
+	});
+	
+	// 각 행에 이벤트 리스너 등록
+    qRows.forEach(function (row) {
+        row.addEventListener('click', function(e) {
+            // 행 클릭 시 동작
+            
+            <c:if test="${empty user}">
+                alert('로그인이 필요한 서비스입니다.');
+                return;
+            </c:if>
+
+            let cells = row.getElementsByTagName("td");
+
+            // 사용자 필터 값 설정
+            const userFilterValue = ${empty user ? 0 : user.userFilter};
+            const postNo = cells[4].innerText;
+            const disclosure = cells[5].innerText;
+            console.log('postNo:'+ postNo);
+
+            // 상세 조회 조건 확인 후 이동
+            if(disclosure == 0 || '${user.id}' == cells[3].innerText || userFilterValue == 1){
+                if(confirm('상세 조회 하시겠습니까?') == false) return;
+                window.location.href = "/bdm/qa/qaView.do?postNo=" + postNo;
+            } else{
+                alert('공개를 희망하지 않는 질문입니다.');
+            }
+        });
+    });
+	
+	$("#login").click(function(event) {
+        event.preventDefault();
+        window.location.href = "${CP}/beforeMain/moveToLogin.do";
+    });
+
      
-     moveToRegBtn.addEventListener("click", function(e){
-    	 location.href = "/bdm/user/moveToReg.do";
-     });
-     moveToNoticeBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNotice.do";
-     });
-     moveToBulletinBtn.addEventListener("click", function(e){
-         location.href = "/bdm/bulletin/doRetrieve.do";
-     });
-     moveToNewsBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToNews.do";
-     });
-     moveToMyPageBtn.addEventListener("click", function(e){
-         location.href = "/bdm/beforeMain/moveToMyPage.do";
-     });
+     $("#findId").on("click",function(e){
+     	var width = 750;
+         var height = 1200;
+         var left = (window.innerWidth - width) / 2;
+         var top = (window.innerHeight - height) / 2;
+         myWindow = window.open('../beforeMain/moveToFindId.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+     }); // --#moveToMain
      
-     $("#doLogin").on("click",function(e){
-         console.log( "doLogin click!" );
-         
-         let id = document.querySelector("#id").value;
-         if(eUtil.isEmpty(id)==true){
-             alert('아이디를 입력 하세요.');
-             document.querySelector("#id").focus();
-             return;
-         }
-         
-         let pw = document.querySelector("#pw").value;
-         if(eUtil.isEmpty(pw)==true){
-             alert('비번을 입력 하세요.');
-             document.querySelector("#pw").focus();
-             return;
-         }
-         
-         if(confirm("로그인 하시겠습니까?")===false) return;
-         
-         $.ajax({
-             type: "POST",
-             url:"/bdm/beforeMain/doLogin.do",
-             asyn:"true",
-             dataType:"json",
-             data:{
-                 "id": id,
-                 "pw": pw
-             },
-             success:function(data){//통신 성공
-                 console.log("data.msgId:"+data.msgId);
-                 console.log("data.msgContents:"+data.msgContents);
-                 
-                 if("10" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#id").focus();
-                 }else if("20" == data.msgId){
-                     alert(data.msgContents);
-                     document.querySelector("#pw").focus();                 
-                 }else if("30" == data.msgId){
-                     alert(data.msgContents);
-                     location.href = "/bdm/beforeMain/moveToAfterMain.do";
-                 }
-             },
-             error:function(data){//실패시 처리
-                 console.log("error:"+data);
-             },
-             complete:function(data){//성공/실패와 관계없이 수행!
-                 console.log("complete:"+data);
-             }
-         });         
-         
-         
-     });//--#doLogin
+     $("#findPassword").on("click",function(e){
+     	var width = 750;
+         var height = 1200;
+         var left = (window.innerWidth - width) / 2;
+         var top = (window.innerHeight - height) / 2;
+         myWindow = window.open('../beforeMain/moveToFindPassword.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
+     }); // --#moveToMain
      
-     
+     $("#moveToReg").on("click",function(e){
+     	location.href = "/bdm/user/moveToReg.do";
+     }); // --#moveToMain     
  });//--document ready
 </script>
 </head>
 <body>
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="/bdm/index.jsp">Balance Diet Management</a>
-  </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">MEMBER</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/bdm/user/moveToReg.do">회원 가입</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">새로운 탭</a></li>
-    </ul>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bdm/bulletin/doRetrieve.do">자유게시판</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/bdm/beforeMain/moveToMain.do">로그인</a>
-  </li>
-</ul>
-    <fieldset style="width: 300px; display: inline-block; vertical-align: top; position: relative;">
-        <legend>로그인</legend>
-        <div>
-	        <form action="#" method="post">
-	        
-	            <table>
-	                <tr>
-	                    <td>
-	                        <label for="id">아이디</label>
-	                    </td>
-	                    <td>
-	                        <input type="text" id="id" name="id" size="20" maxlength="30">
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <td>
-	                        <label for="pw">비밀번호</label>
-	                    </td>
-	                    <td>
-	                        <input type="password" id="pw" name="pw" size="20" maxlength="30">
-	                    </td>
-	                </tr>
-	            </table>
-	        </form>
-	        <div style="display: inline-block; position: absolute; top: 0; right: 0; height: 60px;">
-	            <input type="button" value="로그인" id="doLogin" style="height: 100%;">
-	        </div>
+    <div class="wrap">
+		<div class="row">
+            <div class="col">
+                <img src="${CP }/resources/images/main.jpg" class="img-fluid" alt="Main Image" style="width: 100%;">
+            </div>
         </div>
-        <div>
-            <input type="button" value="ID/PW 찾기"  id="doFindAccount">
-            <input type="button" value="회원가입"  id="moveToReg">
+		<div class="container login-container">
+            <div class="row">
+                <div class="col-md-7 d-flex flex-column" style="height: 100%;"> <!-- .col-md-7의 높이를 100%로 설정 -->
+                    <div class="slider-wrap">
+                        <div class="cont slick_01"></div>
+                        <div class="cont slick_02"></div>
+                        <div class="cont slick_03"></div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-end">
+                            <h3 class="text-center mb-4">로그인</h3>
+                            <form style="width: 100%;">
+                                <button type="submit" id = "login" class="btn btn-primary btn-block py-4" style="width: 100%;"><span>꼬르륵 </span>로그인</button>
+                            </form>
+                            <div class="text-center mt-3" style="width: 100%;">
+                                <a href="" id = "findId">아이디 찾기</a> | <a href="#" id = "findPassword">비밀번호 찾기</a> | <a href="#" id = "moveToReg">회원 가입</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </fieldset>
-    <input type="button" value="공지사항"  id="moveToNotice">
-    <input type="button" value="자유게시판"  id="moveToBulletin">
-    <input type="button" value="뉴스"  id="moveToNews">
-    <input type="button" value="마이페이지"  id="moveToMyPage">
+		<div class="container main_news">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>실시간 뉴스</h3>
+            <div class="row">
+                <c:choose>
+                    <c:when test="${ not empty newsList }">
+                        <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 4 ? newsList.size() : 4))}" varStatus="status">
+                            <div class="col-md-6 news_tab">
+                                <div class="card custom-card" >
+                                    <div class="card-body">
+                                        <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
+                                            <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="card-img-top img-fluid rounded-start" alt="이미지" style="max-height: 200px; max-width: 100%; height: auto;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${vo.title}</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="col text-center">
+                            조회된 데이터가 없습니다.
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+
+                <div class="col-md-3 pop_search">    
+                    <div class="row">
+                        <h3>실시간 인기 검색어</h3>
+                        <div class="card">
+                            <div class="card-body">
+                            	<c:choose>
+						            <c:when test="${ not empty wordList }">  
+						                 <!-- 반복문 -->
+						                 <c:forEach var="vo" items="${wordList.subList(0, (wordList.size() < 5 ? wordList.size() : 5))}" varStatus="status">
+						                     <table>
+						                     <tr>
+						                         <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+						                         <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+						                     </tr>
+						                     </table>
+						                 </c:forEach> 
+		             				</c:when>
+			             			<c:otherwise>
+						                 <tr>
+						                     <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+						                 </tr>
+			             			</c:otherwise>
+		         				</c:choose>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row week_pop">
+                        <h3>주간 인기 검색어</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <c:choose>
+                                    <c:when test="${ not empty weeklyWordList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${weeklyWordList.subList(0, (weeklyWordList.size() < 5 ? weeklyWordList.size() : 5))}" varStatus="status">
+                                             <table>
+                                             <tr>
+                                                 <td class="text-center col-lg-1  col-sm-1"><c:out value="${status.index+1}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.searchWord}" escapeXml="true" /></td>
+                                             </tr>
+                                             </table>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">인기검색어가 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+		<div class="container board_main">
+			<div class="row">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="bulli-tab" type="button" role="tab" aria-controls="bulli" aria-selected="true">자유게시판</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="notice-tab" type="button" role="tab" aria-controls="notice" aria-selected="false">공지사항</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="QandA-tab" type="button" role="tab" aria-controls="QandA" aria-selected="false">Q&A</button>
+					</li>
+				</ul>
+			</div>
+            <div class="row">    
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="bulli" role="tabpanel" aria-labelledby="bulli-tab">
+                        <table class="table table-bordered border-primary table-hover" id="bulletinTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
+                                    <th class="text-center col-lg-1 col-sm-2"	style="background-color: #514752; color: #ffffff;">날짜</th>
+                                    <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">작성자</th>
+                                    <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">조회수</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty bulletinList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${bulletinList.subList(0, (bulletinList.size() < 5 ? bulletinList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left col-lg-9 col-sm-6"	style="background-color: #FDF8EE;"><c:out value="${vo.title}" escapeXml="true" /></td>
+                                                 <td class="text-center col-lg-1 col-sm-2"	style="background-color: #FDF8EE;"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+                                                 <td class="text-end col-lg-1 col-sm-2"		style="background-color: #FDF8EE;"><c:out value="${vo.id}" escapeXml="true" /></td>
+                                                 <td class="text-end col-lg-1 col-sm-2"		style="background-color: #FDF8EE;"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
+                                                 <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                             </tr>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>
+							<input type="button" value="더보기" class="btn btn-primary float-end" id="bulletinList">
+                     </div>
+                    <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
+                        <table class="table table-bordered border-primary table-hover" id="noticeTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
+                                    <th class="text-center col-lg-1 col-sm-2"	style="background-color: #514752; color: #ffffff;">날짜</th>
+                                    <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">작성자</th>
+                                    <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">조회수</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty noticeList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${noticeList.subList(0, (noticeList.size() < 5 ? noticeList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left col-lg-9 col-sm-6"	style="background-color: #FDF8EE;"><c:out value="${vo.title}" escapeXml="true" /></td>
+                                                 <td class="text-center col-lg-1 col-sm-2"	style="background-color: #FDF8EE;"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+                                                 <td class="text-end col-lg-1 col-sm-2"		style="background-color: #FDF8EE;"><c:out value="${vo.id}" escapeXml="true" /></td>
+                                                 <td class="text-end col-lg-1 col-sm-2"		style="background-color: #FDF8EE;"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
+                                                 <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                             </tr>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>
+                        <input type="button" value="더보기" class="btn btn-primary float-end" id="noticeList">
+                    </div>
+                    <div class="tab-pane fade" id="QandA" role="tabpanel" aria-labelledby="QandA-tab">
+                        <table class="table table-bordered border-primary table-hover" id="qaTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-8 col-sm-7"		style="background-color: #514752; color: #ffffff;">제목 </th>
+                                    <th class="text-center col-lg-1 col-sm-2"	style="background-color: #514752; color: #ffffff;">날짜</th>
+                                    <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">작성자</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                    <th scope="col" class="text-center   "style="display: none;">공개여부</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty qaList }">  
+                                         <c:forEach var="vo" items="${qaList.subList(0, (qaList.size() < 5 ? qaList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left col-lg-8 col-sm-7" style="background-color: #FDF8EE;">
+													<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+														<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+															<c:out value="${vo.title}" escapeXml="true" />
+														</a>
+													</c:if>
+													<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+														<c:out value="비공개글입니다." />
+													</c:if>
+												</td>
+												<td class="text-center col-lg-1 col-sm-2" style="background-color: #FDF8EE;">
+													<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+														<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+															<c:out value="${vo.regDt}" escapeXml="true" />
+														</a>
+													</c:if>
+													<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+														<c:out value="" />
+													</c:if>
+												</td>
+												<td class="text-end col-lg-1 col-sm-2" style="background-color: #FDF8EE;">
+													<c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+														<a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+															<c:out value="${vo.id}" />
+														</a>
+													</c:if>
+													<c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+														<c:out value="비공개"/>
+													</c:if>
+												</td>
+												<td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+												<td style="display: none;"><c:out value="${vo.disclosure}" /></td>
+											</tr>
+										</c:forEach> 
+									</c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+						</tbody>
+					</table>
+					<input type="button" value="더보기" class="btn btn-primary float-end" id="qaList">
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+<script>
+    // 버튼 클릭 이벤트 핸들러
+    document.getElementById('navbar-toggler').addEventListener('click', function() {
+        var layerBox = document.querySelector('.layer_box');
+        // 팝업이 열려있는지 확인
+        var isOpen = layerBox.getAttribute('aria-hidden') === 'false';
+        // 팝업 상태를 토글
+        isOpen ? closePopup() : openPopup();
+    });
+
+    // 팝업 열기 함수
+    function openPopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'block';
+        layerBox.setAttribute('aria-hidden', 'false');
+    }
+
+    // 팝업 닫기 함수
+    function closePopup() {
+        var layerBox = document.querySelector('.layer_box');
+        layerBox.style.display = 'none';
+        layerBox.setAttribute('aria-hidden', 'true');
+    }
+</script>
+<script>
+    $(document).ready(function(){
+            $('.slider-wrap').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                arrows : false,
+                dots : false,
+                autoplay : true,
+                responsive: [ // 반응형 웹 구현 옵션
+                    {  
+                    breakpoint: 960, //화면 사이즈 960px
+                    settings: {
+                        slidesToShow: 1
+                    } 
+                    },
+                    { 
+                    breakpoint: 768, //화면 사이즈 768px
+                    settings: {    
+                        slidesToShow: 1
+                    } 
+                    }
+                ]
+            });
+        });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const triggerTabList = document.querySelectorAll('#myTab button');
+        const tabPaneList = document.querySelectorAll('.tab-pane');
+
+        triggerTabList.forEach(triggerEl => {
+            triggerEl.addEventListener('click', event => {
+                event.preventDefault();
+                const tabPaneId = event.target.getAttribute('aria-controls');
+                const tabPane = document.getElementById(tabPaneId);
+                const tabTrigger = new bootstrap.Tab(triggerEl);
+
+                triggerTabList.forEach(el => {
+                    el.classList.remove('active');
+                });
+                tabPaneList.forEach(el => {
+                    el.classList.remove('show', 'active');
+                });
+
+                triggerEl.classList.add('active');
+                tabPane.classList.add('show', 'active');
+                tabTrigger.show();
+            });
+        });
+    });
+</script>
 </html>

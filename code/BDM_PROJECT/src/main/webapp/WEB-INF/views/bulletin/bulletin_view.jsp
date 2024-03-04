@@ -33,6 +33,10 @@
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
+body {
+	background-color: #f7e9e8;
+}
+
 </style>
 <script >
 document.addEventListener("DOMContentLoaded",function() { 
