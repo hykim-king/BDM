@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.test.bdm.cmn.PcwkLogger;
@@ -67,5 +68,10 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 	@Override
 	public List<UserVO> doRetrieve(UserDTO inVO) throws SQLException {
 		return userDao.doRetrieve(inVO);
+	}
+
+	@Override
+	public UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
+		return userDao.doSelectOneByEmail(inVO);
 	}
 }

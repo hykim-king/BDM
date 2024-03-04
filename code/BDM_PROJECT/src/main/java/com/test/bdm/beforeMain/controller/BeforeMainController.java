@@ -384,11 +384,7 @@ public class BeforeMainController implements PcwkLogger {
 			httpSession.invalidate();
 		}
 		
-		if (httpSession.getAttribute("user") != null) {
-			modelAndView.setViewName("main/afterLoginMain");
-		} else {
-			modelAndView.setViewName("main/beforeLoginMain");
-		}
+		modelAndView.setViewName("main/beforeLoginMain");
 
 		return modelAndView;
 	}

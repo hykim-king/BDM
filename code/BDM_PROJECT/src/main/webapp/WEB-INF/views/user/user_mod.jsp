@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="com.test.bdm.user.domain.UserVO" %>
 <c:set var="CP" value = "${pageContext.request.contextPath}" scope = "page" />
 <!DOCTYPE html>
 <html>
@@ -69,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 </head>
 <body>
-${user }
 <%
     UserVO sessionData = (UserVO) session.getAttribute("user");
 	// 사용자의 성별 값 가져오기

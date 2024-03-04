@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <title>Insert title here</title>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -91,7 +92,78 @@ document.addEventListener("DOMContentLoaded", function(){
     	location.href = "/bdm/login/login.do";
     }); // --#moveToMain
     
-    
+    <!-- 카카오톡 연동 API -->
+	window.Kakao.init("7a61c303dff46bfedcb6d13327e48c00");
+
+	function kakaoLogin(){
+		window.Kakao.Auth.login({
+			scope: 'account_email',
+			success: function(authObj){
+				console.log(authObj);
+				window.Kakao.API.request({
+					url:'/v2/user/me',
+					success: res => {
+						const kakao_account= res.kakao_account;
+						console.log(kakao_account.email);
+						$.ajax({
+				            type: "GET",
+				            url:"/bdm/user/doCheckEmail.do",
+				            asyn:"true",
+				            dataType:"html",
+				            data:{
+				                email: kakao_account.email
+				            },
+				            success:function(data){//통신 성공
+				            	let parsedJSON = JSON.parse(data);
+				            
+				            	if("1" === parsedJSON.msgId){
+				            		window.location.href = "${CP}/beforeMain/doApiLogin.do?email="+kakao_account.email;
+				                }else{
+				                	alert("등록되지 않은 회원입니다.\n회원가입 창으로 이동합니다");
+				    				window.location.href = "${CP}/user/moveToKakao.do?email="+kakao_account.email;
+				                }
+				            },
+				            error:function(data){//실패시 처리
+				                console.log("error:"+data);
+				            },
+				            complete:function(data){//성공/실패와 관계없이 수행!
+				                console.log("complete:"+data);
+				            }
+				        });
+					}
+				});
+			}
+		});
+	}
+	
+	//카카오톡으로 로그인하기
+	function doCheckEmail(email){
+		/* $.ajax({
+            type: "GET",
+            url:"/bdm/user/doCheckEmail.do",
+            asyn:"true",
+            dataType:"html",
+            data:{
+                email: email
+            },
+            success:function(data){//통신 성공
+            	let parsedJSON = JSON.parse(data);
+            
+            	if("1" === parsedJSON.msgId){
+            		window.location.href = "${CP}/beforeMain/popSearchWord.do";
+                }else{
+                	alert("등록되지 않은 회원입니다.\n회원가입 창으로 이동합니다");
+    				window.location.href = "${CP}/beforeMain/moveToReg.do";
+                }
+            },
+            error:function(data){//실패시 처리
+                console.log("error:"+data);
+            },
+            complete:function(data){//성공/실패와 관계없이 수행!
+                console.log("complete:"+data);
+            }
+        });
+	}
  }); //--document ready
 </script>
 </head>
@@ -125,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <td colspan="2" style="text-align: center;">
                             <input type="button" value="로그인" id="doLogin" style="height: 30px; width: 100%; box-sizing: border-box;">
                             <input type="button" value="네이버로그인" id="naverLogin" style="height: 30px; width: 100%; href="javascript:void(0)">
+                            <a href="javascript:kakaoLogin();"><img src="${CP }/resources/images/kakao_login_medium.png" /></a>
                         </td>
                     </tr>
                 </table>
