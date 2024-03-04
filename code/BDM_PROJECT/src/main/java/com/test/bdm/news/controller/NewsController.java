@@ -254,7 +254,8 @@ public class NewsController implements PcwkLogger {
 
 			if (contentType.startsWith("image")) {// image파일
 				// 첫 번째 경로로 저장
-				savePath = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
+				//savePath = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
+				savePath = "C:\\\\JSPM_0907\\\\03_Spring\\\\WORKSPACE\\\\BDM_PROJECT\\\\src\\\\main\\\\webapp\\\\resources\\\\upload";
 				fileVO.setSavePath(savePath);
 
 				// 이미지를 첫 번째 경로에 저장
@@ -262,9 +263,10 @@ public class NewsController implements PcwkLogger {
 				multipartFile.transferTo(saveFile);
 
 				// 첫 번째 경로에 저장된 파일을 두 번째 경로로 복사
+				//"C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload"
 				Path sourcePath = saveFile.toPath();
 				Path destinationPath = Paths.get(
-						"C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload",
+						"C:\\JSPM_0907\\03_Spring\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload",
 						fileVO.getSaveFileName());
 				Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
 			} else {
