@@ -3,6 +3,8 @@ package com.test.bdm.user.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import com.test.bdm.cmn.UserDTO;
 import com.test.bdm.user.domain.UserVO;
 
@@ -27,4 +29,6 @@ public interface UserDao {
 	int doDelete(UserVO inVO) throws SQLException;
 	
 	List<UserVO> doRetrieve(UserDTO inVO) throws SQLException;
+	
+	UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
 }

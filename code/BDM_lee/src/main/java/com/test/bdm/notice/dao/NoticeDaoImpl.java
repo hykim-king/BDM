@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.cmn.PcwkLogger;
 import com.test.bdm.notice.domain.NoticeVO;
 
@@ -60,7 +61,7 @@ public class NoticeDaoImpl implements NoticeDao, PcwkLogger {
 	}
 
 	@Override
-	public List<NoticeVO> doRetrieve(NoticeVO inVO) throws SQLException {
+	public List<NoticeVO> doRetrieve(DTO inVO) throws SQLException {
 		LOG.debug("┌───────────────────────────────────┐");
 		LOG.debug("│ doRetrieve                        │");
 		LOG.debug("│ NoticeVO                          │"+inVO);

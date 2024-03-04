@@ -22,4 +22,6 @@ public interface BeforeMainService {
 	List<DTO> popSearchWord() throws SQLException;
 
 	List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException;
+	
+	UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.test.bdm.user">
+  
+    <update id="changePassword" parameterType = "UserVO">
+        UPDATE USERS
+        SET pw = #{pw}
+        WHERE id = #{id}
+    </update>
+  
+    <select id="doFindPassword" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "UserVO">
+        SELECT pw
+        FROM users
+        WHERE name = #{name}
+        AND birth = #{birth}
+        AND id = #{id}
+        AND email = #{email}
+    </select>  
+  
+    <select id="doFindId" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "UserVO">
+        SELECT id
+        FROM users
+        WHERE name = #{name}
+        AND birth = #{birth}
+        AND email = #{email}
+    </select>
+  
+    <update id="doUpdate" parameterType = "UserVO">
+        UPDATE USERS
+        SET height = #{height},
+            weight = #{weight},
+            activity = #{activity}
+        WHERE id = #{id}
+    </update>
+    
+    <select id="doCheckEmail" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE email IN(#{email})
+    </select>
+    
+    <select id="doCheckPassword" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE pw IN(#{pw})
+    </select>
+    
+    <select id="doCheckId" parameterType = "com.test.bdm.user.domain.UserVO" resultType = "int">
+        SELECT COUNT(*) cnt
+        FROM users
+        WHERE id IN(#{id})
+    </select>
+    
+    <insert id="doSave" parameterType = "com.test.bdm.user.domain.UserVO">
+        INSERT INTO users(
+	        id,
+	        no,
+	        pw,
+	        email,
+	        name,
+	        birth,
+	        gender,
+	        height,
+	        weight,
+	        activity,
+	        reg_dt,
+	        user_filter
+        ) VALUES (          
+            #{id},
+            users_seq.NEXTVAL,
+            #{pw},
+            #{email},
+            #{name},
+            #{birth},
+            #{gender},
+            #{height},
+            #{weight},
+            #{activity},
+            SYSDATE,
+            2
+        )                   
+    </insert>
+    
+  </mapper>

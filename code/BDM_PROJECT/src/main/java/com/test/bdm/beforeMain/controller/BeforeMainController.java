@@ -73,6 +73,20 @@ public class BeforeMainController implements PcwkLogger {
 	
 	@Autowired
 	UserService userService;
+	
+	@GetMapping(value= "/doApiLogin.do")
+	public ModelAndView doApiLogin(DTO dto, UserVO inVO, ModelAndView modelAndView, HttpSession httpSession) throws SQLException{
+		UserVO outVO = beforeMainService.doSelectOneByEmail(inVO);
+		
+		// modelAndView.setViewName("main/afterLoginMain");
+		// modelAndView.addObject("outVO", outVO);
+		
+		if (null != outVO) {
+			httpSession.setAttribute("user", outVO);
+		}
+		
+		return popSearchWord(dto, modelAndView, httpSession);
+	}
 
 	@GetMapping(value = "/checkSession.do")
 	public String checkSession(UserVO user, HttpSession httpSession) throws SQLException {
@@ -384,11 +398,7 @@ public class BeforeMainController implements PcwkLogger {
 			httpSession.invalidate();
 		}
 		
-		if (httpSession.getAttribute("user") != null) {
-			modelAndView.setViewName("main/afterLoginMain");
-		} else {
-			modelAndView.setViewName("main/beforeLoginMain");
-		}
+		modelAndView.setViewName("main/beforeLoginMain");
 
 		return modelAndView;
 	}

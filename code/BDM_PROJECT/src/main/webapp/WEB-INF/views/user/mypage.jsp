@@ -18,7 +18,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Mypage Test</title>
@@ -525,6 +524,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             success:function(data){//통신 성공     
                alert('로그아웃 되었습니다.');
+               window.location.href = "/bdm/beforeMain/popSearchWord.do";
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
@@ -560,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <%
         UserVO sessionData = (UserVO) session.getAttribute("user");
         // 위에서 선언한 변수들을 사용
-        double totalDailyKcal = ((sessionData.getHeight() - 100) * 0.9 * sessionData.getActivity());
+        double totalDailyKcal = Math.round(((sessionData.getHeight() - 100) * 0.9 * sessionData.getActivity()) * 100.0) / 100.0;
         double totalDailyCarbo = Math.round((totalDailyKcal * 0.4) / 4 * 100.0) / 100.0;
         double totalDailyProtein = Math.round((totalDailyKcal * 0.4) / 4 * 100.0) / 100.0;
         double totalDailyFat = Math.round((totalDailyKcal * 0.2) / 9 * 100.0) / 100.0;
@@ -875,7 +875,7 @@ document.addEventListener("DOMContentLoaded", function () {
 											        <c:set var="etc" value="false"/>
 											        <c:forEach var="vo" items="${ateList}" varStatus="status">
 											            <c:choose>
-											                <c:when test="${vo.code eq 1}">
+											                <c:when test="${vo.divs eq 1}">
 											                    <c:if test="${!morning}">
 											                        <tr>
 											                            <td colspan="4" class="text-center">아침</td>
@@ -883,7 +883,7 @@ document.addEventListener("DOMContentLoaded", function () {
 											                        <c:set var="morning" value="true"/>
 											                    </c:if>
 											                </c:when>
-											                <c:when test="${vo.code eq 2}">
+											                <c:when test="${vo.divs eq 2}">
                                                                 <c:if test="${!morlun}">
                                                                     <tr>
                                                                         <td colspan="4" class="text-center">아점</td>
@@ -891,7 +891,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                                     <c:set var="morlun" value="true"/>
                                                                 </c:if>
                                                             </c:when>
-											                <c:when test="${vo.code eq 3}">
+											                <c:when test="${vo.divs eq 3}">
 											                    <c:if test="${!lunch}">
 											                        <tr>
 											                            <td colspan="4" class="text-center">점심</td>
@@ -899,7 +899,7 @@ document.addEventListener("DOMContentLoaded", function () {
 											                        <c:set var="lunch" value="true"/>
 											                    </c:if>
 											                </c:when>
-											                <c:when test="${vo.code eq 4}">
+											                <c:when test="${vo.divs eq 4}">
                                                                 <c:if test="${!lundin}">
                                                                     <tr>
                                                                         <td colspan="4" class="text-center">점저</td>
@@ -907,7 +907,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                                     <c:set var="lundin" value="true"/>
                                                                 </c:if>
                                                             </c:when>
-											                <c:when test="${vo.code eq 5}">
+											                <c:when test="${vo.divs eq 5}">
 											                    <c:if test="${!dinner}">
 											                        <tr>
 											                            <td colspan="4" class="text-center">저녁</td>
@@ -915,7 +915,7 @@ document.addEventListener("DOMContentLoaded", function () {
 											                        <c:set var="dinner" value="true"/>
 											                    </c:if>
 											                </c:when>
-											                <c:when test="${vo.code eq 6}">
+											                <c:when test="${vo.divs eq 6}">
                                                                 <c:if test="${!night}">
                                                                     <tr>
                                                                         <td colspan="4" class="text-center">야식</td>
@@ -923,7 +923,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                                     <c:set var="night" value="true"/>
                                                                 </c:if>
                                                             </c:when>
-                                                            <c:when test="${vo.code eq 7}">
+                                                            <c:when test="${vo.divs eq 7}">
                                                                 <c:if test="${!etc}">
                                                                     <tr>
                                                                         <td colspan="4" class="text-center">간식</td>

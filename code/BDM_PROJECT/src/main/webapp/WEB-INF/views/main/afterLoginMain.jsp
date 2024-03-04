@@ -153,59 +153,34 @@ document.addEventListener("DOMContentLoaded", function(){
         </div>
         <div class="container main_news">
             <div class="row">
-                <div class="col-md-9">
-                    <h3>실시간 뉴스</h3>
-                    <div class="row ">
-                        <div class="col-md-6 news_tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="#">
-                                        <div class="news_img"><img src=""></div>
-                                        <div class="news_comment">
-                                            <h4>아이유, 박명수 선물에 “눈물 날것 같아” 울컥</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 news_tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="#">
-                                        <div class="news_img"><img src=""></div>
-                                        <div class="news_comment">
-                                            <h4>고진영 “HSBC 챔피언십 3연패 GO!”</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 news_tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="#">
-                                        <div class="news_img"><img src=""></div>
-                                        <div class="news_comment">
-                                            <h4>남편상 사강, 절절한 그리움 “거기선 아프지마”</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 news_tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="#">
-                                        <div class="news_img"><img src=""></div>
-                                        <div class="news_comment">
-                                            <h4>엄정화 “3일 동안 계란만 먹었다"극한 다이어트 고충</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+		        <div class="col-md-9">
+		            <h3>실시간 뉴스</h3>
+		            <div class="row">
+		                <c:choose>
+		                    <c:when test="${ not empty newsList }">
+		                        <c:forEach var="vo" items="${newsList.subList(0, (newsList.size() < 4 ? newsList.size() : 4))}" varStatus="status">
+		                            <div class="col-md-6 news_tab">
+		                                <div class="card custom-card" >
+		                                    <div class="card-body">
+		                                        <a href="${CP}/news/doSelectOne.do?postNo=${vo.postNo}" class="card-link">
+		                                            <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="card-img-top img-fluid rounded-start" alt="이미지" style="max-height: 200px; max-width: 100%; height: auto;">
+		                                            <div class="card-body">
+		                                                <h5 class="card-title">${vo.title}</h5>
+		                                            </div>
+		                                        </a>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </c:forEach>
+		                    </c:when>
+		                    <c:otherwise>
+		                        <div class="col text-center">
+		                            조회된 데이터가 없습니다.
+		                        </div>
+		                    </c:otherwise>
+		                </c:choose>
+		            </div>
+		        </div>
                 <div class="col-md-3 pop_search">    
                     <div class="row">
                         <h3>실시간 인기 검색어</h3>

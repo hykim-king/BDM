@@ -39,7 +39,7 @@ public class LoginController {
         System.out.println("네이버:" + naverAuthUrl);
         //네이버 
         model.addAttribute("url", naverAuthUrl);
-        return "login/login";
+        return naverAuthUrl;
     }
 
     //네이버 로그인 성공시 callback호출 메소드
@@ -72,7 +72,7 @@ public class LoginController {
         //4.파싱 닉네임 세션으로 저장
         session.setAttribute("email",email); //세션 생성
         model.addAttribute("result", apiResult);
-        return "login/login";
+        return "account/account_login";
     }
 
     //로그아웃

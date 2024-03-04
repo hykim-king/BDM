@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
@@ -25,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	console.log( "main!" );
 	
+<<<<<<< HEAD
 	const bRows = document.querySelectorAll("#bulletinTable>tbody>tr");
 	const nRows = document.querySelectorAll("#noticeTable>tbody>tr");
 	const qRows = document.querySelectorAll("#qaTable>tbody>tr");
@@ -80,13 +80,24 @@ document.addEventListener("DOMContentLoaded", function(){
                 alert('공개를 희망하지 않는 질문입니다.');
             }
         });
+=======
+	$("#bulletinList").click(function(event) {
+		window.location.href = "${CP}/bulletin/doRetrieve.do";
+    });
+	
+	$("#noticeList").click(function(event) {
+        window.location.href = "${CP}/notice/doRetrieve.do";
+    });
+	
+	$("#qaList").click(function(event) {
+        window.location.href = "${CP}/qa/doRetrieve.do";
+>>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
     });
 	
 	$("#login").click(function(event) {
         event.preventDefault();
         window.location.href = "${CP}/beforeMain/moveToLogin.do";
     });
-
      
      $("#findId").on("click",function(e){
      	var width = 750;
@@ -243,7 +254,47 @@ document.addEventListener("DOMContentLoaded", function(){
             <div class="row">    
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="bulli" role="tabpanel" aria-labelledby="bulli-tab">
+<<<<<<< HEAD
                         <table class="table table-bordered border-primary table-hover" id="bulletinTable">
+=======
+                    <input type="button" value="더보기" class="btn btn-primary" id="bulletinList">
+                        <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-left col-lg-7 col-sm-8">제목 </th>
+                                    <th class="text-center col-lg-2 col-sm-1">날짜</th>
+                                    <th class="col-lg-1">작성자</th>
+                                    <th class="text-end col-lg-1">조회수</th>
+                                    <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:choose>
+                                    <c:when test="${ not empty bulletinList }">  
+                                         <!-- 반복문 -->
+                                         <c:forEach var="vo" items="${bulletinList.subList(0, (bulletinList.size() < 5 ? bulletinList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.title}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.regDt}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.id}" escapeXml="true" /></td>
+                                                 <td class="text-left   col-lg-7  col-sm-8"><c:out value="${vo.readCnt}" escapeXml="true" /></td>
+                                                 <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                             </tr>
+                                         </c:forEach> 
+                                    </c:when>
+                                    <c:otherwise>
+                                         <tr>
+                                             <td colspan="99" class="text-center">등록된 글이 없습니다.</td>
+                                         </tr>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tbody>
+                        </table>
+                     </div>
+                    <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
+                    <input type="button" value="더보기" class="btn btn-primary" id="noticeList">
+                        <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+>>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
                             <thead>
                                 <tr>
                                     <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
@@ -276,10 +327,17 @@ document.addEventListener("DOMContentLoaded", function(){
                                 </c:choose>
                             </tbody>
                         </table>
+<<<<<<< HEAD
 							<input type="button" value="더보기" class="btn btn-primary float-end" id="bulletinList">
                      </div>
                     <div class="tab-pane fade" id="notice" role="tabpanel" aria-labelledby="notice-tab">
                         <table class="table table-bordered border-primary table-hover" id="noticeTable">
+=======
+                    </div>
+                    <div class="tab-pane fade" id="QandA" role="tabpanel" aria-labelledby="QandA-tab">
+                    <input type="button" value="더보기" class="btn btn-primary" id="qaList">
+                        <table class="table table-bordered border-primary table-hover table-striped" id="bulletinTable">
+>>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
                             <thead>
                                 <tr>
                                     <th class="text-left col-lg-9 col-sm-6"		style="background-color: #514752; color: #ffffff;">제목 </th>
@@ -291,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             </thead>
                             <tbody>
                                 <c:choose>
+<<<<<<< HEAD
                                     <c:when test="${ not empty noticeList }">  
                                          <!-- 반복문 -->
                                          <c:forEach var="vo" items="${noticeList.subList(0, (noticeList.size() < 5 ? noticeList.size() : 5))}" varStatus="status">
@@ -302,6 +361,44 @@ document.addEventListener("DOMContentLoaded", function(){
                                                  <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
                                              </tr>
                                          </c:forEach> 
+=======
+                                    <c:when test="${ not empty qaList }">  
+                                         <c:forEach var="vo" items="${qaList.subList(0, (qaList.size() < 5 ? qaList.size() : 5))}" varStatus="status">
+                                             <tr>
+                                                 <td class="text-left col-lg-7 col-sm-8">
+                                                    <c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                                                        <a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+                                                            <c:out value="${vo.title}" escapeXml="true" />
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                                                        <c:out value="비공개글입니다." />
+                                                    </c:if>
+                                                </td>
+                                                <td class="text-center col-lg-2  col-sm-1">
+                                                    <c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                                                        <a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+                                                            <c:out value="${vo.regDt}" escapeXml="true" />
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                                                        <c:out value="" />
+                                                    </c:if>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <c:if test="${vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1'}">
+                                                        <a href="/bdm/qa/qaView.do?postNo=${vo.postNo}">
+                                                            <c:out value="${vo.id}" />
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${not (vo.disclosure eq '0' or vo.id eq user.id or user.userFilter eq '1')}">
+                                                        <c:out value="비공개"/>
+                                                    </c:if>
+                                                </td>
+                                                <td style=" display: none;"><c:out value="${vo.postNo}" /></td>
+                                            </tr>
+                                        </c:forEach> 
+>>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
                                     </c:when>
                                     <c:otherwise>
                                          <tr>
@@ -313,6 +410,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         </table>
                         <input type="button" value="더보기" class="btn btn-primary float-end" id="noticeList">
                     </div>
+<<<<<<< HEAD
                     <div class="tab-pane fade" id="QandA" role="tabpanel" aria-labelledby="QandA-tab">
                         <table class="table table-bordered border-primary table-hover" id="qaTable">
                             <thead>
@@ -376,6 +474,11 @@ document.addEventListener("DOMContentLoaded", function(){
 				</div>
 			</div>
 		</div>
+=======
+                </div>
+            </div>
+        </div>     
+>>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
 	</div>
 </body>
 <script>

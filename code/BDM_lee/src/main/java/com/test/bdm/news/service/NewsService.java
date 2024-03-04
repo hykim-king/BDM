@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 
+import com.test.bdm.cmn.DTO;
 import com.test.bdm.news.domain.NewsVO;
 
 public interface NewsService {
@@ -24,5 +25,5 @@ public interface NewsService {
 	
 	public int doSave(NewsVO inVO) throws SQLException;
 	
-	public List<NewsVO> doRetrieve(NewsVO inVO) throws SQLException;
+	public List<NewsVO> doRetrieve(DTO inVO) throws SQLException;
 }

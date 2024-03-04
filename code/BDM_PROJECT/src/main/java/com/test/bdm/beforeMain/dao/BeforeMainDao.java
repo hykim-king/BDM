@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import com.test.bdm.cmn.DTO;
 import com.test.bdm.user.domain.UserVO;
 
@@ -23,4 +25,5 @@ public interface BeforeMainDao {
 	
 	List<DTO> popWeeklySearchWord(HashMap<String, String> map) throws SQLException;
 
+	UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
 }

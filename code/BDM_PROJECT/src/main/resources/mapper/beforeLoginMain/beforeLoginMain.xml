@@ -4,6 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.test.bdm.beforeMain">
   
+  <select id="doSelectOneByEmail" parameterType="com.test.bdm.user.domain.UserVO" resultType="com.test.bdm.user.domain.UserVO"> 
+      SELECT id, no, pw, email, name, birth, gender, height, weight, activity, reg_dt, user_filter 
+      FROM users 
+      WHERE email = #{email} 
+   </select>
+  
     <select id="popWeeklySearchWord" parameterType = "map" resultType = "com.test.bdm.cmn.DTO">
       SELECT A.WORDS as searchWord
       FROM (

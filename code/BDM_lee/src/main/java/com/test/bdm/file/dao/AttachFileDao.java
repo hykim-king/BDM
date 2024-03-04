@@ -16,5 +16,5 @@ public int getFileSeq() throws SQLException;
 
 	public int getLastSeqByUuid(String uuid);
 	
-	
+	List<FileVO> doRetrieve(FileVO inVO) throws SQLException;
 }

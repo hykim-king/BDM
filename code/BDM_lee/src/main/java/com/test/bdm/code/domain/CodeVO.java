@@ -12,16 +12,15 @@ import lombok.Setter;
 @NoArgsConstructor //default 생성자
 @AllArgsConstructor//모든인자 생성자
 public class CodeVO extends DTO {
-	
 	private String category;
-	private int div;
+	private int divs;
 	private String divName;
 	private int seq;
 	private String useYn;
 	
 	@Override
 	public String toString() {
-		return "CodeVO [category=" + category + ", div=" + div + ", divName=" + divName + ", seq=" + seq + ", useYn="
+		return "CodeVO [category=" + category + ", div=" + divs + ", divName=" + divName + ", seq=" + seq + ", useYn="
 				+ useYn + ", toString()=" + super.toString() + "]";
 	}
 	
