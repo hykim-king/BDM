@@ -24,16 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	const navbarTogglerBtn = document.querySelector("#navbar-toggler");
     const gumsaekBtn = document.querySelector("#gumsaek");
     const searchWordTxt = document.querySelector("#searchWord");
-<<<<<<< HEAD
 
-=======
+
     
     $("#moveToMain").click(function(event) {
         event.preventDefault();
         window.location.href = "${CP}/beforeMain/popSearchWord.do";
     });
      
->>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
+
     gumsaekBtn.addEventListener("click", function(e){
         let searchWordTxtV = document.querySelector("#searchWord").value;
         $.ajax({

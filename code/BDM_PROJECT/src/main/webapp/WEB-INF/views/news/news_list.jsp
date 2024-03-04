@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <style>
     .card-text {
         /* 텍스트가 3줄까지만 표시되고 그 이상은 숨깁니다. */
@@ -15,6 +15,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3; /* 줄바꿈을 유지할 최대 줄 수 */
         -webkit-box-orient: vertical;
+        
     }
     .card-link {
         text-decoration: none; /* 밑줄 제거 */
@@ -30,7 +31,20 @@
     flex: 0 0 auto;
     width: 8%;
 	}
-    
+    .card-img {
+        width: 100%; /* 이미지의 너비를 100%로 지정하여 부모 요소에 맞게 크기 조정 */
+        height: 200px; /* 이미지의 높이를 고정 크기로 지정 */
+        object-fit: cover; /* 이미지를 카드에 맞게 크롭하여 보여줌 */
+    }
+    body {
+    background-color: #f7e9e8;
+	}
+    .container{
+    	background-color:#f7e9e8;
+    }
+    .card-box{
+    	 background-color: #FDF8EE;
+    }
 </style>
 <script>
 document.addEventListener("DOMContentLoaded",function() {
@@ -132,7 +146,7 @@ document.addEventListener("DOMContentLoaded",function() {
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container mt-5 container-box">
     <h1 class="mb-4">꼬르륵 뉴스</h1>
     <!-- 검색 폼 -->
     <form action="#" method="get" id="newsFrm" name="newsFrm">
@@ -141,7 +155,12 @@ document.addEventListener("DOMContentLoaded",function() {
             <div class="col-lg-6">
                 <div class="input-group">
                     <select class="form-select" id="searchDiv" name="searchDiv">
-                        <!-- options -->
+                        <c:forEach var="vo" items="${newsSearch}">
+                            <option value="<c:out value='${vo.getDivs()}'/>"
+                                    <c:if test="${vo.getDivs() == paramVO.searchDiv}">selected</c:if>>
+                                <c:out value="${vo.divName}" />
+                            </option>
+                        </c:forEach>
                     </select>
                     <input type="text" class="form-control" id="searchWord" name="searchWord" maxlength="100" placeholder="검색어를 입력하세요" value="${paramVO.searchWord}">
                     <button type="button" class="btn btn-primary" id="doRetrieve">검색</button>
@@ -164,14 +183,14 @@ document.addEventListener("DOMContentLoaded",function() {
                             <div class="col-md-4">
                                 <img src="<c:url value='/resources/upload/${vo.fileList[0].saveFileName}'/>" class="img-fluid rounded-start card-img" alt="이미지">
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 card-box">
                                 <div class="card-body">
                                     <h5 class="card-title">${vo.title}</h5>
                                     <p class="card-text">${vo.contents}</p>
                                     <p class="card-text"><small class="text-muted">${vo.regDt}</small></p>
                                 </div>
                             </div>
-                        </div>
+                        </div>    
                     </div>
                 </a>
             </div>
