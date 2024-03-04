@@ -13,13 +13,17 @@ public interface CommentsService {
 	
 	public int getRegNo() throws SQLException;
 	
+	
 	int doUpdate(CommentsVO inVO) throws SQLException;
+	
 	
 	int doDelete(CommentsVO inVO) throws SQLException;
 	
 	CommentsVO doSelectOne(CommentsVO inVO) throws SQLException, EmptyResultDataAccessException;
 	
+	
 	int doSave(CommentsVO inVO) throws SQLException;
+	
 	
 	List<CommentsVO> doRetrieve(CommentsVO inVO) throws SQLException;
 		

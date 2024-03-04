@@ -210,50 +210,5 @@ document.addEventListener("DOMContentLoaded", function(){
         <input type="button" value="회원 가입" id="moveToReg" style="height: 30px;">
     </div>
 </div>
-
-<!-- 네이버 스크립트
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
-<script>
-    var clientId = "xH8CIFYIccFEu1_htDkb"; // 클라이언트 아이디 설정
-
-    var naverLogin = new naver.LoginWithNaverId({
-        clientId: clientId, // 클라이언트 아이디 설정
-        callbackUrl: "http://localhost:8080/bdm/login/callback.do", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
-        isPopup: false,
-        callbackHandle: true
-    });
-
-    // 네이버 로그인 초기화
-    naverLogin.init();
-
-    // 로그인 상태 확인
-    window.addEventListener('load', function () {
-        naverLogin.getLoginStatus(function (status) {
-            if (status) {
-                var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
-                
-                console.log(naverLogin.user); 
-                
-                if (email == undefined || email == null) {
-                    alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-                    naverLogin.reprompt();
-                    return;
-                }
-            } else {
-                console.log("callback 처리에 실패하였습니다.");
-            }
-        });
-    });
-
-    // 네이버 로그아웃 함수
-    function naverLogout() {
-        var testPopUp = window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
-        setTimeout(function() {
-            testPopUp.close();
-        }, 1000);
-    }
-</script>
--->
-
 </body>
 </html>

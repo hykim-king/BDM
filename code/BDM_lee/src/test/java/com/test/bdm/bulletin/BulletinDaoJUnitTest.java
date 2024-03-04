@@ -48,14 +48,22 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		String regDt = "사용 하지 않음";
 		String modDt = "사용 하지 않음";
 		int readCnt = 0;
-		String id = "MN_LEE";
-		String modId = "MN_LEE";
+		String id = "ksh";
+		String modId = "ksh";
 
-		bulletin01 = new BulletinVO(dao.getBulletinSeq(), title + "제목1", contents + "제목1", regDt, modDt, readCnt, id,
-				modId);
+		bulletin01 = new BulletinVO(dao.getBulletinSeq(), title + "제목1", contents + "제목1", regDt, modDt, readCnt, id, modId);
 
 		searchVO = new BulletinVO();
 		searchVO.setTitle(title);
+		
+	}
+	
+//	@Ignore
+	@Test
+	public void doDelete() throws SQLException {
+		searchVO.setPostNo(856);//하드코딩
+		int flag = dao.doDelete(searchVO);
+		assertEquals(1, flag);
 	}
 
 //	@Ignore
@@ -81,7 +89,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 //	@Ignore
 	@Test
 	public void doRetrieve() throws SQLException {
-		searchVO.setSearchWord(searchVO.getTitle());
+		 searchVO.setSearchWord(searchVO.getTitle());
 
 		searchVO.setPageNo(1);
 		searchVO.setPageSize(10);
@@ -106,7 +114,7 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		LOG.debug("│ update                            │");
 		LOG.debug("└───────────────────────────────────┘");
 
-		// dao.doDeleteAll(searchVO);
+		//dao.doDeleteAll(searchVO);
 
 		int flag = dao.doSave(bulletin01);
 		assertEquals(1, flag);
@@ -126,6 +134,8 @@ public class BulletinDaoJUnitTest implements PcwkLogger {
 		BulletinVO vs01 = dao.doSelectOne(vo01);
 		isSameBoard(vs01, vo01);
 	}
+	
+	
 
 //	@Ignore
 	@Test

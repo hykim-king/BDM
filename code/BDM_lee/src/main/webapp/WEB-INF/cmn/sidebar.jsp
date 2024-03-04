@@ -9,8 +9,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="${CP}/resources/css/sidebar.css">
-
+<link rel="stylesheet" href="${CP}/resources/css/sidebar2.css">
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 	const logoutBTN = document.querySelector("#logout");
@@ -23,12 +22,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
     loginBTN.addEventListener("click", function(e){
         alert('로그인 페이지로 이동합니다.');
-        window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+        window.location.href = "/bdm/beforeMain/moveToLogin.do";
     });
 
     logoutBTN.addEventListener("click", function(e){
         alert('로그아웃 되었습니다.');
-        window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+        window.location.href = "/bdm/beforeMain/popSearchWord.do";
     });
 	
 	logoutBTN.addEventListener("click", function(e){
@@ -40,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function(){
             data:{
             },
             success:function(data){//통신 성공     
-               alert('로그아웃 되었습니다.');
-               window.location.href = "/bdm/beforeMain/moveToBeforeMain.do";
+               /* alert('로그아웃 되었습니다.'); */
+               window.location.href = "/bdm/beforeMain/popSearchWord.do";
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
@@ -76,34 +75,18 @@ document.addEventListener("DOMContentLoaded", function(){
     </section>
   </section>
   <ul>
-  	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="login">로그인</a></li>
-  	<li><a class="side-link" href="/bdm/beforeMain/moveToBeforeMain.do" id="logout">로그아웃</a></li>
-    <li>
-      <a href="/bdm/beforeMain/moveToMyPage.do"><i class="fa-solid fa-cat"></i> mypage</a>
-    </li>
+  	<li><a class="side-link" href="/bdm/beforeMain/moveToLogin.do" id="login">로그인</a></li>
+  	<li><a class="side-link" href="/bdm/beforeMain/doLogout.do" id="logout">로그아웃</a></li>
     <li>
       <a href="#">게시판</a>
       <ul>
         <li><a href="/bdm/bulletin/doRetrieve.do">자유게시판</a></li>
         <li><a href="/bdm/notice/doRetrieve.do">공지사항</a></li>
-        <li><a href="#">Q&A</a></li>
+        <li><a href="/bdm/qa/doRetrieve.do">Q&A</a></li>
       </ul>
     </li>
     <li>
-      <a href="/bdm/beforeMain/moveToNews.do">news</a>
-      <ul>
-        <li><a href="#">text1</a></li>
-        <li><a href="#">text2</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">notice</a>
-      <ul>
-        <li><a href="#">text1</a></li>
-        <li><a href="#">text2</a></li>
-        <li><a href="#">text3</a></li>
-        <li><a href="#">text4</a></li>
-      </ul>
+      <a href="/bdm/news/doRetrieve.do">뉴스</a>
     </li>
   </ul>
 </aside>
