@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	nRows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
+			e.stopPropagation();
 		let cells = row.getElementsByTagName("td");
 		const postNo = cells[4].innerText;
 		console.log('postNo:'+ postNo);
@@ -346,6 +347,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <th class="text-center col-lg-1 col-sm-2"	style="background-color: #514752; color: #ffffff;">날짜</th>
                                     <th class="text-end col-lg-1 col-sm-2"		style="background-color: #514752; color: #ffffff;">작성자</th>
                                     <th scope="col" class="text-center   "style="display: none;">SEQ</th>
+                                    <th scope="col" class="text-center   "style="display: none;">공개 여부</th>
                                 </tr>
                             </thead>
                             <tbody>
