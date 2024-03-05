@@ -258,7 +258,6 @@ public class NewsController implements PcwkLogger {
 
 				savePath = "C:\\JSPM_0907\\BDM\\BDM\\code\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
 
-				savePath = "C:\\\\JSPM_0907\\\\03_Spring\\\\WORKSPACE\\\\BDM_PROJECT\\\\src\\\\main\\\\webapp\\\\resources\\\\upload";
 				fileVO.setSavePath(savePath);
 
 				// 이미지를 첫 번째 경로에 저장
