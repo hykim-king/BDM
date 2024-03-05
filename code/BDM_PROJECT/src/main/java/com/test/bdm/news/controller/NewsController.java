@@ -255,11 +255,10 @@ public class NewsController implements PcwkLogger {
 			if (contentType.startsWith("image")) {// image파일
 				// 첫 번째 경로로 저장
 				//savePath = "C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
-<<<<<<< HEAD
+
 				savePath = "C:\\JSPM_0907\\BDM\\BDM\\code\\BDM_PROJECT\\src\\main\\webapp\\resources\\upload";
-=======
+
 				savePath = "C:\\\\JSPM_0907\\\\03_Spring\\\\WORKSPACE\\\\BDM_PROJECT\\\\src\\\\main\\\\webapp\\\\resources\\\\upload";
->>>>>>> 607a6b5c66ecd3f8954c9564c320a29e0b84f37c
 				fileVO.setSavePath(savePath);
 
 				// 이미지를 첫 번째 경로에 저장
@@ -270,11 +269,8 @@ public class NewsController implements PcwkLogger {
 				//"C:\\JSPM_0907\\03_WEB\\0305_SPRING\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload"
 				Path sourcePath = saveFile.toPath();
 				Path destinationPath = Paths.get(
-<<<<<<< HEAD
 						"C:\\JSPM_0907\\BDM\\BDM\\code\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload",
-=======
-						"C:\\JSPM_0907\\03_Spring\\WORKSPACE\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BDM_PROJECT\\resources\\upload",
->>>>>>> 607a6b5c66ecd3f8954c9564c320a29e0b84f37c
+
 						fileVO.getSaveFileName());
 				Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
 			} else {
