@@ -14,9 +14,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
@@ -60,9 +58,24 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	console.log( "main!" );
 	
+	const bulletinListBTN = document.querySelector("#bulletinList");
+    const noticeListBTN = document.querySelector("#noticeList");
+    const qaListBTN = document.querySelector("#qaList");
 	const bRows = document.querySelectorAll("#bulletinTable>tbody>tr");
 	const nRows = document.querySelectorAll("#noticeTable>tbody>tr");
 	const qRows = document.querySelectorAll("#qaTable>tbody>tr");
+	
+	bulletinListBTN.addEventListener("click",function(e){
+    	window.location.href = "${CP}/bulletin/doRetrieve.do";
+    });
+    
+    noticeListBTN.addEventListener("click",function(e){
+    	window.location.href = "${CP}/notice/doRetrieve.do";
+    });
+    
+    qaListBTN.addEventListener("click",function(e){
+    	window.location.href = "${CP}/qa/doRetrieve.do";
+    });
 	
 	bRows.forEach(function (row) {
 		row.addEventListener('dblclick', function(e) {
