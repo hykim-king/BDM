@@ -28,12 +28,18 @@
 	.card-body{
 	color: #514752;
 	}
+<<<<<<< HEAD
 	.moreButton{
 		margin-bottom:10px;
 	}
 	.custom-card {
     height: 300px; /* 높이를 조절할 원하는 크기로 설정하세요 */
 	}
+=======
+.moreButton{
+	margin-bottom:10px;
+}
+>>>>>>> 607a6b5c66ecd3f8954c9564c320a29e0b84f37c
 </style>
 <title>Balance Diet Management</title>
 

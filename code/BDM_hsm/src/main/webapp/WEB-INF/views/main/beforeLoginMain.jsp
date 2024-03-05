@@ -362,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function(){
 												<td style=" display: none;"><c:out value="${vo.postNo}" /></td>
 												<td style="display: none;"><c:out value="${vo.disclosure}" /></td>
 											</tr>
-										</c:forEach> 
+										</c:forEach>
 									</c:when>
                                     <c:otherwise>
                                          <tr>
