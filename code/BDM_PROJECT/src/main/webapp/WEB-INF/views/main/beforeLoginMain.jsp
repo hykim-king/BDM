@@ -32,8 +32,26 @@
 		margin-bottom:10px;
 	}
 	.custom-card {
-    height: 300px; /* 높이를 조절할 원하는 크기로 설정하세요 */
+    height: 300px; 
 	}
+</style>
+<style>
+    /* 스크롤 최상단으로 이동하는 버튼 스타일 렛츠고 */
+    #scrollToTopBtn {
+        display: none; 
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+        background-color: #fa9624;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        cursor: pointer;
+    }
 </style>
 <title>Balance Diet Management</title>
 
@@ -129,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function(){
 </head>
 <body>
     <div class="wrap">
+    	<button id="scrollToTopBtn">&#9650;</button>
 		<div class="row">
             <div class="col">
                 <img src="${CP }/resources/images/main.jpg" class="img-fluid" alt="Main Image" style="width: 100%;">
@@ -394,6 +413,30 @@ document.addEventListener("DOMContentLoaded", function(){
         </div>     
 	</div>
 </body>
+<script>
+    // 스크롤 이벤트를 감지하여 버튼을 표시 또는 숨김
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollToTopBtn.style.display = "block"; // 스크롤이 일정 이상 되면 버튼 표시
+        } else {
+            scrollToTopBtn.style.display = "none"; // 스크롤이 일정 이하로 되면 버튼 숨김
+        }
+    }
+
+    // 최상단으로 스크롤하는 함수
+    function scrollToTop() {
+        document.body.scrollTop = 0; // 이건 사파리 전용
+        document.documentElement.scrollTop = 0; // 크롬 파이어 폭스 전용 일껄?
+    }
+
+    // 버튼에 클릭 이벤트 추가
+    document.getElementById("scrollToTopBtn").addEventListener("click", function() {
+        scrollToTop();
+    });
+</script>
 <script>
 	$(document).ready(function(){
 	    $('.slider-wrap').slick({ 
