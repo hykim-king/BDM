@@ -31,6 +31,10 @@
 - WBS
     https://docs.google.com/spreadsheets/d/1YL5SomtxfYIG4dmD1OuYHq2-Hr_jVbN2/edit#gid=1812452729
 - 개발환경
+
+  ![image](https://github.com/hykim-king/BDM/assets/149756940/bdbea038-995b-48a6-8e34-813aeaee1895)
+
+
   
 
 ## 프로젝트 설계
@@ -46,6 +50,7 @@
 
 
 ## 기능 시현
+
 
 ### 사용자
 - 메인페이지
