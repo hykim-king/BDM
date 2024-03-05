@@ -49,9 +49,12 @@ document.addEventListener("DOMContentLoaded",function() {
     
     heartButton.addEventListener("click", function(e) {
     	const id = '${sessionScope.user.id}';
-
+		
         console.log('heartButton click');
-
+        if (!id) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
         console.log(id);
         console.log(postNo);
         let i = ${count};

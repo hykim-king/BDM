@@ -17,6 +17,7 @@
         -webkit-box-orient: vertical;
         
     }
+   
     .card-link {
         text-decoration: none; /* 밑줄 제거 */
         width: fit-content;
@@ -148,6 +149,7 @@ document.addEventListener("DOMContentLoaded",function() {
 
 <div class="container mt-5 container-box">
     <h1 class="mb-4">꼬르륵 뉴스</h1>
+    <hr>
     <!-- 검색 폼 -->
     <form action="#" method="get" id="newsFrm" name="newsFrm">
         <input type="hidden" name="pageNo" id="pageNo" />

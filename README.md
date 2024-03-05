@@ -60,8 +60,15 @@
 - 메뉴 등록
 - 네브바
 - 자유 게시판
+    ![clideo_editor_e41a2b29b2b84d41aca2013d987f5106](https://github.com/hykim-king/BDM/assets/149756940/02401855-19a3-48ca-acc6-60570826ada7)
+
 - 문의사항
+      ![clideo_editor_62ee55787a044c4f9c65907b5e4649fe](https://github.com/hykim-king/BDM/assets/149756940/fd127a03-5839-4e2d-9ff5-8d84091116b7)
+
 - 뉴스
+  
+    ![clideo_editor_0e9b1dade53f4c668cc715b0a9147b3d](https://github.com/hykim-king/BDM/assets/149756940/af86a251-aec4-48a9-b675-fa00d3fe7b30)
+
 - 공지사항
 
 ### 관리자
