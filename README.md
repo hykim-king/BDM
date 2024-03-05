@@ -29,6 +29,7 @@
 
 -
 - WBS
+    https://docs.google.com/spreadsheets/d/1YL5SomtxfYIG4dmD1OuYHq2-Hr_jVbN2/edit#gid=1812452729
   
 
 ## 프로젝트 설계
