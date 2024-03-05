@@ -35,9 +35,14 @@
 
 ## 프로젝트 설계
 
-- 요구사항 정의서https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
+- 요구사항 정의서
+  https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
 
 - 데이터베이스 설계서
+
+  
+  ![image](https://github.com/hykim-king/BDM/assets/149756940/77fd1519-6bef-4ada-9d94-c9fac36b02bd)
+
 
 
 ## 기능 시현
