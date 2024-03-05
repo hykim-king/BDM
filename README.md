@@ -1,4 +1,5 @@
-![image](https://github.com/hykim-king/BDM/assets/149756940/9377dd64-d2a3-47ef-84d4-1be7bf801737)
+![image](https://github.com/hykim-king/BDM/assets/149756940/c4e9e6bf-6972-4801-b16c-10ebb8f8b2ab)
+
 
 
 
@@ -29,19 +30,14 @@
 
 - WBS
     https://docs.google.com/spreadsheets/d/1YL5SomtxfYIG4dmD1OuYHq2-Hr_jVbN2/edit#gid=1812452729
+- 개발환경
+  
 
 ## 프로젝트 설계
 
+- 요구사항 정의서(https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
 
-    
-
-### 요구사항 정의
-
-- [요구사항 정의](https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
-
-### 데이터베이스 설계
-
-- 데이터베이스 설계
+- 데이터베이스 설계서
 
 
 ## 기능 시현
