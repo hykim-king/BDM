@@ -231,8 +231,9 @@ function displaySelectedValue() {
                 <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." class="form-control" value = "${paramVO.searchWord }">
                 <input type = "button" value = "검색" id = "doRetrieve" class="btn btn-primary" style="margin-left:5px;">
             </div>
-            <div class="col-md-1">
-                <input type="text" id = "amount" class="form-control" value="<c:out value='1.0'/>" />
+            <div class="col-md-2 d-flex">
+                <input type="text" id = "amount" class="form-control" value="<c:out value='1.0'/>"/>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="인분" style="font-weight: bold;">
             </div>
         </form>
         
