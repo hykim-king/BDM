@@ -68,58 +68,59 @@
 <title>꼬르륵 로그인</title>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
-     
-    $("#doLogin").on("click",function(e){
-        console.log( "doLogin click!" );
-        
+    $("#doLogin").on("click", function(e){
+        e.preventDefault(); // 폼의 기본 동작 방지
+
+        console.log("doLogin click!");
+
         let id = document.querySelector("#id").value;
-        if(eUtil.isEmpty(id)==true){
-            alert('아이디를 입력 하세요.');
+        if(eUtil.isEmpty(id)){
+            alert('아이디를 입력하세요.');
             document.querySelector("#id").focus();
             return;
         }
-        
+
         let pw = document.querySelector("#pw").value;
-        if(eUtil.isEmpty(pw)==true){
-            alert('비번을 입력 하세요.');
+        if(eUtil.isEmpty(pw)){
+            alert('비밀번호를 입력하세요.');
             document.querySelector("#pw").focus();
             return;
         }
-        
-        if(confirm("로그인 하시겠습니까?")===false) return;
-        
+
+        if(!confirm("로그인 하시겠습니까?")) return;
+
         $.ajax({
             type: "POST",
             url:"/bdm/beforeMain/doLogin.do",
-            asyn:"true",
-            dataType:"json",
-            data:{
+            asyn: true,
+            dataType: "json",
+            data: {
                 "id": id,
                 "pw": pw
             },
-            success:function(data){//통신 성공
+            success: function(data){
                 console.log("data.msgId:"+data.msgId);
                 console.log("data.msgContents:"+data.msgContents);
-                
+
                 if("10" == data.msgId){
                     alert(data.msgContents);
                     document.querySelector("#id").focus();
                 }else if("20" == data.msgId){
                     alert(data.msgContents);
-                    document.querySelector("#pw").focus();                 
+                    document.querySelector("#pw").focus();
                 }else if("30" == data.msgId){
                     alert(data.msgContents);
                     window.location.href = "${CP}/beforeMain/popSearchWord.do";
                 }
             },
-            error:function(data){//실패시 처리
+            error: function(data){
                 console.log("error:"+data);
             },
-            complete:function(data){//성공/실패와 관계없이 수행!
+            complete: function(data){
                 console.log("complete:"+data);
             }
         });
-    }); //--#doLogin
+    });
     
     $("#moveToMain").on("click",function(e){
     	location.href = "/bdm/beforeMain/popSearchWord.do";
@@ -203,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	    <div class="moveToMain">
 	        <a id="moveToMain"><img alt="" src="${CP }/resources/images/logo.png"></a>
 	    </div>
-	    <form action="#" method="GET">
+	    <form action="" method="POST">
 	        <div class="mb-3">
 	            <label for="id" class="form-label">아이디</label>
 	            <input type="text" id="id" class="form-control" aria-describedby="emailHelp" placeholder="아이디를 입력하세요">

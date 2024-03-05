@@ -31,4 +31,10 @@ public interface UserDao {
 	List<UserVO> doRetrieve(UserDTO inVO) throws SQLException;
 	
 	UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException;
+	
+	public UserVO doSelectOne(String id) throws SQLException;
+	
+	public int doBlock(UserVO inVO) throws SQLException;
+	
+	List<UserVO> doSelectBlockUsers(UserDTO inVO) throws SQLException;
 }

@@ -9,20 +9,57 @@
 <html>
 
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
 <head> 
 <title>게시판 수정</title>
 <style>
+.black-han,
+.noto-sans {
+    font-weight: 400;
+    font-style: normal;
+}
+
+.black-han {
+    font-family: "Black Han Sans", sans-serif;
+}
+
+.noto-sans {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+}
 		 .form-control[readonly] {
 		    background-color: #FFFFFF; /* 하얀색 배경색으로 설정 */
 		}
 		
         .thumbnail {
-            width: 500px; /* 원하는 가로 크기로 조정 */
+            width: 850px; /* 원하는 가로 크기로 조정 */
             height: 500px; /* 원하는 세로 크기로 조정 */
         }
-       
+	    body {
+		    background-color: #f7e9e8;
+		    color: #514752;
+		    font-family: sans-serif;
+		}
+		span{
+			font-weight:bold;
+		}
+		.container {
+		   
+		}
+		
+		.container-box {
+		    border: 2px solid rgba(81, 71, 82, 0.4);
+		    background-color: #FDF8EE;
+			padding-bottom: 30px;
+			margin-bottom: 70px;
+		}
+		.news_contents{
+			font-size: 18px;
+			line-height:26px;
+		}
     </style>
 
     <script>
@@ -109,7 +146,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 </head>
 <body>
-<div class="container"style="max-width: 900px;">
+<div class="container container-box"style="max-width: 900px;">
     <!-- 제목 -->
     <div class="col-lg-12" style="margin-top: 20px;">
     <span class="less-bold">꼬르륵 뉴스</span>
@@ -157,7 +194,8 @@ document.addEventListener("DOMContentLoaded",function(){
         <img src="<spring:url value='/resources/upload/${file.saveFileName}'/>" class="thumbnail" >
     </c:forEach>
     <div class="mb-3" style="margin-top: 40px;">
-    <h6 style="white-space: pre-line;">${vo.contents}</h6>
+    <h5 style="white-space: pre-line;" class="news_contents">${vo.contents}</h5>
+    </div>
 </div>
 </body>
 </html>

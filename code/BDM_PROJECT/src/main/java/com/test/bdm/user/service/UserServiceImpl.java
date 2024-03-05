@@ -74,4 +74,19 @@ public class UserServiceImpl implements UserService, PcwkLogger {
 	public UserVO doSelectOneByEmail(UserVO inVO) throws SQLException, EmptyResultDataAccessException {
 		return userDao.doSelectOneByEmail(inVO);
 	}
+
+	@Override
+	public UserVO doSelectOne(String id) throws SQLException {
+		return userDao.doSelectOne(id);
+	}
+
+	@Override
+	public int doBlock(UserVO inVO) throws SQLException {
+		return userDao.doBlock(inVO);
+	}
+
+	@Override
+	public List<UserVO> doSelectBlockUsers(UserDTO inVO) throws SQLException {
+		return userDao.doSelectBlockUsers(inVO);
+	}
 }

@@ -9,6 +9,14 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="${CP}/resources/js/eUtil.js"></script>
 <title>게시판 등록</title>
+<style>
+    body {
+    background-color: #f7e9e8;
+	}
+    .container{
+    	background-color:#f7e9e8;
+    }
+</style>
 <script>
 function previewImages(event) {
     var preview = document.getElementById('imagePreview');
@@ -190,6 +198,7 @@ function moveToListFun(){
            
         </form>
         <!--// form --------------------------------------------------------------->
+    </div>
     </div>
 </body>
 </html>

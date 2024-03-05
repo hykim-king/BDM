@@ -5,6 +5,44 @@
   
   <mapper namespace="com.test.bdm.user">
   
+	  <update id="doCancleBlock" parameterType = "UserVO">
+	        UPDATE USERS
+	        SET block = NULL
+	        WHERE id = #{id}
+	  </update>
+  
+  
+	  <select id="doSelectBlockUsers" parameterType = "UserDTO" resultType = "UserVO">
+	        SELECT id, name, reg_dt as regDt, block
+			FROM users
+			WHERE block IS NOT NULL
+	  </select>
+	  
+	  <update id="doBlock" parameterType = "UserVO">
+	        UPDATE USERS
+	        SET block = SYSDATE + #{block}
+	        WHERE id = #{id}
+	  </update>
+	  
+	  <select id="doSelectOne" parameterType = "String" resultType = "UserVO">
+		    SELECT
+		        id,
+		        no,
+		        pw,
+		        email,
+		        name,
+		        birth,
+		        gender,
+		        height,
+		        weight,
+		        activity,
+		        reg_dt,
+		        user_filter,
+		        block
+		    FROM USERS
+		    WHERE id = #{id}
+	  </select>
+  
     <!-- div -->
     <sql id="divCondition">
         <choose>
@@ -83,7 +121,8 @@
             weight,
             activity,
             reg_dt,
-            user_filter
+            user_filter,
+            block
          FROM               
              users          
          WHERE email = #{email}     

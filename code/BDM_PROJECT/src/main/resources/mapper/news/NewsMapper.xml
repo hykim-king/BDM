@@ -12,10 +12,10 @@
   <sql id="searchCondition">
     <choose>
         <when test=" ''!= searchDiv and '10' == searchDiv ">
-                AND title LIKE #{searchWord} || '%'
+                AND title LIKE '%' || #{searchWord} || '%'
         </when>
         <when test=" ''!= searchDiv and '20' == searchDiv ">
-               AND contents LIKE #{searchWord} || '%'
+               AND contents LIKE '%' || #{searchWord} || '%'
         </when>    
     </choose>
   </sql>       

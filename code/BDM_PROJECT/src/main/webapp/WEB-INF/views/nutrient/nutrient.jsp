@@ -8,13 +8,20 @@
 <meta charset="UTF-8">
 <style>
 </style>
-<title>음식 검색</title>
+<title>Balance Diet Management</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script src="${CP }/resources/js/jquery-3.7.1.js"></script>
-<script src="${CP }/resources/js/eUtil.js"></script>  
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -23,19 +30,6 @@ document.addEventListener("DOMContentLoaded", function(){
 	const selectedDeleteBtn = document.querySelector("#selectedDelete");
 	const deleteAllBtn = document.querySelector("#deleteAll");
 	const closeBtn = document.querySelector("#close");
-	
-	/* abcBtn.addEventListener("click", function(e){
-		var abc = document.getElementsByName('options');
-        var radioValue = '';
-        
-        for(var i=0; i<abc.length; i++){
-            if(abc[i].checked){
-                radioValue = abc[i].value;
-                break;
-            }
-        }
-        console.log('divs: ' + radioValue);
-	}); */
 	
 	closeBtn.addEventListener("click", function(e){
 		if(confirm('입력된 정보들이 모두 사라집니다. 마이페이지로 되돌아 가시겠습니까?')==false) return;
@@ -233,12 +227,13 @@ function displaySelectedValue() {
         
         <form action ="#" method = "get" id = "foodFrm" name = "foodFrm">
             <input type = "hidden" name = "pageNo" id = "pageNo"/>
-            <div class = "col-auto">
-                <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." value = "${paramVO.searchWord }">
-                <input type = "button" value = "검색" id = "doRetrieve">
+            <div class = "col-md-3 d-flex">
+                <input type = "text" id = "searchWord" name = "searchWord" maxlength = "100" placeholder = "검색할 음식을 입력하세요." class="form-control" value = "${paramVO.searchWord }">
+                <input type = "button" value = "검색" id = "doRetrieve" class="btn btn-primary" style="margin-left:5px;">
             </div>
-            <div>
-                <input type="text" id = "amount" value="<c:out value='1.0'/>" />
+            <div class="col-md-2 d-flex">
+                <input type="text" id = "amount" class="form-control" value="<c:out value='1.0'/>"/>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="인분" style="font-weight: bold;">
             </div>
         </form>
         
@@ -246,13 +241,13 @@ function displaySelectedValue() {
             <thead>
                 <tr>
                     <th scope = "col" class = "text-center" style="display: none;">코드</th>
-                    <th scope = "col" class = "text-center">NO</th>
-                    <th scope = "col" class = "text-center">음식명</th>
-                    <th scope = "col" class = "text-center">칼로리</th>
-                    <th scope = "col" class = "text-center">탄수화물(g)</th>
-                    <th scope = "col" class = "text-center">단백질(g)</th>
-                    <th scope = "col" class = "text-center">지방(g)</th>
-                    <th scope = "col" class = "text-center">당류(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">NO</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">음식명</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">칼로리</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">탄수화물(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">단백질(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">지방(g)</th>
+                    <th scope = "col" class = "text-center" style="background-color: #514752; color: #ffffff;">당류(g)</th>
                 </tr>
             </thead>
             <tbody>
@@ -261,13 +256,13 @@ function displaySelectedValue() {
                         <c:forEach var = "vo" items = "${list}" varStatus = "status">
                             <tr>
                                 <td class = "text-center" style="display: none;"><c:out value="${vo.code}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${status.index + 1}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.name }" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.kcal }" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.carbohydrate}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.protein}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.fat}" escapeXml = "true"/></td>
-                                <td class = "text-center"><c:out value="${vo.sugars}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${status.index + 1}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.name }" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.kcal }" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.carbohydrate}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.protein}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.fat}" escapeXml = "true"/></td>
+                                <td class = "text-center" style="background-color: #FDF8EE;"><c:out value="${vo.sugars}" escapeXml = "true"/></td>
                             </tr>
                         </c:forEach>
                     </c:when>
@@ -307,9 +302,9 @@ function displaySelectedValue() {
 	        <label class="btn btn-outline-success" for="option7">기타</label>
         </div>
             <div>
-		        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods"/>
-		        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete"/>
-		        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll"/>
+		        <input type = "button" value = "저장하기" id = "saveFoods" name = "saveFoods" class="btn btn-primary"/>
+		        <input type = "button" value = "선택 삭제" id = "selectedDelete" name = "selectedDelete" class="btn btn-primary"/>
+		        <input type = "button" value = "전체 삭제" id = "deleteAll" name = "deleteAll" class="btn btn-primary"/>
 	        </div>
         </form>
         

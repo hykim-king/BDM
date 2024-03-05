@@ -21,19 +21,20 @@
 <script>
 // Execute the script when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+	closePopup();
+	
 	const navbarTogglerBtn = document.querySelector("#navbar-toggler");
     const gumsaekBtn = document.querySelector("#gumsaek");
     const searchWordTxt = document.querySelector("#searchWord");
-<<<<<<< HEAD
 
-=======
+
     
     $("#moveToMain").click(function(event) {
         event.preventDefault();
         window.location.href = "${CP}/beforeMain/popSearchWord.do";
     });
      
->>>>>>> 4669dde513cc0c6cc37d63a6b9d4e97a4f9522d0
+
     gumsaekBtn.addEventListener("click", function(e){
         let searchWordTxtV = document.querySelector("#searchWord").value;
         $.ajax({
@@ -119,17 +120,22 @@ function closePopup() {
 }
 </script>
 <style>
-	.btn_menu{
+	.btn_menu::after{
     content: "";
     display: block;
-    margin: 0 auto;
+    margin:0 auto;
+    background-image:url(${CP}/resources/images/sp_main.ae81c9d5.png);
+    background-size: 444px 434px;
+    background-position: -314px -330px;
+    background-repeat: no-repeat;
     width: 26px;
     height: 26px;
     background-color: #f7e9e8;
     position: absolute;
-    top: 50%;
+    top:50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform:translate(-50%, -50%);
+    
 }
 
 /* .btn_menu:hover에 대한 스타일 */
@@ -156,6 +162,10 @@ function closePopup() {
 				        <img src="${CP}/resources/images/logo.png" alt=""/>
 				    </a>
 				</div>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav-menu"
+                    aria-controls="navbarNav-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 			</div>
         </nav>
         <div class="search-container">
@@ -163,7 +173,7 @@ function closePopup() {
                 <form action="#" method="get" id="gumsaekFrm" name="gumsaekFrm">
                     <input type="hidden" name="pageNo" id="pageNo" value="1" /> 
                     <a href="#" id = "moveToMain" class="link_main"> 
-                        <img src="${CP}/resources/images/logo_kor.jpg" alt="로고">
+                        <img src="${CP}/resources/images/logo_kor.png" alt="로고">
                     </a> 
                     <input type="text" placeholder="검색어를 입력하세요" id="searchWord"
                         name="searchWord" class="search-input">

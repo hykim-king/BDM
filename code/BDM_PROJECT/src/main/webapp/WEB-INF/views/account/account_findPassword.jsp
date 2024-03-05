@@ -104,8 +104,7 @@ document.addEventListener("DOMContentLoaded", function(){
                console.log("data:" + data);
                let parsedJSON = JSON.parse(data);
                if("1" === parsedJSON.msgId){
-                   alert(parsedJSON.msgContents);
-                   window.close();
+            	   window.location.href = "${CP}/user/moveToChangePassword.do?id="+id;
                }else{
                    alert(parsedJSON.msgContents);
                }

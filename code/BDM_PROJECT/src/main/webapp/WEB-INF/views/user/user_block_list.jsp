@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${CP}/resources/css/main_style.css">
@@ -39,18 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const userForm = document.querySelector("#userFrm");
     const searchWordTxt = document.querySelector("#searchWord");
     const rows = document.querySelectorAll("#userTable>tbody>tr");
-    const doRetrieveBlockBTN = document.querySelector("#doRetrieveBlock");
-    
-    doRetrieveBlockBTN.addEventListener("click", function (e) {
-        console.log("doRetrieveBlockBTN click");
-        
-        var width = 750;
-        var height = 1200;
-        var left = (window.innerWidth - width) / 2;
-        var top = (window.innerHeight - height) / 2;
-        myWindow = window.open('../user/moveToBlockList.do', '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', scrollbars=no');
-        
-    });
     
     rows.forEach(function (row) {
         row.addEventListener('dblclick', function(e) {
@@ -91,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let userForm = document.userFrm;
         userForm.pageNo.value = pageNo;
-        userForm.action = "/bdm/beforeMain/moveToUserMonitor.do";
+        userForm.action = "/bdm/user/moveToBlockList.do";
         console.log("doRetrieve pageNO:" + userForm.pageNo.value);
         userForm.submit();
     }
@@ -129,7 +116,7 @@ function pageDoRerive(url, pageNo) {
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">유저 관리</h1>
+                <h1 class="page-header">제재 회원 목록</h1>
                 <hr />
             </div>
         </div>
@@ -164,10 +151,6 @@ function pageDoRerive(url, pageNo) {
                     <!-- 열의 너비를 내용에 따라 자동으로 설정 -->
                     <input type="button" value="조회" class="btn btn-primary" id="doRetrieve">
                 </div>
-                <div class="col-auto ">
-                    <!-- 열의 너비를 내용에 따라 자동으로 설정 -->
-                    <input type="button" value="제재된 회원 목록" class="btn btn-primary" id="doRetrieveBlock">
-                </div>
             </div>
         </form>
         <table class="table table-bordered border-primary table-hover table-striped" id="userTable">
@@ -176,11 +159,8 @@ function pageDoRerive(url, pageNo) {
                     <th class="text-center col-lg-1 col-sm-1" style="background-color: #514752; color: #ffffff;">번호</th>
                     <th class="text-center col-lg-2 col-sm-2" style="background-color: #514752; color: #ffffff;">아이디</th>
                     <th class="text-center col-lg-1 col-sm-1" style="background-color: #514752; color: #ffffff;">이름</th>
-                    <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">이메일</th>
-                    <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">생년월일</th>
-                    <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">성별</th>
                     <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">가입일</th>
-                    <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">회원구분</th>
+                    <th class="text-center col-lg-1" style="background-color: #514752; color: #ffffff;">제재 해제일</th>
                 </tr>
             </thead>
             <tbody>
@@ -198,30 +178,11 @@ function pageDoRerive(url, pageNo) {
                                 <td class="text-center col-lg-1  col-sm-1" style="background-color: #FDF8EE;">
                                     <c:out value="${vo.name}" escapeXml="true" />
                                 </td>
-                                <td class="col-lg-1 " style="background-color: #FDF8EE;">
-                                    <c:out value="${vo.email}" />
-                                </td>
-                                <td class="text-end col-lg-1 " style="background-color: #FDF8EE;">
-                                    <c:out value="${vo.birth}" />
-                                </td>
-                                <td class="text-end col-lg-1 " style="background-color: #FDF8EE;">
-                                    <c:choose>
-									    <c:when test="${vo.gender == 1}">
-									        남자
-									    </c:when>
-									    <c:when test="${vo.gender == 2}">
-									        여자
-									    </c:when>
-									    <c:otherwise>
-									        성별을 확인할 수 없습니다.
-									    </c:otherwise>
-									</c:choose>
-                                </td>
                                 <td class="text-end col-lg-1 " style="background-color: #FDF8EE;">
                                     <c:out value="${vo.regDt}" />
                                 </td>
                                 <td class="text-end col-lg-1 " style="background-color: #FDF8EE;">
-                                    <c:out value="${vo.userFilter}" />
+                                    <c:out value="${vo.block}" />
                                 </td>
                             </tr>
                         </c:forEach>
@@ -229,7 +190,7 @@ function pageDoRerive(url, pageNo) {
                     </c:when>
                     <c:otherwise>
                         <tr>
-                            <td colspan="99" class="text-center">조회된 데이터가 없습니다.</td>
+                            <td colspan="99" class="text-center">조회된 회원이 없습니다.</td>
                         </tr>
                     </c:otherwise>
                 </c:choose>
