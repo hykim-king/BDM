@@ -54,6 +54,8 @@
 
 ### 사용자
 - 메인페이지
+- ![clideo_editor_83caa616bea9433c84a78feccead4ee5](https://github.com/hykim-king/BDM/assets/149756940/cfc00ee7-83a4-43b1-96d3-fd24f0e13f72)
+
 - 로그인
 - 회원가입
 - 마이 페이지
