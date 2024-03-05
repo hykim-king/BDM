@@ -27,7 +27,8 @@
 
 ## 프로젝트 기획
 
--
+-요구사항 정의서
+    https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
 - WBS
     https://docs.google.com/spreadsheets/d/1YL5SomtxfYIG4dmD1OuYHq2-Hr_jVbN2/edit#gid=1812452729
   
