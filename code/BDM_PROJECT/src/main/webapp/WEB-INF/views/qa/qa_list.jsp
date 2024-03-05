@@ -138,7 +138,6 @@ body {
 }
 </style>
 </head>
-
 <body>
         <!-- 페이지 내용 시작 -->
     <div class="container">
@@ -158,7 +157,7 @@ body {
         				</h2>
         				<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             				<div class="accordion-body" style="background-color: #FDF8EE;">
-                				<strong>답변</strong> BDM <a href="#">회원 가입</a> 후 <a href="#">마이페이지</a>에서 각 날짜에 섭취한 음식을 검색하고 추가한 후 저장하면 됩니다.
+                				<strong>답변</strong> BDM <a href="${CP}/beforeMain/moveToLogin.do">회원 가입</a> 후 마이페이지 에서 각 날짜에 섭취한 음식을 검색하고 추가한 후 저장하면 됩니다.
             				</div>
         				</div>
     				</div>

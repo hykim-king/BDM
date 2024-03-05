@@ -5,10 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/cmn/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/cmn/sidebar.jsp"></jsp:include>
+<link rel="stylesheet" href="${CP}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${CP}/resources/css/main_style.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <title>Balance Diet Management</title>
+<style>
+.searchButton{
+	margin-bottom:10px;
+}
+</style>
 <script>
 document.addEventListener("DOMContentLoaded",function() {
     console.log("DOMContentLoaded");
@@ -95,7 +108,7 @@ document.addEventListener("DOMContentLoaded",function() {
         <div style="display: inline-block;">
         <h3 style="display: inline;">자유 게시판</h3>
         </div>
-        <input type="button" value = "더보기" id = "plusBulletin" style="display: inline;">
+        <input type="button" value = "더보기" id = "plusBulletin" style="display: inline;" class="btn btn-primary searchButton">
         <table
             class="table table-bordered border-primary table-hover table-striped"
             id="bulletinTable">
@@ -137,7 +150,7 @@ document.addEventListener("DOMContentLoaded",function() {
         <div style="display: inline-block;">
         <h3 style="display: inline;">공지사항</h3>
         </div>
-        <input type="button" value = "더보기" id = "plusNotice" style="display: inline;">
+        <input type="button" value = "더보기" id = "plusNotice" style="display: inline;" class="btn btn-primary searchButton">
         <table
             class="table table-bordered border-primary table-hover table-striped"
             id="noticeTable">
@@ -179,7 +192,7 @@ document.addEventListener("DOMContentLoaded",function() {
         <div style="display: inline-block;">
         <h3 style="display: inline;">뉴스</h3>
         </div>
-        <input type="button" value = "더보기" id = "plusNews" style="display: inline;">
+        <input type="button" value = "더보기" id = "plusNews" style="display: inline;" class="btn btn-primary searchButton">
         <table
             class="table table-bordered border-primary table-hover table-striped"
             id="newsTable">

@@ -107,4 +107,26 @@ public class UserDaoImpl implements UserDao, PcwkLogger {
 		}
 		return outVO;
 	}
+
+	@Override
+	public UserVO doSelectOne(String id) throws SQLException {
+		return sqlSessionTemplate.selectOne(NAMESPACE + DOT + "doSelectOne", id);
+	}
+
+	@Override
+	public int doBlock(UserVO inVO) throws SQLException {
+		String block = inVO.getBlock();
+		
+		if(block.equals("0")) {
+			return sqlSessionTemplate.update(NAMESPACE + DOT + "doCancleBlock", inVO);
+		}
+		else {
+			return sqlSessionTemplate.update(NAMESPACE + DOT + "doBlock", inVO);
+		}
+	}
+
+	@Override
+	public List<UserVO> doSelectBlockUsers(UserDTO inVO) throws SQLException {
+		return sqlSessionTemplate.selectList(NAMESPACE + DOT + "doSelectBlockUsers", inVO);
+	}
 }

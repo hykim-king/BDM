@@ -126,6 +126,11 @@ document.addEventListener("DOMContentLoaded",function() {
     commentsDoSaveBTN.addEventListener("click",function(e){
     	console.log('commentsDoSaveBTN click');
     	
+ 	 	<c:if test="${user.block != null}">
+	        alert('현재 해당 기능을 사용할 수 없습니다.\n${user.block}까지 제재된 상태입니다.');
+	        return;
+	    </c:if>
+    	
     	const postNo = document.querySelector('#postNo').value;
     	if(eUtil.isEmpty(postNo) == true){
     		alert('게시글 순번을 확인 하세요.');

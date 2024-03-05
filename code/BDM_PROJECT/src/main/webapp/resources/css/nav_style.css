@@ -141,3 +141,7 @@ em {
     height: 100%;
     border-radius: inherit;
 }
+.box_content img{
+	width:46px;
+	height:46px;
+}

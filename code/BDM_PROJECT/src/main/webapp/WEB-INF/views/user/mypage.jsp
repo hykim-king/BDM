@@ -49,13 +49,17 @@
 	body{
 		background-color: #f7e9e8 !important;
 	}
+	thead{
+		background-color: #fa9624;
+	}
 	.sidebar{
 		background-color:#f7e9e8 !important;
 		color:#514752;
 	}
 	 .card-body{
-	        background-color:#fdce64;
-	        border: 1px solid #fa9624;
+	        background-color:#FDF8EE;
+	        border: 1px solid #fdce64;
+	        color:#514752;
 	 }
 	 .pieChart{
         max-width: 200px;
@@ -110,12 +114,12 @@
     }
     .current-date {
     background-color: #ee845c;
-    color: white;
+    color: #514752;
     border-radius: 50%;
 	}
 	.current-date:hover {
     background-color: #fc424a !important; /* hover 시 변경할 색상 */
-    color: white; /* hover 시 변경할 글자 색상 */
+    color: #514752; /* hover 시 변경할 글자 색상 */
     border-radius: 50%;
 }
 
@@ -138,6 +142,9 @@
     }
     .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right{
     
+    }
+    .menu-item:hover{
+    	background-color:#fdce64;
     }
 </style>
 
@@ -575,8 +582,8 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class ="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                <a class="sidebar-brand brand-logo" href="index.jsp" src="${CP}/resources/images/logo.png" alt="logo" ></a>
-                <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="${CP}/resources/images/logo-mini.png" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="http://localhost:8080/bdm/beforeMain/popSearchWord.do" src="${CP}/resources/images/logo.png" alt="logo" ><img src="${CP}/resources/images/logo.png"></a>
+                <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="${CP}/resources/images/mini_logo.png" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item menu-item">
@@ -618,7 +625,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="container-fluid page-body-wrapper">
             <nav class="navbar p-0 fixed-top d-flex flex-row">
                 <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                  <a class="navbar-brand brand-logo-mini" href=""><img src="${CP}/resources/images/logo-mini.png" alt="logo" /></a>
+                  <a class="navbar-brand brand-logo-mini" href=""><img src="${CP}/resources/images/logo_kor.png" alt="logo" /></a>
                 </div>
                 <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
