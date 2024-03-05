@@ -1,0 +1,9 @@
+--------------------------------------------------------
+--  Constraints for Table QA_COMMENTS
+--------------------------------------------------------
+
+  ALTER TABLE "BDM"."QA_COMMENTS" MODIFY ("CONTENTS" NOT NULL ENABLE);
+  ALTER TABLE "BDM"."QA_COMMENTS" MODIFY ("POST_NO" NOT NULL ENABLE);
+  ALTER TABLE "BDM"."QA_COMMENTS" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "BDM"."QA_COMMENTS" ADD CONSTRAINT "PK_QA_COMMENTS" PRIMARY KEY ("REG_NO")
+  USING INDEX "BDM"."PK_QA_COMMENTS"  ENABLE;

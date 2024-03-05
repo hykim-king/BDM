@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function(){
                }else{
                    alert(parsedJSON.msgContents);
                }
-               window.location.href = "/bdm/beforeMain/moveToMain.do";
+               window.location.href = "/bdm/beforeMain/popSearchWord.do";
             },
             error:function(data){//실패시 처리
                 console.log("error:"+data);
