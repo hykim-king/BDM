@@ -64,6 +64,9 @@
 
 - 문의사항
 - 뉴스
+  
+    ![clideo_editor_0e9b1dade53f4c668cc715b0a9147b3d](https://github.com/hykim-king/BDM/assets/149756940/af86a251-aec4-48a9-b675-fa00d3fe7b30)
+
 - 공지사항
 
 ### 관리자
