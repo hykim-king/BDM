@@ -35,11 +35,27 @@
 
 ## 프로젝트 설계
 
-- 요구사항 정의서(https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
+- 요구사항 정의서https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506)https://docs.google.com/spreadsheets/d/1p1BfDmEzG2sz_dBIgVp3wIlUiPmChDVhgCq6Bhj7e3I/edit#gid=137934506
 
 - 데이터베이스 설계서
 
 
 ## 기능 시현
 
-기능 시현 내용을 여기에 작성하세요.
+### 사용자
+- 메인페이지
+- 로그인
+- 회원가입
+- 마이 페이지
+- 메뉴 등록
+- 네브바
+- 자유 게시판
+- 문의사항
+- 뉴스
+- 공지사항
+
+### 관리자
+- 공지사항 등록
+- 뉴스 등록
+- Q&A 답변
+- 유저 목록
