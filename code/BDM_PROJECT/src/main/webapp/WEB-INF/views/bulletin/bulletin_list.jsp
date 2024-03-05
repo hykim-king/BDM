@@ -6,6 +6,8 @@
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <jsp:include page="/WEB-INF/cmn/navbar.jsp"></jsp:include>
+<script src="${CP}/resources/js/eUtil.js"></script>
+
 <title>Balance Diet Management</title>
 <style>
 body {
