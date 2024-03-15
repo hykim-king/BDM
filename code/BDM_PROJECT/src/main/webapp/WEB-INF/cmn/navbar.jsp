@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log("doRetrieve pageNO:" + gumsaekForm.pageNo.value);
         gumsaekForm.submit();
     }
-
+	
     
 	// 버튼 클릭 이벤트 핸들러
     document.getElementById('navbar-toggler').addEventListener('click', function() {
